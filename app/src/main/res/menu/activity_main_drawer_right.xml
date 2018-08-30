@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item android:title="Loại nguyên tố">
+
+            <menu>
+
+                <group
+                    android:checkableBehavior="single"
+                    android:menuCategory="secondary">
+
+                    <item
+                        android:id="@+id/nav_alkali_metal"
+                        android:icon="@color/colorAccent"
+                        android:title="Kim loại kiềm" />
+
+                    <item
+                        android:id="@+id/nav_alkaline_earth_metal"
+                        android:icon="@color/alkaline_earth_metal"
+                        android:title="Kim loại kiềm thổ" />
+
+                    <item
+                        android:id="@+id/nav_post_transition_metal"
+                        android:icon="@color/post_transition_metal"
+                        android:title="Kim loại yếu" />
+
+                    <item
+                        android:id="@+id/nav_metalloid"
+                        android:icon="@color/metalloid"
+                        android:title="Á kim" />
+
+                    <item
+                        android:id="@+id/nav_transition_metal"
+                        android:icon="@color/transition_metal"
+                        android:title="Kim loại chuyển tiếp" />
+
+                    <item
+                        android:id="@+id/nav_nonmetal"
+                        android:icon="@color/nonmetal"
+                        android:title="Phi kim" />
+
+                    <item
+                        android:id="@+id/nav_halogen"
+                        android:icon="@color/halogen"
+                        android:title="Halogen" />
+
+                    <item
+                        android:id="@+id/nav_noble_gas"
+                        android:icon="@color/noble_gas"
+                        android:title="Khí trơ" />
+
+                    <item
+                        android:id="@+id/nav_lanthanide"
+                        android:icon="@color/lanthanide"
+                        android:title="Họ Lantan" />
+
+                    <item
+                        android:id="@+id/nav_actinide"
+                        android:icon="@color/actinide"
+                        android:title="Họ Actini" />
+
+                    <item
+                        android:id="@+id/nav_unknown_chemical_properties"
+                        android:icon="@color/unknown_chemical_properties"
+                        android:title="Thuộc tính hóa học chưa rõ" />
+
+                </group>
+
+            </menu>
+
+        </item>
+
+        <item android:title="Trạng thái vật chất">
+
+            <menu>
+
+                <group
+                    android:checkableBehavior="single"
+                    android:menuCategory="secondary">
+
+                    <item
+                        android:id="@+id/nav_solid"
+                        android:icon="@color/solid"
+                        android:title="Rắn" />
+
+                    <item
+                        android:id="@+id/nav_liquid"
+                        android:icon="@color/liquid"
+                        android:title="Lỏng" />
+
+                    <item
+                        android:id="@+id/nav_gas"
+                        android:icon="@color/gas"
+                        android:title="Khí" />
+
+                    <item
+                        android:id="@+id/nav_unknown"
+                        android:icon="@color/unknown"
+                        android:title="Chưa xác định" />
+
+                </group>
+
+            </menu>
+
+        </item>
+
+    </group>
+
+</menu>
+

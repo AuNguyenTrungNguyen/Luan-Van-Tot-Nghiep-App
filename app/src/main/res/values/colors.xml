@@ -4,4 +4,25 @@
     <color name="colorPrimaryDark">#29434e</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textColor">#fff</color>
+
+    <!--Color type of periodic-->
+    <color name="alkali_metal">#ff6666</color>
+    <color name="alkaline_earth_metal">#ffdead</color>
+    <color name="post_transition_metal">#cccccc</color>
+    <color name="metalloid">#cccc99</color>
+    <color name="transition_metal">#ffc0c0</color>
+    <color name="nonmetal">#a0ffa0</color>
+    <color name="halogen">#ffff99</color>
+    <color name="noble_gas">#c0ffff</color>
+    <color name="lanthanide">#ffbfff</color>
+    <color name="actinide">#ff99cc</color>
+    <color name="unknown_chemical_properties">#e8e8e8</color>
+
+    <!--Color "state of matter" of periodic-->
+    <color name="gas">#cb0000</color>
+    <color name="solid">#000000</color>
+    <color name="liquid">#007000</color>
+    <color name="unknown">#606060</color>
+
 </resources>
+

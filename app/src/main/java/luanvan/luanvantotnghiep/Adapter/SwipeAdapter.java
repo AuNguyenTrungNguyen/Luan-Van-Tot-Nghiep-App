@@ -62,14 +62,14 @@ public class SwipeAdapter extends PagerAdapter {
         final Element element = mListData.get(position);
         final Chemistry chemistry = ChemistrySingle.getInstance(mContext).getChemistryById(element.getIdElement());
 
-        String symbol = "<small><sup>" + element.getIdElement() + "</small></sup>" + chemistry.getSymbolChemistry();
+        String symbol = "<small><sub>" + element.getIdElement() + "</small></sub>" + chemistry.getSymbolChemistry();
 
         tvSymbol.setText(Html.fromHtml(symbol));
         tvName.setText(chemistry.getNameChemistry());
         tvWeight.setText(String.valueOf(chemistry.getWeightChemistry()) + " (g/mol)");
-        tvElectronegativity.setText("Độ âm điện: " + String.valueOf(element.getElectronegativity()));
-        tvSimplifiedConfiguration.setText(Html.fromHtml("Cấu hình electron: " + element.getSimplifiedConfiguration()));
-        tvValence.setText(Html.fromHtml("Hóa trị: " + element.getValence()));
+        tvElectronegativity.setText(Html.fromHtml("<font color='gray'>Độ âm điện: </font><font color='black'>" + String.valueOf(element.getElectronegativity()) + "</font"));
+        tvSimplifiedConfiguration.setText(Html.fromHtml("<font color='gray'>Cấu hình electron: </font><font color='black'>" + element.getSimplifiedConfiguration()+ "</font"));
+        tvValence.setText(Html.fromHtml("<font color='gray'>Hóa trị: </font><font color='black'>" + element.getValence()+ "</font>"));
 
         //Dung Glide load picture
         int resID = mContext.getResources().getIdentifier(element.getPicture() , "drawable", mContext.getPackageName());

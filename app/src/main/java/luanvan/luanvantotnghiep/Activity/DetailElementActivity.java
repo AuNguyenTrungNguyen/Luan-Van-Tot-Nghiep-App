@@ -153,28 +153,28 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 mTvProton.setText(String.valueOf(element.getIdElement()));
                 mTvNeutron.setText(String.valueOf(element.getNeutron()));
 
-                mTvWeight.setText("Khối lượng: " + String.valueOf(chemistry.getWeightChemistry())+ " (g/mol)");
-                mTvEnglishName.setText("Tên Tiếng Anh: " + element.getEnglishName());
-                mTvPeriodic.setText("Chu kỳ: " + String.valueOf(element.getPeriod()));
-                mTvElectronegativity.setText("Độ âm điện: " + String.valueOf(element.getElectronegativity()));
-                mTvValence.setText(Html.fromHtml("<b>Hóa trị: </b><center>" + element.getValence() + "</center>"));
+                mTvWeight.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + String.valueOf(chemistry.getWeightChemistry()) + " (g/mol)</font>"));
+                mTvEnglishName.setText(Html.fromHtml("<font color='gray'>Tên Tiếng Anh: </font><font color='black'>" + element.getEnglishName() + "</font>"));
+                mTvPeriodic.setText(Html.fromHtml("<font color='gray'>Chu kỳ: </font><font color='black'>" + element.getPeriod() + "</font>"));
+                mTvElectronegativity.setText(Html.fromHtml("<font color='gray'>Độ âm điện: </font><font color='black'>" + String.valueOf(element.getElectronegativity()) + "</font>"));
+                mTvValence.setText(Html.fromHtml("<font color='gray'>Hóa trị: </font><font color='black'>" + element.getValence() + "</font>"));
 
-                mTvClass.setText("Phân lớp: " + element.getClassElement());
-                mTvSimplified.setText(Html.fromHtml("Electron rút rọn: <center>" + element.getSimplifiedConfiguration() + "</center>"));
+                mTvClass.setText(Html.fromHtml("<font color='gray'>Phân lớp: </font><font color='black'>" + element.getClassElement() + "</font>"));
+                mTvSimplified.setText(Html.fromHtml("<font color='gray'>Electron rút rọn: </font><font color='black'>" + element.getSimplifiedConfiguration() + "</font>"));
 
-                mTvStatus.setText("Trạng thái: " + chemistry.getStatusChemistry());
-                mTvColor.setText("Màu sắc: " + chemistry.getColorChemistry());
-                mTvIsotope.setText(Html.fromHtml("Đồng vị (bền): <center>" + element.getIsotopes() + "</center>"));
+                mTvStatus.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistry.getStatusChemistry() + "</font>"));
+                mTvColor.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistry.getColorChemistry() + "</font>"));
+                mTvIsotope.setText(Html.fromHtml("<font color='gray'>Đồng vị (bền): </font><font color='black'>" + element.getIsotopes() + "</font>"));
 
-                mTvMeltingPoint.setText("Nhiệt độ nóng chảy: " + String.valueOf(element.getMeltingPoint() + "°C"));
-                mTvBoilingPoint.setText("Nhiệt độ sội: " + String.valueOf(element.getBoilingPoint() + "°C"));
+                mTvMeltingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ nóng chảy: </font><font color='black'>" + String.valueOf(element.getMeltingPoint() + "°C") + "</font>"));
+                mTvBoilingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ sội: </font><font color='black'>" + String.valueOf(element.getBoilingPoint() + "°C") + "</font>"));
 
-                mTvDiscoverer.setText(Html.fromHtml("Khám phá bởi: <center>" + element.getDiscoverer() + "</center>"));
-                mTvYearDiscovery.setText("Năm khám phá: " + element.getYearDiscovery());
+                mTvDiscoverer.setText(Html.fromHtml("<font color='gray'>Khám phá bởi:  </font><font color='black'>" + element.getDiscoverer() + "</font>"));
+                mTvYearDiscovery.setText(Html.fromHtml("<font color='gray'>Năm khám phá: </font><font color='black'>" + element.getYearDiscovery() + "</font>"));
 
                 //Handel config HTML
                 String config = element.getConfiguration();
-                mTvConfiguration.setText(Html.fromHtml("Cấu hình electron: " + handelConfigElectron(config)));
+                mTvConfiguration.setText(Html.fromHtml("<font color='gray'>Cấu hình electron: </font><font color='black'>" + handelConfigElectron(config) + "</font>"));
                 mConfig = config;
                 mTvShell.setText(element.getShell());
                 mShell = element.getShell();
@@ -188,7 +188,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                         break;
                     }
                 }
-                mTvGroup.setText("Nhóm: " + group);
+                mTvGroup.setText(Html.fromHtml("<font color='gray'>Nhóm: " + group + "</font>"));
 
                 //mToolbar.setTitle(chemistry.getNameChemistry());
                 getSupportActionBar().setTitle(chemistry.getNameChemistry());
@@ -208,8 +208,8 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
             String shell = anItemConfig.substring(1, 2);
             String orbital = anItemConfig.substring(2);
 
-            result.append("<center>").append(number).append(shell).append("<small><sup>")
-                    .append(orbital).append("</sup></small></center>  ");
+            result.append(number).append(shell).append("<small><sup>")
+                    .append(orbital).append("</sup></small>  ");
         }
         return result.toString();
     }
