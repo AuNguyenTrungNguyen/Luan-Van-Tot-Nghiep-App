@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/cv_dialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="240dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    tools:ignore="ContentDescription">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Symbol-->
+        <TextView
+            android:id="@+id/tv_symbol_detail"
+            android:layout_width="90dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="Roboto"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="2He"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#0000de"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            android:background="@drawable/background"
+            app:layout_constraintBottom_toTopOf="@+id/img_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <!--Name-->
+        <TextView
+            android:id="@+id/tv_name_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="Roboto"
+            android:text="Hidro"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#0000de"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_symbol_detail"
+            app:layout_constraintTop_toTopOf="@+id/tv_symbol_detail" />
+
+        <!--Weight-->
+        <TextView
+            android:id="@+id/tv_weight_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="Roboto"
+            android:text="Khối lượng: 1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#000099"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_symbol_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toEndOf="@+id/tv_symbol_detail" />
+
+        <ImageView
+            android:id="@+id/img_picture"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/tv_symbol_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/tv_symbol_detail"
+            app:srcCompat="@android:color/darker_gray" />
+
+        <!--Event start act-->
+        <Button
+            android:id="@+id/btn_go_info"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="180dp"
+            android:layout_marginStart="180dp"
+            android:fontFamily="Roboto"
+            android:minWidth="0dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="Chi tiết"
+            android:textColor="#6200ee"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_picture" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_go_info" />
+
+        <!--Do am dien-->
+        <TextView
+            android:id="@+id/tv_electronegativity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="Roboto"
+            android:lineSpacingExtra="8dp"
+            android:text="Độ âm điện: 2,1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000099"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_go_info" />
+
+        <!--Cau hinh rut gon-->
+        <TextView
+            android:id="@+id/tv_simplified_configuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="Roboto"
+            android:lineSpacingExtra="8dp"
+            android:text="Cấu hình electron: 1s1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000099"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_electronegativity" />
+
+        <!--Hoa tri-->
+        <TextView
+            android:id="@+id/tv_valence"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="Roboto"
+            android:lineSpacingExtra="8dp"
+            android:text="Số oxi hóa: -1, 1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000099"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_simplified_configuration" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

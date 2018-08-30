@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:checkableBehavior="single">
+        <item android:title="Kiến Thức">
+
+            <menu>
+
+                <group
+                    android:checkableBehavior="single"
+                    android:menuCategory="secondary">
+
+                    <item
+                        android:id="@+id/nav_periodic_table"
+                        android:icon="@drawable/ic_menu_periodic_table"
+                        android:title="Bảng tuần hoàn" />
+                    <item
+                        android:id="@+id/nav_solubility_table"
+                        android:icon="@drawable/ic_menu_solubility_table"
+                        android:title="Bảng tính tan" />
+                    <item
+                        android:id="@+id/nav_reactivity_series"
+                        android:icon="@drawable/ic_menu_reactivity_series"
+                        android:title="Dãy hoạt động" />
+                    <item
+                        android:id="@+id/nav_theory"
+                        android:icon="@drawable/ic_menu_theory"
+                        android:title="Lý thuyết" />
+                    <item
+                        android:id="@+id/nav_search"
+                        android:icon="@drawable/ic_menu_search"
+                        android:title="Tìm chất" />
+                    <item
+                        android:id="@+id/nav_reaction"
+                        android:icon="@drawable/ic_menu_reaction"
+                        android:title="Phản ứng hóa học" />
+
+                </group>
+            </menu>
+
+        </item>
+
+        <item android:title="Cá nhân">
+
+            <menu>
+
+                <group
+                    android:checkableBehavior="single"
+                    android:menuCategory="alternative">
+
+                    <item
+                        android:id="@+id/nav_profile"
+                        android:icon="@drawable/ic_menu_profile"
+                        android:title="Thông tin cá nhân" />
+
+                    <item
+                        android:id="@+id/nav_rank"
+                        android:icon="@drawable/ic_menu_rank"
+                        android:title="Xếp hạng" />
+
+                    <item
+                        android:id="@+id/nav_logout"
+                        android:icon="@drawable/ic_menu_logout"
+                        android:title="Đăng xuất" />
+
+                </group>
+
+            </menu>
+
+        </item>
+
+        <item android:title="Ứng dụng">
+
+            <menu>
+
+                <group
+                    android:checkableBehavior="single"
+                    android:menuCategory="alternative">
+
+                    <item
+                        android:id="@+id/nav_setting"
+                        android:icon="@drawable/ic_menu_setting"
+                        android:title="Cài đặt" />
+
+                    <item
+                        android:id="@+id/nav_about"
+                        android:icon="@drawable/ic_menu_about_us"
+                        android:title="Về chúng tôi" />
+
+                    <item
+                        android:id="@+id/nav_rating"
+                        android:icon="@drawable/ic_menu_rating"
+                        android:title="Đánh giá ứng dụng" />
+
+                </group>
+
+            </menu>
+
+        </item>
+
+    </group>
+
+</menu>
