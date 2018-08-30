@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private NavigationView mNavigationRight;
 
     private ChemistryHelper mChemistryHelper;
 
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         typeList.add(type);
 
         type = new Type(10, "Họ Actini");
+        typeList.add(type);
+
+        type = new Type(11, "Thuộc tính hóa học chưa rõ");
         typeList.add(type);
 
         //Check and add data
@@ -694,7 +698,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 7,
                 "I",
                 "Iốt",
-                "Rắn, Khí",
+                "Rắn",
                 "Ánh kim xám bóng khi ở thể rắn, tím khi ở thể khí",
                 127
         );
@@ -702,7 +706,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 54,
-                7,
+                8,
                 "Xe",
                 "Xenon",
                 "Khí",
@@ -716,7 +720,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 1,
                 "Cs",
                 "Xêsi",
-                "Lỏng",
+                "Rắn",
                 "Bạc ngà",
                 133
         );
@@ -1211,7 +1215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 10,
                 "Fm",
                 "Fermi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 257
         );
@@ -1222,7 +1226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 10,
                 "Md",
                 "Mendelevi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 258
         );
@@ -1233,7 +1237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 10,
                 "No",
                 "Nobeli",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 259
         );
@@ -1244,7 +1248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 10,
                 "Lr",
                 "Lawrenci",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 262
         );
@@ -1255,7 +1259,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 5,
                 "Rf",
                 "Rutherfordi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 262
         );
@@ -1266,7 +1270,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 5,
                 "Db",
                 "Dubni",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 268
         );
@@ -1277,7 +1281,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 5,
                 "Sg",
                 "Seaborgi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 269
         );
@@ -1288,7 +1292,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 5,
                 "Bh",
                 "Bohri",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 270
         );
@@ -1299,7 +1303,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 5,
                 "Hs",
                 "Hassi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 269
         );
@@ -1307,10 +1311,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 109,
-                5,
+                11,
                 "Mt",
                 "Meitneri",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 278
         );
@@ -1318,10 +1322,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 110,
-                5,
+                11,
                 "Ds",
                 "Darmstadti",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 281
         );
@@ -1329,10 +1333,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 111,
-                5,
+                11,
                 "Rg",
                 "Roentgeni",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 281
         );
@@ -1343,7 +1347,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 5,
                 "Cn",
                 "Copernixi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 285
         );
@@ -1351,10 +1355,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 113,
-                3,
+                11,
                 "Nh",
                 "Nihoni",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 286
         );
@@ -1362,10 +1366,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 114,
-                3,
+                11,
                 "Fl",
                 "Flerovi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 289
         );
@@ -1373,10 +1377,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 115,
-                3,
+                11,
                 "Mc",
                 "Moscovi",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 289
         );
@@ -1384,10 +1388,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 116,
-                3,
+                11,
                 "Lv",
                 "Livermori",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 293
         );
@@ -1395,10 +1399,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 117,
-                7,
+                11,
                 "Ts",
                 "Tennessine",
-                "Rắn",
+                "Chưa xác định",
                 "Á kim",
                 293
         );
@@ -1406,10 +1410,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemical = new Chemistry(
                 118,
-                8,
+                11,
                 "Og",
                 "Oganesson",
-                "Rắn",
+                "Chưa xác định",
                 "",
                 293
         );
@@ -1842,7 +1846,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setConfiguration("1s2 2s2 2p6 3s2 3p4");
         element.setShell("K2 L8 M6");
         element.setElectronegativity(2.589);
-        element.setValence("<b>6</b>, 5, <b>4</b>, 3, <b>2</b>, 1, -1, <b>-2</b>");
+        element.setValence("<b>+6</b>, +5, <b>+4</b>, +3, <b>+2</b>, +1, -1, <b>-2</b>");
         element.setEnglishName("Sulfur");
         element.setMeltingPoint(115.21);
         element.setBoilingPoint(444.6);
@@ -1866,7 +1870,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setConfiguration("1s2 2s2 2p6 3s2 3p5");
         element.setShell("K2 L8 M7");
         element.setElectronegativity(2.869);
-        element.setValence("<b>7</b>, 6, <b>5</b>, 4, <b>3</b>, 2, <b>1</b>, <b>-1</b>");
+        element.setValence("<b>+7</b>, +6, <b>+5</b>,+4, <b>+3</b>, +2, <b>+1</b>, <b>-1</b>");
         element.setEnglishName("Chlorine");
         element.setMeltingPoint(-101.5);
         element.setBoilingPoint(-34.04);
@@ -2049,7 +2053,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s2 3d5");
         element.setShell("K2 L8 M13 N2");
         element.setElectronegativity(1.55);
-        element.setValence("<b>+7</b>, <b>6</b>, 5, <b>4</b>, <b>3</b>, <b>2</b>, 1, -1, -2, -3");
+        element.setValence("<b>+7</b>, <b>+6</b>, +5, <b>+4</b>, <b>+3</b>, <b>+2</b>, +1, -1, -2, -3");
         element.setEnglishName("Manganese");
         element.setMeltingPoint(1246);
         element.setBoilingPoint(2061);
@@ -2299,7 +2303,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6");
         element.setShell("K2 L8 M18 N8");
         element.setElectronegativity(3.00);
-        element.setValence("+2,, +1, <b>0</b>");
+        element.setValence("+2, +1, <b>0</b>");
         element.setEnglishName("Krypton");
         element.setMeltingPoint(-157.37);
         element.setBoilingPoint(-153.415);
@@ -3586,7 +3590,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(146);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f3 6d1");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>3</sup></small> 6d<small><sup>1</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f3 6d1");
         element.setShell("K2 L8 M18 N32 O21 P9 Q2");
         element.setElectronegativity(1.38);
@@ -3607,7 +3611,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(146);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f4 6d1");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>4</sup></small> 6d<small><sup>1</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f4 6d1");
         element.setShell("K2 L8 M18 N32 O22 P9 Q2");
         element.setElectronegativity(1.36);
@@ -3628,7 +3632,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(150);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f6");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>6</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f6");
         element.setShell("K2 L8 M18 N32 O24 P8 Q2");
         element.setElectronegativity(1.28);
@@ -3649,7 +3653,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(148);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f7");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>7</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7");
         element.setShell("K2 L8 M18 N32 O25 P8 Q2");
         element.setElectronegativity(1.13);
@@ -3670,7 +3674,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(151);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f7 6d1");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>7</sup></small> 6d<small><sup>1</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7 6d1");
         element.setShell("K2 L8 M18 N32 O25 P9 Q2");
         element.setElectronegativity(1.28);
@@ -3691,7 +3695,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(150);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f9");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>9</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f9");
         element.setShell("K2 L8 M18 N32 O27 P8 Q2");
         element.setElectronegativity(1.3);
@@ -3712,7 +3716,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(153);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f10");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>10</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f10");
         element.setShell("K2 L8 M18 N32 O28 P8 Q2");
         element.setElectronegativity(1.3);
@@ -3733,7 +3737,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(153);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f11");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>11</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f11");
         element.setShell("K2 L8 M18 N32 O29 P8 Q2");
         element.setElectronegativity(1.3);
@@ -3754,7 +3758,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(157);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f12");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>12</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f12");
         element.setShell("K2 L8 M18 N32 O30 P8 Q2");
         element.setElectronegativity(1.3);
@@ -3774,7 +3778,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(157);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f13");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>13</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f13");
         element.setShell("K2 L8 M18 N32 O31 P8 Q2");
         element.setElectronegativity(1.3);
@@ -3794,7 +3798,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(157);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14");
         element.setShell("K2 L8 M18 N32 O32 P8 Q2");
         element.setElectronegativity(1.3);
@@ -3814,7 +3818,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("f");
         element.setNeutron(159);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 7p1");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 7p<small><sup>1</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 7p1");
         element.setShell("K2 L8 M18 N32 O32 P8 Q3");
         element.setElectronegativity(1.3);
@@ -3835,7 +3839,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(163);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d2");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>2</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d2");
         element.setShell("K2 L8 M18 N32 O32 P10 Q2");
         element.setElectronegativity(0);
@@ -3856,7 +3860,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(163);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d3");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>3</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d3");
         element.setShell("K2 L8 M18 N32 O32 P11 Q2");
         element.setElectronegativity(0);
@@ -3877,7 +3881,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(165);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d4");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>4</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d4");
         element.setShell("K2 L8 M18 N32 O32 P12 Q2");
         element.setElectronegativity(0);
@@ -3898,7 +3902,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(163);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d5");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>5</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d5");
         element.setShell("K2 L8 M18 N32 O32 P13 Q2");
         element.setElectronegativity(0);
@@ -3919,7 +3923,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(163);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d6");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>6</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d6");
         element.setShell("K2 L8 M18 N32 O32 P14 Q2");
         element.setElectronegativity(0);
@@ -3940,7 +3944,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(169);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d7");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>7</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d7");
         element.setShell("K2 L8 M18 N32 O32 P15 Q2");
         element.setElectronegativity(0);
@@ -3961,7 +3965,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(171);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d8");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>8</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d8");
         element.setShell("K2 L8 M18 N32 O32 P16 Q2");
         element.setElectronegativity(0);
@@ -3982,7 +3986,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(170);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d9");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>9</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d9");
         element.setShell("K2 L8 M18 N32 O32 P17 Q2");
         element.setElectronegativity(0);
@@ -4003,7 +4007,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("d");
         element.setNeutron(173);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d10");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10");
         element.setShell("K2 L8 M18 N32 O32 P18 Q2");
         element.setElectronegativity(0);
@@ -4024,7 +4028,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("p");
         element.setNeutron(173);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d10 7p1");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small> 7p<small><sup>1</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p1");
         element.setShell("K2 L8 M18 N32 O32 P18 Q3");
         element.setElectronegativity(0);
@@ -4045,7 +4049,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("p");
         element.setNeutron(175);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d10 7p2");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small> 7p<small><sup>2</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p2");
         element.setShell("K2 L8 M18 N32 O32 P18 Q4");
         element.setElectronegativity(0);
@@ -4066,7 +4070,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("p");
         element.setNeutron(174);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d10 7p3");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small> 7p<small><sup>3</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p3");
         element.setShell("K2 L8 M18 N32 O32 P18 Q5");
         element.setElectronegativity(0);
@@ -4087,8 +4091,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("p");
         element.setNeutron(176);
-        element.setSimplifiedConfiguration("[Rn]7s2 a 6d10 7p4");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p3");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small> 7p<small><sup>4</sup></small>");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p4");
         element.setShell("K2 L8 M18 N32 O32 P18 Q6");
         element.setElectronegativity(0);
         element.setValence("+4, <b>+2</b>, -2(Dự đoán)");
@@ -4108,7 +4112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("p");
         element.setNeutron(176);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d10 7p5");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small> 7p<small><sup>5</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p5");
         element.setShell("K2 L8 M18 N32 O32 P18 Q7");
         element.setElectronegativity(0);
@@ -4132,7 +4136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPeriod(7);
         element.setClassElement("p");
         element.setNeutron(176);
-        element.setSimplifiedConfiguration("[Rn]7s2 5f14 6d10 7p6");
+        element.setSimplifiedConfiguration("[Rn]7s<small><sup>2</sup></small> 5f<small><sup>14</sup></small> 6d<small><sup>10</sup></small> 7p<small><sup>6</sup></small>");
         element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6");
         element.setShell("K2 L8 M18 N32 O32 P18 Q8");
         element.setElectronegativity(0);
@@ -4169,6 +4173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void init() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationRight = findViewById(R.id.nav_view_right);
         mManager = getSupportFragmentManager();
         mTransaction = mManager.beginTransaction();
 
@@ -4209,6 +4214,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+        mNavigationView.setItemIconTintList(null);
+        mNavigationRight.setItemIconTintList(null);
     }
 
     @Override

@@ -2,6 +2,8 @@ package luanvan.luanvantotnghiep.Fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +30,20 @@ import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 
 public class PeriodicTableFragment extends Fragment {
+
+    private static final int[] LIST_COLORS = new int[]{
+            Color.parseColor("#ff6666"),
+            Color.parseColor("#ffdead"),
+            Color.parseColor("#cccccc"),
+            Color.parseColor("#cccc99"),
+            Color.parseColor("#ffc0c0"),
+            Color.parseColor("#a0ffa0"),
+            Color.parseColor("#ffff99"),
+            Color.parseColor("#c0ffff"),
+            Color.parseColor("#ffbfff"),
+            Color.parseColor("#ff99cc"),
+            Color.parseColor("#e8e8e8")
+    };
 
     private List<Element> mElementList;
     private List<Group> mGroupList;
@@ -96,7 +112,7 @@ public class PeriodicTableFragment extends Fragment {
             }
             tvId.setText("");
             tvName.setText("");
-            view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+            //view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
             if (i == 0 || i == 18) {
                 view.setBackgroundResource(R.drawable.backgroud_item_empty_first_lantan_3a8a);
             }
@@ -116,7 +132,7 @@ public class PeriodicTableFragment extends Fragment {
             tvId.setText("");
             tvName.setText("");
             tvSymbol.setText(String.format("%s", i));
-            view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+            //view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
             view.setBackgroundResource(R.drawable.backgroud_item_cycle_first_actini);
             row.addView(view, 120, 190);
 
@@ -132,6 +148,8 @@ public class PeriodicTableFragment extends Fragment {
                     Chemistry chemistry = mChemistryHelper.getChemistryById(element.getIdElement());
                     tvSymbol.setText(chemistry.getSymbolChemistry());
                     tvName.setText(chemistry.getNameChemistry());
+                    view.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+                    setColorStateOfMatter(tvId,chemistry);
                     LinearLayout layout = view.findViewById(R.id.ln_item);
                     layout.setBackgroundResource(R.drawable.background_item_chat_hoa_hoc);
                     if (position == 4) {
@@ -148,7 +166,7 @@ public class PeriodicTableFragment extends Fragment {
                 } else {
                     tvId.setText("");
                     tvName.setText("");
-                    view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+                    //view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
                     if (i == 1 && (j < 3 || j > 12)
                             || i == 3 && (j > 2 && j < 13)) {
                         if (i == 1 && j == 13) {
@@ -194,7 +212,7 @@ public class PeriodicTableFragment extends Fragment {
             tvId.setText("");
             tvName.setText("");
             tvSymbol.setText("");
-            v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+            //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
             row.addView(v, 120, 190);
         }
 
@@ -202,14 +220,14 @@ public class PeriodicTableFragment extends Fragment {
         v = inflateView(li);
         tvId.setText("");
         tvName.setText("");
-        tvSymbol.setText("Lantan");
+        tvSymbol.setText("Họ\nLantan");
         tvSymbol.setTextSize(16);
-        v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+        v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[8]);
         v.setBackgroundResource(R.drawable.backgroud_item_empty_first_lantan_3a8a);
         row.addView(v, 120, 190);
 
         //Data lantan
-        for (int i = 58; i < 72; i++) {
+        for (int i = 57; i < 71; i++) {
             v = inflateView(li);
             Element element = mElementList.get(i);
             tvId.setText(String.valueOf(element.getIdElement()));
@@ -220,6 +238,8 @@ public class PeriodicTableFragment extends Fragment {
             tvName.setText(chemistry.getNameChemistry());
             LinearLayout layout = v.findViewById(R.id.ln_item);
             layout.setBackgroundResource(R.drawable.backgroud_item_group);
+            v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            setColorStateOfMatter(tvId,chemistry);
 
             final int position = i;
             layout.setOnClickListener(new View.OnClickListener() {
@@ -242,7 +262,7 @@ public class PeriodicTableFragment extends Fragment {
             tvId.setText("");
             tvName.setText("");
             tvSymbol.setText("");
-            v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+            //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
             row.addView(v, 120, 190);
         }
 
@@ -250,14 +270,15 @@ public class PeriodicTableFragment extends Fragment {
         v = inflateView(li);
         tvId.setText("");
         tvName.setText("");
-        tvSymbol.setText("Actini");
+        tvSymbol.setText("Họ\nActini");
         tvSymbol.setTextSize(16);
-        v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+        v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[9]);
+        //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
         v.setBackgroundResource(R.drawable.backgroud_item_cycle_first_actini);
         row.addView(v, 120, 190);
 
         //Data Actini
-        for (int i = 90; i < 104; i++) {
+        for (int i = 89; i < 103; i++) {
             v = inflateView(li);
             Element element = mElementList.get(i);
             tvId.setText(String.valueOf(element.getIdElement()));
@@ -268,6 +289,8 @@ public class PeriodicTableFragment extends Fragment {
             tvName.setText(chemistry.getNameChemistry());
             LinearLayout layout = v.findViewById(R.id.ln_item);
             layout.setBackgroundResource(R.drawable.background_item_chat_hoa_hoc);
+            v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            setColorStateOfMatter(tvId,chemistry);
 
             final int position = i;
             layout.setOnClickListener(new View.OnClickListener() {
@@ -320,7 +343,7 @@ public class PeriodicTableFragment extends Fragment {
         tvId.setText("");
         tvKyHieu.setText("");
         tvTen.setText("");
-        v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+        //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
         row.addView(v, 100, 190);
         mTlPeriodic.addView(row);
     }
@@ -336,8 +359,26 @@ public class PeriodicTableFragment extends Fragment {
         SwipeAdapter adapter = new SwipeAdapter(mContext, mElementList);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         dialog.show();
     }
 
+    private void setColorStateOfMatter(TextView textView, Chemistry chemistry) {
+        String status = chemistry.getStatusChemistry();
+        switch (status){
+            case "Rắn":
+                textView.setTextColor(Color.BLACK);
+                break;
+            case "Lỏng":
+                textView.setTextColor(Color.GREEN);
+                break;
+            case "Khí":
+                textView.setTextColor(Color.RED);
+                break;
+            case "Chưa xác định":
+                textView.setTextColor(Color.GRAY);
+                break;
+        }
+    }
 }

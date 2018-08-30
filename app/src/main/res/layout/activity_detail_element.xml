@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -74,120 +73,139 @@
             <!--Proton-->
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="140dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <!--Electron-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="4dp"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal"
                         android:weightSum="3">
 
-                        <TextView
+                        <!--Electron-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="sans-serif-thin"
-                            android:gravity="center"
-                            android:text="Electron"
-                            android:textColor="#000"
-                            android:textSize="24dp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical"
+                            android:padding="4dp"
+                            android:weightSum="3">
 
-                        <TextView
-                            android:id="@+id/tv_electron"
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif-thin"
+                                android:gravity="center"
+                                android:text="Electron"
+                                android:textColor="#000"
+                                android:textSize="24dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_electron"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:fontFamily="Roboto"
+                                android:gravity="center"
+                                android:text="113"
+                                android:textColor="#000"
+                                android:textSize="32dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <!--Proton-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:fontFamily="Roboto"
-                            android:gravity="center"
-                            android:text="113"
-                            android:textColor="#000"
-                            android:textSize="32dp"
-                            android:textStyle="bold" />
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="4dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif-thin"
+                                android:gravity="center"
+                                android:text="Proton"
+                                android:textColor="#000"
+                                android:textSize="24dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_proton"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:fontFamily="Roboto"
+                                android:gravity="center"
+                                android:text="113"
+                                android:textColor="#000"
+                                android:textSize="32dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <!--Notron-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="4dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif-thin"
+                                android:gravity="center"
+                                android:text="Nơtron *"
+                                android:textColor="#000"
+                                android:textSize="24dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_neutron"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:fontFamily="Roboto"
+                                android:gravity="center"
+                                android:text="113"
+                                android:textColor="#000"
+                                android:textSize="32dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <!--Proton-->
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="4dp"
-                        android:weightSum="3">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:fontFamily="sans-serif-thin"
-                            android:gravity="center"
-                            android:text="Proton"
-                            android:textColor="#000"
-                            android:textSize="24dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_proton"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:fontFamily="Roboto"
-                            android:gravity="center"
-                            android:text="113"
-                            android:textColor="#000"
-                            android:textSize="32dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <!--Notron-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="4dp"
-                        android:weightSum="3">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:fontFamily="sans-serif-thin"
-                            android:gravity="center"
-                            android:text="Nơtron"
-                            android:textColor="#000"
-                            android:textSize="24dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_neutron"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:fontFamily="Roboto"
-                            android:gravity="center"
-                            android:text="113"
-                            android:textColor="#000"
-                            android:textSize="32dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:layout_gravity="top"
+                        android:layout_marginRight="8dp"
+                        android:fontFamily="sans-serif-thin"
+                        android:gravity="right"
+                        android:text="* theo đồng vị ổn định nhất"
+                        android:textColor="#000"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
+
 
             </android.support.v7.widget.CardView>
 
@@ -240,7 +258,6 @@
                         android:background="@drawable/background_detail_element_textview"
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
-
                         android:textColor="#000"
                         android:textSize="20dp"
                         android:textStyle="bold" />
