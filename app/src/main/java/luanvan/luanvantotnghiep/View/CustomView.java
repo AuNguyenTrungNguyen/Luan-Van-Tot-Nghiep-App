@@ -38,7 +38,7 @@ public class CustomView extends View {
     private Paint mPaintBorder;
     private Paint mPaintElectron;
 
-    private Animation animation;
+    private Animation mAnimation;
     private String mShell = null;
 
     public CustomView(Context context) {
@@ -69,28 +69,28 @@ public class CustomView extends View {
         mWidth = getWidth() / 2.0f;
         mHeight = getHeight() / 2.0f;
 
-        if(mShell != null){
+        if (mShell != null) {
             //Draw Proton
             canvas.drawCircle(mWidth, mHeight, RADIUS_PROTON, mPaintAtom);
 
             drawAtomStruct(mShell
                     , canvas);
 
-            if (animation == null) {
+            if (mAnimation == null) {
                 initAnimation();
             }
-        }else{
+        } else {
             Log.i("ANTN", "onDraw is null");
         }
     }
 
     private void initAnimation() {
-        animation = new RotateAnimation(0, 360, mWidth, mHeight);
-        animation.setRepeatCount(Animation.INFINITE);
-        animation.setRepeatMode(Animation.RESTART);
-        animation.setDuration(7500L);
-        animation.setInterpolator(new LinearInterpolator());
-        startAnimation(animation);
+        mAnimation = new RotateAnimation(0, 360, mWidth, mHeight);
+        mAnimation.setRepeatCount(Animation.INFINITE);
+        mAnimation.setRepeatMode(Animation.RESTART);
+        mAnimation.setDuration(7500L);
+        mAnimation.setInterpolator(new LinearInterpolator());
+        this.startAnimation(mAnimation);
     }
 
     private void drawWithNumberElectron(int num, int border, Canvas canvas) {
@@ -124,8 +124,15 @@ public class CustomView extends View {
         }
     }
 
-    public void setShellToView(String shell){
+    public void setShellToView(String shell) {
         mShell = shell;
     }
 
+    public void stopAnimate(boolean stop){
+        if (stop){
+            this.clearAnimation();
+        }else{
+            startAnimation(mAnimation);
+        }
+    }
 }
