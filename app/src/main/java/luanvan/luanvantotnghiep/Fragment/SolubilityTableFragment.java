@@ -1168,6 +1168,7 @@ public class SolubilityTableFragment extends Fragment {
             Log.i("ANTN", "Table Solute available");
         } else {
             //Add to database
+
             Log.i("ANTN", "Table Solute updated");
             mChemistryHelper.emptySolute();
             for (Solute item : soluteList) {
