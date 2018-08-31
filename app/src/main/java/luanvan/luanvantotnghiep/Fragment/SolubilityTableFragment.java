@@ -38,6 +38,14 @@ public class SolubilityTableFragment extends Fragment {
     private TableLayout mTlSolute;
     private TableLayout mTlAnion;
 
+    private TextView mTvSoluble;
+    private TextView mTvInfoSoluble;
+    private TextView mTvInSoluble;
+    private TextView mTvInfoInSoluble;
+    private TextView mTvLessSoluble;
+    private TextView mTvInfoLessSoluble;
+    private TextView mTvUnExist;
+
     private static final int ITEM_WIDTH = 130;
     private static final int ITEM_HEIGHT = 60;
 
@@ -61,6 +69,8 @@ public class SolubilityTableFragment extends Fragment {
 
         init(view);
 
+        handleTextView();
+
         addDataAnionTable();
 
         addDataCationTable();
@@ -80,6 +90,24 @@ public class SolubilityTableFragment extends Fragment {
 
         mTlSolute = v.findViewById(R.id.tl_solubility);
         mTlAnion = v.findViewById(R.id.tl_anion);
+
+        mTvSoluble = v.findViewById(R.id.tv_soluble);
+        mTvInfoSoluble = v.findViewById(R.id.tv_info_soluble);
+        mTvInSoluble = v.findViewById(R.id.tv_insoluble);
+        mTvInfoInSoluble = v.findViewById(R.id.tv_info_insoluble);
+        mTvLessSoluble = v.findViewById(R.id.tv_less_soluble);
+        mTvInfoLessSoluble = v.findViewById(R.id.tv_info_less_soluble);
+        mTvUnExist = v.findViewById(R.id.tv_un_exist);
+    }
+
+    private void handleTextView() {
+        mTvSoluble.setText(Html.fromHtml("<font color='blue'>T</font> : tan"));
+        mTvInfoSoluble.setText(Html.fromHtml("trên 1g trong 100g H<small><sub>2</sub></small>O"));
+        mTvInSoluble.setText(Html.fromHtml("<font color='red'>K</font> : không tan"));
+        mTvInfoInSoluble.setText(Html.fromHtml("từ 0,001g đến 1g trong 100g H<small><sub>2</sub></small>O"));
+        mTvLessSoluble.setText(Html.fromHtml("<font color='gray'>I</font> : ít tan"));
+        mTvInfoLessSoluble.setText(Html.fromHtml("dưới 1g trong 100g H<small><sub>2</sub></small>O"));
+        mTvUnExist.setText(Html.fromHtml("<font color='black'>—</font> : bị phân hủy hoặc không tồn tại"));
     }
 
     private String showIon(String name, String valence) {
@@ -134,9 +162,10 @@ public class SolubilityTableFragment extends Fragment {
                 tvShow.setTextColor(Color.RED);
                 break;
             case "I":
+                tvShow.setTextColor(Color.GRAY);
                 break;
-            case "-":
-                tvShow.setTextColor(Color.DKGRAY);
+            case "—":
+                tvShow.setTextColor(Color.BLACK);
                 break;
         }
     }
@@ -197,43 +226,43 @@ public class SolubilityTableFragment extends Fragment {
 
         List<Anion> anionList = new ArrayList<>();
 
-        Anion anion = new Anion(1, "Cl", "-");
+        Anion anion = new Anion(1, "Cl", "—");
         anionList.add(anion);
 
-        anion = new Anion(2, "Br", "-");
+        anion = new Anion(2, "Br", "—");
         anionList.add(anion);
 
-        anion = new Anion(3, "I", "-");
+        anion = new Anion(3, "I", "—");
         anionList.add(anion);
 
-        anion = new Anion(4, "NO3", "-");
+        anion = new Anion(4, "NO3", "—");
         anionList.add(anion);
 
-        anion = new Anion(5, "CH3COO", "-");
+        anion = new Anion(5, "CH3COO", "—");
         anionList.add(anion);
 
-        anion = new Anion(6, "S", "2-");
+        anion = new Anion(6, "S", "2—");
         anionList.add(anion);
 
-        anion = new Anion(7, "SO3", "2-");
+        anion = new Anion(7, "SO3", "2—");
         anionList.add(anion);
 
-        anion = new Anion(8, "SO4", "2-");
+        anion = new Anion(8, "SO4", "2—");
         anionList.add(anion);
 
-        anion = new Anion(9, "CO3", "2-");
+        anion = new Anion(9, "CO3", "2—");
         anionList.add(anion);
 
-        anion = new Anion(10, "SiO3", "2-");
+        anion = new Anion(10, "SiO3", "2—");
         anionList.add(anion);
 
-        anion = new Anion(11, "CrO4", "2-");
+        anion = new Anion(11, "CrO4", "2—");
         anionList.add(anion);
 
-        anion = new Anion(12, "PO4", "3-");
+        anion = new Anion(12, "PO4", "3—");
         anionList.add(anion);
 
-        anion = new Anion(13, "OH", "-");
+        anion = new Anion(13, "OH", "—");
         anionList.add(anion);
 
         //Check and add data
@@ -376,7 +405,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(1, 15, "I");
         soluteList.add(solute);
 
-        solute = new Solute(1, 16, "-");
+        solute = new Solute(1, 16, "—");
         soluteList.add(solute);
 
         solute = new Solute(1, 17, "T");
@@ -391,7 +420,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(1, 20, "T");
         soluteList.add(solute);
 
-        //-----
+        //—————
 
         solute = new Solute(2, 1, "T");
         soluteList.add(solute);
@@ -438,7 +467,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(2, 15, "I");
         soluteList.add(solute);
 
-        solute = new Solute(2, 16, "-");
+        solute = new Solute(2, 16, "—");
         soluteList.add(solute);
 
         solute = new Solute(2, 17, "T");
@@ -453,7 +482,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(2, 20, "T");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(3, 1, "T");
         soluteList.add(solute);
@@ -467,7 +496,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(3, 4, "T");
         soluteList.add(solute);
 
-        solute = new Solute(3, 5, "-");
+        solute = new Solute(3, 5, "—");
         soluteList.add(solute);
 
         solute = new Solute(3, 6, "K");
@@ -500,7 +529,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(3, 15, "K");
         soluteList.add(solute);
 
-        solute = new Solute(3, 16, "-");
+        solute = new Solute(3, 16, "—");
         soluteList.add(solute);
 
         solute = new Solute(3, 17, "T");
@@ -509,13 +538,13 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(3, 18, "K");
         soluteList.add(solute);
 
-        solute = new Solute(3, 19, "-");
+        solute = new Solute(3, 19, "—");
         soluteList.add(solute);
 
         solute = new Solute(3, 20, "T");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(4, 1, "T");
         soluteList.add(solute);
@@ -556,7 +585,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(4, 13, "T");
         soluteList.add(solute);
 
-        solute = new Solute(4, 14, "-");
+        solute = new Solute(4, 14, "—");
         soluteList.add(solute);
 
         solute = new Solute(4, 15, "T");
@@ -577,7 +606,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(4, 20, "T");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(5, 1, "T");
         soluteList.add(solute);
@@ -618,28 +647,28 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(5, 13, "T");
         soluteList.add(solute);
 
-        solute = new Solute(5, 14, "-");
+        solute = new Solute(5, 14, "—");
         soluteList.add(solute);
 
         solute = new Solute(5, 15, "T");
         soluteList.add(solute);
 
-        solute = new Solute(5, 16, "-");
+        solute = new Solute(5, 16, "—");
         soluteList.add(solute);
 
-        solute = new Solute(5, 17, "-");
+        solute = new Solute(5, 17, "—");
         soluteList.add(solute);
 
         solute = new Solute(5, 18, "T");
         soluteList.add(solute);
 
-        solute = new Solute(5, 19, "-");
+        solute = new Solute(5, 19, "—");
         soluteList.add(solute);
 
         solute = new Solute(5, 20, "T");
         soluteList.add(solute);
 
-        ///-moi add
+        ///—moi add
         solute = new Solute(6, 1, "T");
         soluteList.add(solute);
 
@@ -658,7 +687,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(6, 6, "K");
         soluteList.add(solute);
 
-        solute = new Solute(6, 7, "-");
+        solute = new Solute(6, 7, "—");
         soluteList.add(solute);
 
         solute = new Solute(6, 8, "T");
@@ -676,7 +705,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(6, 12, "K");
         soluteList.add(solute);
 
-        solute = new Solute(6, 13, "-");
+        solute = new Solute(6, 13, "—");
         soluteList.add(solute);
 
         solute = new Solute(6, 14, "K");
@@ -688,7 +717,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(6, 16, "K");
         soluteList.add(solute);
 
-        solute = new Solute(6, 17, "-");
+        solute = new Solute(6, 17, "—");
         soluteList.add(solute);
 
         solute = new Solute(6, 18, "K");
@@ -700,7 +729,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(6, 20, "K");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(7, 1, "T");
         soluteList.add(solute);
@@ -738,10 +767,10 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(7, 12, "K");
         soluteList.add(solute);
 
-        solute = new Solute(7, 13, "-");
+        solute = new Solute(7, 13, "—");
         soluteList.add(solute);
 
-        solute = new Solute(7, 14, "-");
+        solute = new Solute(7, 14, "—");
         soluteList.add(solute);
 
         solute = new Solute(7, 15, "K");
@@ -750,19 +779,19 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(7, 16, "K");
         soluteList.add(solute);
 
-        solute = new Solute(7, 17, "-");
+        solute = new Solute(7, 17, "—");
         soluteList.add(solute);
 
         solute = new Solute(7, 18, "K");
         soluteList.add(solute);
 
-        solute = new Solute(7, 19, "-");
+        solute = new Solute(7, 19, "—");
         soluteList.add(solute);
 
         solute = new Solute(7, 20, "K");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(8, 1, "T");
         soluteList.add(solute);
@@ -797,7 +826,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(8, 11, "T");
         soluteList.add(solute);
 
-        solute = new Solute(8, 12, "-");
+        solute = new Solute(8, 12, "—");
         soluteList.add(solute);
 
         solute = new Solute(8, 13, "T");
@@ -809,7 +838,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(8, 15, "K");
         soluteList.add(solute);
 
-        solute = new Solute(8, 16, "-");
+        solute = new Solute(8, 16, "—");
         soluteList.add(solute);
 
         solute = new Solute(8, 17, "T");
@@ -824,7 +853,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(8, 20, "T");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(9, 1, "T");
         soluteList.add(solute);
@@ -838,7 +867,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(9, 4, "T");
         soluteList.add(solute);
 
-        solute = new Solute(9, 5, "-");
+        solute = new Solute(9, 5, "—");
         soluteList.add(solute);
 
         solute = new Solute(9, 6, "K");
@@ -859,13 +888,13 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(9, 11, "K");
         soluteList.add(solute);
 
-        solute = new Solute(9, 12, "-");
+        solute = new Solute(9, 12, "—");
         soluteList.add(solute);
 
-        solute = new Solute(9, 13, "-");
+        solute = new Solute(9, 13, "—");
         soluteList.add(solute);
 
-        solute = new Solute(9, 14, "-");
+        solute = new Solute(9, 14, "—");
         soluteList.add(solute);
 
         solute = new Solute(9, 15, "K");
@@ -874,19 +903,19 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(9, 16, "K");
         soluteList.add(solute);
 
-        solute = new Solute(9, 17, "-");
+        solute = new Solute(9, 17, "—");
         soluteList.add(solute);
 
         solute = new Solute(9, 18, "K");
         soluteList.add(solute);
 
-        solute = new Solute(9, 19, "-");
+        solute = new Solute(9, 19, "—");
         soluteList.add(solute);
 
         solute = new Solute(9, 20, "K");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(10, 1, "T");
         soluteList.add(solute);
@@ -897,13 +926,13 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(10, 3, "T");
         soluteList.add(solute);
 
-        solute = new Solute(10, 4, "-");
+        solute = new Solute(10, 4, "—");
         soluteList.add(solute);
 
-        solute = new Solute(10, 5, "-");
+        solute = new Solute(10, 5, "—");
         soluteList.add(solute);
 
-        solute = new Solute(10, 6, "-");
+        solute = new Solute(10, 6, "—");
         soluteList.add(solute);
 
         solute = new Solute(10, 7, "K");
@@ -921,22 +950,22 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(10, 11, "K");
         soluteList.add(solute);
 
-        solute = new Solute(10, 12, "-");
+        solute = new Solute(10, 12, "—");
         soluteList.add(solute);
 
         solute = new Solute(10, 13, "K");
         soluteList.add(solute);
 
-        solute = new Solute(10, 14, "-");
+        solute = new Solute(10, 14, "—");
         soluteList.add(solute);
 
         solute = new Solute(10, 15, "K");
         soluteList.add(solute);
 
-        solute = new Solute(10, 16, "-");
+        solute = new Solute(10, 16, "—");
         soluteList.add(solute);
 
-        solute = new Solute(10, 17, "-");
+        solute = new Solute(10, 17, "—");
         soluteList.add(solute);
 
         solute = new Solute(10, 18, "K");
@@ -948,7 +977,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(10, 20, "K");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(11, 1, "T");
         soluteList.add(solute);
@@ -986,10 +1015,10 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(11, 12, "K");
         soluteList.add(solute);
 
-        solute = new Solute(11, 13, "-");
+        solute = new Solute(11, 13, "—");
         soluteList.add(solute);
 
-        solute = new Solute(11, 14, "-");
+        solute = new Solute(11, 14, "—");
         soluteList.add(solute);
 
         solute = new Solute(11, 15, "K");
@@ -1004,13 +1033,13 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(11, 18, "K");
         soluteList.add(solute);
 
-        solute = new Solute(11, 19, "-");
+        solute = new Solute(11, 19, "—");
         soluteList.add(solute);
 
-        solute = new Solute(11, 20, "-");
+        solute = new Solute(11, 20, "—");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(12, 1, "K");
         soluteList.add(solute);
@@ -1072,7 +1101,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(12, 20, "K");
         soluteList.add(solute);
 
-        //--
+        //——
 
         solute = new Solute(13, 1, "T");
         soluteList.add(solute);
@@ -1089,7 +1118,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(13, 5, "K");
         soluteList.add(solute);
 
-        solute = new Solute(13, 6, "-");
+        solute = new Solute(13, 6, "—");
         soluteList.add(solute);
 
         solute = new Solute(13, 7, "K");
@@ -1107,7 +1136,7 @@ public class SolubilityTableFragment extends Fragment {
         solute = new Solute(13, 11, "K");
         soluteList.add(solute);
 
-        solute = new Solute(13, 12, "-");
+        solute = new Solute(13, 12, "—");
         soluteList.add(solute);
 
         solute = new Solute(13, 13, "K");
