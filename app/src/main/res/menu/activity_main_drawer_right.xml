@@ -10,6 +10,7 @@
             <menu>
 
                 <group
+                    android:id="@+id/group_right_type"
                     android:checkableBehavior="single"
                     android:menuCategory="secondary">
 
@@ -79,6 +80,7 @@
             <menu>
 
                 <group
+                    android:id="@+id/group_right_state_matter"
                     android:checkableBehavior="single"
                     android:menuCategory="secondary">
 

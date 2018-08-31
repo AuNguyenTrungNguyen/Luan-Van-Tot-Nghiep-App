@@ -12,12 +12,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -4249,14 +4246,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        int idGroup = item.getGroupId();
 
         //handle hide and show nav right
         if (id == R.id.nav_periodic_table) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mNavigationRight);
-            mMnRight.setVisible(true);
         } else {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
-            mMnRight.setVisible(false);
+        }
+
+        //handle hide and show nav right by item
+        if (idGroup == R.id.group_left_knowledge || idGroup == R.id.group_left_my_info || idGroup == R.id.group_left_app) {
+
+            if(id == R.id.nav_periodic_table){
+                mMnRight.setVisible(true);
+            }else{
+                mMnRight.setVisible(false);
+            }
+
+        } else if (idGroup == R.id.group_right_type || idGroup == R.id.group_right_state_matter) {
+            mMnRight.setVisible(true);
         }
 
         //handle load fragment

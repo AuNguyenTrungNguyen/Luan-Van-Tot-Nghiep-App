@@ -6,13 +6,11 @@
 
     <group android:checkableBehavior="single">
         <item android:title="Kiến Thức">
-
             <menu>
-
                 <group
+                    android:id="@+id/group_left_knowledge"
                     android:checkableBehavior="single"
                     android:menuCategory="secondary">
-
                     <item
                         android:id="@+id/nav_periodic_table"
                         android:icon="@drawable/ic_menu_periodic_table"
@@ -37,17 +35,16 @@
                         android:id="@+id/nav_reaction"
                         android:icon="@drawable/ic_menu_reaction"
                         android:title="Phản ứng hóa học" />
-
                 </group>
+
             </menu>
 
         </item>
 
         <item android:title="Cá nhân">
-
             <menu>
-
                 <group
+                    android:id="@+id/group_left_my_info"
                     android:checkableBehavior="single"
                     android:menuCategory="alternative">
 
@@ -67,16 +64,13 @@
                         android:title="Đăng xuất" />
 
                 </group>
-
             </menu>
-
         </item>
 
         <item android:title="Ứng dụng">
-
             <menu>
-
                 <group
+                    android:id="@+id/group_left_app"
                     android:checkableBehavior="single"
                     android:menuCategory="alternative">
 
@@ -96,9 +90,7 @@
                         android:title="Đánh giá ứng dụng" />
 
                 </group>
-
             </menu>
-
         </item>
 
     </group>
