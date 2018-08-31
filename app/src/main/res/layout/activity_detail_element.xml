@@ -63,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:background="#808080"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -202,7 +203,7 @@
                         android:gravity="right"
                         android:text="* theo đồng vị ổn định nhất"
                         android:textColor="#000"
-                        android:textSize="10dp" />
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -293,14 +294,14 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_detail_element_textview"
                         android:orientation="horizontal"
-                        android:weightSum="4">
+                        android:weightSum="5">
 
                         <TextView
                             android:id="@+id/tv_electronegativity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:fontFamily="sans-serif-thin"
                             android:padding="4dp"
                             android:text="Độ âm điện: 2,1"
@@ -315,9 +316,10 @@
                             android:layout_weight="3"
                             android:fontFamily="sans-serif-thin"
                             android:padding="4dp"
+                            android:gravity="right"
                             android:text="Theo thang Pauling"
                             android:textColor="#000"
-                            android:textSize="8dp" />
+                            android:textSize="12dp" />
 
                     </LinearLayout>
 
