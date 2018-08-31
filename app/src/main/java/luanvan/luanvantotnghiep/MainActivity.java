@@ -2085,6 +2085,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setMeltingPoint(1538);
         element.setBoilingPoint(2862);
         element.setIdGroup(8);
+        element.setDiscoverer("");
         element.setYearDiscovery("Trước 5000 TCN");
         element.setIsotopes("<b><small><sup>54</sup></small>Fe</b>, " +
                 "<b><small><sup>56</sup></small>Fe</b>," +
@@ -2176,7 +2177,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setMeltingPoint(419.53);
         element.setBoilingPoint(907);
         element.setDiscoverer("Các nhà luyện kim Ấn Ðộ");
-        element.setYearDiscovery("Tru?c 1000 TCN");
+        element.setYearDiscovery("Trước 1000 TCN");
         element.setIdGroup(12);
         element.setIsotopes("<b><small><sup>64</sup></small>Zn</b>, " +
                 "<b><small><sup>66</sup></small>Zn</b>, " +
@@ -2247,6 +2248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setMeltingPoint(816.8);
         element.setBoilingPoint(613);
         element.setIdGroup(15);
+        element.setDiscoverer("");
         element.setYearDiscovery("Trước 300 CE");
         element.setIsotopes("<b><small><sup>75</sup></small>As</b>");
         element.setPicture("arsenic");
@@ -2569,6 +2571,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setEnglishName("Silver");
         element.setMeltingPoint(961.78);
         element.setBoilingPoint(2162);
+        element.setDiscoverer("");
         element.setYearDiscovery("Trước 5000 BC");
         element.setIdGroup(11);
         element.setIsotopes("<b><small><sup>107</sup></small>Ag</b>, " +
@@ -2637,6 +2640,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setEnglishName("Tin");
         element.setMeltingPoint(231.93);
         element.setBoilingPoint(2602);
+        element.setDiscoverer("");
         element.setYearDiscovery("Khoảng 3500 TCN");
         element.setIdGroup(14);
         element.setIsotopes("<b><small><sup>112</sup></small>Sn</b>, " +
@@ -2666,6 +2670,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setEnglishName("Antimony");
         element.setMeltingPoint(630.63);
         element.setBoilingPoint(1635);
+        element.setDiscoverer("");
         element.setYearDiscovery("Trước 800 CE");
         element.setIdGroup(15);
         element.setIsotopes("<b><small><sup>121</sup></small>Sb</b>, " +
@@ -4303,6 +4308,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             putParamToActivity(10);
         }else if (id == R.id.nav_unknown_chemical_properties) {
             putParamToActivity(11);
+        }else if (id == R.id.nav_solid) {
+            putParamToActivity(12);
+        }else if (id == R.id.nav_liquid) {
+            putParamToActivity(13);
+        }else if (id == R.id.nav_gas) {
+            putParamToActivity(14);
+        }else if (id == R.id.nav_unknown) {
+            putParamToActivity(15);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

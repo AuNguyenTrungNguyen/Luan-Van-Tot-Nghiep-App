@@ -20,8 +20,8 @@
 
     <!--Color "state of matter" of periodic-->
     <color name="gas">#cb0000</color>
-    <color name="solid">#000000</color>
-    <color name="liquid">#007000</color>
+    <color name="solid">#007000</color>
+    <color name="liquid">#00FFFF</color>
     <color name="unknown">#606060</color>
 
 </resources>

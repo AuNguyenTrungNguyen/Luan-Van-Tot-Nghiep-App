@@ -69,7 +69,7 @@ public class SwipeAdapter extends PagerAdapter {
         tvWeight.setText(String.valueOf(chemistry.getWeightChemistry()) + " (g/mol)");
         tvElectronegativity.setText(Html.fromHtml("<font color='gray'>Độ âm điện: </font><font color='black'>" + String.valueOf(element.getElectronegativity()) + "</font"));
         tvSimplifiedConfiguration.setText(Html.fromHtml("<font color='gray'>Cấu hình electron: </font><font color='black'>" + element.getSimplifiedConfiguration()+ "</font"));
-        tvValence.setText(Html.fromHtml("<font color='gray'>Hóa trị: </font><font color='black'>" + element.getValence()+ "</font>"));
+        tvValence.setText(Html.fromHtml("<font color='gray'><b>Hóa trị: </b></font><font color='black'>" + element.getValence()+ "</font>"));
 
         //Dung Glide load picture
         int resID = mContext.getResources().getIdentifier(element.getPicture() , "drawable", mContext.getPackageName());

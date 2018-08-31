@@ -171,7 +171,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 mTvEnglishName.setText(Html.fromHtml("<font color='gray'>Tên Tiếng Anh: </font><font color='black'>" + element.getEnglishName() + "</font>"));
                 mTvPeriodic.setText(Html.fromHtml("<font color='gray'>Chu kỳ: </font><font color='black'>" + element.getPeriod() + "</font>"));
                 mTvElectronegativity.setText(Html.fromHtml("<font color='gray'>Độ âm điện: </font><font color='black'>" + String.valueOf(element.getElectronegativity()) + "</font>"));
-                mTvValence.setText(Html.fromHtml("<font color='gray'>Hóa trị: </font><font color='black'>" + element.getValence() + "</font>"));
+                mTvValence.setText(Html.fromHtml("<font color='gray'><b>Hóa trị: </b></font><font color='black'>" + element.getValence() + "</font>"));
 
                 mTvClass.setText(Html.fromHtml("<font color='gray'>Phân lớp: </font><font color='black'>" + element.getClassElement() + "</font>"));
                 mTvSimplified.setText(Html.fromHtml("<font color='gray'>Electron rút rọn: </font><font color='black'>" + element.getSimplifiedConfiguration() + "</font>"));
@@ -183,7 +183,11 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 mTvMeltingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ nóng chảy: </font><font color='black'>" + String.valueOf(element.getMeltingPoint() + "°C") + "</font>"));
                 mTvBoilingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ sội: </font><font color='black'>" + String.valueOf(element.getBoilingPoint() + "°C") + "</font>"));
 
-                mTvDiscoverer.setText(Html.fromHtml("<font color='gray'>Khám phá bởi:  </font><font color='black'>" + element.getDiscoverer() + "</font>"));
+                String discoverer = element.getDiscoverer();
+                mTvDiscoverer.setText(Html.fromHtml("<font color='gray'>Khám phá bởi:  </font><font color='black'>" + discoverer + "</font>"));
+                if(discoverer.equals("")){
+                    mTvDiscoverer.setVisibility(View.GONE);
+                }
                 mTvYearDiscovery.setText(Html.fromHtml("<font color='gray'>Năm khám phá: </font><font color='black'>" + element.getYearDiscovery() + "</font>"));
 
                 //Handel config HTML
