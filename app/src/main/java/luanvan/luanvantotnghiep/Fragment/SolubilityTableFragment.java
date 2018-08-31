@@ -1165,7 +1165,6 @@ public class SolubilityTableFragment extends Fragment {
 
         //Check and add data
         if (soluteList.size() == mChemistryHelper.getAllSolute().size()) {
-            Log.i("ANTN", "Table Solute available");
         } else {
             //Add to database
 
