@@ -56,9 +56,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\periodic.png" />
-                                      <entry key="outputName" value="ic_menu_st" />
-                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\mn_right.png" />
+                                      <entry key="outputName" value="ic_mn_right" />
+                                      <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="002aff" />
                                     </map>
                                   </option>
