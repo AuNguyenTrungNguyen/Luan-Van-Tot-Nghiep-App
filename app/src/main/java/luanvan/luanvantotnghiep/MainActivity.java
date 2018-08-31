@@ -13,8 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private Fragment mFragmentToSet = null;
 
+    private MenuItem mMnRight = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addDataChemistryTable();
 
         addDataGroupTable();
-        
+
         addDataElementTable();
 
     }
@@ -108,12 +113,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         typeList.add(type);
 
         //Check and add data
-        if(typeList.size() == mChemistryHelper.getAllTypes().size()){
+        if (typeList.size() == mChemistryHelper.getAllTypes().size()) {
             Log.i("ANTN", "Table Type available");
-        }else{
+        } else {
             //Add to database
             mChemistryHelper.emptyType();
-            for(Type item : typeList){
+            for (Type item : typeList) {
                 mChemistryHelper.addType(item);
             }
         }
@@ -1421,21 +1426,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chemistryList.add(chemical);
 
         //Check and add data
-        if(chemistryList.size() == mChemistryHelper.getAllChemistry().size()){
+        if (chemistryList.size() == mChemistryHelper.getAllChemistry().size()) {
             Log.i("ANTN", "Table Chemistry available");
-        }else{
+        } else {
             //Add database
             mChemistryHelper.emptyChemistry();
-            for(Chemistry item : chemistryList){
+            for (Chemistry item : chemistryList) {
                 mChemistryHelper.addChemistry(item);
             }
         }
     }
 
-    private void addDataGroupTable(){
-        
+    private void addDataGroupTable() {
+
         List<Group> groupList = new ArrayList<>();
-        
+
         Group group;
         group = new Group(1, "IA");
         groupList.add(group);
@@ -1492,18 +1497,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         groupList.add(group);
 
         //Check and add data
-        if(groupList.size() == mChemistryHelper.getAllGroups().size()){
+        if (groupList.size() == mChemistryHelper.getAllGroups().size()) {
             Log.i("ANTN", "Table Group available");
-        }else{
+        } else {
             mChemistryHelper.emptyGroup();
             //Add to database
-            for(Group item : groupList){
+            for (Group item : groupList) {
                 mChemistryHelper.addGroup(item);
             }
         }
     }
 
-    private void addDataElementTable(){
+    private void addDataElementTable() {
 
         List<Element> elementList = new ArrayList<>();
 
@@ -4154,17 +4159,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         elementList.add(element);
 
         //Check and add data
-        if(elementList.size() == mChemistryHelper.getAllElements().size()){
+        if (elementList.size() == mChemistryHelper.getAllElements().size()) {
             Log.i("ANTN", "Table Element available");
-        }else{
+        } else {
             //Add to database
             mChemistryHelper.emptyElement();
-            for(Element item : elementList){
+            for (Element item : elementList) {
                 mChemistryHelper.addElement(item);
             }
         }
     }
-    
+
     private void setupToolbar() {
         mToolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbarMain);
@@ -4179,6 +4184,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mTransaction = mManager.beginTransaction();
 
         mChemistryHelper = ChemistrySingle.getInstance(this);
+
+        if (mMnRight != null) {
+            mMnRight.setVisible(false);
+        }
     }
 
     private void setupNavigate() {
@@ -4227,6 +4236,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+            mDrawerLayout.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -4240,10 +4251,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //handle hide and show nav right
-        if(id == R.id.nav_periodic_table){
+        if (id == R.id.nav_periodic_table) {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mNavigationRight);
-        }else {
+            mMnRight.setVisible(true);
+        } else {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
+            mMnRight.setVisible(false);
         }
 
         //handle load fragment
@@ -4259,4 +4272,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        mMnRight = menu.findItem(R.id.mn_right);
+        mMnRight.setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mn_right:
+                mDrawerLayout.openDrawer(mNavigationRight);
+                break;
+        }
+        return true;
+    }
 }
