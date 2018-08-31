@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,15 @@ public class PeriodicTableFragment extends Fragment {
 
         init(view);
 
-        showPeriodicTable();
+        int idType = 0;
+
+        //Get Data from activity
+        if(getArguments() != null){
+            idType = getArguments().getInt("ID_TYPE");
+            Log.i("ANTN", "idType: " + idType);
+        }
+
+        showPeriodicTable(idType);
 
         return view;
     }
@@ -98,7 +107,7 @@ public class PeriodicTableFragment extends Fragment {
         mElementList = mChemistryHelper.getAllElements();
     }
 
-    private void createPeriodicTable() {
+    private void createPeriodicTable(int idType) {
         TableRow header = new TableRow(mContext);
 
         LayoutInflater l = getLayoutInflater();
@@ -154,7 +163,12 @@ public class PeriodicTableFragment extends Fragment {
                     Chemistry chemistry = mChemistryHelper.getChemistryById(element.getIdElement());
                     tvSymbol.setText(chemistry.getSymbolChemistry());
                     tvName.setText(chemistry.getNameChemistry());
-                    view.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+                    //view.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+
+                    if(idType == chemistry.getIdType() || idType == 0){
+                        view.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+                    }
+
                     setColorStateOfMatter(tvId,chemistry);
                     LinearLayout layout = view.findViewById(R.id.ln_item);
                     layout.setBackgroundResource(R.drawable.background_item_chat_hoa_hoc);
@@ -210,7 +224,7 @@ public class PeriodicTableFragment extends Fragment {
         return -1;
     }
 
-    private void createRelative() {
+    private void createRelative(int idType) {
 
         TableRow row = new TableRow(mContext);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
@@ -233,7 +247,10 @@ public class PeriodicTableFragment extends Fragment {
         tvName.setText("");
         tvSymbol.setText("Họ\nLantan");
         tvSymbol.setTextSize(16);
-        v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[8]);
+        //v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[8]);
+        if(idType == 9 || idType == 0){
+            v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[8]);
+        }
         v.setBackgroundResource(R.drawable.backgroud_item_empty_first_lantan_3a8a);
         row.addView(v, mWidth, mHeight);
 
@@ -247,7 +264,10 @@ public class PeriodicTableFragment extends Fragment {
             tvName.setText(chemistry.getNameChemistry());
             LinearLayout layout = v.findViewById(R.id.ln_item);
             layout.setBackgroundResource(R.drawable.backgroud_item_group);
-            v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            //v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            if(idType == 9 || idType == 0){
+                v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            }
             setColorStateOfMatter(tvId,chemistry);
 
             final int position = i;
@@ -280,7 +300,10 @@ public class PeriodicTableFragment extends Fragment {
         tvName.setText("");
         tvSymbol.setText("Họ\nActini");
         tvSymbol.setTextSize(16);
-        v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[9]);
+        //v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[9]);
+        if(idType == 10 || idType == 0){
+            v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[9]);
+        }
         v.setBackgroundResource(R.drawable.backgroud_item_cycle_first_actini);
         row.addView(v, mWidth, mHeight);
 
@@ -294,7 +317,10 @@ public class PeriodicTableFragment extends Fragment {
             tvName.setText(chemistry.getNameChemistry());
             LinearLayout layout = v.findViewById(R.id.ln_item);
             layout.setBackgroundResource(R.drawable.background_item_chat_hoa_hoc);
-            v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            //v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            if(idType == 10 || idType == 0){
+                v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
+            }
             setColorStateOfMatter(tvId,chemistry);
 
             final int position = i;
@@ -322,13 +348,13 @@ public class PeriodicTableFragment extends Fragment {
         return v;
     }
 
-    private void showPeriodicTable() {
+    private void showPeriodicTable(int idType) {
 
-        createPeriodicTable();
+        createPeriodicTable(idType);
 
         createSpaceLine();
 
-        createRelative();
+        createRelative(idType);
 
         createSpaceLine();
     }

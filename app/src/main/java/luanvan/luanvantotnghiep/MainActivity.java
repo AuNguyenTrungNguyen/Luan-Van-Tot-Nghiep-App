@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment mFragmentToSet = null;
 
     private MenuItem mMnRight = null;
+    private Bundle mBundle = new Bundle();
+    private int mData = 0;
+    private int mLastClick = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -4209,6 +4212,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDrawerClosed(@NonNull View view) {
                 if (mFragmentToSet != null) {
+                    mBundle.putInt("ID_TYPE", mData);
+                    mFragmentToSet.setArguments(mBundle);
                     mTransaction = mManager.beginTransaction();
                     mTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     mTransaction.replace(R.id.container, mFragmentToSet);
@@ -4258,9 +4263,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //handle hide and show nav right by item
         if (idGroup == R.id.group_left_knowledge || idGroup == R.id.group_left_my_info || idGroup == R.id.group_left_app) {
 
-            if(id == R.id.nav_periodic_table){
+            if (id == R.id.nav_periodic_table) {
                 mMnRight.setVisible(true);
-            }else{
+            } else {
                 mMnRight.setVisible(false);
             }
 
@@ -4270,11 +4275,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //handle load fragment
         if (id == R.id.nav_periodic_table) {
-            mFragmentToSet = PeriodicTableFragment.newInstance();
+            putParamToActivity(0);
+            mNavigationRight.getMenu().getItem(0).setChecked(true);
         } else if (id == R.id.nav_solubility_table) {
             mFragmentToSet = SolubilityTableFragment.newInstance();
         } else if (id == R.id.nav_reactivity_series) {
             mFragmentToSet = ReactivitySeriesFragment.newInstance();
+        } else if (id == R.id.nav_alkali_metal) {
+            putParamToActivity(1);
+        } else if (id == R.id.nav_alkaline_earth_metal) {
+            putParamToActivity(2);
+        }else if (id == R.id.nav_post_transition_metal) {
+            putParamToActivity(3);
+        }else if (id == R.id.nav_metalloid) {
+            putParamToActivity(4);
+        }else if (id == R.id.nav_transition_metal) {
+            putParamToActivity(5);
+        }else if (id == R.id.nav_nonmetal) {
+            putParamToActivity(6);
+        }else if (id == R.id.nav_halogen) {
+            putParamToActivity(7);
+        }else if (id == R.id.nav_noble_gas) {
+            putParamToActivity(8);
+        }else if (id == R.id.nav_lanthanide) {
+            putParamToActivity(9);
+        }else if (id == R.id.nav_actinide) {
+            putParamToActivity(10);
+        }else if (id == R.id.nav_unknown_chemical_properties) {
+            putParamToActivity(11);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -4297,5 +4325,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return true;
+    }
+
+    private void putParamToActivity(int data){
+        mData = data;
+        if (mLastClick == mData) {
+            mFragmentToSet = null;
+        } else {
+            mFragmentToSet = PeriodicTableFragment.newInstance();
+            mLastClick = mData;
+        }
     }
 }
