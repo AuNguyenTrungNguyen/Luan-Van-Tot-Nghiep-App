@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -4186,6 +4187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
+        mNavigationRight.setNavigationItemSelectedListener(this);
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -4217,6 +4219,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavigationView.setItemIconTintList(null);
         mNavigationRight.setItemIconTintList(null);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
+
     }
 
     @Override
@@ -4235,6 +4239,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //handle hide and show nav right
+        if(id == R.id.nav_periodic_table){
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mNavigationRight);
+        }else {
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
+        }
+
+        //handle load fragment
         if (id == R.id.nav_periodic_table) {
             mFragmentToSet = PeriodicTableFragment.newInstance();
         } else if (id == R.id.nav_solubility_table) {
