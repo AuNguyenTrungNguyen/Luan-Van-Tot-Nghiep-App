@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
                         android:layout_marginRight="8dp"
-                        android:fontFamily="sans-serif-thin"
+                        android:fontFamily="sans-serif"
                         android:gravity="right"
                         android:text="* theo đồng vị ổn định nhất"
                         android:textColor="#000"
