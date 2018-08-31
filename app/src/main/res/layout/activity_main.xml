@@ -9,9 +9,9 @@
     tools:openDrawer="start">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/toolbar_main"
@@ -21,9 +21,9 @@
 
         <LinearLayout
             android:id="@+id/container"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
 
     </LinearLayout>
 
