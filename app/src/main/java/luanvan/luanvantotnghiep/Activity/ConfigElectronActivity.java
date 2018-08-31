@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.View.CustomView;
 
-public class ConfigElectronActivity extends AppCompatActivity {
+public class ConfigElectronActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
 
@@ -28,7 +28,9 @@ public class ConfigElectronActivity extends AppCompatActivity {
 
     private TextView mTvConfig;
     private TextView mTvShell;
+    private ImageButton mBtnControl;
     private CustomView mCustomView;
+    private boolean mStop = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,6 @@ public class ConfigElectronActivity extends AppCompatActivity {
             String configData = intent.getStringExtra("CONFIG");
             String shellData = intent.getStringExtra("SHELL");
 
-            Log.i("ANTN", configData);
-            Log.i("ANTN", shellData);
-
             handelConfig(configData);
 
             handelShell(shellData);
@@ -61,7 +60,7 @@ public class ConfigElectronActivity extends AppCompatActivity {
         }
     }
 
-    private void handelConfig(String config){
+    private void handelConfig(String config) {
 
         StringBuilder result = new StringBuilder();
 
@@ -95,11 +94,6 @@ public class ConfigElectronActivity extends AppCompatActivity {
                     break;
             }
 
-//            Log.i("ANTN", "number: " + number);
-//            Log.i("ANTN", "shell: " + shell);
-//            Log.i("ANTN", "orbital: " + orbital);
-//            Log.i("ANTN", "color: " + color);
-
             result.append("<font color='").append(LIST_COLORS[color]).append("'>")
                     .append(number).append(shell).append("<small><sup>")
                     .append(orbital).append("</sup></small>").append("</font>  ");
@@ -107,7 +101,7 @@ public class ConfigElectronActivity extends AppCompatActivity {
         mTvConfig.setText(Html.fromHtml(result.toString()));
     }
 
-    private void handelShell(String shell){
+    private void handelShell(String shell) {
         StringBuilder result = new StringBuilder();
         final String itemConfig[] = shell.split(" ");
         for (String anItemConfig : itemConfig) {
@@ -147,11 +141,14 @@ public class ConfigElectronActivity extends AppCompatActivity {
     private void init() {
         mTvConfig = findViewById(R.id.tv_configuration_atom);
         mTvShell = findViewById(R.id.tv_shell_atom);
+        mBtnControl = findViewById(R.id.btn_control);
         mCustomView = findViewById(R.id.draw);
+        mBtnControl.setOnClickListener(this);
+        mBtnControl.setImageResource(R.drawable.src_stop_ani);
     }
 
     private void setupToolbar() {
-        mToolbar= (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -163,5 +160,18 @@ public class ConfigElectronActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_control) {
+            mCustomView.stopAnimate(mStop);
+            if (mStop) {
+                mBtnControl.setImageResource(R.drawable.src_start_ani);
+            } else {
+                mBtnControl.setImageResource(R.drawable.src_stop_ani);
+            }
+            mStop = !mStop;
+        }
     }
 }
