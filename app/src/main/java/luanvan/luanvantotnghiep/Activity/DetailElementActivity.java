@@ -19,6 +19,7 @@ import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
+import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 
@@ -35,6 +36,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
     private TextView mTvProton;
     private TextView mTvNeutron;
 
+    private TextView mTvElementCategory;
     private TextView mTvWeight;
     private TextView mTvEnglishName;
     private TextView mTvGroup;
@@ -109,6 +111,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
         mTvProton = findViewById(R.id.tv_proton);
         mTvNeutron = findViewById(R.id.tv_neutron);
 
+        mTvElementCategory = findViewById(R.id.tv_element_category);
         mTvWeight = findViewById(R.id.tv_weight_chemical);
         mTvEnglishName = findViewById(R.id.tv_english_name);
         mTvGroup = findViewById(R.id.tv_group);
@@ -135,6 +138,16 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    private String getNameTypeById(int id) {
+        List<Type> typeList = mHelper.getAllTypes();
+        for (Type type : typeList) {
+            if (type.getIdType() == id) {
+                return type.getNameType();
+            }
+        }
+        return "";
+    }
+
     private void showInfo() {
         Intent intent = getIntent();
 
@@ -153,6 +166,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 mTvProton.setText(String.valueOf(element.getIdElement()));
                 mTvNeutron.setText(String.valueOf(element.getNeutron()));
 
+                mTvElementCategory.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + String.valueOf(getNameTypeById(chemistry.getIdType())) + "</font>"));
                 mTvWeight.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + String.valueOf(chemistry.getWeightChemistry()) + " (g/mol)</font>"));
                 mTvEnglishName.setText(Html.fromHtml("<font color='gray'>Tên Tiếng Anh: </font><font color='black'>" + element.getEnglishName() + "</font>"));
                 mTvPeriodic.setText(Html.fromHtml("<font color='gray'>Chu kỳ: </font><font color='black'>" + element.getPeriod() + "</font>"));
@@ -188,7 +202,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                         break;
                     }
                 }
-                mTvGroup.setText(Html.fromHtml("<font color='gray'>Nhóm: " + group + "</font>"));
+                mTvGroup.setText(Html.fromHtml("<font color='gray'>Nhóm:  </font><font color='black'>" + group + "</font>"));
 
                 //mToolbar.setTitle(chemistry.getNameChemistry());
                 getSupportActionBar().setTitle(chemistry.getNameChemistry());
