@@ -95,10 +95,13 @@ public class SolubilityTableFragment extends Fragment {
     private void handleTextView() {
         mTvSoluble.setText(Html.fromHtml("<font color='blue'>T</font> : tan"));
         mTvInfoSoluble.setText(Html.fromHtml("trên 1g trong 100g H<small><sub>2</sub></small>O"));
+
         mTvInSoluble.setText(Html.fromHtml("<font color='red'>K</font> : không tan"));
-        mTvInfoInSoluble.setText(Html.fromHtml("từ 0,001g đến 1g trong 100g H<small><sub>2</sub></small>O"));
+        mTvInfoInSoluble.setText(Html.fromHtml("dưới 1g trong 100g H<small><sub>2</sub></small>O"));
+
         mTvLessSoluble.setText(Html.fromHtml("<font color='gray'>I</font> : ít tan"));
-        mTvInfoLessSoluble.setText(Html.fromHtml("dưới 1g trong 100g H<small><sub>2</sub></small>O"));
+        mTvInfoLessSoluble.setText(Html.fromHtml("từ 0,001g đến 1g trong 100g H<small><sub>2</sub></small>O"));
+
         mTvUnExist.setText(Html.fromHtml("<font color='black'>—</font> : bị phân hủy hoặc không tồn tại"));
     }
 
