@@ -1,6 +1,7 @@
 package luanvan.luanvantotnghiep.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -63,6 +64,8 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
 
     private String mConfig;
     private String mShell;
+
+    private Element element;
 
 
     @Override
@@ -153,7 +156,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
 
         if (intent != null) {
 
-            Element element = (Element) intent.getSerializableExtra("ELEMENT_INTENT");
+            element = (Element) intent.getSerializableExtra("ELEMENT_INTENT");
             Chemistry chemistry = (Chemistry) intent.getSerializableExtra("CHEMISTRY_INTENT");
 
             if (element != null && chemistry != null) {
@@ -185,7 +188,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
 
                 String discoverer = element.getDiscoverer();
                 mTvDiscoverer.setText(Html.fromHtml("<font color='gray'>Khám phá bởi:  </font><font color='black'>" + discoverer + "</font>"));
-                if(discoverer.equals("")){
+                if (discoverer.equals("")) {
                     mTvDiscoverer.setVisibility(View.GONE);
                 }
                 mTvYearDiscovery.setText(Html.fromHtml("<font color='gray'>Năm khám phá: </font><font color='black'>" + element.getYearDiscovery() + "</font>"));
@@ -234,27 +237,43 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
+        String nameEnglish;
+        if (!element.getEnglishName().equals("Mercury")) {
+            nameEnglish = element.getEnglishName();
+        } else {
+            nameEnglish = "Mercury_(element)";
+        }
+
+        String uri;
+        Intent intent;
         switch (view.getId()) {
             case R.id.img_wiki:
-                Toast.makeText(this, "img_wiki onClick", Toast.LENGTH_SHORT).show();
+                uri = "https://en.wikipedia.org/wiki/" + nameEnglish;
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
                 break;
 
             case R.id.tv_wiki_pauling_scale:
-                Toast.makeText(this, "tv_wiki_pauling_scale onClick", Toast.LENGTH_SHORT).show();
+                uri = "https://en.wikipedia.org/wiki/Electronegativities_of_the_elements_(data_page)";
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
                 break;
 
             case R.id.img_wiki_table_isotope:
-                Toast.makeText(this, "img_wiki_table_isotope onClick", Toast.LENGTH_SHORT).show();
+                uri = "https://en.wikipedia.org/wiki/Table_of_nuclides_(combined)";
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
                 break;
 
             case R.id.img_config:
-                Intent intent = new Intent(this, ConfigElectronActivity.class);
+                intent = new Intent(this, ConfigElectronActivity.class);
                 intent.putExtra("CONFIG", mConfig);
                 intent.putExtra("SHELL", mShell);
 
                 startActivity(intent);
                 break;
         }
+
     }
 
 }
