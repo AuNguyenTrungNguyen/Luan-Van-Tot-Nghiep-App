@@ -4258,12 +4258,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         int idGroup = item.getGroupId();
 
-        //handle hide and show nav right
-        if (id == R.id.nav_periodic_table) {
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mNavigationRight);
-        } else {
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
-        }
+        //default is not show nav right
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
 
         //handle hide and show nav right by item
         if (idGroup == R.id.group_left_knowledge || idGroup == R.id.group_left_my_info || idGroup == R.id.group_left_app) {
@@ -4272,6 +4268,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mMnRight.setVisible(true);
             } else {
                 mMnRight.setVisible(false);
+                mLastClick = -1;
             }
 
         } else if (idGroup == R.id.group_right_type || idGroup == R.id.group_right_state_matter) {
@@ -4290,23 +4287,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             putParamToActivity(1);
         } else if (id == R.id.nav_alkaline_earth_metal) {
             putParamToActivity(2);
-        }else if (id == R.id.nav_post_transition_metal) {
+        } else if (id == R.id.nav_post_transition_metal) {
             putParamToActivity(3);
-        }else if (id == R.id.nav_metalloid) {
+        } else if (id == R.id.nav_metalloid) {
             putParamToActivity(4);
-        }else if (id == R.id.nav_transition_metal) {
+        } else if (id == R.id.nav_transition_metal) {
             putParamToActivity(5);
-        }else if (id == R.id.nav_nonmetal) {
+        } else if (id == R.id.nav_nonmetal) {
             putParamToActivity(6);
-        }else if (id == R.id.nav_halogen) {
+        } else if (id == R.id.nav_halogen) {
             putParamToActivity(7);
-        }else if (id == R.id.nav_noble_gas) {
+        } else if (id == R.id.nav_noble_gas) {
             putParamToActivity(8);
-        }else if (id == R.id.nav_lanthanide) {
+        } else if (id == R.id.nav_lanthanide) {
             putParamToActivity(9);
-        }else if (id == R.id.nav_actinide) {
+        } else if (id == R.id.nav_actinide) {
             putParamToActivity(10);
-        }else if (id == R.id.nav_unknown_chemical_properties) {
+        } else if (id == R.id.nav_unknown_chemical_properties) {
             putParamToActivity(11);
         }else if (id == R.id.nav_solid) {
             putParamToActivity(12);
@@ -4340,7 +4337,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void putParamToActivity(int data){
+    private void putParamToActivity(int data) {
         mData = data;
         if (mLastClick == mData) {
             mFragmentToSet = null;
@@ -4348,5 +4345,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mFragmentToSet = PeriodicTableFragment.newInstance();
             mLastClick = mData;
         }
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mNavigationRight);
     }
 }
