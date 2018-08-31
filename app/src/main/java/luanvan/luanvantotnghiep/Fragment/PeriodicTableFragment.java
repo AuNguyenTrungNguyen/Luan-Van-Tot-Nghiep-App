@@ -44,6 +44,10 @@ public class PeriodicTableFragment extends Fragment {
             Color.parseColor("#ff99cc"),
             Color.parseColor("#e8e8e8")
     };
+    
+    //Width and Height item_periodic
+    private static final int mWidth = 120; //120
+    private static final int mHeight = 160; //190
 
     private List<Element> mElementList;
     private List<Group> mGroupList;
@@ -100,6 +104,7 @@ public class PeriodicTableFragment extends Fragment {
         LayoutInflater l = getLayoutInflater();
         View view;
 
+        //Row one set group IA and VIIIA
         for (int i = 0; i < 19; i++) {
 
             view = inflateView(l);
@@ -112,7 +117,6 @@ public class PeriodicTableFragment extends Fragment {
             }
             tvId.setText("");
             tvName.setText("");
-            //view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
             if (i == 0 || i == 18) {
                 view.setBackgroundResource(R.drawable.backgroud_item_empty_first_lantan_3a8a);
             }
@@ -122,29 +126,31 @@ public class PeriodicTableFragment extends Fragment {
             if (view.getParent() != null) {
                 ((ViewGroup) view.getParent()).removeView(view);
             }
-            header.addView(view, 120, 190);
+            header.addView(view, mWidth, mHeight);
         }
         mTlPeriodic.addView(header);
 
+        //Period 1 - 7
         for (int i = 1; i < 8; i++) {
+
+            //Number of periodic
             TableRow row = new TableRow(mContext);
             view = inflateView(l);
             tvId.setText("");
             tvName.setText("");
             tvSymbol.setText(String.format("%s", i));
-            //view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
             view.setBackgroundResource(R.drawable.backgroud_item_cycle_first_actini);
-            row.addView(view, 120, 190);
+            row.addView(view, mWidth, mHeight);
 
+            //Value row periodic
             for (int j = 1; j < 19; j++) {
                 view = inflateView(l);
                 final int position = checkPeriodicEmpty(i, j);
 
+                //Condition: cell EMPTY or HAVE value
                 if (position != -1) {
                     Element element = mElementList.get(position);
                     tvId.setText(String.valueOf(element.getIdElement()));
-//                    tvSymbol.setText(element.getSymbolChemistry());
-//                    tvName.setText(element.getNameChemistry());
                     Chemistry chemistry = mChemistryHelper.getChemistryById(element.getIdElement());
                     tvSymbol.setText(chemistry.getSymbolChemistry());
                     tvName.setText(chemistry.getNameChemistry());
@@ -152,6 +158,8 @@ public class PeriodicTableFragment extends Fragment {
                     setColorStateOfMatter(tvId,chemistry);
                     LinearLayout layout = view.findViewById(R.id.ln_item);
                     layout.setBackgroundResource(R.drawable.background_item_chat_hoa_hoc);
+
+                    //Bo: position = 4 and value id = 5
                     if (position == 4) {
                         layout.setBackgroundResource(R.drawable.backgroud_item_cycle_first_actini);
                     }
@@ -166,9 +174,12 @@ public class PeriodicTableFragment extends Fragment {
                 } else {
                     tvId.setText("");
                     tvName.setText("");
-                    //view.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
+                    //Condition groups
                     if (i == 1 && (j < 3 || j > 12)
-                            || i == 3 && (j > 2 && j < 13)) {
+                            || i == 3
+                            && (j > 2 && j < 13)) {
+
+                        //Condition IIIA
                         if (i == 1 && j == 13) {
                             view.setBackgroundResource(R.drawable.backgroud_item_empty_first_lantan_3a8a);
                         } else {
@@ -181,12 +192,13 @@ public class PeriodicTableFragment extends Fragment {
                         tvSymbol.setText("");
                     }
                 }
-                row.addView(view, 120, 190);
+                row.addView(view, mWidth, mHeight);
             }
             mTlPeriodic.addView(row);
         }
     }
 
+    //Return -1 if Element is EMPTY
     private int checkPeriodicEmpty(int period, int positionShow) {
 
         for (int i = 0; i < mElementList.size(); i++) {
@@ -212,8 +224,7 @@ public class PeriodicTableFragment extends Fragment {
             tvId.setText("");
             tvName.setText("");
             tvSymbol.setText("");
-            //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
-            row.addView(v, 120, 190);
+            row.addView(v, mWidth, mHeight);
         }
 
         //Create cell "LanTan"
@@ -224,15 +235,13 @@ public class PeriodicTableFragment extends Fragment {
         tvSymbol.setTextSize(16);
         v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[8]);
         v.setBackgroundResource(R.drawable.backgroud_item_empty_first_lantan_3a8a);
-        row.addView(v, 120, 190);
+        row.addView(v, mWidth, mHeight);
 
         //Data lantan
         for (int i = 57; i < 71; i++) {
             v = inflateView(li);
             Element element = mElementList.get(i);
             tvId.setText(String.valueOf(element.getIdElement()));
-//            tvSymbol.setText(element.getSymbolChemistry());
-//            tvName.setText(element.getNameChemistry());
             Chemistry chemistry = mChemistryHelper.getChemistryById(element.getIdElement());
             tvSymbol.setText(chemistry.getSymbolChemistry());
             tvName.setText(chemistry.getNameChemistry());
@@ -249,7 +258,7 @@ public class PeriodicTableFragment extends Fragment {
                 }
             });
 
-            row.addView(v, 120, 190);
+            row.addView(v, mWidth, mHeight);
         }
 
         mTlPeriodic.addView(row);
@@ -262,8 +271,7 @@ public class PeriodicTableFragment extends Fragment {
             tvId.setText("");
             tvName.setText("");
             tvSymbol.setText("");
-            //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
-            row.addView(v, 120, 190);
+            row.addView(v, mWidth, mHeight);
         }
 
         //Create cell "Actini"
@@ -273,17 +281,14 @@ public class PeriodicTableFragment extends Fragment {
         tvSymbol.setText("Họ\nActini");
         tvSymbol.setTextSize(16);
         v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[9]);
-        //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
         v.setBackgroundResource(R.drawable.backgroud_item_cycle_first_actini);
-        row.addView(v, 120, 190);
+        row.addView(v, mWidth, mHeight);
 
         //Data Actini
         for (int i = 89; i < 103; i++) {
             v = inflateView(li);
             Element element = mElementList.get(i);
             tvId.setText(String.valueOf(element.getIdElement()));
-//            tvSymbol.setText(element.getSymbolChemistry());
-//            tvName.setText(element.getNameChemistry());
             Chemistry chemistry = mChemistryHelper.getChemistryById(element.getIdElement());
             tvSymbol.setText(chemistry.getSymbolChemistry());
             tvName.setText(chemistry.getNameChemistry());
@@ -300,7 +305,7 @@ public class PeriodicTableFragment extends Fragment {
                 }
             });
 
-            row.addView(v, 120, 190);
+            row.addView(v, mWidth, mHeight);
         }
 
         mTlPeriodic.addView(row);
@@ -343,8 +348,7 @@ public class PeriodicTableFragment extends Fragment {
         tvId.setText("");
         tvKyHieu.setText("");
         tvTen.setText("");
-        //v.findViewById(R.id.tv_show).setVisibility(View.INVISIBLE);
-        row.addView(v, 100, 190);
+        row.addView(v, mWidth, mHeight);
         mTlPeriodic.addView(row);
     }
 
@@ -380,5 +384,10 @@ public class PeriodicTableFragment extends Fragment {
                 textView.setTextColor(Color.GRAY);
                 break;
         }
+    }
+
+    //Function filter is GROUP
+    private void handelFilterGroup(){
+
     }
 }
