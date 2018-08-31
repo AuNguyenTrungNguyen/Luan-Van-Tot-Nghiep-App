@@ -29,25 +29,15 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
-                                      <entry key="image">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="paddingPercent" value="-10" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                     </map>
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\mn_right.png" />
-                                      <entry key="outputName" value="src_stop_ani" />
-                                      <entry key="theme" value="HOLO_DARK" />
-                                      <entry key="themeColor" value="002aff" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\Admin\Downloads\icon_cnhh\wikipedia-512.png" />
+                                      <entry key="outputName" value="icon_wiki_white" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>

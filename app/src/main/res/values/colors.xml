@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#29434e</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textColor">#fff</color>
+    <color name="background">#e7e5e5</color>
 
     <!--Color type of periodic-->
     <color name="alkali_metal">#ff6666</color>
