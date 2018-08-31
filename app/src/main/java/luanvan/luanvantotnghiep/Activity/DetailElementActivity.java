@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -23,6 +22,7 @@ import luanvan.luanvantotnghiep.Model.Group;
 import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.View.ElectronView;
 
 public class DetailElementActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,8 +49,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
     private TextView mTvClass;
     private TextView mTvSimplified;
     private TextView mTvConfiguration;
-    private TextView mTvShell;
-    private ImageView mImgConfig;
+    private ElectronView mElectronView;
 
     private TextView mTvStatus;
     private TextView mTvColor;
@@ -100,7 +99,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
         mImgWiki.setOnClickListener(this);
         mTvWikiPaulingScale.setOnClickListener(this);
         mImgWikiTableIsotope.setOnClickListener(this);
-        mImgConfig.setOnClickListener(this);
+        mElectronView.setOnClickListener(this);
     }
 
     private void init() {
@@ -126,8 +125,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
         mTvClass = findViewById(R.id.tv_class);
         mTvSimplified = findViewById(R.id.tv_simplified_configuration);
         mTvConfiguration = findViewById(R.id.tv_configuration);
-        mTvShell = findViewById(R.id.tv_shell);
-        mImgConfig = findViewById(R.id.img_config);
+        mElectronView = findViewById(R.id.electron_view);
 
         mTvStatus = findViewById(R.id.tv_status_chemical);
         mTvColor = findViewById(R.id.tv_color_chemical);
@@ -197,8 +195,9 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 String config = element.getConfiguration();
                 mTvConfiguration.setText(Html.fromHtml("<font color='gray'>Cấu hình electron: </font><font color='black'>" + handelConfigElectron(config) + "</font>"));
                 mConfig = config;
-                mTvShell.setText(element.getShell());
+
                 mShell = element.getShell();
+                mElectronView.setShellToView(mShell);
 
                 List<Group> list = mHelper.getAllGroups();
 
@@ -265,7 +264,7 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 startActivity(intent);
                 break;
 
-            case R.id.img_config:
+            case R.id.electron_view:
                 intent = new Intent(this, ConfigElectronActivity.class);
                 intent.putExtra("CONFIG", mConfig);
                 intent.putExtra("SHELL", mShell);

@@ -392,37 +392,15 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="5">
-
-                        <TextView
-                            android:id="@+id/tv_shell"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="4"
-                            android:fontFamily="sans-serif-thin"
-                            android:padding="4dp"
-                            android:text="Vỏ điện tử: K1"
-                            android:textColor="#000"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/img_config"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center|end"
-                            android:layout_weight="1"
-                            android:foregroundGravity="center"
-                            android:paddingRight="8dp"
-                            android:src="@mipmap/ic_launcher_round" />
-
-                    </LinearLayout>
+                    <luanvan.luanvantotnghiep.View.ElectronView
+                        android:id="@+id/electron_view"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:foregroundGravity="center"
+                        android:paddingRight="8dp"
+                        android:src="@mipmap/ic_launcher_round" />
 
                 </LinearLayout>
 
