@@ -1905,7 +1905,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("p");
         element.setNeutron(22);
         element.setSimplifiedConfiguration("[He]3s<small><sup>2</sup></small> 3p<small><sup>6</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6");
         element.setShell("K2 L8 M8");
         element.setElectronegativity(3.242);
         element.setValence("0");
@@ -1928,7 +1928,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("s");
         element.setNeutron(20);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>1</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s1");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s1");
         element.setShell("K2 L8 M8 N1");
         element.setElectronegativity(0.734);
         element.setValence("<b>+1</b>, -1");
@@ -1950,7 +1950,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("s");
         element.setNeutron(20);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>2</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s2");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2");
         element.setShell("K2 L8 M8 N2");
         element.setElectronegativity(1.034);
         element.setValence("<b>+2</b>, +1");
@@ -1975,7 +1975,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("d");
         element.setNeutron(24);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>2</sup></small> 3d<small><sup>1</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s2 3d1");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d1");
         element.setShell("K2 L8 M9 N2");
         element.setElectronegativity(1.19);
         element.setValence("<b>+3</b>, +2, +1");
@@ -1996,7 +1996,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("d");
         element.setNeutron(26);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>2</sup></small> 3d<small><sup>2</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s2 3d2");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d2");
         element.setShell("K2 L8 M10 N2");
         element.setElectronegativity(1.38);
         element.setValence("<b>+4</b>, +3, +2, +1, -1, -2");
@@ -2021,7 +2021,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("d");
         element.setNeutron(28);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>2</sup></small> 3d<small><sup>3</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s2 3d3");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d3");
         element.setShell("K2 L8 M11 N2");
         element.setElectronegativity(1.63);
         element.setValence("<b>+5</b>, <b>+4</b>, +3, <b>+2</b>, +1, -1, -3");
@@ -2042,7 +2042,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("d");
         element.setNeutron(28);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>1</sup></small> 3d<small><sup>5</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s1 3d5");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s1 3d5");
         element.setShell("K2 L8 M13 N1");
         element.setElectronegativity(1.66);
         element.setValence("<b>+6</b>, +5, <b>+4</b>, <b>+3</b>, <b>+2</b>, +1, -1, -2, -4");
@@ -2066,7 +2066,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setClassElement("d");
         element.setNeutron(30);
         element.setSimplifiedConfiguration("[Ar]4s<small><sup>2</sup></small> 3d<small><sup>5</sup></small>");
-        element.setConfiguration("1s2 2s2 2p6 3s2 3p8 4s2 3d5");
+        element.setConfiguration("1s2 2s2 2p6 3s2 3p6 4s2 3d5");
         element.setShell("K2 L8 M13 N2");
         element.setElectronegativity(1.55);
         element.setValence("<b>+7</b>, <b>+6</b>, +5, <b>+4</b>, <b>+3</b>, <b>+2</b>, +1, -1, -2, -3");
