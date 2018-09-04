@@ -25,5 +25,9 @@
     <color name="liquid">#00FFFF</color>
     <color name="unknown">#606060</color>
 
+    <color name="oxidizing_reducing">#00FFFF</color>
+    <color name="black">#000</color>
+
+
 </resources>
 

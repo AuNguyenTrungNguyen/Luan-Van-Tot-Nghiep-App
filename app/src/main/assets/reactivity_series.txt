@@ -1,0 +1,34 @@
+﻿<i>a. Mức độ hóa học của các kim loại giảm dần từ trái sang phải</i>
+<br><br>
+    &#8680 Li là kim loại hoạt động mạnh nhất<br>
+    &#8680 Au là kim loại hoạt động kém nhất.
+        <br>
+<br>
+    <i>b. Kim loại đứng trước Mg (Li, K, Ba, Ca, Na) phản ứng được với nước ở nhiệt độ thường.</i>
+    <br><br>
+    2Na + 2H<small><sub>2</sub></small>O &rarr 2NaOH + H<small><sub>2</sub></small>	&uarr
+    <br>
+    Ba + 2H<small><sub>2</sub></small>O &rarr Ba(OH)<small><sub>2</sub></small> + H<small><sub>2</sub></small>	&uarr
+        <br>
+    <br>
+    <i>c. Kim loại đứng trước H tác dụng với dung dịch axit (HCl; H<small><sub>2</sub></small>SO<small><sub>4</sub></small> loãng,….) tạo ra H<small><sub>2</sub></small></i>
+    <br><br>
+    Fe + 2HCl &rarr FeCl<small><sub>2</sub></small> + H<small><sub>2</sub></small>	&uarr
+    <br>
+    Cu + 2HCl &rarr không phản ứng <br>(vì Cu đứng sau H)
+        <br>
+    <br>
+   <i> d. Kim loại không tan trong nước (từ Mg trở về sau) đẩy được kim loại đứng sau nó ra khỏi dung dịch muối</i>
+    <br><br>
+        Fe + CuSO<small><sub>4</sub></small> &rarr FeSO<small><sub>4</sub></small> + Cu
+        <br>
+        Cu + 2AgNO<small><sub>3</sub></small> &rarr Cu(NO<small><sub>3</sub></small>)<small><sub>2</sub></small> + 2Ag
+        <br>
+        <br>
+    <font color='red'>Chú ý: </font>Khi cho Na vào dung dịch CuCl<small><sub>2</sub></small> thì:
+<br>
+    + Na phản ứng với nước trước:<br><br>
+        2Na + 2H<small><sub>2</sub></small>O &rarr 2NaOH + H<small><sub>2</sub></small>	&uarr
+    <br><br>
+    + Sau đó xảy ra phản ứng:<br><br>
+        CuCl<small><sub>2</sub></small> + 2NaOH &rarr Cu(OH)<small><sub>2</sub></small>&darr + 2Ag
