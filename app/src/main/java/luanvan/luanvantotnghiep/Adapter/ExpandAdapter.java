@@ -1,6 +1,7 @@
 package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 
+import luanvan.luanvantotnghiep.Activity.ShowTheoryActivity;
 import luanvan.luanvantotnghiep.Model.ClassObject;
 import luanvan.luanvantotnghiep.R;
 
@@ -89,7 +91,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter{
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, item, Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, ShowTheoryActivity.class));
             }
         });
 

@@ -21,9 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.DetailElementActivity"
+        <activity
+            android:name=".Activity.DetailElementActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.ConfigElectronActivity"
+        <activity
+            android:name=".Activity.ConfigElectronActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.ShowTheoryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
