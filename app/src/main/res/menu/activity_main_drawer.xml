@@ -12,6 +12,9 @@
                     android:checkableBehavior="single"
                     android:menuCategory="secondary">
                     <item
+                        android:id="@+id/nav_main"
+                        android:title="Trò chơi" />
+                    <item
                         android:id="@+id/nav_periodic_table"
                         android:icon="@drawable/ic_menu_periodic_table"
                         android:title="Bảng tuần hoàn" />

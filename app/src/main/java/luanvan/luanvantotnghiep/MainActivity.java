@@ -22,7 +22,9 @@ import java.util.List;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
+import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
+import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MenuItem mMnRight = null;
     private Bundle mBundle = new Bundle();
     private int mData = 0;
-    private int mLastClick = -1;
+    private int mLastClick = -1; //var is check instance last fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -5240,13 +5242,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //handle load fragment
-        if (id == R.id.nav_periodic_table) {
+        if (id == R.id.nav_main) {
+            mFragmentToSet = MainFragment.newInstance();
+        } else if (id == R.id.nav_periodic_table) {
             putParamToActivity(0);
             mNavigationRight.getMenu().getItem(0).setChecked(true);
         } else if (id == R.id.nav_solubility_table) {
             mFragmentToSet = SolubilityTableFragment.newInstance();
         } else if (id == R.id.nav_reactivity_series) {
             mFragmentToSet = ReactivitySeriesFragment.newInstance();
+        } else if (id == R.id.nav_theory) {
+            mFragmentToSet = PickingClassFragment.newInstance();
+        } else if (id == R.id.nav_search) {
+            mFragmentToSet = SearchFragment.newInstance();
         } else if (id == R.id.nav_alkali_metal) {
             putParamToActivity(1);
         } else if (id == R.id.nav_alkaline_earth_metal) {
@@ -5269,13 +5277,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             putParamToActivity(10);
         } else if (id == R.id.nav_unknown_chemical_properties) {
             putParamToActivity(11);
-        }else if (id == R.id.nav_solid) {
+        } else if (id == R.id.nav_solid) {
             putParamToActivity(12);
-        }else if (id == R.id.nav_liquid) {
+        } else if (id == R.id.nav_liquid) {
             putParamToActivity(13);
-        }else if (id == R.id.nav_gas) {
+        } else if (id == R.id.nav_gas) {
             putParamToActivity(14);
-        }else if (id == R.id.nav_unknown) {
+        } else if (id == R.id.nav_unknown) {
             putParamToActivity(15);
         }
 

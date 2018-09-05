@@ -1,30 +1,15 @@
 package luanvan.luanvantotnghiep.Fragment;
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.pdf.PdfRenderer;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import luanvan.luanvantotnghiep.Adapter.ShowPDFAdapter;
 import luanvan.luanvantotnghiep.R;
 
 public class MainFragment extends Fragment {
@@ -49,9 +34,9 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        mPdfView = v.findViewById(R.id.pdfView);
-
-        mPdfView.fromAsset(FILENAME).load();
+//        mPdfView = v.findViewById(R.id.pdfView);
+//
+//        mPdfView.fromAsset(FILENAME).load();
 
         return v;
     }

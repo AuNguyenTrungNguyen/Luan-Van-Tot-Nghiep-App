@@ -7,20 +7,20 @@
     android:orientation="vertical"
     tools:context=".Fragment.ReactivitySeriesFragment">
 
-    <!--<TextView-->
-        <!--android:gravity="center"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/main_fragment" />-->
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/main_fragment" />
 
     <!--<ListView-->
         <!--android:id="@+id/lv_pdf"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!--<com.github.barteksc.pdfviewer.PDFView-->
+        <!--android:id="@+id/pdfView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 </LinearLayout>
