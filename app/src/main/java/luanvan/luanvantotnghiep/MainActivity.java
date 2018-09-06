@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Bundle mBundle = new Bundle();
     private int mData = 0;
     private int mLastClick = -1; //var is check instance last fragment
+    private int mFlag = -1; //flag check status navigate
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -5243,18 +5244,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //handle load fragment
         if (id == R.id.nav_main) {
-            mFragmentToSet = MainFragment.newInstance();
+
+            switchFragment(R.id.nav_main, MainFragment.newInstance());
+
         } else if (id == R.id.nav_periodic_table) {
             putParamToActivity(0);
             mNavigationRight.getMenu().getItem(0).setChecked(true);
         } else if (id == R.id.nav_solubility_table) {
-            mFragmentToSet = SolubilityTableFragment.newInstance();
+
+            switchFragment(R.id.nav_solubility_table, SolubilityTableFragment.newInstance());
+
         } else if (id == R.id.nav_reactivity_series) {
-            mFragmentToSet = ReactivitySeriesFragment.newInstance();
+
+            switchFragment(R.id.nav_reactivity_series, ReactivitySeriesFragment.newInstance());
+
         } else if (id == R.id.nav_theory) {
-            mFragmentToSet = PickingClassFragment.newInstance();
+
+            switchFragment(R.id.nav_theory, PickingClassFragment.newInstance());
+
         } else if (id == R.id.nav_search) {
-            mFragmentToSet = SearchFragment.newInstance();
+
+            switchFragment(R.id.nav_search, SearchFragment.newInstance());
+
         } else if (id == R.id.nav_alkali_metal) {
             putParamToActivity(1);
         } else if (id == R.id.nav_alkaline_earth_metal) {
@@ -5318,5 +5329,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mLastClick = mData;
         }
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, mNavigationRight);
+    }
+
+    private void switchFragment(int id, Fragment fragment){
+        if (mFlag == id){
+            mFragmentToSet = null;
+        }else{
+            mFragmentToSet = fragment;
+            mFlag = id;
+        }
     }
 }
