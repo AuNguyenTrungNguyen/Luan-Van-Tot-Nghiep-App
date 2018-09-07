@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -181,7 +180,7 @@ public class ReactivitySeriesFragment extends Fragment {
                 " Nên sang Phố Sắt3/Sắt Hỏi cửa Hàng Sắt3/Sắt2 Hiệu Á Phi Âu");
 
         try {
-            InputStream fis = mContext.getAssets().open("reactivity_series.txt");
+            InputStream fis = mContext.getAssets().open("reactivity_series");
             BufferedReader reader=new
                     BufferedReader(new InputStreamReader(fis));
             String data="";

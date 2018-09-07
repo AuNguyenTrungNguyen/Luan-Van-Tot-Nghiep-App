@@ -1748,7 +1748,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         element = new Element();
         element.setIdElement(11);
-        element.setMolecularFormula("Ne");
+        element.setMolecularFormula("Na");
         element.setPeriod(3);
         element.setClassElement("s");
         element.setNeutron(12);

@@ -1,18 +1,28 @@
 package luanvan.luanvantotnghiep.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
@@ -22,6 +32,7 @@ import luanvan.luanvantotnghiep.Model.Group;
 import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.View.ElectronView;
 
 public class DetailElementActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,6 +40,11 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
     private ChemistryHelper mHelper;
 
     private Toolbar mToolbar;
+
+    private LinearLayout mLnElectron;
+    private LinearLayout mLnProton;
+    private LinearLayout mLnNeutron;
+
 
     private ImageView mImgBackground;
     private ImageView mImgWiki;
@@ -66,6 +82,13 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
 
     private Element element;
 
+    private Dialog dialog;
+
+    private TextView mTvNameInfo;
+    private TextView mTvInfoElement;
+
+    private String mStrCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +123,32 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
         mTvWikiPaulingScale.setOnClickListener(this);
         mImgWikiTableIsotope.setOnClickListener(this);
         mElectronView.setOnClickListener(this);
+
+        mLnElectron.setOnClickListener(this);
+        mLnProton.setOnClickListener(this);
+        mLnNeutron.setOnClickListener(this);
+
+        mTvElementCategory.setOnClickListener(this);
+        mTvWeight.setOnClickListener(this);
+        mTvGroup.setOnClickListener(this);
+        mTvPeriodic.setOnClickListener(this);
+        mTvElectronegativity.setOnClickListener(this);
+        mTvValence.setOnClickListener(this);
+
+        mTvClass.setOnClickListener(this);
+        mTvConfiguration.setOnClickListener(this);
+        mTvSimplified.setOnClickListener(this);
+
+        mTvIsotope.setOnClickListener(this);
     }
 
     private void init() {
 
         mHelper = ChemistrySingle.getInstance(this);
+
+        mLnElectron = findViewById(R.id.ln_electron);
+        mLnProton = findViewById(R.id.ln_proton);
+        mLnNeutron = findViewById(R.id.ln_neutron);
 
         mImgBackground = findViewById(R.id.img_background);
         mImgWiki = findViewById(R.id.img_wiki);
@@ -167,7 +211,8 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 mTvProton.setText(String.valueOf(element.getIdElement()));
                 mTvNeutron.setText(String.valueOf(element.getNeutron()));
 
-                mTvElementCategory.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + String.valueOf(getNameTypeById(chemistry.getIdType())) + "</font>"));
+                mStrCategory = String.valueOf(getNameTypeById(chemistry.getIdType()));
+                mTvElementCategory.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + mStrCategory + "</font>"));
                 mTvWeight.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + String.valueOf(chemistry.getWeightChemistry()) + " (g/mol)</font>"));
                 mTvEnglishName.setText(Html.fromHtml("<font color='gray'>Tên Tiếng Anh: </font><font color='black'>" + element.getEnglishName() + "</font>"));
                 mTvPeriodic.setText(Html.fromHtml("<font color='gray'>Chu kỳ: </font><font color='black'>" + element.getPeriod() + "</font>"));
@@ -268,11 +313,129 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 intent = new Intent(this, ConfigElectronActivity.class);
                 intent.putExtra("CONFIG", mConfig);
                 intent.putExtra("SHELL", mShell);
-
                 startActivity(intent);
                 break;
+
+            case R.id.ln_electron:
+                showDialog(Constraint.FILE_ELECTRON, "Electron");
+                break;
+
+            case R.id.ln_proton:
+                showDialog(Constraint.FILE_PROTON, "Proton");
+                break;
+
+            case R.id.ln_neutron:
+                showDialog(Constraint.FILE_NEUTRON, "Nơtron");
+                break;
+
+            case R.id.tv_element_category:
+                handleCategory(mStrCategory);
+                break;
+
+            case R.id.tv_weight_chemical:
+                showDialog(Constraint.FILE_WEIGHT, "Nguyên tử khối");
+                break;
+
+            case R.id.tv_group:
+                showDialog(Constraint.FILE_GROUP, "Nhóm");
+                break;
+
+            case R.id.tv_period:
+                showDialog(Constraint.FILE_PERIODIC, "Chu kỳ");
+                break;
+
+            case R.id.tv_electronegativity:
+                showDialog(Constraint.FILE_ELECTRONEGATIVITY, "Độ âm điện");
+                break;
+
+            case R.id.tv_valence:
+                showDialog(Constraint.FILE_VALENCE, "Hóa trị");
+                break;
+
+            case R.id.tv_class:
+                showDialog(Constraint.FILE_CLASS, "Phân lớp");
+                break;
+
+            case R.id.tv_simplified_configuration:
+                showDialog(Constraint.FILE_CONFIGURATION, "Cấu hình electron");
+                break;
+
+            case R.id.tv_configuration:
+                showDialog(Constraint.FILE_CONFIGURATION, "Cấu hình electron");
+                break;
+
+            case R.id.tv_isotope:
+                showDialog(Constraint.FILE_ISOTOPE, "Đồng vị");
+                break;
+
         }
 
     }
 
+    private void showDialog(String value, String name){
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.item_dialog_info_element);
+        mTvInfoElement = dialog.findViewById(R.id.tv_info_element);
+        mTvNameInfo = dialog.findViewById(R.id.tv_name_info);
+
+        try {
+            InputStream fis = this.getAssets().open(value);
+            BufferedReader reader = new
+                    BufferedReader(new InputStreamReader(fis));
+            String data = "";
+            StringBuilder builder = new StringBuilder();
+            while ((data = reader.readLine()) != null) {
+                builder.append(data);
+                builder.append("\n");
+            }
+            fis.close();
+            mTvInfoElement.setText(Html.fromHtml(builder.toString()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mTvNameInfo.setText(name);
+
+        mTvInfoElement.setClickable(true);
+        mTvInfoElement.setMovementMethod(LinkMovementMethod.getInstance());
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void handleCategory(String category){
+        switch (category){
+            case "Kim loại kiềm":
+                showDialog(Constraint.FILE_ALKALI_METAL ,category);
+                break;
+            case "Kim loại kiềm thổ":
+                showDialog(Constraint.FILE_ALKALINE_EARTH_METAL ,category);
+                break;
+            case "Kim loại yếu":
+                showDialog(Constraint.FILE_POST_TRANSITION_METAL ,category);
+                break;
+            case "Á kim":
+                showDialog(Constraint.FILE_METALLOID ,category);
+                break;
+            case "Kim loại chuyển tiếp":
+                showDialog(Constraint.FILE_TRANSITION_METAL ,category);
+                break;
+            case "Phi kim":
+                showDialog(Constraint.FILE_NONMETAL ,category);
+                break;
+            case "Halogen":
+                showDialog(Constraint.FILE_HALOGEN ,category);
+                break;
+            case "Khí trơ":
+                showDialog(Constraint.FILE_NOBLE_GAS ,category);
+                break;
+            case "Họ Lantan":
+                showDialog(Constraint.FILE_LANTHANIDE ,category);
+                break;
+            case "Họ Actini":
+                showDialog(Constraint.FILE_ACTINIDE ,category);
+                break;
+        }
+    }
 }
