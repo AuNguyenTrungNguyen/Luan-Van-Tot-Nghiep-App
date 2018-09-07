@@ -26,6 +26,7 @@ import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
 import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
+import luanvan.luanvantotnghiep.Fragment.TestFragment;
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
 import luanvan.luanvantotnghiep.Model.Chemistry;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupNavigate();
 
         //Load MainFragment to MainActivity
-        mTransaction.replace(R.id.container, MainFragment.newInstance());
+        mTransaction.replace(R.id.container, TestFragment.newInstance());
         mTransaction.commit();
 
         //Data use PERIODIC_TABLE

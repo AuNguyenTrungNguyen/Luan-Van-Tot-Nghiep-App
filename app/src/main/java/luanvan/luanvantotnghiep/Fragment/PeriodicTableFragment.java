@@ -102,7 +102,6 @@ public class PeriodicTableFragment extends Fragment {
         mTlPeriodic = v.findViewById(R.id.tl_periodic);
 
         mChemistryHelper = ChemistrySingle.getInstance(getContext());
-
         mGroupList = mChemistryHelper.getAllGroups();
         mElementList = mChemistryHelper.getAllElements();
     }
@@ -463,8 +462,4 @@ public class PeriodicTableFragment extends Fragment {
 
     }
 
-    //Function filter is GROUP
-    private void handelFilterGroup() {
-
-    }
 }
