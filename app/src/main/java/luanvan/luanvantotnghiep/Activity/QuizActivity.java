@@ -1,6 +1,5 @@
 package luanvan.luanvantotnghiep.Activity;
 
-import android.animation.Animator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
@@ -21,7 +20,6 @@ import luanvan.luanvantotnghiep.Adapter.PositionQuestionAdapter;
 import luanvan.luanvantotnghiep.Adapter.SwipeQuestionAdapter;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
-import luanvan.luanvantotnghiep.Model.ChooseAnswer;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 
@@ -102,140 +100,140 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 //            question = new Question(i,String.valueOf(i+1));
 //            mQuestionList.add(question);
 //        }
-        question = new Question(1,"Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
+//        question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
+//        mQuestionList.add(question);
+
+        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
         mQuestionList.add(question);
 
-        question = new Question(2,"Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
+//        question = new Question(3, "Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
+//        mQuestionList.add(question);
+
+        question = new Question(4, "Nước sông hồ thuộc loại:");
         mQuestionList.add(question);
 
-        question = new Question(3,"Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
-        mQuestionList.add(question);
-
-        question = new Question(4,"Nước sông hồ thuộc loại:");
-        mQuestionList.add(question);
-
-        question = new Question(5,"Để tách rượu ra khỏi hỗn hợp rượu lẫn nước, dùng cách nào sau đây?");
+        question = new Question(5, "Để tách rượu ra khỏi hỗn hợp rượu lẫn nước, dùng cách nào sau đây?");
         mQuestionList.add(question);
     }
 
-    private void addDataAnswerByQuestion(){
+    private void addDataAnswerByQuestion() {
         mAnswerByQuestionList = new ArrayList<>();
         AnswerByQuestion answerByQuestion;
 
-        answerByQuestion = new AnswerByQuestion(1,1,false);
+        answerByQuestion = new AnswerByQuestion(1, 1, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(1,2,false);
+        answerByQuestion = new AnswerByQuestion(1, 2, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(1,3,false);
+        answerByQuestion = new AnswerByQuestion(1, 3, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(1,4,true);
+        answerByQuestion = new AnswerByQuestion(1, 4, true);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2,1,true);
+        answerByQuestion = new AnswerByQuestion(2, 1, true);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2,2,false);
+        answerByQuestion = new AnswerByQuestion(2, 2, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2,3,false);
+        answerByQuestion = new AnswerByQuestion(2, 3, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2,4,false);
+        answerByQuestion = new AnswerByQuestion(2, 4, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3,5,false);
+        answerByQuestion = new AnswerByQuestion(3, 5, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3,6,true);
+        answerByQuestion = new AnswerByQuestion(3, 6, true);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3,7,false);
+        answerByQuestion = new AnswerByQuestion(3, 7, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3,8,false);
+        answerByQuestion = new AnswerByQuestion(3, 8, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4,9,false);
+        answerByQuestion = new AnswerByQuestion(4, 9, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4,10,false);
+        answerByQuestion = new AnswerByQuestion(4, 10, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4,11,false);
+        answerByQuestion = new AnswerByQuestion(4, 11, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4,12,true);
+        answerByQuestion = new AnswerByQuestion(4, 12, true);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5,13,false);
+        answerByQuestion = new AnswerByQuestion(5, 13, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5,14,false);
+        answerByQuestion = new AnswerByQuestion(5, 14, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5,15,true);
+        answerByQuestion = new AnswerByQuestion(5, 15, true);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5,16,false);
+        answerByQuestion = new AnswerByQuestion(5, 16, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
 
     }
 
-    private void addDataAnswer(){
+    private void addDataAnswer() {
 
         mAnswerList = new ArrayList<>();
         Answer answer;
 
-        answer = new Answer(1,"Ấm nhôm, bình thủy tinh, nồi đất sét.");
+        answer = new Answer(1, "Ấm nhôm, bình thủy tinh, nồi đất sét.");
         mAnswerList.add(answer);
 
-        answer = new Answer(2,"Xenlulozơ, kẽm, vàng.");
+        answer = new Answer(2, "Xenlulozơ, kẽm, vàng.");
         mAnswerList.add(answer);
 
-        answer = new Answer(3,"Thao, bút, tập, sách.");
+        answer = new Answer(3, "Thao, bút, tập, sách.");
         mAnswerList.add(answer);
 
-        answer = new Answer(4,"Nước biển, ao, hồ, suối.");
+        answer = new Answer(4, "Nước biển, ao, hồ, suối.");
         mAnswerList.add(answer);
 
-        answer = new Answer(5,"Bàn ghế, đường kính, vải may áo.");
+        answer = new Answer(5, "Bàn ghế, đường kính, vải may áo.");
         mAnswerList.add(answer);
 
-        answer = new Answer(6,"Muối ăn, đường kính, bột sắt, nước cất.");
+        answer = new Answer(6, "Muối ăn, đường kính, bột sắt, nước cất.");
         mAnswerList.add(answer);
 
-        answer = new Answer(7,"Bút chì, thước kẻ, nước cất, vàng.");
+        answer = new Answer(7, "Bút chì, thước kẻ, nước cất, vàng.");
         mAnswerList.add(answer);
 
-        answer = new Answer(8,"Nhôm, sắt, than củi, chảo gang.");
+        answer = new Answer(8, "Nhôm, sắt, than củi, chảo gang.");
         mAnswerList.add(answer);
 
-        answer = new Answer(9,"Đơn chất.");
+        answer = new Answer(9, "Đơn chất.");
         mAnswerList.add(answer);
 
-        answer = new Answer(10,"Hợp chất.");
+        answer = new Answer(10, "Hợp chất.");
         mAnswerList.add(answer);
 
-        answer = new Answer(11,"Chất tinh khiết.");
+        answer = new Answer(11, "Chất tinh khiết.");
         mAnswerList.add(answer);
 
-        answer = new Answer(12,"Hỗn hợp.");
+        answer = new Answer(12, "Hỗn hợp.");
         mAnswerList.add(answer);
 
-        answer = new Answer(13,"Lọc.");
+        answer = new Answer(13, "Lọc.");
         mAnswerList.add(answer);
 
-        answer = new Answer(14,"Dùng phễu chiết.");
+        answer = new Answer(14, "Dùng phễu chiết.");
         mAnswerList.add(answer);
 
-        answer = new Answer(15,"Chưng cất phân đoạn.");
+        answer = new Answer(15, "Chưng cất phân đoạn.");
         mAnswerList.add(answer);
 
-        answer = new Answer(16,"Đốt.");
+        answer = new Answer(16, "Đốt.");
         mAnswerList.add(answer);
     }
 
@@ -272,14 +270,15 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showQuestion() {
-        SwipeQuestionAdapter swipeQuestionAdapter = new SwipeQuestionAdapter(this, mQuestionList, mAnswerList, mAnswerByQuestionList);
-        viewPager.setAdapter(swipeQuestionAdapter);
+        mSwipeQuestionAdapter = new SwipeQuestionAdapter(this, mQuestionList, mAnswerList, mAnswerByQuestionList);
+        viewPager.setAdapter(mSwipeQuestionAdapter);
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.btn_complete_quiz){
-
+        if (view.getId() == R.id.btn_complete_quiz) {
+            Log.i("ANTN", "Score: " + mSwipeQuestionAdapter.getScore());
+            //finish();
         }
     }
 

@@ -2,15 +2,28 @@ package luanvan.luanvantotnghiep.Model;
 
 public class ChooseAnswer {
     private int mNumberQuestion;
-    private int mNumberChooseAnswer = -1;
+    private int mNumberChooseAnswer = -1; //UI
+    private int mIdChooseAnswer = 0; //Handle
+
+    public int getIdChooseAnswer() {
+        return mIdChooseAnswer;
+    }
+
+    public void setIdChooseAnswer(int mIdChooseAnswer) {
+        this.mIdChooseAnswer = mIdChooseAnswer;
+    }
 
     public ChooseAnswer() {
     }
 
-    public ChooseAnswer(int mNumberQuestion, int mNumberChooseAnswer) {
+    public ChooseAnswer(int mNumberQuestion) {
         this.mNumberQuestion = mNumberQuestion;
-        this.mNumberChooseAnswer = mNumberChooseAnswer;
     }
+
+//    public ChooseAnswer(int mNumberQuestion, int mNumberChooseAnswer) {
+//        this.mNumberQuestion = mNumberQuestion;
+//        this.mNumberChooseAnswer = mNumberChooseAnswer;
+//    }
 
     public int getNumberQuestion() {
         return mNumberQuestion;

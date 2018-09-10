@@ -3,14 +3,12 @@ package luanvan.luanvantotnghiep.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +38,7 @@ public class SwipeQuestionAdapter extends PagerAdapter {
         this.mAnswerByQuestionList = answerByQuestionList;
 
         for (int i = 0; i < mQuestionList.size(); i++) {
-            mChooseAnswerList.add(new ChooseAnswer(i, -1));
+            mChooseAnswerList.add(new ChooseAnswer(i));
         }
 
     }
@@ -82,42 +80,43 @@ public class SwipeQuestionAdapter extends PagerAdapter {
         }
 
         //get content answer
-        List<String> listContent = new ArrayList<>();
+        final List<Answer> listUser = new ArrayList<>();
         for (Answer answer : mAnswerList) {
             int idAnswer = answer.getIdAnswer();
             for (AnswerByQuestion answerByQuestion : list) {
                 if (idAnswer == answerByQuestion.getIdAnswer()) {
-                    listContent.add(answer.getContentAnswer());
+                    listUser.add(answer);
                 }
             }
         }
 
         //set data
-        rbAnswerA.setText(listContent.get(0));
-        rbAnswerB.setText(listContent.get(1));
-        rbAnswerC.setText(listContent.get(2));
-        rbAnswerD.setText(listContent.get(3));
+        rbAnswerA.setText(listUser.get(0).getContentAnswer());
+        rbAnswerB.setText(listUser.get(1).getContentAnswer());
+        rbAnswerC.setText(listUser.get(2).getContentAnswer());
+        rbAnswerD.setText(listUser.get(3).getContentAnswer());
 
         rbGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-                //UI
+                mChooseAnswerList.get(position).setNumberChooseAnswer(i);
+
                 switch (i) {
                     case R.id.rb_answer_a:
-                        mChooseAnswerList.get(position).setNumberChooseAnswer(0);
+                        mChooseAnswerList.get(position).setIdChooseAnswer(listUser.get(0).getIdAnswer());
                         break;
 
                     case R.id.rb_answer_b:
-                        mChooseAnswerList.get(position).setNumberChooseAnswer(1);
+                        mChooseAnswerList.get(position).setIdChooseAnswer(listUser.get(1).getIdAnswer());
                         break;
 
                     case R.id.rb_answer_c:
-                        mChooseAnswerList.get(position).setNumberChooseAnswer(2);
+                        mChooseAnswerList.get(position).setIdChooseAnswer(listUser.get(2).getIdAnswer());
                         break;
 
                     case R.id.rb_answer_d:
-                        mChooseAnswerList.get(position).setNumberChooseAnswer(3);
+                        mChooseAnswerList.get(position).setIdChooseAnswer(listUser.get(3).getIdAnswer());
                         break;
                 }
             }
@@ -125,7 +124,7 @@ public class SwipeQuestionAdapter extends PagerAdapter {
 
         ChooseAnswer chooseAnswer = mChooseAnswerList.get(position);
         if (position == chooseAnswer.getNumberQuestion() && chooseAnswer.getNumberChooseAnswer() != -1) {
-            rbGroup.check(rbGroup.getChildAt(chooseAnswer.getNumberChooseAnswer()).getId());
+            rbGroup.check(chooseAnswer.getNumberChooseAnswer());
         }
 
         container.addView(view);
@@ -137,14 +136,21 @@ public class SwipeQuestionAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    private int getScore(){
+    public int getScore() {
 
         int score = 0;
 
         for (int i = 0; i < mQuestionList.size(); i++) {
-
+            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
+                if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
+                        && mChooseAnswerList.get(i).getIdChooseAnswer() == mAnswerByQuestionList.get(j).getIdAnswer()){
+                    if (mAnswerByQuestionList.get(j).isCorrect()){
+                        score++;
+                        break;
+                    }
+                }
+            }
         }
-
         return score;
     }
 }
