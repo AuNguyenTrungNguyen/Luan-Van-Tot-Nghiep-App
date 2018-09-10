@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MenuItem mMnRight = null;
     private int mCurrentId = -1;
 
-
-
     private boolean mIsPeriodic = false;
 
     @Override
