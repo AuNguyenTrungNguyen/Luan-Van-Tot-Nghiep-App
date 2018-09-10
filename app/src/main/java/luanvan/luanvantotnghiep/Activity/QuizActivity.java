@@ -103,11 +103,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 //        question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
 //        mQuestionList.add(question);
 
-        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
-        mQuestionList.add(question);
-
-//        question = new Question(3, "Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
+//        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
 //        mQuestionList.add(question);
+
+        question = new Question(3, "Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
+        mQuestionList.add(question);
 
         question = new Question(4, "Nước sông hồ thuộc loại:");
         mQuestionList.add(question);
@@ -278,26 +278,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.btn_complete_quiz) {
             Log.i("ANTN", "Score: " + mSwipeQuestionAdapter.getScore());
-            //finish();
+            for (int i = 0; i < mSwipeQuestionAdapter.getCount(); i++) {
+
+                viewPager.setCurrentItem(i);
+            }
+            viewPager.setCurrentItem(0);
         }
     }
-
-
-//    private void themDuLieuCauHoiTN(MyDataHelper db) {
-//
-//        CauHoiTracNghiem cauHoiTracNghiem = new CauHoiTracNghiem(1, "1+1 = ?", "2", "1", "3", "4");
-//        db.themCauHoiTN(cauHoiTracNghiem);
-//
-//        cauHoiTracNghiem = new CauHoiTracNghiem(2, "2+2= ?", "4", "2", "3", "5");
-//        db.themCauHoiTN(cauHoiTracNghiem);
-//
-//        cauHoiTracNghiem = new CauHoiTracNghiem(3, "4 + 5 = ?", "9", "8", "6", "7");
-//        db.themCauHoiTN(cauHoiTracNghiem);
-//
-//        cauHoiTracNghiem = new CauHoiTracNghiem(4, "4 + 4 = ?", "8", "9", "10", "7");
-//        db.themCauHoiTN(cauHoiTracNghiem);
-//
-//    }
-
 }
 

@@ -1,8 +1,10 @@
 package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,9 @@ public class SwipeQuestionAdapter extends PagerAdapter {
     private List<AnswerByQuestion> mAnswerByQuestionList;
 
     private LayoutInflater mInflater;
+    RadioGroup rbGroup;
+    private static final String TAG = "ANTN";
+    private boolean show = false;
 
     // trạng thái chọn đáp án
     private List<ChooseAnswer> mChooseAnswerList = new ArrayList<>();
@@ -53,7 +58,6 @@ public class SwipeQuestionAdapter extends PagerAdapter {
         return (view == o);
     }
 
-
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
@@ -61,7 +65,7 @@ public class SwipeQuestionAdapter extends PagerAdapter {
 
         TextView tvQuestion = view.findViewById(R.id.tv_question);
 
-        RadioGroup rbGroup = view.findViewById(R.id.rg_quiz);
+        rbGroup = view.findViewById(R.id.rg_quiz);
         RadioButton rbAnswerA = view.findViewById(R.id.rb_answer_a);
         RadioButton rbAnswerB = view.findViewById(R.id.rb_answer_b);
         RadioButton rbAnswerC = view.findViewById(R.id.rb_answer_c);
@@ -95,6 +99,48 @@ public class SwipeQuestionAdapter extends PagerAdapter {
         rbAnswerB.setText(listUser.get(1).getContentAnswer());
         rbAnswerC.setText(listUser.get(2).getContentAnswer());
         rbAnswerD.setText(listUser.get(3).getContentAnswer());
+
+        if (show) {
+            //no user click
+            for (int i = 0; i < rbGroup.getChildCount(); i++){
+                rbGroup.getChildAt(i).setEnabled(false);
+            }
+
+            //set background
+            int posi = -1;
+            for (int i = 0; i < mAnswerByQuestionList.size(); i++) {
+                if(mAnswerByQuestionList.get(i).isCorrect()){
+                    int id = mAnswerByQuestionList.get(i).getIdAnswer();
+                    Log.i(TAG, "id: " + id);
+                    for (int j = 0; j < listUser.size(); j++) {
+                        if (id == listUser.get(j).getIdAnswer()){
+                            posi = j;
+                            Log.i(TAG, "j: " + j);
+                            Log.i(TAG, "listUser.get(j).getIdAnswer()" + listUser.get(j).getIdAnswer());
+                            break;
+                        }
+                    }
+                }
+            }
+
+            switch (posi){
+                case 0:
+                    rbAnswerA.setBackgroundColor(Color.CYAN);
+                    break;
+
+                case 1:
+                    rbAnswerB.setBackgroundColor(Color.CYAN);
+                    break;
+
+                case 2:
+                    rbAnswerC.setBackgroundColor(Color.CYAN);
+                    break;
+
+                case 3:
+                    rbAnswerD.setBackgroundColor(Color.CYAN);
+                    break;
+            }
+        }
 
         rbGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -143,14 +189,21 @@ public class SwipeQuestionAdapter extends PagerAdapter {
         for (int i = 0; i < mQuestionList.size(); i++) {
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
                 if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
-                        && mChooseAnswerList.get(i).getIdChooseAnswer() == mAnswerByQuestionList.get(j).getIdAnswer()){
-                    if (mAnswerByQuestionList.get(j).isCorrect()){
+                        && mChooseAnswerList.get(i).getIdChooseAnswer() == mAnswerByQuestionList.get(j).getIdAnswer()) {
+                    if (mAnswerByQuestionList.get(j).isCorrect()) {
                         score++;
                         break;
                     }
                 }
             }
         }
+
+        show = true;
+
         return score;
+    }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }
