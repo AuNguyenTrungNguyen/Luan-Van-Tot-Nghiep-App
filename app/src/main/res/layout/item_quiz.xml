@@ -3,87 +3,93 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="6dp"
-    tools:ignore="ContentDescription">
-
-    <LinearLayout
+    tools:ignore="ContentDescription"
+    android:id="@+id/cv_quiz">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_question"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="Đâu là axit" />
-
-
-        <RadioGroup
-            android:id="@+id/rg_quiz"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="4dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rb_answer_a"
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="Cu"
+                android:fontFamily="sans-serif"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Đâu là axit" />
 
-                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/rb_answer_b"
+            <RadioGroup
+                android:id="@+id/rg_quiz"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="Ag"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp">
 
-            <RadioButton
-                android:id="@+id/rb_answer_c"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="H2O"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                <RadioButton
+                    android:id="@+id/rb_answer_a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="Cu"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
 
-            <RadioButton
-                android:id="@+id/rb_answer_d"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="H2S04"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                    android:textStyle="bold" />
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/rb_answer_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="Ag"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/rb_answer_c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="H2O"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/rb_answer_d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="H2S04"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.v7.widget.CardView>

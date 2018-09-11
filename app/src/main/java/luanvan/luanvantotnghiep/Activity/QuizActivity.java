@@ -2,12 +2,11 @@ package luanvan.luanvantotnghiep.Activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import luanvan.luanvantotnghiep.Adapter.PositionQuestionAdapter;
-import luanvan.luanvantotnghiep.Adapter.SwipeQuestionAdapter;
+import luanvan.luanvantotnghiep.Adapter.RecyclerViewQuestionAdapter;
+import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
@@ -29,16 +28,18 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 //    private final List<CauHoiTracNghiem> listCHTN = new ArrayList<>();
 //    private CauHoiTracNghiemAdapter adapter;
 
-    private RecyclerView mRvPossition;
+    //private RecyclerView mRvPossition;
     private TextView mTvTime;
-    private ViewPager viewPager;
+    //private ViewPager viewPager;
 
     private Button mBtnComplete;
 
-    private PositionQuestionAdapter mPositionQuestionAdapter;
-    private List<Integer> mPositionList;
+    //private PositionQuestionAdapter mPositionQuestionAdapter;
+    //private List<Integer> mPositionList;
 
-    private SwipeQuestionAdapter mSwipeQuestionAdapter;
+    //private SwipeQuestionAdapter mSwipeQuestionAdapter;
+    private RecyclerViewQuestionAdapter mRecyclerViewQuestionAdapter;
+    private RecyclerView mRvQuestion;
 
     private List<Question> mQuestionList;
     private List<Answer> mAnswerList;
@@ -55,7 +56,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-        addDataPosition();
+        //addDataPosition();
 
         addDataQuestion();
 
@@ -69,29 +70,30 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        mRvPossition = findViewById(R.id.rv_position_question);
+        //mRvPossition = findViewById(R.id.rv_position_question);
         mTvTime = findViewById(R.id.tv_time);
-        viewPager = findViewById(R.id.vp_question);
+        //viewPager = findViewById(R.id.vp_question);
+        mRvQuestion = findViewById(R.id.rv_question);
 
         mBtnComplete = findViewById(R.id.btn_complete_quiz);
         mBtnComplete.setOnClickListener(this);
     }
 
-    private void addDataPosition() {
-        mPositionList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            mPositionList.add(i + 1);
-        }
-        mPositionQuestionAdapter = new PositionQuestionAdapter(this, mPositionList);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL,
-                false);
-        mRvPossition.setLayoutManager(mLayoutManager);
-        mRvPossition.setHasFixedSize(true);
-
-        mRvPossition.setAdapter(mPositionQuestionAdapter);
-    }
+//    private void addDataPosition() {
+//        mPositionList = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            mPositionList.add(i + 1);
+//        }
+////        mPositionQuestionAdapter = new PositionQuestionAdapter(this, mPositionList);
+////
+////        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
+////                LinearLayoutManager.HORIZONTAL,
+////                false);
+////        mRvPossition.setLayoutManager(mLayoutManager);
+////        mRvPossition.setHasFixedSize(true);
+////
+////        mRvPossition.setAdapter(mPositionQuestionAdapter);
+//    }
 
     private void addDataQuestion() {
         mQuestionList = new ArrayList<>();
@@ -100,11 +102,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 //            question = new Question(i,String.valueOf(i+1));
 //            mQuestionList.add(question);
 //        }
-//        question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
-//        mQuestionList.add(question);
+        question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
+        mQuestionList.add(question);
 
-//        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
-//        mQuestionList.add(question);
+        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
+        mQuestionList.add(question);
 
         question = new Question(3, "Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
         mQuestionList.add(question);
@@ -113,6 +115,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mQuestionList.add(question);
 
         question = new Question(5, "Để tách rượu ra khỏi hỗn hợp rượu lẫn nước, dùng cách nào sau đây?");
+        mQuestionList.add(question);
+
+        question = new Question(6, "Những nhận xét nào sau đây đúng?");
         mQuestionList.add(question);
     }
 
@@ -180,6 +185,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         answerByQuestion = new AnswerByQuestion(5, 16, false);
         mAnswerByQuestionList.add(answerByQuestion);
 
+        answerByQuestion = new AnswerByQuestion(6, 17, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(6, 18, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(6, 19, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(6, 20, true);
+        mAnswerByQuestionList.add(answerByQuestion);
 
     }
 
@@ -235,6 +251,18 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         answer = new Answer(16, "Đốt.");
         mAnswerList.add(answer);
+
+        answer = new Answer(17, "Xăng, khí nitơ, muối ăn, nước tự nhiên là hỗn hợp.");
+        mAnswerList.add(answer);
+
+        answer = new Answer(18, "Sữa, không khí, nước chanh, trà đá là hợp chất.");
+        mAnswerList.add(answer);
+
+        answer = new Answer(19, "Muối ăn, đường, khí cacbonic, nước cất là chất tinh khiết.");
+        mAnswerList.add(answer);
+
+        answer = new Answer(20, "Dựa vào sự khác nhau về tính chất vật lý có thể tách một chất ra khỏi hỗn hợp.");
+        mAnswerList.add(answer);
     }
 
     private void setupToolbar() {
@@ -270,20 +298,30 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showQuestion() {
-        mSwipeQuestionAdapter = new SwipeQuestionAdapter(this, mQuestionList, mAnswerList, mAnswerByQuestionList);
-        viewPager.setAdapter(mSwipeQuestionAdapter);
+        mRecyclerViewQuestionAdapter = new RecyclerViewQuestionAdapter(this,
+                mQuestionList, mAnswerList, mAnswerByQuestionList);
+
+        mRvQuestion.setAdapter(mRecyclerViewQuestionAdapter);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+        mRvQuestion.setLayoutManager(mLayoutManager);
+        mRvQuestion.setHasFixedSize(true);
+
+        SnapHelper startSnapHelper = new StartSnapHelper();
+        startSnapHelper.attachToRecyclerView(mRvQuestion);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btn_complete_quiz) {
-            Log.i("ANTN", "Score: " + mSwipeQuestionAdapter.getScore());
-            for (int i = 0; i < mSwipeQuestionAdapter.getCount(); i++) {
-
-                viewPager.setCurrentItem(i);
-            }
-            viewPager.setCurrentItem(0);
-        }
+//        if (view.getId() == R.id.btn_complete_quiz) {
+//            Log.i("ANTN", "Score: " + mSwipeQuestionAdapter.getScore());
+//            for (int i = 0; i < mSwipeQuestionAdapter.getCount(); i++) {
+//
+//                viewPager.setCurrentItem(i);
+//            }
+//            viewPager.setCurrentItem(0);
+//        }
     }
 }
 
