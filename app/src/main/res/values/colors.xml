@@ -7,6 +7,7 @@
     <color name="background">#e7e5e5</color>
 
     <!--Color type of periodic-->
+    <color name="all">#000</color>
     <color name="alkali_metal">#ff6666</color>
     <color name="alkaline_earth_metal">#ffdead</color>
     <color name="post_transition_metal">#cccccc</color>

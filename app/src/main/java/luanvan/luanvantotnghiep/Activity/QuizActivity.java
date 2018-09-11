@@ -25,19 +25,8 @@ import luanvan.luanvantotnghiep.R;
 public class QuizActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
-//    private final List<CauHoiTracNghiem> listCHTN = new ArrayList<>();
-//    private CauHoiTracNghiemAdapter adapter;
-
-    //private RecyclerView mRvPossition;
     private TextView mTvTime;
-    //private ViewPager viewPager;
-
     private Button mBtnComplete;
-
-    //private PositionQuestionAdapter mPositionQuestionAdapter;
-    //private List<Integer> mPositionList;
-
-    //private SwipeQuestionAdapter mSwipeQuestionAdapter;
     private RecyclerViewQuestionAdapter mRecyclerViewQuestionAdapter;
     private RecyclerView mRvQuestion;
 
@@ -56,8 +45,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-        //addDataPosition();
-
         addDataQuestion();
 
         addDataAnswer();
@@ -70,38 +57,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        //mRvPossition = findViewById(R.id.rv_position_question);
         mTvTime = findViewById(R.id.tv_time);
-        //viewPager = findViewById(R.id.vp_question);
         mRvQuestion = findViewById(R.id.rv_question);
 
         mBtnComplete = findViewById(R.id.btn_complete_quiz);
         mBtnComplete.setOnClickListener(this);
     }
 
-//    private void addDataPosition() {
-//        mPositionList = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-//            mPositionList.add(i + 1);
-//        }
-////        mPositionQuestionAdapter = new PositionQuestionAdapter(this, mPositionList);
-////
-////        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
-////                LinearLayoutManager.HORIZONTAL,
-////                false);
-////        mRvPossition.setLayoutManager(mLayoutManager);
-////        mRvPossition.setHasFixedSize(true);
-////
-////        mRvPossition.setAdapter(mPositionQuestionAdapter);
-//    }
-
     private void addDataQuestion() {
         mQuestionList = new ArrayList<>();
         Question question;
-//        for (int i = 0; i < 20; i++) {
-//            question = new Question(i,String.valueOf(i+1));
-//            mQuestionList.add(question);
-//        }
+
         question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
         mQuestionList.add(question);
 

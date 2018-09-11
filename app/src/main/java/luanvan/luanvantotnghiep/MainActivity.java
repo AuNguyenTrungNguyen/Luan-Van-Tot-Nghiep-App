@@ -5266,6 +5266,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             switchFragment(R.id.nav_search, SearchFragment.newInstance());
 
+        } else if (id == R.id.nav_all) {
+
+            controlRightNavgate(R.id.nav_all, 0);
+
         } else if (id == R.id.nav_alkali_metal) {
 
             controlRightNavgate(R.id.nav_alkali_metal, 1);
