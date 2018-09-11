@@ -26,7 +26,6 @@ import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
 import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
-import luanvan.luanvantotnghiep.Fragment.TestFragment;
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
 import luanvan.luanvantotnghiep.Model.Chemistry;
@@ -5247,7 +5246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             if(!mIsPeriodic){
                 mIsPeriodic = true;
-                switchFragment(R.id.nav_periodic_table, TestFragment.newInstance());
+                switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
                 mNavigationRight.getMenu().getItem(0).setChecked(true);
             }
 
@@ -5367,8 +5366,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void controlRightNavgate(int id, int type) {
         if(mCurrentId != id){
             mCurrentId = id;
-            TestFragment testFragment = (TestFragment) mFragmentToSet;
-            testFragment.reloadData(type);
+            mFragmentToSet = PeriodicTableFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID_TYPE", type);
+            mFragmentToSet.setArguments(bundle);
         }
     }
 }
