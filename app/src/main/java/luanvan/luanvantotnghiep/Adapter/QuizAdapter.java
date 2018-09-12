@@ -30,11 +30,12 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         void onUserChooseAnswer(int question, int answer);
     }
 
-    CommunicateQuiz communicateQuiz;
+    private CommunicateQuiz communicateQuiz;
 
-    public void setOnItemClickListener(CommunicateQuiz clickListener){
+    public void setOnItemClickListener(CommunicateQuiz clickListener) {
         this.communicateQuiz = clickListener;
     }
+
     public QuizAdapter(Context mContext,
                        List<Question> mQuestionList,
                        List<Answer> mAnswerList,
@@ -57,6 +58,32 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Question question = mQuestionList.get(position);
         holder.tvQuestion.setText("Câu " + (position + 1) + ". " + question.getContentQuestion());
+
+        Log.i("ANTN", "onBindViewHolder: " + position + " " + question.getAnswer());
+        switch (question.getAnswer()) {
+            case 0:
+                holder.rbAnswerA.setChecked(true);
+                break;
+
+            case 1:
+                holder.rbAnswerB.setChecked(true);
+                break;
+
+            case 2:
+                holder.rbAnswerC.setChecked(true);
+                break;
+
+            case 3:
+                holder.rbAnswerD.setChecked(true);
+                break;
+
+            default:
+                holder.rbAnswerA.setChecked(false);
+                holder.rbAnswerB.setChecked(false);
+                holder.rbAnswerC.setChecked(false);
+                holder.rbAnswerD.setChecked(false);
+                break;
+        }
 
         List<AnswerByQuestion> list = new ArrayList();
         int idQuestion = question.getIdQuestion();
@@ -88,35 +115,25 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-                mQuestionList.get(position).setAnswered(true);
-
+                //vay lam theo viewpager duoc k - chịu rồi nãy t copy cho 1 class về viewpager
                 switch (i) {
                     case R.id.rb_answer_a:
                         communicateQuiz.onUserChooseAnswer(position, listUser.get(0).getIdAnswer());
+                        mQuestionList.get(position).setAnswer(0);
                         break;
                     case R.id.rb_answer_b:
                         communicateQuiz.onUserChooseAnswer(position, listUser.get(1).getIdAnswer());
+                        mQuestionList.get(position).setAnswer(1);
                         break;
                     case R.id.rb_answer_c:
                         communicateQuiz.onUserChooseAnswer(position, listUser.get(2).getIdAnswer());
+                        mQuestionList.get(position).setAnswer(2);
                         break;
                     case R.id.rb_answer_d:
                         communicateQuiz.onUserChooseAnswer(position, listUser.get(3).getIdAnswer());
+                        mQuestionList.get(position).setAnswer(3);
                         break;
                 }
-
-                for (int index = 0; index <mQuestionList.size(); index++){
-                    Log.i("ANTN", "onCheckedChanged: " +index + " - " + mQuestionList.get(index).isAnswered());
-                    if (!mQuestionList.get(index).isAnswered()){
-                        for (int j = 0; j < holder.radioGroup.getChildCount(); j++) {
-                            RadioButton radioButton = (RadioButton) holder.radioGroup.getChildAt(j);
-                            radioButton.setChecked(false);
-                        }
-                    }else{
-                        holder.radioGroup.check(0);
-                    }
-                }
-
             }
         });
     }
@@ -126,7 +143,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         return mQuestionList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvQuestion;
         RadioGroup radioGroup;
         RadioButton rbAnswerA;
@@ -143,7 +160,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             rbAnswerB = view.findViewById(R.id.rb_answer_b);
             rbAnswerC = view.findViewById(R.id.rb_answer_c);
             rbAnswerD = view.findViewById(R.id.rb_answer_d);
-            cvQuiz =view.findViewById(R.id.cv_quiz);
+            cvQuiz = view.findViewById(R.id.cv_quiz);
         }
     }
 }

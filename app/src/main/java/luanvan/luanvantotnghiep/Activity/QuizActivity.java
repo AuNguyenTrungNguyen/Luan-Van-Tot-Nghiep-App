@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import luanvan.luanvantotnghiep.Adapter.PageVisibleLinearLayoutManager;
 import luanvan.luanvantotnghiep.Adapter.QuizAdapter;
 import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
@@ -62,6 +63,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         addDataAnswerByQuestion();
 
     }
+
 
     @Override
     protected void onStart() {
@@ -422,10 +424,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showQuestion() {
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
+//                LinearLayoutManager.HORIZONTAL,
+//                false);
+//        mRvQuestion.setLayoutManager(mLayoutManager);
+        PageVisibleLinearLayoutManager pageVisibleLinearLayoutManager = new PageVisibleLinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
-        mRvQuestion.setLayoutManager(mLayoutManager);
+        mRvQuestion.setLayoutManager(pageVisibleLinearLayoutManager);
 
         mQuizAdapter = new QuizAdapter(this,
                 mQuestionList, mAnswerList, mAnswerByQuestionList);
