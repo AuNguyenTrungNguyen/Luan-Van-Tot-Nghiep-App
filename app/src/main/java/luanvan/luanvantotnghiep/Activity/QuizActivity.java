@@ -2,6 +2,8 @@ package luanvan.luanvantotnghiep.Activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +14,7 @@ import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -187,10 +190,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        if (score >= 3){
+        if (score >= 1){
 
             Dialog dialog = new Dialog(QuizActivity.this);
             dialog.setContentView(R.layout.layout_dialog_score_quiz);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             TextView tvScore = dialog.findViewById(R.id.tv_score);
             tvScore.setText(String.valueOf(score));
             //dialog.setCancelable(false);
