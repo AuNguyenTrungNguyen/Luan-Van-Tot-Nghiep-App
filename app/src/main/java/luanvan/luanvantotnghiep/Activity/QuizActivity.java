@@ -152,7 +152,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View view) {
                     //handle score
                     showScore();
-                    finish();
                 }
             });
 
@@ -169,6 +168,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         }else{
             finish();
+
         }
     }
 
@@ -187,7 +187,20 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        Toast.makeText(this, "Score: " + score, Toast.LENGTH_SHORT).show();
+        if (score >= 3){
+
+            Dialog dialog = new Dialog(QuizActivity.this);
+            dialog.setContentView(R.layout.layout_dialog_score_quiz);
+            TextView tvScore = dialog.findViewById(R.id.tv_score);
+            tvScore.setText(String.valueOf(score));
+            //dialog.setCancelable(false);
+            dialog.show();
+
+
+        }else {
+            Toast.makeText(this, "Bái bai nha. Ahihi!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     private void init() {
