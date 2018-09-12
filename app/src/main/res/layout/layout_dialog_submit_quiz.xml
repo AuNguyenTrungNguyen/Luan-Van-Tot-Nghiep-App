@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_choose_quiz"
+            android:id="@+id/tv_answered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_detail_element_textview"
@@ -26,10 +26,9 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_rest_time"
+            android:id="@+id/tv_time_left"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="8dp"
             android:background="@drawable/background_detail_element_textview"
             android:fontFamily="sans-serif-medium"
@@ -58,7 +57,7 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/btn_cancel"
+                android:id="@+id/btn_continue"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="32dp"
@@ -66,7 +65,7 @@
                 android:text="Quay lại" />
 
             <Button
-                android:id="@+id/btn_agree"
+                android:id="@+id/btn_submit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="32dp"

@@ -4,11 +4,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,33 +20,41 @@ import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 
-public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerViewQuestionAdapter.ViewHolder> {
+public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     private Context mContext;
     private List<Question> mQuestionList;
     private List<Answer> mAnswerList;
     private List<AnswerByQuestion> mAnswerByQuestionList;
 
-    int lastPosition = -1;
+    public interface CommunicateQuiz {
+        void onUserChooseAnswer(int question, int answer);
+    }
 
-    public RecyclerViewQuestionAdapter(Context mContext,
-                                       List<Question> mQuestionList,
-                                       List<Answer> mAnswerList,
-                                       List<AnswerByQuestion> mAnswerByQuestionList) {
+    CommunicateQuiz communicateQuiz;
+
+    public void setOnItemClickListener(CommunicateQuiz clickListener){
+        this.communicateQuiz = clickListener;
+    }
+    public QuizAdapter(Context mContext,
+                       List<Question> mQuestionList,
+                       List<Answer> mAnswerList,
+                       List<AnswerByQuestion> mAnswerByQuestionList) {
         this.mContext = mContext;
         this.mQuestionList = mQuestionList;
         this.mAnswerList = mAnswerList;
         this.mAnswerByQuestionList = mAnswerByQuestionList;
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.item_quiz, parent, false);
-        return new RecyclerViewQuestionAdapter.ViewHolder(v);
+        return new QuizAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Question question = mQuestionList.get(position);
         holder.tvQuestion.setText("Câu " + (position + 1) + ". " + question.getContentQuestion());
 
@@ -76,9 +83,42 @@ public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
         holder.rbAnswerC.setText("C. " + listUser.get(2).getContentAnswer());
         holder.rbAnswerD.setText("D. " + listUser.get(3).getContentAnswer());
 
-        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.quiz_anim);
-        holder.cvQuiz.startAnimation(animation);
+        //radiobutton group check
+        holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
+                mQuestionList.get(position).setAnswered(true);
+
+                switch (i) {
+                    case R.id.rb_answer_a:
+                        communicateQuiz.onUserChooseAnswer(position, listUser.get(0).getIdAnswer());
+                        break;
+                    case R.id.rb_answer_b:
+                        communicateQuiz.onUserChooseAnswer(position, listUser.get(1).getIdAnswer());
+                        break;
+                    case R.id.rb_answer_c:
+                        communicateQuiz.onUserChooseAnswer(position, listUser.get(2).getIdAnswer());
+                        break;
+                    case R.id.rb_answer_d:
+                        communicateQuiz.onUserChooseAnswer(position, listUser.get(3).getIdAnswer());
+                        break;
+                }
+
+                for (int index = 0; index <mQuestionList.size(); index++){
+                    Log.i("ANTN", "onCheckedChanged: " +index + " - " + mQuestionList.get(index).isAnswered());
+                    if (!mQuestionList.get(index).isAnswered()){
+                        for (int j = 0; j < holder.radioGroup.getChildCount(); j++) {
+                            RadioButton radioButton = (RadioButton) holder.radioGroup.getChildAt(j);
+                            radioButton.setChecked(false);
+                        }
+                    }else{
+                        holder.radioGroup.check(0);
+                    }
+                }
+
+            }
+        });
     }
 
     @Override
@@ -86,7 +126,7 @@ public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
         return mQuestionList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvQuestion;
         RadioGroup radioGroup;
         RadioButton rbAnswerA;

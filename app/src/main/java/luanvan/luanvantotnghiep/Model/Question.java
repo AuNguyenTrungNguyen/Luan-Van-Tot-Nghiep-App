@@ -7,6 +7,7 @@ public class Question {
     private int mIdKind; //Loại
     private String mContentQuestion; //Nội dung
     private String mLevel; //Mức độ
+    private boolean isAnswered = false; //Mức độ
 
     public Question() {
     }
@@ -71,5 +72,13 @@ public class Question {
 
     public void setLevel(String mLevel) {
         this.mLevel = mLevel;
+    }
+
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(boolean answered) {
+        isAnswered = answered;
     }
 }

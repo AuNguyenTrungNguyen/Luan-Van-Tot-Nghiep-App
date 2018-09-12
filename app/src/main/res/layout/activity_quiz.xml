@@ -65,7 +65,7 @@
                     app:cardUseCompatPadding="true">
 
                     <TextView
-                        android:id="@+id/tv_on_total"
+                        android:id="@+id/tv_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Activity.ShowTheoryActivity;
-import luanvan.luanvantotnghiep.Model.ClassObject;
 import luanvan.luanvantotnghiep.R;
 
 public class ExpandAdapter extends BaseExpandableListAdapter{

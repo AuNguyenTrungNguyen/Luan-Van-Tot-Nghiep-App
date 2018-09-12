@@ -1,40 +1,50 @@
 package luanvan.luanvantotnghiep.Activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import luanvan.luanvantotnghiep.Adapter.RecyclerViewQuestionAdapter;
+import luanvan.luanvantotnghiep.Adapter.QuizAdapter;
 import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 
-public class QuizActivity extends AppCompatActivity implements View.OnClickListener {
+public class QuizActivity extends AppCompatActivity implements View.OnClickListener, QuizAdapter.CommunicateQuiz {
 
-    private Toolbar mToolbar;
     private TextView mTvTime;
-    private Button mBtnComplete;
-    private RecyclerViewQuestionAdapter mRecyclerViewQuestionAdapter;
-    private RecyclerView mRvQuestion;
+    private TextView mTvTotal;
 
+    private QuizAdapter mQuizAdapter;
+    private RecyclerView mRvQuestion;
     private List<Question> mQuestionList;
     private List<Answer> mAnswerList;
     private List<AnswerByQuestion> mAnswerByQuestionList;
 
     private CountDownTimer mCountDownTimer;
+    private boolean isPlaying = false;
+    private long mCurrentTime = 0;
+    private int mTotalQuestion = 0;
+
+    //List use update UI and handle score
+    private List<Integer> mListUserAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +61,146 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         addDataAnswerByQuestion();
 
-        setUpTime();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        chooseOption();
+    }
+
+    private void chooseOption(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("QUẤT LUÔN KHÔNG?");
+
+        builder.setPositiveButton("Quất", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                isPlaying = true;
+                mTotalQuestion = mQuestionList.size();
+
+                //prepare data score
+
+                mListUserAnswer = new ArrayList<>();
+                for (int i = 0; i < mTotalQuestion; i++) {
+                    mListUserAnswer.add(i, -1);
+                }
+
+                startGame();
+            }
+        });
+        builder.setNegativeButton("Xin lui", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    private void startGame(){
+        setUpGame();
         showQuestion();
     }
 
-    private void init() {
-        mTvTime = findViewById(R.id.tv_time);
-        mRvQuestion = findViewById(R.id.rv_question);
+    private void setupToolbar() {
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mBtnComplete = findViewById(R.id.btn_complete_quiz);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkUserOut();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        checkUserOut();
+    }
+
+    //Function check when user out game or submit quiz
+    private void checkUserOut(){
+        if (isPlaying){
+
+            final Dialog dialog = new Dialog(QuizActivity.this);
+            dialog.setContentView(R.layout.layout_dialog_submit_quiz);
+
+            TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
+            TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
+            Button btnSubmit = dialog.findViewById(R.id.btn_submit);
+            Button btnContinue = dialog.findViewById(R.id.btn_continue);
+
+            tvAnswered.setText("0/" + mTotalQuestion);
+            //handel time running in dialog
+            tvTimeLeft.setText(convertLongToTime(mCurrentTime));
+            /*final Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    tvTimeLeft.setText(convertLongToTime(mCurrentTime));
+                }
+            }, 1000);*/
+
+            //when user submit quiz
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //handle score
+                    showScore();
+                    finish();
+                }
+            });
+
+            //when user continue game
+            btnContinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.setCancelable(false);
+            dialog.show();
+
+        }else{
+            finish();
+        }
+    }
+
+    private void showScore() {
+        int score = 0;
+
+        for (int i = 0; i < mQuestionList.size(); i++) {
+            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
+                if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
+                        && mListUserAnswer.get(i) == mAnswerByQuestionList.get(j).getIdAnswer()){
+                    if (mAnswerByQuestionList.get(j).isCorrect()){
+                        score++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        Toast.makeText(this, "Score: " + score, Toast.LENGTH_SHORT).show();
+    }
+
+    private void init() {
+        //Activity
+        mTvTime = findViewById(R.id.tv_time);
+        mTvTotal = findViewById(R.id.tv_total);
+        Button mBtnComplete = findViewById(R.id.btn_complete_quiz);
         mBtnComplete.setOnClickListener(this);
+
+        //Adapter
+        mRvQuestion = findViewById(R.id.rv_question);
+        mQuestionList = new ArrayList<>();
+        mAnswerList = new ArrayList<>();
+        mAnswerByQuestionList = new ArrayList<>();
     }
 
     private void addDataQuestion() {
@@ -84,6 +223,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mQuestionList.add(question);
 
         question = new Question(6, "Những nhận xét nào sau đây đúng?");
+        mQuestionList.add(question);
+
+        question = new Question(7, "Những nhận xét nào sau đây đúng?");
+        mQuestionList.add(question);
+
+        question = new Question(8, "Những nhận xét nào sau đây đúng?");
         mQuestionList.add(question);
     }
 
@@ -163,6 +308,32 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         answerByQuestion = new AnswerByQuestion(6, 20, true);
         mAnswerByQuestionList.add(answerByQuestion);
 
+        //7777777
+        answerByQuestion = new AnswerByQuestion(7, 17, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(7, 18, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(7, 19, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(7, 20, true);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        //8888888888
+        answerByQuestion = new AnswerByQuestion(8, 17, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(8, 18, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(8, 19, false);
+        mAnswerByQuestionList.add(answerByQuestion);
+
+        answerByQuestion = new AnswerByQuestion(8, 20, true);
+        mAnswerByQuestionList.add(answerByQuestion);
+
     }
 
     private void addDataAnswer() {
@@ -231,28 +402,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerList.add(answer);
     }
 
-    private void setupToolbar() {
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    private void setUpTime() {
+    private void setUpGame() {
         mCountDownTimer = new CountDownTimer(1800000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mTvTime.setText("" + String.format("%d:%d",
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-
+                mCurrentTime = millisUntilFinished;
+                mTvTime.setText(convertLongToTime(millisUntilFinished));
                 //nếu time < 5p đỏ mess: còn 5p làm bài.
             }
 
@@ -261,17 +416,23 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         }.start();
+
+        mTvTotal.setText("0/" + mTotalQuestion);
     }
 
     private void showQuestion() {
-        mRecyclerViewQuestionAdapter = new RecyclerViewQuestionAdapter(this,
-                mQuestionList, mAnswerList, mAnswerByQuestionList);
 
-        mRvQuestion.setAdapter(mRecyclerViewQuestionAdapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
         mRvQuestion.setLayoutManager(mLayoutManager);
+
+        mQuizAdapter = new QuizAdapter(this,
+                mQuestionList, mAnswerList, mAnswerByQuestionList);
+        mRvQuestion.setAdapter(mQuizAdapter);
+
+        mQuizAdapter.setOnItemClickListener(this);
+
         mRvQuestion.setHasFixedSize(true);
 
         SnapHelper startSnapHelper = new StartSnapHelper();
@@ -280,14 +441,19 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-//        if (view.getId() == R.id.btn_complete_quiz) {
-//            Log.i("ANTN", "Score: " + mSwipeQuestionAdapter.getScore());
-//            for (int i = 0; i < mSwipeQuestionAdapter.getCount(); i++) {
-//
-//                viewPager.setCurrentItem(i);
-//            }
-//            viewPager.setCurrentItem(0);
-//        }
+        switch (view.getId()){
+            case R.id.btn_complete_quiz:
+                checkUserOut();
+        }
+    }
+
+    private static String convertLongToTime(long value){
+        return DateFormat.format("mm:ss", new Date(value)).toString();
+    }
+
+    @Override
+    public void onUserChooseAnswer(int question, int answer) {
+        mListUserAnswer.set(question, answer);
     }
 }
 
