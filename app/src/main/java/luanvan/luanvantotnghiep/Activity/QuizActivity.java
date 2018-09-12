@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +34,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView mTvTime;
     private TextView mTvTotal;
+    private Button mBtnComplete;
 
     private QuizAdapter mQuizAdapter;
     private RecyclerView mRvQuestion;
@@ -73,7 +73,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         chooseOption();
     }
 
-    private void chooseOption(){
+    private void chooseOption() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("QUẤT LUÔN KHÔNG?");
 
@@ -103,7 +103,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
 
-    private void startGame(){
+    private void startGame() {
         setUpGame();
         showQuestion();
     }
@@ -127,33 +127,26 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //Function check when user out game or submit quiz
-    private void checkUserOut(){
-        if (isPlaying){
+    private void checkUserOut() {
+        if (isPlaying) {
 
             final Dialog dialog = new Dialog(QuizActivity.this);
             dialog.setContentView(R.layout.layout_dialog_submit_quiz);
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
-            TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
+            final TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
             Button btnSubmit = dialog.findViewById(R.id.btn_submit);
             Button btnContinue = dialog.findViewById(R.id.btn_continue);
 
             updateNumberAnswered(tvAnswered);
+
             //handel time running in dialog
-            tvTimeLeft.setText(convertLongToTime(mCurrentTime));
-            /*final Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    tvTimeLeft.setText(convertLongToTime(mCurrentTime));
-                }
-            }, 1000);*/
+            tvTimeLeft.setText("Bạn dừng lúc: " + convertLongToTime(mCurrentTime));
 
             //when user submit quiz
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //handle score
                     showScore();
                     dialog.dismiss();
                 }
@@ -170,7 +163,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             dialog.setCancelable(false);
             dialog.show();
 
-        }else{
+        } else {
             finish();
 
         }
@@ -182,8 +175,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < mQuestionList.size(); i++) {
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
                 if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
-                        && mListUserAnswer.get(i) == mAnswerByQuestionList.get(j).getIdAnswer()){
-                    if (mAnswerByQuestionList.get(j).isCorrect()){
+                        && mListUserAnswer.get(i) == mAnswerByQuestionList.get(j).getIdAnswer()) {
+                    if (mAnswerByQuestionList.get(j).isCorrect()) {
                         score++;
                         break;
                     }
@@ -191,59 +184,61 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        if (score >= 1){
+        isPlaying = false;
+        mBtnComplete.setVisibility(View.INVISIBLE);
 
-            final Dialog dialog = new Dialog(QuizActivity.this);
-            dialog.setContentView(R.layout.layout_dialog_score_quiz);
-            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        final Dialog dialog = new Dialog(QuizActivity.this);
+        dialog.setContentView(R.layout.layout_dialog_score_quiz);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-            TextView tvLevel = dialog.findViewById(R.id.tv_level);
-            TextView tvScore = dialog.findViewById(R.id.tv_score);
-            TextView tvCorrectAnswer = dialog.findViewById(R.id.tv_correct_answer);
-            ImageView imgReview = dialog.findViewById(R.id.img_review);
-            ImageView imgFinish = dialog.findViewById(R.id.img_finish);
+        TextView tvLevel = dialog.findViewById(R.id.tv_level);
+        TextView tvScore = dialog.findViewById(R.id.tv_score);
+        TextView tvCorrectAnswer = dialog.findViewById(R.id.tv_correct_answer);
+        ImageView imgReview = dialog.findViewById(R.id.img_review);
+        ImageView imgFinish = dialog.findViewById(R.id.img_finish);
 
-            //Handel start by score
-            ImageView imgStarOne = dialog.findViewById(R.id.img_star_one);
-            ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
-            ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
+        //Handel start by score
+        ImageView imgStarOne = dialog.findViewById(R.id.img_star_one);
+        ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
+        ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
 
-            if (score >= 1 && score < 3) {
-                imgStarTwo.setVisibility(View.VISIBLE);
-            } else if (score >= 3 && score < 5){
-                imgStarOne.setVisibility(View.VISIBLE);
-                imgStarThree.setVisibility(View.VISIBLE);
-            }else if (score >= 5){
-                imgStarOne.setVisibility(View.VISIBLE);
-                imgStarTwo.setVisibility(View.VISIBLE);
-                imgStarThree.setVisibility(View.VISIBLE);
+        if (score >= 1 && score < 3) {
+            imgStarTwo.setVisibility(View.VISIBLE);
+        } else if (score >= 3 && score < 5) {
+            imgStarOne.setVisibility(View.VISIBLE);
+            imgStarThree.setVisibility(View.VISIBLE);
+        } else if (score >= 5) {
+            imgStarOne.setVisibility(View.VISIBLE);
+            imgStarTwo.setVisibility(View.VISIBLE);
+            imgStarThree.setVisibility(View.VISIBLE);
+        }
+
+        //tvLevel.setText("Text level");
+        tvScore.setText(String.valueOf(score));
+        tvCorrectAnswer.setText(score + "/" + mTotalQuestion);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        imgReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                reviewQuiz();
             }
+        });
 
-            //tvLevel.setText("Text level");
-            tvScore.setText(String.valueOf(score));
-            //tvCorrectAnswer.setText("Count correct!);
-            dialog.setCancelable(false);
-            dialog.show();
+        imgFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-            imgReview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                    reviewQuiz();
-                }
-            });
-
-            imgFinish.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
-
-        }else {
-            Toast.makeText(this, "Bái bai nha. Ahihi!", Toast.LENGTH_SHORT).show();
-            finish();
+        if (score >= 5) {
+            imgReview.setVisibility(View.VISIBLE);
+        } else {
+            imgReview.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -251,7 +246,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         //Activity
         mTvTime = findViewById(R.id.tv_time);
         mTvTotal = findViewById(R.id.tv_total);
-        Button mBtnComplete = findViewById(R.id.btn_complete_quiz);
+        mBtnComplete = findViewById(R.id.btn_complete_quiz);
         mBtnComplete.setOnClickListener(this);
 
         //Adapter
@@ -472,6 +467,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFinish() {
 
+                showScore();
+
             }
         }.start();
 
@@ -501,13 +498,13 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         startSnapHelper.attachToRecyclerView(mRvQuestion);
     }
 
-    private void reviewQuiz(){
+    private void reviewQuiz() {
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             Question question = mQuestionList.get(i);
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
                 AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
-                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.isCorrect()){
+                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.isCorrect()) {
                     question.setIdCorrect(answerByQuestion.getIdAnswer());
                     break;
                 }
@@ -520,13 +517,13 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_complete_quiz:
                 checkUserOut();
         }
     }
 
-    private static String convertLongToTime(long value){
+    private static String convertLongToTime(long value) {
         return DateFormat.format("mm:ss", new Date(value)).toString();
     }
 
@@ -536,11 +533,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         updateNumberAnswered(mTvTotal);
     }
 
-    private void updateNumberAnswered(TextView textView){
+    private void updateNumberAnswered(TextView textView) {
         int count = 0;
 
-        for (int i = 0; i < mListUserAnswer.size(); i++){
-            if (mListUserAnswer.get(i) != -1){
+        for (int i = 0; i < mListUserAnswer.size(); i++) {
+            if (mListUserAnswer.get(i) != -1) {
                 count++;
             }
         }
