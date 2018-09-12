@@ -29,15 +29,26 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="paddingPercent" value="5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                     </map>
                                   </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Admin\Downloads\icon_cnhh\wikipedia-512.png" />
-                                      <entry key="outputName" value="icon_wiki_white" />
+                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\star-fill-512.png" />
+                                      <entry key="outputName" value="icon_star" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="themeColor" value="ffbf00" />
                                     </map>
                                   </option>
                                 </PersistentState>
