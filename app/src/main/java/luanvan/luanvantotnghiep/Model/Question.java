@@ -10,6 +10,7 @@ public class Question{
     private String mContentQuestion; //Nội dung
     private String mLevel; //Mức độ
     private int mAnswer = -1;
+    private int mIdCorrect = 0;
 
     public Question() {
     }
@@ -82,5 +83,13 @@ public class Question{
 
     public void setAnswer(int mAnswer) {
         this.mAnswer = mAnswer;
+    }
+
+    public int getIdCorrect() {
+        return mIdCorrect;
+    }
+
+    public void setIdCorrect(int mIdCorrect) {
+        this.mIdCorrect = mIdCorrect;
     }
 }

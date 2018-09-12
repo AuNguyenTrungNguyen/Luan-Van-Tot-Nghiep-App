@@ -16,6 +16,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         addDataAnswerByQuestion();
 
     }
-
 
     @Override
     protected void onStart() {
@@ -155,6 +155,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(View view) {
                     //handle score
                     showScore();
+                    dialog.dismiss();
                 }
             });
 
@@ -192,15 +193,53 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         if (score >= 1){
 
-            Dialog dialog = new Dialog(QuizActivity.this);
+            final Dialog dialog = new Dialog(QuizActivity.this);
             dialog.setContentView(R.layout.layout_dialog_score_quiz);
             dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            TextView tvLevel = dialog.findViewById(R.id.tv_level);
             TextView tvScore = dialog.findViewById(R.id.tv_score);
+            TextView tvCorrectAnswer = dialog.findViewById(R.id.tv_correct_answer);
+            ImageView imgReview = dialog.findViewById(R.id.img_review);
+            ImageView imgFinish = dialog.findViewById(R.id.img_finish);
+
+            //Handel start by score
+            ImageView imgStarOne = dialog.findViewById(R.id.img_star_one);
+            ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
+            ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
+
+            if (score >= 1 && score < 3) {
+                imgStarTwo.setVisibility(View.VISIBLE);
+            } else if (score >= 3 && score < 5){
+                imgStarOne.setVisibility(View.VISIBLE);
+                imgStarThree.setVisibility(View.VISIBLE);
+            }else if (score >= 5){
+                imgStarOne.setVisibility(View.VISIBLE);
+                imgStarTwo.setVisibility(View.VISIBLE);
+                imgStarThree.setVisibility(View.VISIBLE);
+            }
+
+            //tvLevel.setText("Text level");
             tvScore.setText(String.valueOf(score));
-            //dialog.setCancelable(false);
+            //tvCorrectAnswer.setText("Count correct!);
+            dialog.setCancelable(false);
             dialog.show();
 
+            imgReview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    reviewQuiz();
+                }
+            });
+
+            imgFinish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
 
         }else {
             Toast.makeText(this, "Bái bai nha. Ahihi!", Toast.LENGTH_SHORT).show();
@@ -460,6 +499,23 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         SnapHelper startSnapHelper = new StartSnapHelper();
         startSnapHelper.attachToRecyclerView(mRvQuestion);
+    }
+
+    private void reviewQuiz(){
+
+        for (int i = 0; i < mQuestionList.size(); i++) {
+            Question question = mQuestionList.get(i);
+            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
+                AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
+                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.isCorrect()){
+                    question.setIdCorrect(answerByQuestion.getIdAnswer());
+                    break;
+                }
+            }
+
+        }
+        mRvQuestion.scrollToPosition(0);
+        mQuizAdapter.notifyDataSetChanged();
     }
 
     @Override

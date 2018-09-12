@@ -25,14 +25,44 @@
             android:textSize="32dp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-        <!--recycle view-->
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/star" />
+            <ImageView
+                android:id="@+id/img_star_one"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:src="@drawable/star"
+                android:visibility="gone" />
 
+            <ImageView
+                android:id="@+id/img_star_two"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:src="@drawable/star"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_star_three"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:src="@drawable/star"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -95,7 +125,7 @@
                 android:src="@drawable/icon_review" />
 
             <ImageView
-                android:id="@+id/img_ok"
+                android:id="@+id/img_finish"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"

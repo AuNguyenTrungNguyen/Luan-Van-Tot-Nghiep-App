@@ -1,6 +1,7 @@
 package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -118,9 +119,19 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             }
         });
 
+        if (question.getIdCorrect() != 0) {
+            int ui = -1;
+            for (int i = 0; i < listUser.size(); i++) {
+                if (listUser.get(i).getIdAnswer() == question.getIdCorrect()) {
+                    ui = i;
+                    break;
+                }
+            }
+            setColorAnswer(holder, ui);
+        }
     }
 
-    private void setRadio(final ViewHolder holder, int selection) {
+    private void setRadio(ViewHolder holder, int selection) {
 
         RadioGroup rg = holder.radioGroup;
         RadioButton b1 = holder.rbAnswerA;
@@ -138,6 +149,29 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             b4.setChecked(true);
         } else if (selection == -1) {
             rg.clearCheck();
+        }
+    }
+
+    private void setColorAnswer(ViewHolder holder, int selection) {
+
+        RadioButton b1 = holder.rbAnswerA;
+        RadioButton b2 = holder.rbAnswerB;
+        RadioButton b3 = holder.rbAnswerC;
+        RadioButton b4 = holder.rbAnswerD;
+
+        b1.setBackgroundColor(Color.WHITE);
+        b2.setBackgroundColor(Color.WHITE);
+        b3.setBackgroundColor(Color.WHITE);
+        b4.setBackgroundColor(Color.WHITE);
+
+        if (selection == 0) {
+            b1.setBackgroundColor(Color.CYAN);
+        } else if (selection == 1) {
+            b2.setBackgroundColor(Color.CYAN);
+        } else if (selection == 2) {
+            b3.setBackgroundColor(Color.CYAN);
+        } else if (selection == 3) {
+            b4.setBackgroundColor(Color.CYAN);
         }
     }
 
