@@ -2,9 +2,7 @@ package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,34 +54,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        Question question = mQuestionList.get(position);
+        final Question question = mQuestionList.get(position);
         holder.tvQuestion.setText("Câu " + (position + 1) + ". " + question.getContentQuestion());
-
-        Log.i("ANTN", "onBindViewHolder: " + position + " " + question.getAnswer());
-        switch (question.getAnswer()) {
-            case 0:
-                holder.rbAnswerA.setChecked(true);
-                break;
-
-            case 1:
-                holder.rbAnswerB.setChecked(true);
-                break;
-
-            case 2:
-                holder.rbAnswerC.setChecked(true);
-                break;
-
-            case 3:
-                holder.rbAnswerD.setChecked(true);
-                break;
-
-            default:
-                holder.rbAnswerA.setChecked(false);
-                holder.rbAnswerB.setChecked(false);
-                holder.rbAnswerC.setChecked(false);
-                holder.rbAnswerD.setChecked(false);
-                break;
-        }
 
         List<AnswerByQuestion> list = new ArrayList();
         int idQuestion = question.getIdQuestion();
@@ -110,32 +82,63 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         holder.rbAnswerC.setText("C. " + listUser.get(2).getContentAnswer());
         holder.rbAnswerD.setText("D. " + listUser.get(3).getContentAnswer());
 
-        //radiobutton group check
-        holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        setRadio(holder, mQuestionList.get(position).getAnswer());
 
-                //vay lam theo viewpager duoc k - chịu rồi nãy t copy cho 1 class về viewpager
-                switch (i) {
-                    case R.id.rb_answer_a:
-                        communicateQuiz.onUserChooseAnswer(position, listUser.get(0).getIdAnswer());
-                        mQuestionList.get(position).setAnswer(0);
-                        break;
-                    case R.id.rb_answer_b:
-                        communicateQuiz.onUserChooseAnswer(position, listUser.get(1).getIdAnswer());
-                        mQuestionList.get(position).setAnswer(1);
-                        break;
-                    case R.id.rb_answer_c:
-                        communicateQuiz.onUserChooseAnswer(position, listUser.get(2).getIdAnswer());
-                        mQuestionList.get(position).setAnswer(2);
-                        break;
-                    case R.id.rb_answer_d:
-                        communicateQuiz.onUserChooseAnswer(position, listUser.get(3).getIdAnswer());
-                        mQuestionList.get(position).setAnswer(3);
-                        break;
-                }
+        //radiobutton group check
+        holder.rbAnswerA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                question.setAnswer(0);
+                setRadio(holder, question.getAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listUser.get(0).getIdAnswer());
             }
         });
+        holder.rbAnswerB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                question.setAnswer(1);
+                setRadio(holder, question.getAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listUser.get(1).getIdAnswer());
+            }
+        });
+        holder.rbAnswerC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                question.setAnswer(2);
+                setRadio(holder, question.getAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listUser.get(2).getIdAnswer());
+            }
+        });
+        holder.rbAnswerD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                question.setAnswer(3);
+                setRadio(holder, question.getAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listUser.get(3).getIdAnswer());
+            }
+        });
+
+    }
+
+    private void setRadio(final ViewHolder holder, int selection) {
+
+        RadioGroup rg = holder.radioGroup;
+        RadioButton b1 = holder.rbAnswerA;
+        RadioButton b2 = holder.rbAnswerB;
+        RadioButton b3 = holder.rbAnswerC;
+        RadioButton b4 = holder.rbAnswerD;
+
+        if (selection == 0) {
+            b1.setChecked(true);
+        } else if (selection == 1) {
+            b2.setChecked(true);
+        } else if (selection == 2) {
+            b3.setChecked(true);
+        } else if (selection == 3) {
+            b4.setChecked(true);
+        } else if (selection == -1) {
+            rg.clearCheck();
+        }
     }
 
     @Override
@@ -150,7 +153,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         RadioButton rbAnswerB;
         RadioButton rbAnswerC;
         RadioButton rbAnswerD;
-        CardView cvQuiz;
 
         ViewHolder(View view) {
             super(view);
@@ -160,7 +162,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             rbAnswerB = view.findViewById(R.id.rb_answer_b);
             rbAnswerC = view.findViewById(R.id.rb_answer_c);
             rbAnswerD = view.findViewById(R.id.rb_answer_d);
-            cvQuiz = view.findViewById(R.id.cv_quiz);
         }
     }
 }

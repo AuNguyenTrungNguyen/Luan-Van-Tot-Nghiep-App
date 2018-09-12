@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import luanvan.luanvantotnghiep.Adapter.PageVisibleLinearLayoutManager;
 import luanvan.luanvantotnghiep.Adapter.QuizAdapter;
 import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
@@ -136,7 +135,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             Button btnSubmit = dialog.findViewById(R.id.btn_submit);
             Button btnContinue = dialog.findViewById(R.id.btn_continue);
 
-            tvAnswered.setText("0/" + mTotalQuestion);
+            updateNumberAnswered(tvAnswered);
             //handel time running in dialog
             tvTimeLeft.setText(convertLongToTime(mCurrentTime));
             /*final Timer timer = new Timer();
@@ -424,14 +423,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showQuestion() {
 
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
-//                LinearLayoutManager.HORIZONTAL,
-//                false);
-//        mRvQuestion.setLayoutManager(mLayoutManager);
-        PageVisibleLinearLayoutManager pageVisibleLinearLayoutManager = new PageVisibleLinearLayoutManager(this,
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL,
                 false);
-        mRvQuestion.setLayoutManager(pageVisibleLinearLayoutManager);
+        mRvQuestion.setLayoutManager(mLayoutManager);
+//        PageVisibleLinearLayoutManager pageVisibleLinearLayoutManager = new PageVisibleLinearLayoutManager(this,
+//                LinearLayoutManager.HORIZONTAL,
+//                false);
+//        mRvQuestion.setLayoutManager(pageVisibleLinearLayoutManager);
 
         mQuizAdapter = new QuizAdapter(this,
                 mQuestionList, mAnswerList, mAnswerByQuestionList);
@@ -460,6 +459,18 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onUserChooseAnswer(int question, int answer) {
         mListUserAnswer.set(question, answer);
+        updateNumberAnswered(mTvTotal);
+    }
+
+    private void updateNumberAnswered(TextView textView){
+        int count = 0;
+
+        for (int i = 0; i < mListUserAnswer.size(); i++){
+            if (mListUserAnswer.get(i) != -1){
+                count++;
+            }
+        }
+        textView.setText(count + "/" + mTotalQuestion);
     }
 }
 

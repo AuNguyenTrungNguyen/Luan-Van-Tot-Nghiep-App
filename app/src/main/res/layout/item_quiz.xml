@@ -7,8 +7,8 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="6dp"
-    tools:ignore="ContentDescription"
-    android:id="@+id/cv_quiz">
+    android:clickable="false"
+    tools:ignore="ContentDescription">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,7 +50,6 @@
                     android:text="Cu"
                     android:textColor="@color/black"
                     android:textSize="16dp"
-
                     android:textStyle="bold" />
 
                 <RadioButton
