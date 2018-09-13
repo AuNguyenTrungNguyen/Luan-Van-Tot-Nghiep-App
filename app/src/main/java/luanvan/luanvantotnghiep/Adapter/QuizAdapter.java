@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Question question = mQuestionList.get(position);
-        holder.tvQuestion.setText("Câu " + (position + 1) + ". " + question.getContentQuestion());
+        holder.tvQuestion.setText(Html.fromHtml("Câu " + (position + 1) + ". " + question.getContentQuestion()));
 
+        //list: content 4 ids answer by question
         List<AnswerByQuestion> list = new ArrayList();
         int idQuestion = question.getIdQuestion();
         for (AnswerByQuestion answerByQuestion : mAnswerByQuestionList) {
@@ -66,22 +68,27 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             }
         }
 
-        //get content answer
-        final List<Answer> listUser = new ArrayList<>();
+        //listAnswer: content 4 answers by list
+        final List<Answer> listAnswer = new ArrayList<>();
         for (Answer answer : mAnswerList) {
             int idAnswer = answer.getIdAnswer();
             for (AnswerByQuestion answerByQuestion : list) {
                 if (idAnswer == answerByQuestion.getIdAnswer()) {
-                    listUser.add(answer);
+                    listAnswer.add(answer);
                 }
             }
         }
+        
+        //random answer
+//        Collections.shuffle(listAnswer);
+//        Collections.shuffle(listAnswer);
+//        Collections.shuffle(listAnswer);
 
         //set data
-        holder.rbAnswerA.setText("A. " + listUser.get(0).getContentAnswer());
-        holder.rbAnswerB.setText("B. " + listUser.get(1).getContentAnswer());
-        holder.rbAnswerC.setText("C. " + listUser.get(2).getContentAnswer());
-        holder.rbAnswerD.setText("D. " + listUser.get(3).getContentAnswer());
+        holder.rbAnswerA.setText(Html.fromHtml("A. " + listAnswer.get(0).getContentAnswer()));
+        holder.rbAnswerB.setText(Html.fromHtml("B. " + listAnswer.get(1).getContentAnswer()));
+        holder.rbAnswerC.setText(Html.fromHtml("C. " + listAnswer.get(2).getContentAnswer()));
+        holder.rbAnswerD.setText(Html.fromHtml("D. " + listAnswer.get(3).getContentAnswer()));
 
         setRadio(holder, mQuestionList.get(position).getAnswer());
 
@@ -91,7 +98,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(0);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listUser.get(0).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(0).getIdAnswer());
             }
         });
         holder.rbAnswerB.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +106,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(1);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listUser.get(1).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(1).getIdAnswer());
             }
         });
         holder.rbAnswerC.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +114,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(2);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listUser.get(2).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(2).getIdAnswer());
             }
         });
         holder.rbAnswerD.setOnClickListener(new View.OnClickListener() {
@@ -115,19 +122,19 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(3);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listUser.get(3).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(3).getIdAnswer());
             }
         });
 
         if (question.getIdCorrect() != 0) {
             int ui = -1;
-            for (int i = 0; i < listUser.size(); i++) {
-                if (listUser.get(i).getIdAnswer() == question.getIdCorrect()) {
+            for (int i = 0; i < listAnswer.size(); i++) {
+                if (listAnswer.get(i).getIdAnswer() == question.getIdCorrect()) {
                     ui = i;
                     break;
                 }
             }
-            setColorAnswer(holder, ui);
+            setColorAnswer(holder, ui, question.getAnswer());
         }
     }
 
@@ -152,7 +159,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         }
     }
 
-    private void setColorAnswer(ViewHolder holder, int selection) {
+    private void setColorAnswer(ViewHolder holder, int correct, int user) {
 
         RadioButton b1 = holder.rbAnswerA;
         RadioButton b2 = holder.rbAnswerB;
@@ -164,14 +171,41 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         b3.setBackgroundColor(Color.WHITE);
         b4.setBackgroundColor(Color.WHITE);
 
-        if (selection == 0) {
+        b1.setEnabled(false);
+        b2.setEnabled(false);
+        b3.setEnabled(false);
+        b4.setEnabled(false);
+
+        if (user == 0) {
+            b1.setEnabled(true);
+        } else if (user == 1) {
+            b2.setEnabled(true);
+        } else if (user == 2) {
+            b3.setEnabled(true);
+        } else if (user == 3) {
+            b4.setEnabled(true);
+        }
+
+        if (correct == 0) {
             b1.setBackgroundColor(Color.CYAN);
-        } else if (selection == 1) {
+        } else if (correct == 1) {
             b2.setBackgroundColor(Color.CYAN);
-        } else if (selection == 2) {
+        } else if (correct == 2) {
             b3.setBackgroundColor(Color.CYAN);
-        } else if (selection == 3) {
+        } else if (correct == 3) {
             b4.setBackgroundColor(Color.CYAN);
+        }
+
+        if (user == correct){
+            if (correct == 0) {
+                b1.setEnabled(true);
+            } else if (correct == 1) {
+                b2.setEnabled(true);
+            } else if (correct == 2) {
+                b3.setEnabled(true);
+            } else if (correct == 3) {
+                b4.setEnabled(true);
+            }
         }
     }
 
