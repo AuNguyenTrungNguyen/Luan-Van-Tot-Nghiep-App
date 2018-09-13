@@ -1,9 +1,11 @@
 package luanvan.luanvantotnghiep.Activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
@@ -13,16 +15,24 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import luanvan.luanvantotnghiep.Adapter.CheckingAnswerAdapter;
 import luanvan.luanvantotnghiep.Adapter.QuizAdapter;
 import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
@@ -49,6 +59,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     //List use update UI and handle score
     private List<Integer> mListUserAnswer;
+    private CheckingAnswerAdapter mCheckingAnswerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +94,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 mTotalQuestion = mQuestionList.size();
 
                 //prepare data score
-
                 mListUserAnswer = new ArrayList<>();
                 for (int i = 0; i < mTotalQuestion; i++) {
                     mListUserAnswer.add(i, -1);
                 }
+
+                findViewById(R.id.ln_start_game).setVisibility(View.GONE);
 
                 startGame();
             }
@@ -531,6 +543,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     public void onUserChooseAnswer(int question, int answer) {
         mListUserAnswer.set(question, answer);
         updateNumberAnswered(mTvTotal);
+        mCheckingAnswerAdapter.notifyDataSetChanged();
     }
 
     private void updateNumberAnswered(TextView textView) {
@@ -542,6 +555,50 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         textView.setText(count + "/" + mTotalQuestion);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_quiz, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mn_quiz:
+
+                final PopupWindow popupWindow = new PopupWindow(this);
+                LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.layout_popup_quiz, null, false);
+
+                GridView gridView = view.findViewById(R.id.gv_question);
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < mListUserAnswer.size(); i++) {
+                    list.add(String.valueOf(i));
+                }
+                mCheckingAnswerAdapter = new CheckingAnswerAdapter(this,R.layout.item_checking_answer, mListUserAnswer);
+                gridView.setAdapter(mCheckingAnswerAdapter);
+
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        mRvQuestion.scrollToPosition(i);
+                        popupWindow.dismiss();
+                    }
+                });
+
+                popupWindow.setContentView(view);
+                popupWindow.setFocusable(true);
+                Toolbar viewToolbar = findViewById(R.id.toolbar);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    popupWindow.showAsDropDown(viewToolbar, 0, 0, Gravity.RIGHT);
+                }else{
+                    popupWindow.showAtLocation(viewToolbar, Gravity.CENTER, 0, 0);
+                }
+                break;
+        }
+        return true;
     }
 }
 
