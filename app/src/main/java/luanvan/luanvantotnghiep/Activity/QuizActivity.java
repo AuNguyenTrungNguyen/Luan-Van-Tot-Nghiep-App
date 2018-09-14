@@ -87,9 +87,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void chooseOption() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("QUẤT LUÔN KHÔNG?");
+        builder.setMessage("Bạn đã sẵn sàng");
 
-        builder.setPositiveButton("Quất", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Làm bài", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 isPlaying = true;
                 mTotalQuestion = mQuestionList.size();
@@ -110,7 +110,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 startGame();
             }
         });
-        builder.setNegativeButton("Xin lui", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 finish();
             }
@@ -124,6 +124,31 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void startGame() {
         setUpGame();
         showQuestion();
+    }
+
+    private void setUpGame() {
+        mCountDownTimer = new CountDownTimer(330000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mCurrentTime = millisUntilFinished;
+                mTvTime.setText(convertLongToTime(millisUntilFinished));
+
+                //set text color  time <= 5m
+                if (millisUntilFinished <= 300000){
+                    mTvTime.setTextColor(Color.RED);
+                }
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                showScore();
+
+            }
+        }.start();
+
+        mTvTotal.setText("0/" + mTotalQuestion);
     }
 
     private void setupToolbar() {
@@ -797,26 +822,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         answer = new Answer(72, "Prôton, nơtron và electron.");
         mAnswerList.add(answer);
-    }
-
-    private void setUpGame() {
-        mCountDownTimer = new CountDownTimer(1800000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mCurrentTime = millisUntilFinished;
-                mTvTime.setText(convertLongToTime(millisUntilFinished));
-                //nếu time < 5p đỏ mess: còn 5p làm bài.
-            }
-
-            @Override
-            public void onFinish() {
-
-                showScore();
-
-            }
-        }.start();
-
-        mTvTotal.setText("0/" + mTotalQuestion);
     }
 
     private void showQuestion() {
