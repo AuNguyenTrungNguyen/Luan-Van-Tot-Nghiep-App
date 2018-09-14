@@ -6,6 +6,11 @@
     <color name="textColor">#fff</color>
     <color name="background">#e7e5e5</color>
 
+    <color name="black">#000000</color>
+    <color name="red">#ff0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="gray">#808080</color>
+
     <!--Color type of periodic-->
     <color name="all">#000</color>
     <color name="alkali_metal">#ff6666</color>
@@ -27,7 +32,6 @@
     <color name="unknown">#606060</color>
 
     <color name="oxidizing_reducing">#00FFFF</color>
-    <color name="black">#000</color>
 
 
 </resources>

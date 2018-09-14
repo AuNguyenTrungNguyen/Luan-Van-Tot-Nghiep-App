@@ -62,8 +62,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
         android:background="#808080"
+        android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -74,7 +74,7 @@
             <!--Proton-->
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
@@ -86,7 +86,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -97,8 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:padding="4dp"
-                            android:weightSum="3">
+                            android:weightSum="4">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -107,20 +106,29 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:gravity="center"
                                 android:text="Electron"
-                                android:textColor="#000"
+                                android:textColor="@color/black"
                                 android:textSize="24dp"
                                 android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/ib_info_electron"
+                                style="@style/Widget.AppCompat.Button.Borderless"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_info" />
 
                             <TextView
                                 android:id="@+id/tv_electron"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:fontFamily="Roboto"
+                                android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
                                 android:text="113"
-                                android:textColor="#000"
-                                android:textSize="32dp"
+                                android:textColor="@color/red"
+                                android:textSize="48dp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -132,8 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:padding="4dp"
-                            android:weightSum="3">
+                            android:weightSum="4">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -142,20 +149,29 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:gravity="center"
                                 android:text="Proton"
-                                android:textColor="#000"
+                                android:textColor="@color/black"
                                 android:textSize="24dp"
                                 android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/ib_info_proton"
+                                style="@style/Widget.AppCompat.Button.Borderless"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_info" />
 
                             <TextView
                                 android:id="@+id/tv_proton"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:fontFamily="Roboto"
+                                android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
                                 android:text="113"
-                                android:textColor="#000"
-                                android:textSize="32dp"
+                                android:textColor="@color/red"
+                                android:textSize="48dp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -167,8 +183,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:padding="4dp"
-                            android:weightSum="3">
+                            android:weightSum="4">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -177,20 +192,29 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:gravity="center"
                                 android:text="Nơtron *"
-                                android:textColor="#000"
+                                android:textColor="@color/black"
                                 android:textSize="24dp"
                                 android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/ib_info_neutron"
+                                style="@style/Widget.AppCompat.Button.Borderless"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@drawable/icon_info" />
 
                             <TextView
                                 android:id="@+id/tv_neutron"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:fontFamily="Roboto"
+                                android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
                                 android:text="113"
-                                android:textColor="#000"
-                                android:textSize="32dp"
+                                android:textColor="@color/red"
+                                android:textSize="48dp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -205,7 +229,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="right"
                         android:text="* theo đồng vị ổn định nhất"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
@@ -228,31 +252,65 @@
                     android:layout_marginRight="8dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_element_category"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/background_detail_element_textview"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:text="Phân loại: Kim loại"
-                        android:textColor="#000"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                    <TextView
-                        android:id="@+id/tv_weight_chemical"
+                        <TextView
+                            android:id="@+id/tv_element_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:text="Phân loại: Kim loại"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/ib_info_category"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/background_detail_element_textview"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:text="Khối lượng phân tử: 1"
-                        android:textColor="#000"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/tv_weight_chemical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:text="Khối lượng phân tử: 1"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/ib_info_weight"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_english_name"
@@ -263,32 +321,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Tên tiếng anh: Hydrogen"
-                        android:textColor="#000"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/background_detail_element_textview"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:textColor="#000"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_period"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/background_detail_element_textview"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:text="Chu kỳ: 1"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -297,47 +330,119 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_detail_element_textview"
                         android:orientation="horizontal"
-                        android:weightSum="5">
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/tv_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/ib_info_group"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/tv_period"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:text="Chu kỳ: 1"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/ib_info_period"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
                         <TextView
                             android:id="@+id/tv_electronegativity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:fontFamily="sans-serif-thin"
                             android:padding="4dp"
                             android:text="Độ âm điện: 2,1"
-                            android:textColor="#000"
+                            android:textColor="@color/black"
                             android:textSize="20dp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_wiki_pauling_scale"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:fontFamily="sans-serif-thin"
-                            android:padding="4dp"
-                            android:gravity="right"
-                            android:text="Theo thang Pauling"
-                            android:textColor="#000"
-                            android:textSize="12dp" />
+                        <ImageButton
+                            android:id="@+id/ib_info_electronegativity"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
 
                     </LinearLayout>
 
-                    <!--set chữ hóa trị là bold còn lại là font html-->
-                    <TextView
-                        android:id="@+id/tv_valence"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:text="Hóa trị: +1, -1"
-                        android:textColor="#000"
-                        android:textSize="20dp" />
+                        android:background="@drawable/background_detail_element_textview"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/tv_valence"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:text="Hóa trị: +1, -1"
+                            android:textColor="@color/black"
+                            android:textSize="20dp" />
+
+                        <ImageButton
+                            android:id="@+id/ib_info_valence"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -358,31 +463,85 @@
                     android:layout_marginRight="8dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_class"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/background_detail_element_textview"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:text="Phân lớp: s"
-                        android:textColor="#000"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                    <TextView
-                        android:id="@+id/tv_simplified_configuration"
+                        <TextView
+                            android:id="@+id/tv_class"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:text="Phân lớp: s"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/ib_info_class"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/background_detail_element_textview"
-                        android:fontFamily="sans-serif-thin"
-                        android:padding="4dp"
-                        android:text="Cấu hình rút gọn: 1s1"
-                        android:textColor="#000"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif-thin"
+                                android:padding="4dp"
+                                android:text="Cấu hình rút gọn:"
+                                android:textColor="@color/gray"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/ib_info_configuration"
+                                style="@style/Widget.AppCompat.Button.Borderless"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_down" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:gravity="right"
+                            android:id="@+id/tv_simplified_configuration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:padding="4dp"
+                            android:text="1s1"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/tv_configuration"
@@ -393,7 +552,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Cấu hình electron: 1s1"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -435,7 +594,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Trạng thái: Khí"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -448,7 +607,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Tính chất: không màu, không mùi, dễ bắt cháy"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -468,19 +627,21 @@
                             android:fontFamily="sans-serif-thin"
                             android:padding="4dp"
                             android:text="Đồng vị: 1H, 2H, 3H, 4H 5H, 6H"
-                            android:textColor="#000"
+                            android:textColor="@color/black"
                             android:textSize="20dp"
                             android:textStyle="bold" />
 
-                        <ImageView
-                            android:id="@+id/img_wiki_table_isotope"
+                        <ImageButton
+                            android:layout_weight="1"
+                            android:layout_marginRight="8dp"
+                            android:id="@+id/ib_info_isotope"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_gravity="center|end"
-                            android:layout_weight="1"
-                            android:foregroundGravity="center"
-                            android:paddingRight="8dp"
-                            android:src="@drawable/icon_wiki" />
+                            android:layout_gravity="center"
+                            android:src="@drawable/icon_down" />
+
+
 
                     </LinearLayout>
 
@@ -493,7 +654,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Nhiệt độ nóng chảy: -259,14 °C"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -506,7 +667,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Nhiệt độ sôi: -252,87 °C"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -538,7 +699,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Người phát hiện: Henry Cavendish"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -551,7 +712,7 @@
                         android:fontFamily="sans-serif-thin"
                         android:padding="4dp"
                         android:text="Năm phát hiện: 1766"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 

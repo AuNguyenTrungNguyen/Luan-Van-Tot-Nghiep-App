@@ -45,10 +45,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\star-fill-512.png" />
-                                      <entry key="outputName" value="icon_star" />
+                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\ic_down.png" />
+                                      <entry key="outputName" value="icon_down" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="ffbf00" />
+                                      <entry key="themeColor" value="ff0000" />
                                     </map>
                                   </option>
                                 </PersistentState>

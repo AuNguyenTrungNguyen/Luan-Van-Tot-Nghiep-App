@@ -1,9 +1,3 @@
 ﻿- Cấu hình electron, hay cấu hình điện tử, nguyên tử cho biết sự phân bố các electron trong lớp vỏ nguyên tử ở các trạng thái năng lượng khác nhau hay ở các vùng hiện diện của chúng.<br><br>
 - Số thứ tự lớp electron được ghi bằng chữ số (1, 2, 3...)<br><br>
 - Phân lớp được ghi bằng các chữ cái thường (s, p, d, f).<br><br>
-- Obitan electron là các khu vực không gian có hình dạng khác nhau bao quanh hạt nhân nguyên tử, trong đó các electron được sắp xếp một cách trật tự.<br><br>
-- Qua cấu hình electron bạn có thể nhanh chóng xác định được có bao nhiêu obitan electron trong nguyên tử, và số electron trong từng obitan.<br><br>
-
-<h3><font color='red'>Tham khảo tại:</font></h3>
-    + <a href="https://www.wikihow.vn/Vi%E1%BA%BFt-c%E1%BA%A5u-h%C3%ACnh-electron-c%E1%BB%A7a-nguy%C3%AAn-t%E1%BB%AD">www.wikihow.vn</a><br><br>
-    + <a href="https://en.wikipedia.org/wiki/Electron_configuration">wikipedia.org</a>
