@@ -53,6 +53,12 @@ public final class ChemistryContract {
         public static final String COLUMN_PICTURE = "element_picture";
     }
 
+    public static class CompoundEntry implements BaseColumns {
+        public static final String TABLE_NAME = "compound";
+        public static final String COLUMN_ID = "compound_id";
+        public static final String COLUMN_OTHER_NAMES = "compound_other_names";
+    }
+
     public static class AnionEntry implements BaseColumns {
         public static final String TABLE_NAME = "anion";
         public static final String COLUMN_ID = "anion_id";
@@ -80,4 +86,11 @@ public final class ChemistryContract {
         public static final String COLUMN_ION = "react_series_ion";
         public static final String COLUMN_VALENCE = "react_series_valence";
     }
+
+    public static class ProducedByEntry implements BaseColumns {
+        public static final String TABLE_NAME = "produced_by";
+        public static final String COLUMN_LEFT_REACTION_ID = "left_reaction_id";
+        public static final String COLUMN_RIGHT_REACTION_ID = "right_reaction_id";
+    }
+
 }

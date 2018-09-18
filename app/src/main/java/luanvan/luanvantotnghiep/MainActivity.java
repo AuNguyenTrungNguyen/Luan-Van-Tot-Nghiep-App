@@ -29,8 +29,10 @@ import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
 import luanvan.luanvantotnghiep.Model.Chemistry;
+import luanvan.luanvantotnghiep.Model.Compound;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
+import luanvan.luanvantotnghiep.Model.ProducedBy;
 import luanvan.luanvantotnghiep.Model.Solute;
 import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
@@ -78,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         addDataElementTable();
 
+        //Data use search
+        addDataChemistryOfCompound();
+
+        addDataCompound();
+
+        addDataProducedBy();
+
         //Data use PERIODIC_TABLE
         addDataAnionTable();
 
@@ -122,6 +131,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         typeList.add(type);
 
         type = new Type(11, "Thuộc tính hóa học chưa rõ");
+        typeList.add(type);
+
+        type = new Type(12, "Axit");
+        typeList.add(type);
+
+        type = new Type(13, "Bazơ");
+        typeList.add(type);
+
+        type = new Type(14, "Oxit axit");
+        typeList.add(type);
+
+        type = new Type(15, "Oxit bazơ");
+        typeList.add(type);
+
+        type = new Type(16, "Oxit lưỡng tính");
+        typeList.add(type);
+
+        type = new Type(17, "Oxit trung tính");
+        typeList.add(type);
+
+        type = new Type(18, "Muối");
+        typeList.add(type);
+
+        type = new Type(19, "Lưỡng tính");
         typeList.add(type);
 
         //Check and add data
@@ -1234,7 +1267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Fm",
                 "Fermi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 257
         );
         chemistryList.add(chemical);
@@ -1245,7 +1278,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Md",
                 "Mendelevi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 258
         );
         chemistryList.add(chemical);
@@ -1256,7 +1289,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "No",
                 "Nobeli",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 259
         );
         chemistryList.add(chemical);
@@ -1267,7 +1300,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Lr",
                 "Lawrenci",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 262
         );
         chemistryList.add(chemical);
@@ -1278,7 +1311,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Rf",
                 "Rutherfordi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 262
         );
         chemistryList.add(chemical);
@@ -1289,7 +1322,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Db",
                 "Dubni",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 268
         );
         chemistryList.add(chemical);
@@ -1300,7 +1333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Sg",
                 "Seaborgi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 269
         );
         chemistryList.add(chemical);
@@ -1311,7 +1344,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Bh",
                 "Bohri",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 270
         );
         chemistryList.add(chemical);
@@ -1322,7 +1355,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Hs",
                 "Hassi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 269
         );
         chemistryList.add(chemical);
@@ -1333,7 +1366,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Mt",
                 "Meitneri",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 278
         );
         chemistryList.add(chemical);
@@ -1344,7 +1377,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Ds",
                 "Darmstadti",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 281
         );
         chemistryList.add(chemical);
@@ -1355,7 +1388,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Rg",
                 "Roentgeni",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 281
         );
         chemistryList.add(chemical);
@@ -1366,7 +1399,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Cn",
                 "Copernixi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 285
         );
         chemistryList.add(chemical);
@@ -1377,7 +1410,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Nh",
                 "Nihoni",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 286
         );
         chemistryList.add(chemical);
@@ -1388,7 +1421,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Fl",
                 "Flerovi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 289
         );
         chemistryList.add(chemical);
@@ -1399,7 +1432,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Mc",
                 "Moscovi",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 289
         );
         chemistryList.add(chemical);
@@ -1410,7 +1443,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Lv",
                 "Livermori",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 293
         );
         chemistryList.add(chemical);
@@ -1432,7 +1465,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 "Og",
                 "Oganesson",
                 "Chưa xác định",
-                "",
+                "Chưa xác định",
                 293
         );
         chemistryList.add(chemical);
@@ -1447,6 +1480,394 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mChemistryHelper.addChemistry(item);
             }
         }
+    }
+
+    private void addDataChemistryOfCompound() {
+        List<Chemistry> chemistryList = new ArrayList<>();
+        Chemistry chemistry;
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(119);
+        chemistry.setIdType(19);
+        chemistry.setSymbolChemistry("H2O");
+        chemistry.setNameChemistry("Nước");
+        chemistry.setColorChemistry("Trong suốt");
+        chemistry.setStatusChemistry("Chất lỏng");
+        chemistry.setWeightChemistry(18);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(120);
+        chemistry.setIdType(12);
+        chemistry.setSymbolChemistry("H2SO4");
+        chemistry.setNameChemistry("Axit sunfuric");
+        chemistry.setColorChemistry("Trong suốt");
+        chemistry.setStatusChemistry("Chất lỏng");
+        chemistry.setWeightChemistry(98);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(121);
+        chemistry.setIdType(12);
+        chemistry.setSymbolChemistry("HCl");
+        chemistry.setNameChemistry("Axit clohidric");
+        chemistry.setColorChemistry("Trong suốt");
+        chemistry.setStatusChemistry("Chất lỏng");
+        chemistry.setWeightChemistry(36.5);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(122);
+        chemistry.setIdType(12);
+        chemistry.setSymbolChemistry("HNO3");
+        chemistry.setNameChemistry("Axit nitric");
+        chemistry.setColorChemistry("Trong suốt");
+        chemistry.setStatusChemistry("Chất lỏng");
+        chemistry.setWeightChemistry(63);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(123);
+        chemistry.setIdType(13);
+        chemistry.setSymbolChemistry("NaOH");
+        chemistry.setNameChemistry("Natri hidroxit");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(40);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(124);
+        chemistry.setIdType(13);
+        chemistry.setSymbolChemistry("Ba(OH)2");
+        chemistry.setNameChemistry("Bari hidroxit");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(171);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(125);
+        chemistry.setIdType(14);
+        chemistry.setSymbolChemistry("SO2");
+        chemistry.setNameChemistry("Lưu huỳnh dioxit");
+        chemistry.setColorChemistry("Không màu");
+        chemistry.setStatusChemistry("Chất khí");
+        chemistry.setWeightChemistry(64);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(126);
+        chemistry.setIdType(14);
+        chemistry.setSymbolChemistry("CO2");
+        chemistry.setNameChemistry("Cacbon dioxit");
+        chemistry.setColorChemistry("Không màu");
+        chemistry.setStatusChemistry("Chất khí");
+        chemistry.setWeightChemistry(44);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(127);
+        chemistry.setIdType(15);
+        chemistry.setSymbolChemistry("Na2O");
+        chemistry.setNameChemistry("Natri oxit");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(55);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(128);
+        chemistry.setIdType(15);
+        chemistry.setSymbolChemistry("BaO");
+        chemistry.setNameChemistry("Bari oxit");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(153);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(129);
+        chemistry.setIdType(16);
+        chemistry.setSymbolChemistry("Al2O3");
+        chemistry.setNameChemistry("Nhôm oxit");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(102);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(130);
+        chemistry.setIdType(16);
+        chemistry.setSymbolChemistry("ZnO");
+        chemistry.setNameChemistry("Kẽm oxit");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(81);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(131);
+        chemistry.setIdType(17);
+        chemistry.setSymbolChemistry("CO");
+        chemistry.setNameChemistry("Cacbon monoxit");
+        chemistry.setColorChemistry("Không màu");
+        chemistry.setStatusChemistry("Chất khí");
+        chemistry.setWeightChemistry(28);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(132);
+        chemistry.setIdType(17);
+        chemistry.setSymbolChemistry("NO");
+        chemistry.setNameChemistry("Nitơ monoxit");
+        chemistry.setColorChemistry("Không màu");
+        chemistry.setStatusChemistry("Chất khí");
+        chemistry.setWeightChemistry(30);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(133);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("Na2SO4");
+        chemistry.setNameChemistry("Natri sunfat");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(142);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(134);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("NaCl");
+        chemistry.setNameChemistry("Natri clorua");
+        chemistry.setColorChemistry("Trắng hoặc không màu");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(58.5);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(135);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("NaNO3");
+        chemistry.setNameChemistry("Natri nitrat");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(85);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(136);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("BaSO4");
+        chemistry.setNameChemistry("Bari sunfat");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(233);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(137);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("BaCl2");
+        chemistry.setNameChemistry("Bari clorua");
+        chemistry.setColorChemistry("Trắng hoặc không màu");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(208);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(138);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("Ba(NO3)2");
+        chemistry.setNameChemistry("Bari nitrat");
+        chemistry.setColorChemistry("Trắng");
+        chemistry.setStatusChemistry("Chất rắn");
+        chemistry.setWeightChemistry(261);
+        chemistryList.add(chemistry);
+
+        chemistry = new Chemistry();
+        chemistry.setIdChemistry(139);
+        chemistry.setIdType(18);
+        chemistry.setSymbolChemistry("SO3");
+        chemistry.setNameChemistry("Lưu huỳnh trioxit");
+        chemistry.setColorChemistry("Không màu");
+        chemistry.setStatusChemistry("Chất lỏng, khí");
+        chemistry.setWeightChemistry(261);
+        chemistryList.add(chemistry);
+
+        //Check and add data
+        if (chemistryList.size() == mChemistryHelper.getAllChemistry().size()) {
+            Log.i("ANTN", "Table Chemistry available");
+        } else {
+            //mChemistryHelper.emptyChemistry();
+            //Add to database
+            for (Chemistry item : chemistryList) {
+                mChemistryHelper.addChemistry(item);
+            }
+        }
+    }
+
+    private void addDataCompound() {
+        List<Compound> mCompoundList = new ArrayList<>();
+        Compound compound;
+
+        compound = new Compound();
+        compound.setIdCompound(119);
+        compound.setOtherNames("Hidrogen oxit, Dihidrogen monoxit");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(120);
+        compound.setOtherNames("Dầu sulfate, Hidro sulfate");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(121);
+        compound.setOtherNames("Axit muriatic, cloran");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(122);
+        compound.setOtherNames("Aqua fortis, Spirit of nitre, Salpetre axit");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(123);
+        compound.setOtherNames("Xút hoặc xút ăn da");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(124);
+        compound.setOtherNames("");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(125);
+        compound.setOtherNames("Sulfur dioxit, sulfur(IV) oxit; anhydrit sulfurơ");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(126);
+        compound.setOtherNames("Khí cacbonic, thán khí, anhiđrít cacbonic)");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(127);
+        compound.setOtherNames("Đinatri oxit");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(128);
+        compound.setOtherNames("Baria");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(129);
+        compound.setOtherNames("Alumina, nhôm oxit, trioxit nhôm");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(130);
+        compound.setOtherNames("Kẽm trắng, Calamine");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(131);
+        compound.setOtherNames("cacbon oxit, oxit cacbon, khí than");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(132);
+        compound.setOtherNames("Nitric oxit, Nitrogen(II) oxit");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(133);
+        compound.setOtherNames("Khoáng vật thenardite và Mirabilite");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(134);
+        compound.setOtherNames("halua, muối ăn");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(135);
+        compound.setOtherNames("Caliche, Diêm tiêu, Nitrat soda, Nitratine");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(136);
+        compound.setOtherNames("");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(137);
+        compound.setOtherNames("Barium muriate,Barium dichloride");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(138);
+        compound.setOtherNames("Barium dinitrate, barium salt");
+        mCompoundList.add(compound);
+
+        compound = new Compound();
+        compound.setIdCompound(139);
+        compound.setOtherNames("Anhydrit sulfuric, Sulfur trioxit, Trioxit sulfur");
+        mCompoundList.add(compound);
+
+        //Check and add data
+        if (mCompoundList.size() == mChemistryHelper.getAllCompound().size()) {
+            Log.i("ANTN", "Table Compound available");
+        } else {
+            //mCompoundHelper.emptyCompound();
+            //Add to database
+            mChemistryHelper.emptyCompound();
+
+            for (Compound item : mCompoundList) {
+                mChemistryHelper.addCompound(item);
+            }
+        }
+    }
+
+    private void addDataProducedBy(){
+        List<ProducedBy> mProducedByList = new ArrayList<>();
+        ProducedBy producedBy;
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(119);
+        producedBy.setIdLeftReaction(1);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(119);
+        producedBy.setIdLeftReaction(2);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(139);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(119);
+        mProducedByList.add(producedBy);
+
+        //Check and add data
+        if (mProducedByList.size() == mChemistryHelper.getAllProducedBy().size()) {
+            Log.i("ANTN", "Table ProducedBy available");
+        } else {
+            //mCompoundHelper.emptyCompound();
+            //Add to database
+            mChemistryHelper.emptyProducedBy();
+
+            for (ProducedBy item : mProducedByList) {
+                mChemistryHelper.addProducedBy(item);
+            }
+        }
+
     }
 
     private void addDataGroupTable() {
@@ -2293,7 +2714,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         element = new Element();
         element.setIdElement(35);
-        element.setMolecularFormula("Br");
+        element.setMolecularFormula("Br2");
         element.setPeriod(4);
         element.setClassElement("p");
         element.setNeutron(45);
@@ -2718,7 +3139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         element = new Element();
         element.setIdElement(53);
-        element.setMolecularFormula("I");
+        element.setMolecularFormula("I2");
         element.setPeriod(5);
         element.setClassElement("p");
         element.setNeutron(74);
@@ -5244,7 +5665,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_periodic_table) {
 
-            if(!mIsPeriodic){
+            if (!mIsPeriodic) {
                 mIsPeriodic = true;
                 switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
                 mNavigationRight.getMenu().getItem(0).setChecked(true);
@@ -5312,7 +5733,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_unknown_chemical_properties) {
 
-           controlRightNavgate(R.id.nav_unknown_chemical_properties, 11);
+            controlRightNavgate(R.id.nav_unknown_chemical_properties, 11);
 
         } else if (id == R.id.nav_solid) {
 
@@ -5355,7 +5776,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void switchFragment(int id, Fragment fragment) {
 
-        if (id != R.id.nav_periodic_table){
+        if (id != R.id.nav_periodic_table) {
             mIsPeriodic = false;
         }
 
@@ -5368,7 +5789,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void controlRightNavgate(int id, int type) {
-        if(mCurrentId != id){
+        if (mCurrentId != id) {
             mCurrentId = id;
             mFragmentToSet = PeriodicTableFragment.newInstance();
             Bundle bundle = new Bundle();
