@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import luanvan.luanvantotnghiep.Activity.FillInTheBlankActivity;
 import luanvan.luanvantotnghiep.Activity.QuizActivity;
 import luanvan.luanvantotnghiep.R;
 
@@ -37,7 +38,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         view.findViewById(R.id.cv_quiz).setOnClickListener(this);
-        view.findViewById(R.id.cv_word_fill).setOnClickListener(this);
+        view.findViewById(R.id.cv_fill_in_the_blank).setOnClickListener(this);
 
         return view;
     }
@@ -47,6 +48,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()){
             case R.id.cv_quiz:
                 mContext.startActivity(new Intent(mContext, QuizActivity.class));
+                break;
+
+            case R.id.cv_fill_in_the_blank:
+                mContext.startActivity(new Intent(mContext, FillInTheBlankActivity.class));
                 break;
         }
     }

@@ -51,7 +51,7 @@
 
         <!--Word fill-->
         <android.support.v7.widget.CardView
-            android:id="@+id/cv_word_fill"
+            android:id="@+id/cv_fill_in_the_blank"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
