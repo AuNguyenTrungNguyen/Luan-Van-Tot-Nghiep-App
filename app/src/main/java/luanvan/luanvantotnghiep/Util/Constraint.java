@@ -26,4 +26,5 @@ public class Constraint {
     public static final String FILE_ACTINIDE = "info_actinide";
 
     public static final String SYMBOL = "&rarr";
+    public static final String TAG = "CNHH";
 }

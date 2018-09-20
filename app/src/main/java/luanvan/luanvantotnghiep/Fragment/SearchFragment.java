@@ -2,17 +2,18 @@ package luanvan.luanvantotnghiep.Fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
-import android.util.DisplayMetrics;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -134,7 +136,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
+        final String[] oldText = {""};
 
         if (searchItem != null) {
             mSearchView = (SearchView) searchItem.getActionView();
@@ -153,7 +155,11 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
 
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    textSubmit(query);
+                    if (!TextUtils.equals(query.toLowerCase(), oldText[0].toLowerCase())){
+
+                        textSubmit(query);
+                        oldText[0] = query;
+                    }
                     return true;
                 }
             };
@@ -188,7 +194,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         boolean mIsElement = false;
         boolean mIsCompound = false;
 
-        Chemistry chemistryEml = null;
+        Chemistry chemistryEle = null;
         Type typeDataEml = null;
         Chemistry chemistryCom = null;
         Type typeDataCom = null;
@@ -198,34 +204,21 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         //search by symbol
         for (Element element : mElementList) {
             if (string.toLowerCase().equals(element.getMolecularFormula().toLowerCase())) {
-                mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(element.getMolecularFormula())));
-
                 for (Chemistry chemistry : mChemistryList) {
                     if (element.getIdElement() == chemistry.getIdChemistry()) {
-//                        mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistry.getNameChemistry() + "</font>"));
-//                        mTvStatusChemistry.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistry.getStatusChemistry() + "</font>"));
-//                        mTvColorChemistry.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistry.getColorChemistry() + "</font>"));
-
                         for (Type type : mTypeList) {
                             if (chemistry.getIdType() == type.getIdType()) {
-//                                mTvNameType.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + type.getNameType() + "</font>"));
                                 typeDataEml = type;
                                 break;
                             }
                         }
-//                        if (element.getMolecularFormula().toLowerCase().equals(chemistry.getSymbolChemistry().toLowerCase())) {
-//                            mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistry.getWeightChemistry()) + " g/mol</font>"));
-//                        } else {
-//                            mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistry.getWeightChemistry() * 2) + " g/mol</font>"));
-//                        }
-                        chemistryEml = chemistry;
+
+                        mIsElement = true;
+                        chemistryEle = chemistry;
                         elementData = element;
-                        mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(element.getMolecularFormula())), false);
-                        setParamAdapter(chemistry.getIdChemistry());
+                        break;
                     }
                 }
-                mIsElement = true;
-                mTvOtherNames.setVisibility(View.GONE);
                 break;
             }
         }
@@ -235,102 +228,82 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
             if (string.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
                 for (Element element : mElementList) {
                     if (chemistry.getIdChemistry() == element.getIdElement()) {
-//                        mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(element.getMolecularFormula())));
-//                        mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistry.getNameChemistry() + "</font>"));
-//                        mTvStatusChemistry.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistry.getStatusChemistry() + "</font>"));
-//                        mTvColorChemistry.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistry.getColorChemistry() + "</font>"));
-
                         for (Type type : mTypeList) {
                             if (chemistry.getIdType() == type.getIdType()) {
-                                //mTvNameType.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + type.getNameType() + "</font>"));
                                 typeDataEml = type;
                                 break;
                             }
                         }
-//                        if (element.getMolecularFormula().toLowerCase().equals(chemistry.getSymbolChemistry().toLowerCase())) {
-//                            mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistry.getWeightChemistry()) + " g/mol</font>"));
-//                        } else {
-//                            mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistry.getWeightChemistry() * 2) + " g/mol</font>"));
-//                        }
+                        mIsElement = true;
                         elementData = element;
-                        chemistryEml = chemistry;
-                        mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(element.getMolecularFormula())), false);
-                        setParamAdapter(chemistry.getIdChemistry());
+                        chemistryEle = chemistry;
+                        break;
                     }
                 }
-                mIsElement = true;
-                mTvOtherNames.setVisibility(View.GONE);
                 break;
             }
         }
 
-
+        //Comp
         for (Chemistry chemistry : mChemistryList) {
             if (string.toLowerCase().equals(chemistry.getSymbolChemistry().toLowerCase())
                     || string.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
                 for (Compound compound : mCompoundList) {
                     if (chemistry.getIdChemistry() == compound.getIdCompound()) {
-//                        mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(chemistry.getSymbolChemistry())));
-//                        mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistry.getNameChemistry() + "</font>"));
-//                        mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistry.getWeightChemistry()) + " g/mol</font>"));
-//                        mTvStatusChemistry.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistry.getStatusChemistry() + "</font>"));
-//                        mTvColorChemistry.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistry.getColorChemistry() + "</font>"));
-//                        if (!compound.getOtherNames().equals("")) {
-//                            mTvOtherNames.setVisibility(View.VISIBLE);
-//                            mTvOtherNames.setText(Html.fromHtml("<font color='gray'>Tên khác: </font><font color='black'>" + compound.getOtherNames() + "</font>"));
-//                        } else {
-//                            mTvOtherNames.setVisibility(View.GONE);
-//                        }
                         for (Type type : mTypeList) {
                             if (chemistry.getIdType() == type.getIdType()) {
-                                //mTvNameType.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + type.getNameType() + "</font>"));
                                 typeDataCom = type;
                                 break;
                             }
                         }
+                        mIsCompound = true;
                         compoundData = compound;
                         chemistryCom = chemistry;
-//                        mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(chemistry.getSymbolChemistry())), false);
-//                        setParamAdapter(chemistry.getIdChemistry());
+                        break;
                     }
                 }
-                break;
             }
         }
 
+        if (mIsElement && mIsCompound) { // 2 thằng
+            showDialog(chemistryEle, chemistryCom);
+        } else if (!mIsElement && !mIsCompound) { //ko có rồi
+            Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
+        } else { //1 trong 2
+            if (mIsElement) {
+                mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(elementData.getMolecularFormula())));
+                mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistryEle.getNameChemistry() + "</font>"));
+                mTvStatusChemistry.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistryEle.getStatusChemistry() + "</font>"));
+                mTvColorChemistry.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistryEle.getColorChemistry() + "</font>"));
+                mTvNameType.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + typeDataEml.getNameType() + "</font>"));
+                if (elementData.getMolecularFormula().toLowerCase().equals(chemistryEle.getSymbolChemistry().toLowerCase())) {
+                    mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistryEle.getWeightChemistry()) + " g/mol</font>"));
+                } else {
+                    mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistryEle.getWeightChemistry() * 2) + " g/mol</font>"));
+                }
+                mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(elementData.getMolecularFormula())), false);
+                setParamAdapter(chemistryEle.getIdChemistry());
+                mTvOtherNames.setVisibility(View.GONE);
 
-        //case: not is element == compound
-//        if (!mIsElement) {
-//            for (Chemistry chemistry : mChemistryList) {
-//                if (string.toLowerCase().equals(chemistry.getSymbolChemistry().toLowerCase())
-//                        || string.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
-//                    for (Compound compound : mCompoundList) {
-//                        if (chemistry.getIdChemistry() == compound.getIdCompound()) {
-//                            mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(chemistry.getSymbolChemistry())));
-//                            mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistry.getNameChemistry() + "</font>"));
-//                            mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistry.getWeightChemistry()) + " g/mol</font>"));
-//                            mTvStatusChemistry.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistry.getStatusChemistry() + "</font>"));
-//                            mTvColorChemistry.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistry.getColorChemistry() + "</font>"));
-//                            if (!compound.getOtherNames().equals("")) {
-//                                mTvOtherNames.setVisibility(View.VISIBLE);
-//                                mTvOtherNames.setText(Html.fromHtml("<font color='gray'>Tên khác: </font><font color='black'>" + compound.getOtherNames() + "</font>"));
-//                            } else {
-//                                mTvOtherNames.setVisibility(View.GONE);
-//                            }
-//                            for (Type type : mTypeList) {
-//                                if (chemistry.getIdType() == type.getIdType()) {
-//                                    mTvNameType.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + type.getNameType() + "</font>"));
-//                                    break;
-//                                }
-//                            }
-//                            mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(chemistry.getSymbolChemistry())), false);
-//                            setParamAdapter(chemistry.getIdChemistry());
-//                        }
-//                    }
-//                    break;
-//                }
-//            }
-//        }
+
+            } else if (mIsCompound) {
+                mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(chemistryCom.getSymbolChemistry())));
+                mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistryCom.getNameChemistry() + "</font>"));
+                mTvWeightChemistry.setText(Html.fromHtml("<font color='gray'>Khối lượng: </font><font color='black'>" + Double.toString(chemistryCom.getWeightChemistry()) + " g/mol</font>"));
+                mTvStatusChemistry.setText(Html.fromHtml("<font color='gray'>Trạng thái: </font><font color='black'>" + chemistryCom.getStatusChemistry() + "</font>"));
+                mTvColorChemistry.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistryCom.getColorChemistry() + "</font>"));
+                if (!compoundData.getOtherNames().equals("")) {
+                    mTvOtherNames.setVisibility(View.VISIBLE);
+                    mTvOtherNames.setText(Html.fromHtml("<font color='gray'>Tên khác: </font><font color='black'>" + compoundData.getOtherNames() + "</font>"));
+                } else {
+                    mTvOtherNames.setVisibility(View.GONE);
+                }
+
+                mTvNameType.setText(Html.fromHtml("<font color='gray'>Phân loại: </font><font color='black'>" + typeDataCom.getNameType() + "</font>"));
+                mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(chemistryCom.getSymbolChemistry())), false);
+                setParamAdapter(chemistryCom.getIdChemistry());
+            }
+        }
     }
 
     //SEND DATA TO ADAPTER
@@ -382,4 +355,23 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         textSubmit(chipText.toLowerCase());
     }
 
+    private void showDialog(final Chemistry chemistryEle, final Chemistry chemistryCom) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Bạn muốn tìm gì?");
+
+        builder.setPositiveButton(chemistryEle.getNameChemistry(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                textSubmit(chemistryEle.getNameChemistry());
+            }
+        });
+        builder.setNegativeButton(chemistryCom.getNameChemistry(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                textSubmit(chemistryCom.getNameChemistry());
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
+    }
 }
