@@ -1,5 +1,6 @@
 package luanvan.luanvantotnghiep;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +30,14 @@ import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
+import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Compound;
+import luanvan.luanvantotnghiep.Model.CreatedReaction;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
 import luanvan.luanvantotnghiep.Model.ProducedBy;
+import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
 import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
@@ -86,6 +91,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addDataCompound();
 
         addDataProducedBy();
+
+        addDataChemicalReaction();
+
+        addDataCreatedReaction();
+
+        addDataReactWith();
 
         //Data use PERIODIC_TABLE
         addDataAnionTable();
@@ -1688,12 +1699,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         chemistry = new Chemistry();
         chemistry.setIdChemistry(139);
-        chemistry.setIdType(18);
+        chemistry.setIdType(14);
         chemistry.setSymbolChemistry("SO3");
         chemistry.setNameChemistry("Lưu huỳnh trioxit");
         chemistry.setColorChemistry("Không màu");
-        chemistry.setStatusChemistry("Chất lỏng, khí");
-        chemistry.setWeightChemistry(261);
+        chemistry.setStatusChemistry("Chất lỏng");
+        chemistry.setWeightChemistry(80);
         chemistryList.add(chemistry);
 
         //Check and add data
@@ -1842,7 +1853,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         producedBy = new ProducedBy();
         producedBy.setIdRightReaction(119);
-        producedBy.setIdLeftReaction(2);
+        producedBy.setIdLeftReaction(8);
         mProducedByList.add(producedBy);
 
         producedBy = new ProducedBy();
@@ -1852,7 +1863,88 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         producedBy = new ProducedBy();
         producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(123);
+        mProducedByList.add(producedBy);
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(124);
+        mProducedByList.add(producedBy);
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(125);
+        mProducedByList.add(producedBy);
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(126);
+        mProducedByList.add(producedBy);
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(127);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(129);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(130);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(131);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(132);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(133);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(134);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(135);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
+        producedBy.setIdLeftReaction(136);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(120);
         producedBy.setIdLeftReaction(119);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(139);
+        producedBy.setIdLeftReaction(125);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(139);
+        producedBy.setIdLeftReaction(8);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(125);
+        producedBy.setIdLeftReaction(8);
+        mProducedByList.add(producedBy);
+
+        producedBy = new ProducedBy();
+        producedBy.setIdRightReaction(125);
+        producedBy.setIdLeftReaction(16);
         mProducedByList.add(producedBy);
 
         //Check and add data
@@ -1868,6 +1960,194 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
+    }
+
+    private void addDataChemicalReaction(){
+        List<ChemicalReaction> chemicalReactionList = new ArrayList<>();
+        ChemicalReaction chemicalReaction;
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(1);
+        chemicalReaction.setReactants("2:H2 + 1:O2");
+        chemicalReaction.setProducts("2:H2O");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(2);
+        chemicalReaction.setReactants("1:SO3 + 1:H2O");
+        chemicalReaction.setProducts("1:H2SO4");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(3);
+        chemicalReaction.setReactants("2:SO2 + 1:O2");
+        chemicalReaction.setProducts("2:SO3");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(4);
+        chemicalReaction.setReactants("1:S + 1:O2");
+        chemicalReaction.setProducts("1:SO2");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(5);
+        chemicalReaction.setReactants("1:H2SO4 + 2:NaOH");
+        chemicalReaction.setProducts("1:Na2SO4 + 2:H2O");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(6);
+        chemicalReaction.setReactants("1:H2SO4 + 1:Na2O");
+        chemicalReaction.setProducts("1:Na2SO4 + 1:H2O");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(7);
+        chemicalReaction.setReactants("1:H2SO4(dd) + 1:Fe");
+        chemicalReaction.setProducts("1:FeSO4 + 1:H2");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(8);
+        chemicalReaction.setReactants("1:SO2 + 1:H2");
+        chemicalReaction.setProducts("1:H2SO3");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(9);
+        chemicalReaction.setReactants("1:SO2 + 1:Br2 + 2:H2O");
+        chemicalReaction.setProducts("2:HBr + 1:H2SO4");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(10);
+        chemicalReaction.setReactants("1:SO2 + 2:Mg");
+        chemicalReaction.setProducts("1:S + 2:MgO");
+        chemicalReactionList.add(chemicalReaction);
+
+        chemicalReaction = new ChemicalReaction();
+        chemicalReaction.setIdChemicalReaction(11);
+        chemicalReaction.setReactants("1:H2SO4 + 1:SO3");
+        chemicalReaction.setProducts("1:H2S2O7");
+        chemicalReactionList.add(chemicalReaction);
+
+        //Check and add data
+        if (chemicalReactionList.size() == mChemistryHelper.getAllChemicalReaction().size()) {
+            Log.i("ANTN", "Table Reaction available");
+        } else {
+            //Add to database
+            mChemistryHelper.emptyChemicalReaction();
+            for (ChemicalReaction item : chemicalReactionList) {
+                mChemistryHelper.addChemicalReaction(item);
+            }
+        }
+    }
+
+    private void addDataCreatedReaction(){
+        List<CreatedReaction> createdReactionList = new ArrayList<>();
+        CreatedReaction createdReaction;
+
+        createdReaction = new CreatedReaction();
+        createdReaction.setIdCreatedRight(119);
+        createdReaction.setIdChemicalReaction(1);
+        createdReactionList.add(createdReaction);
+
+        createdReaction = new CreatedReaction();
+        createdReaction.setIdCreatedRight(120);
+        createdReaction.setIdChemicalReaction(2);
+        createdReactionList.add(createdReaction);
+
+        createdReaction = new CreatedReaction();
+        createdReaction.setIdCreatedRight(139);
+        createdReaction.setIdChemicalReaction(3);
+        createdReactionList.add(createdReaction);
+
+        createdReaction = new CreatedReaction();
+        createdReaction.setIdCreatedRight(125);
+        createdReaction.setIdChemicalReaction(4);
+        createdReactionList.add(createdReaction);
+
+        //Check and add data
+        if (createdReactionList.size() == mChemistryHelper.getAllCreatedReaction().size()) {
+            Log.i("ANTN", "Table Created available");
+        } else {
+            //Add to database
+            mChemistryHelper.emptyCreatedReaction();
+            for (CreatedReaction item : createdReactionList) {
+                mChemistryHelper.addCreatedReaction(item);
+            }
+        }
+    }
+
+    private void addDataReactWith(){
+        List<ReactWith> reactWithList = new ArrayList<>();
+        ReactWith reactWith;
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(120);
+        reactWith.setIdChemistry_2(123);
+        reactWith.setIdChemicalReaction(5);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(120);
+        reactWith.setIdChemistry_2(127);
+        reactWith.setIdChemicalReaction(6);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(120);
+        reactWith.setIdChemistry_2(26);
+        reactWith.setIdChemicalReaction(7);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(125);
+        reactWith.setIdChemistry_2(1);
+        reactWith.setIdChemicalReaction(8);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(125);
+        reactWith.setIdChemistry_2(8);
+        reactWith.setIdChemicalReaction(3);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(125);
+        reactWith.setIdChemistry_2(35);
+        reactWith.setIdChemicalReaction(9);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(125);
+        reactWith.setIdChemistry_2(12);
+        reactWith.setIdChemicalReaction(10);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(139);
+        reactWith.setIdChemistry_2(119);
+        reactWith.setIdChemicalReaction(1);
+        reactWithList.add(reactWith);
+
+        reactWith = new ReactWith();
+        reactWith.setIdChemistry_1(139);
+        reactWith.setIdChemistry_2(120);
+        reactWith.setIdChemicalReaction(11);
+        reactWithList.add(reactWith);
+
+        //Check and add data
+        if (reactWithList.size() == mChemistryHelper.getAllReactWith().size()) {
+            Log.i("ANTN", "Table Type available");
+        } else {
+            //Add to database
+            mChemistryHelper.emptyReactWith();
+            for (ReactWith item : reactWithList) {
+                mChemistryHelper.addReactWith(item);
+            }
+        }
     }
 
     private void addDataGroupTable() {
@@ -5598,7 +5878,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onDrawerOpened(@NonNull View view) {
-
+                InputMethodManager imm = (InputMethodManager) getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
 
             @Override

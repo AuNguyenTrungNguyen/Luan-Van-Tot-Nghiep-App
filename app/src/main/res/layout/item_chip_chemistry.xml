@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:alignContent="flex_start"
+    app:alignItems="flex_start"
+    app:flexWrap="wrap"
+    app:showDivider="beginning|middle">
+
+    <TextView
+        android:id="@+id/tv_chip_chemistry"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_margin="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/background_chip"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="NaCl"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
+</com.google.android.flexbox.FlexboxLayout>

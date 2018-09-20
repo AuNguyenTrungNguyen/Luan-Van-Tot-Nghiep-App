@@ -25,6 +25,5 @@ public class Constraint {
     public static final String FILE_LANTHANIDE = "info_lanthanide";
     public static final String FILE_ACTINIDE = "info_actinide";
 
-
-
+    public static final String SYMBOL = "&rarr";
 }

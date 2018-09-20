@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background_top_line"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_react_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:padding="4dp"
+        android:paddingTop="4dp"
+        android:text=" + tác dụng với kim loại:"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_with_reaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="right"
+        android:padding="4dp"
+        android:paddingTop="4dp"
+        android:text="Fe + 2HCl → FeCl2+ H2"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

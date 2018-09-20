@@ -93,4 +93,27 @@ public final class ChemistryContract {
         public static final String COLUMN_RIGHT_REACTION_ID = "right_reaction_id";
     }
 
+    public static class ChemicalReactionEntry implements BaseColumns {
+        public static final String TABLE_NAME = "chemical_reaction";
+        public static final String COLUMN_CHEMICAL_REACTION_ID = "chemical_reaction_id";
+        public static final String COLUMN_REACTANTS = "reactants";
+        public static final String COLUMN_PRODUCTS = "products";
+        public static final String COLUMN_CONDITIONS = "conditions";
+        public static final String COLUMN_PHENOMENA = "phenomena";
+        public static final String COLUMN_TOW_WAY= "tow_way";
+    }
+
+    public static class ReactWithEntry implements BaseColumns {
+        public static final String TABLE_NAME = "react_with";
+        public static final String COLUMN_CHEMISTRY_1_ID = "chemistry_1_id";
+        public static final String COLUMN_CHEMISTRY_2_ID = "chemistry_2_id";
+        public static final String COLUMN_CHEMICAL_REACTION_ID = "chemical_reaction_id";
+    }
+
+    public static class CreatedReactionEntry implements BaseColumns {
+        public static final String TABLE_NAME = "created_reaction";
+        public static final String COLUMN_CREATE_RIGHT_ID= "created_right_id";
+        public static final String COLUMN_CHEMICAL_REACTION_ID = "chemical_reaction_id";
+    }
+
 }

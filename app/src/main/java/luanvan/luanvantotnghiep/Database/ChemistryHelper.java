@@ -12,18 +12,21 @@ import java.util.List;
 
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
+import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Compound;
+import luanvan.luanvantotnghiep.Model.CreatedReaction;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
 import luanvan.luanvantotnghiep.Model.ProducedBy;
 import luanvan.luanvantotnghiep.Model.ReactSeries;
+import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
 import luanvan.luanvantotnghiep.Model.Type;
 
 public class ChemistryHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Chemistry.db";
 
     public ChemistryHelper(Context context) {
@@ -66,6 +69,9 @@ public class ChemistryHelper extends SQLiteOpenHelper {
          */
         db.execSQL(SQL_CREATE_COMPOUND);
         db.execSQL(SQL_CREATE_PRODUCED_BY);
+        db.execSQL(SQL_CREATE_CHEMICAL_REACTION);
+        db.execSQL(SQL_CREATE_REACT_WITH);
+        db.execSQL(SQL_CREATE_CREATED_REACTION);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -74,6 +80,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
             PERIODIC TABLE
          */
         db.execSQL(SQL_DELETE_ELEMENT);
+        ///
         db.execSQL(SQL_DELETE_GROUP);
         db.execSQL(SQL_DELETE_CHEMISTRY);
         db.execSQL(SQL_DELETE_TYPE);
@@ -96,6 +103,9 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_COMPOUND);
         db.execSQL(SQL_DELETE_PRODUCED_BY);
 
+        db.execSQL(SQL_DELETE_REACT_WITH);
+        db.execSQL(SQL_DELETE_CREATED_REACTION);
+        db.execSQL(SQL_DELETE_CHEMICAL_REACTION);
 
         onCreate(db);
     }
@@ -161,29 +171,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
             "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
             "ON DELETE CASCADE)";
 
-    //[CREATE] table compound
-    private static final String SQL_CREATE_COMPOUND =
-            "CREATE TABLE " + ChemistryContract.CompoundEntry.TABLE_NAME + " (" +
-                    ChemistryContract.CompoundEntry.COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                    ChemistryContract.CompoundEntry.COLUMN_OTHER_NAMES + " TEXT, " +
-                    "FOREIGN KEY(" + ChemistryContract.CompoundEntry.COLUMN_ID + ") " +
-                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
-                    "ON DELETE CASCADE)";
-
-    //[CREATE] table Produced by
-    private static final String SQL_CREATE_PRODUCED_BY =
-            "CREATE TABLE " + ChemistryContract.ProducedByEntry.TABLE_NAME + " (" +
-                    ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID + " INTEGER, " +
-                    ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID + " INTEGER, " +
-                    "PRIMARY KEY(" + ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID + ", " +
-                    ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID + "), " +
-                    "FOREIGN KEY(" + ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID + ") " +
-                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
-                    "ON DELETE CASCADE," +
-                    "FOREIGN KEY(" + ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID + ") " +
-                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
-                    "ON DELETE CASCADE)";
-
     //[DROP] table type
     private static final String SQL_DELETE_TYPE =
             "DROP TABLE IF EXISTS " + ChemistryContract.TypeEntry.TABLE_NAME;
@@ -199,14 +186,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     //[DROP] table element
     private static final String SQL_DELETE_ELEMENT =
             "DROP TABLE IF EXISTS " + ChemistryContract.ElementEntry.TABLE_NAME;
-
-    //[DROP] table compound
-    private static final String SQL_DELETE_COMPOUND =
-            "DROP TABLE IF EXISTS " + ChemistryContract.CompoundEntry.TABLE_NAME;
-
-    //[DROP] table produced by
-    private static final String SQL_DELETE_PRODUCED_BY  =
-            "DROP TABLE IF EXISTS " + ChemistryContract.ProducedByEntry.TABLE_NAME;
 
     /*
      * TABLES SOLUBILITY_TABLE
@@ -263,6 +242,97 @@ public class ChemistryHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + ChemistryContract.ReactSeriesEntry.TABLE_NAME;
 
     /*
+     * SEARCH CHEMISTRY
+     */
+
+    //[CREATE] table compound
+    private static final String SQL_CREATE_COMPOUND =
+            "CREATE TABLE " + ChemistryContract.CompoundEntry.TABLE_NAME + " (" +
+                    ChemistryContract.CompoundEntry.COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                    ChemistryContract.CompoundEntry.COLUMN_OTHER_NAMES + " TEXT, " +
+                    "FOREIGN KEY(" + ChemistryContract.CompoundEntry.COLUMN_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table Produced by
+    private static final String SQL_CREATE_PRODUCED_BY =
+            "CREATE TABLE " + ChemistryContract.ProducedByEntry.TABLE_NAME + " (" +
+                    ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID + " INTEGER, " +
+                    ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID + " INTEGER, " +
+                    "PRIMARY KEY(" + ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID + ", " +
+                    ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table Chemical Reaction
+    private static final String SQL_CREATE_CHEMICAL_REACTION =
+            "CREATE TABLE " + ChemistryContract.ChemicalReactionEntry.TABLE_NAME + " (" +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_CHEMICAL_REACTION_ID + " INTEGER PRIMARY KEY, " +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_REACTANTS + " TEXT, " +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_PRODUCTS + " TEXT, " +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_CONDITIONS + " TEXT, " +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_PHENOMENA + " TEXT, " +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_TOW_WAY + " BOOLEAN) ";
+
+    //[CREATE] table React With
+    private static final String SQL_CREATE_REACT_WITH =
+            "CREATE TABLE " + ChemistryContract.ReactWithEntry.TABLE_NAME + " (" +
+                    ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_1_ID + " INTEGER, " +
+                    ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_2_ID + " INTEGER, " +
+                    ChemistryContract.ReactWithEntry.COLUMN_CHEMICAL_REACTION_ID + " INTEGER, " +
+                    "PRIMARY KEY(" + ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_1_ID + ", " +
+                    ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_2_ID + ", " +
+                    ChemistryContract.ReactWithEntry.COLUMN_CHEMICAL_REACTION_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_1_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_2_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.ReactWithEntry.COLUMN_CHEMICAL_REACTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemicalReactionEntry.TABLE_NAME + "(" + ChemistryContract.ChemicalReactionEntry.COLUMN_CHEMICAL_REACTION_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table Created Reaction
+    private static final String SQL_CREATE_CREATED_REACTION =
+            "CREATE TABLE " + ChemistryContract.CreatedReactionEntry.TABLE_NAME + " (" +
+                    ChemistryContract.CreatedReactionEntry.COLUMN_CREATE_RIGHT_ID + " INTEGER, " +
+                    ChemistryContract.CreatedReactionEntry.COLUMN_CHEMICAL_REACTION_ID + " INTEGER, " +
+                    "PRIMARY KEY(" + ChemistryContract.CreatedReactionEntry.COLUMN_CREATE_RIGHT_ID + ", " +
+                    ChemistryContract.CreatedReactionEntry.COLUMN_CHEMICAL_REACTION_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.CreatedReactionEntry.COLUMN_CREATE_RIGHT_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemistryEntry.TABLE_NAME + "(" + ChemistryContract.ChemistryEntry.COLUMN_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.CreatedReactionEntry.COLUMN_CHEMICAL_REACTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChemicalReactionEntry.TABLE_NAME + "(" + ChemistryContract.ChemicalReactionEntry.COLUMN_CHEMICAL_REACTION_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[DROP] table compound
+    private static final String SQL_DELETE_COMPOUND =
+            "DROP TABLE IF EXISTS " + ChemistryContract.CompoundEntry.TABLE_NAME;
+
+    //[DROP] table produced by
+    private static final String SQL_DELETE_PRODUCED_BY =
+            "DROP TABLE IF EXISTS " + ChemistryContract.ProducedByEntry.TABLE_NAME;
+
+    //[DROP] table React With
+    private static final String SQL_DELETE_CHEMICAL_REACTION =
+            "DROP TABLE IF EXISTS " + ChemistryContract.ChemicalReactionEntry.TABLE_NAME;
+
+    //[DROP] table Chemical Reaction
+    private static final String SQL_DELETE_REACT_WITH =
+            "DROP TABLE IF EXISTS " + ChemistryContract.ReactWithEntry.TABLE_NAME;
+
+    //[DROP] table Created Reaction
+    private static final String SQL_DELETE_CREATED_REACTION =
+            "DROP TABLE IF EXISTS " + ChemistryContract.CreatedReactionEntry.TABLE_NAME;
+
+
+    /*
      * FUNCTION UES IN DATABASE
      */
 
@@ -300,6 +370,24 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     public void emptyProducedBy() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.ProducedByEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyChemicalReaction() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.ChemicalReactionEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyReactWith() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.ReactWithEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyCreatedReaction() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.CreatedReactionEntry.TABLE_NAME, null, null);
         db.close();
     }
 
@@ -395,30 +483,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         values.put(ChemistryContract.ElementEntry.COLUMN_PICTURE, element.getPicture());
 
         db.insert(ChemistryContract.ElementEntry.TABLE_NAME, null, values);
-        db.close();
-    }
-
-    public void addCompound(Compound compound) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.CompoundEntry.COLUMN_ID, compound.getIdCompound());
-        values.put(ChemistryContract.CompoundEntry.COLUMN_OTHER_NAMES, compound.getOtherNames());
-
-        db.insert(ChemistryContract.CompoundEntry.TABLE_NAME, null, values);
-        db.close();
-    }
-
-    public void addProducedBy(ProducedBy producedBy) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID, producedBy.getIdRightReaction());
-        values.put(ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID, producedBy.getIdLeftReaction());
-
-        db.insert(ChemistryContract.ProducedByEntry.TABLE_NAME, null, values);
         db.close();
     }
 
@@ -549,6 +613,108 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    //ANTN
+    //Get Chemistry by id
+    public Chemistry getChemistryById(int id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = ChemistryContract.ChemistryEntry.COLUMN_ID + " =  ?";
+        String selectionArgs[] = {String.valueOf(id)};
+        Cursor cursor = db.query(
+                ChemistryContract.ChemistryEntry.TABLE_NAME,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        Chemistry chemistry = null;
+        if (cursor.moveToFirst()) {
+
+            chemistry = new Chemistry();
+            chemistry.setIdChemistry(Integer.parseInt(cursor.getString(0)));
+            chemistry.setIdType(Integer.parseInt(cursor.getString(1)));
+            chemistry.setSymbolChemistry(cursor.getString(2));
+            chemistry.setNameChemistry(cursor.getString(3));
+            chemistry.setStatusChemistry(cursor.getString(4));
+            chemistry.setColorChemistry(cursor.getString(5));
+            chemistry.setWeightChemistry(Double.parseDouble(cursor.getString(6)));
+        }
+
+        cursor.close();
+        return chemistry;
+    }
+
+    //SEARCH CHEMISTRY
+    //[Add]
+    public void addCompound(Compound compound) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.CompoundEntry.COLUMN_ID, compound.getIdCompound());
+        values.put(ChemistryContract.CompoundEntry.COLUMN_OTHER_NAMES, compound.getOtherNames());
+
+        db.insert(ChemistryContract.CompoundEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addProducedBy(ProducedBy producedBy) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID, producedBy.getIdRightReaction());
+        values.put(ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID, producedBy.getIdLeftReaction());
+
+        db.insert(ChemistryContract.ProducedByEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addChemicalReaction(ChemicalReaction chemicalReaction) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CHEMICAL_REACTION_ID, chemicalReaction.getIdChemicalReaction());
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_REACTANTS, chemicalReaction.getReactants());
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PRODUCTS, chemicalReaction.getProducts());
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CONDITIONS, chemicalReaction.getConditions());
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PHENOMENA, chemicalReaction.getPhenomena());
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_TOW_WAY, chemicalReaction.getTowWay());
+
+        db.insert(ChemistryContract.ChemicalReactionEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addReactWith(ReactWith reactWith) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_1_ID, reactWith.getIdChemistry_1());
+        values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_2_ID, reactWith.getIdChemistry_2());
+        values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMICAL_REACTION_ID, reactWith.getIdChemicalReaction());
+
+        db.insert(ChemistryContract.ReactWithEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addCreatedReaction(CreatedReaction createdReaction) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.CreatedReactionEntry.COLUMN_CREATE_RIGHT_ID, createdReaction.getIdCreatedRight());
+        values.put(ChemistryContract.CreatedReactionEntry.COLUMN_CHEMICAL_REACTION_ID, createdReaction.getIdChemicalReaction());
+
+        db.insert(ChemistryContract.CreatedReactionEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    //[Get all]
     public List<Compound> getAllCompound() {
         List<Compound> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -601,37 +767,87 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    //Get Chemistry by id
-    public Chemistry getChemistryById(int id) {
-
+    public List<ChemicalReaction> getAllChemicalReaction() {
+        List<ChemicalReaction> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String selection = ChemistryContract.ChemistryEntry.COLUMN_ID + " =  ?";
-        String selectionArgs[] = {String.valueOf(id)};
         Cursor cursor = db.query(
-                ChemistryContract.ChemistryEntry.TABLE_NAME,
+                ChemistryContract.ChemicalReactionEntry.TABLE_NAME,
                 null,
-                selection,
-                selectionArgs,
+                null,
+                null,
                 null,
                 null,
                 null
         );
 
-        Chemistry chemistry = null;
-        if (cursor.moveToFirst()) {
+        ChemicalReaction chemicalReaction;
+        while (cursor.moveToNext()) {
+            chemicalReaction = new ChemicalReaction();
+            chemicalReaction.setIdChemicalReaction(Integer.parseInt(cursor.getString(0)));
+            chemicalReaction.setReactants((cursor.getString(1)));
+            chemicalReaction.setProducts((cursor.getString(2)));
+            chemicalReaction.setConditions((cursor.getString(3)));
+            chemicalReaction.setPhenomena((cursor.getString(4)));
+            chemicalReaction.setTowWay(Boolean.parseBoolean(cursor.getString(5)));
+            list.add(chemicalReaction);
 
-            chemistry = new Chemistry();
-            chemistry.setIdChemistry(Integer.parseInt(cursor.getString(0)));
-            chemistry.setIdType(Integer.parseInt(cursor.getString(1)));
-            chemistry.setSymbolChemistry(cursor.getString(2));
-            chemistry.setNameChemistry(cursor.getString(3));
-            chemistry.setStatusChemistry(cursor.getString(4));
-            chemistry.setColorChemistry(cursor.getString(5));
-            chemistry.setWeightChemistry(Double.parseDouble(cursor.getString(6)));
         }
-
         cursor.close();
-        return chemistry;
+
+        return list;
+    }
+
+    public List<ReactWith> getAllReactWith() {
+        List<ReactWith> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.ReactWithEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        ReactWith reactWith;
+        while (cursor.moveToNext()) {
+            reactWith = new ReactWith();
+            reactWith.setIdChemistry_1(Integer.parseInt(cursor.getString(0)));
+            reactWith.setIdChemistry_2(Integer.parseInt(cursor.getString(1)));
+            reactWith.setIdChemicalReaction(Integer.parseInt(cursor.getString(2)));
+            list.add(reactWith);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<CreatedReaction> getAllCreatedReaction() {
+        List<CreatedReaction> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.CreatedReactionEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        CreatedReaction createdReaction;
+        while (cursor.moveToNext()) {
+            createdReaction = new CreatedReaction();
+            createdReaction.setIdCreatedRight(Integer.parseInt(cursor.getString(0)));
+            createdReaction.setIdChemicalReaction(Integer.parseInt(cursor.getString(1)));
+            list.add(createdReaction);
+
+        }
+        cursor.close();
+
+        return list;
     }
 
     //SOLUBILITY TABLE

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:overScrollMode="never"
     android:background="#808080"
     tools:context=".Fragment.SearchFragment">
 
@@ -33,8 +35,8 @@
                     android:background="@drawable/background_detail_element_textview"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
-                    android:paddingTop="4dp"
                     android:paddingBottom="12dp"
+                    android:paddingTop="4dp"
                     android:text="HCl"
                     android:textColor="@color/red"
                     android:textSize="32dp"
@@ -100,10 +102,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:background="@drawable/background_top_line"
                     android:id="@+id/tv_other_names"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_top_line"
                     android:fontFamily="sans-serif-thin"
                     android:padding="4dp"
                     android:textColor="#000"
@@ -117,11 +119,11 @@
 
         <!--được tạo thành-->
         <android.support.v7.widget.CardView
+            android:id="@+id/cv_chip_chemistry"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
             app:cardUseCompatPadding="true">
 
             <!--recycler view -->
@@ -129,64 +131,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
-                    android:paddingLeft="4dp"
+                    android:padding="4dp"
                     android:paddingTop="4dp"
                     android:text="Được tạo thành từ: "
                     android:textColor="@color/red"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <!--item khoảng cách giữa các item là 8dp-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/background_chip"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text="H2"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/background_chip"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text="Cl2"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/background_chip"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text="NaCl"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_chip_chemistry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp" />
 
             </LinearLayout>
 
@@ -194,6 +157,7 @@
 
         <!--phuong trinh tao ra-->
         <android.support.v7.widget.CardView
+            android:id="@+id/cv_created_reaction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
@@ -203,43 +167,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
                     android:fontFamily="sans-serif-thin"
                     android:padding="4dp"
                     android:paddingTop="4dp"
-                    android:text="H2 + Cl2 → 2 HCl"
-                    android:textColor="#000"
-                    android:textSize="16dp"
+                    android:text="Phương trình điều chế:"
+                    android:textColor="@color/red"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <TextView
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_created_reaction"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="NaCl + H2SO4 đặc → NaHSO4 + HCl↑"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="2FeCl3 + 6H2O → Fe2O3 + 3H2O + 6HCl"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -247,6 +193,7 @@
 
         <!--tính chất hóa học-->
         <android.support.v7.widget.CardView
+            android:id="@+id/cv_react_with"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -257,13 +204,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="sans-serif-thin"
                     android:padding="4dp"
                     android:paddingTop="4dp"
                     android:text="Tính chất hóa học:"
@@ -271,106 +218,10 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <TextView
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_react_with"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text=" + tác dụng với kim loại"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:gravity="right"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="Fe + 2HCl → FeCl2+ H2"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text=" + tác dụng với oxit bazơ"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:gravity="right"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="ZnO + 2HCl → ZnCl2 + H2O"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text=" + tác dụng với bazơ"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:gravity="right"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="NaOH + HCl → NaCl + H2O"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text=" + tác dụng với muối"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:gravity="right"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="CaCO3 + 2HCl → CaCl2 + CO2 + H2O"
-                    android:textColor="#000"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -378,4 +229,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
