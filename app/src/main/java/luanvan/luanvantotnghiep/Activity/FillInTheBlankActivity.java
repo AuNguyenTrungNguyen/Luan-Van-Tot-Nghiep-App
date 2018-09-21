@@ -1,41 +1,65 @@
 package luanvan.luanvantotnghiep.Activity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
+import android.text.format.DateFormat;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import luanvan.luanvantotnghiep.Adapter.CheckingAnswerAdapter;
+import luanvan.luanvantotnghiep.Adapter.FillInTheBlankAdapter;
+import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 
-public class FillInTheBlankActivity extends AppCompatActivity {
+public class FillInTheBlankActivity extends AppCompatActivity implements View.OnClickListener, FillInTheBlankAdapter.CommunicateQuiz {
 
-    private TextView mTvQuestion;
-    private List<PositionCode> positionCodeList = new ArrayList<>();
+    private TextView mTvTime;
+    private TextView mTvTotal;
+    private Button mBtnComplete;
 
-    private List<Question> mQuestionList = new ArrayList<>();
-    private List<Answer> mAnswerList = new ArrayList<>();
-    private List<AnswerByQuestion> mAnswerByQuestionList = new ArrayList<>();
+    private FillInTheBlankAdapter mFillInTheBlankAdapter;
+    private RecyclerView mRvQuestion;
+    private List<Question> mQuestionList;
+    private List<Answer> mAnswerList;
+    private List<AnswerByQuestion> mAnswerByQuestionList;
 
-    private static final Character START_CODE = '&';
-    private static final Character END_CODE = '|';
-    private static final Character START_SHOW = '{';
-    private static final Character END_SHOW = '}';
+    private CountDownTimer mCountDownTimer;
+    private boolean isPlaying = false;
+    private long mCurrentTime = 0;
+    private int mTotalQuestion = 0;
+
+    //List use update UI and handle score
+    private List<Integer> mListUserAnswer;
+    private CheckingAnswerAdapter mCheckingAnswerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,114 +75,79 @@ public class FillInTheBlankActivity extends AppCompatActivity {
         addDataAnswerDK();
 
         addDataAnswerByQuestionDK();
+
     }
 
-    private void init() {
-        mTvQuestion = findViewById(R.id.tv_question);
-        SpannableString spannableString = handleClickQuestion("300 là số có &| chữ số, chia &| cho 2 và là số &|.");
-
-        mTvQuestion.setText(spannableString);
-        mTvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
+    @Override
+    protected void onStart() {
+        super.onStart();
+        chooseOption();
     }
 
-    private SpannableString handleClickQuestion(String question) {
-        ClickableSpan span;
+    private void chooseOption() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Bạn đã sẵn sàng");
 
-        question = question.replace(START_SHOW, START_CODE);
-        question = question.replace(END_SHOW, END_CODE);
+        builder.setPositiveButton("Làm bài", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                isPlaying = true;
+                mTotalQuestion = mQuestionList.size();
 
-        positionCodeList.clear();
-        for (int i = 0; i < question.length() - 1; i++) {
-            if (question.substring(i, i + 1).equals("&")) {
-                for (int j = i + 1; j < question.length() - 1; j++) {
-                    if (question.substring(j, j + 1).equals("|")) {
-                        positionCodeList.add(new PositionCode(i, j + 1));
-                        break;
-                    }
+                //prepare data score
+                mListUserAnswer = new ArrayList<>();
+                for (int i = 0; i < mTotalQuestion; i++) {
+                    mListUserAnswer.add(i, -1);
                 }
+
+                //random list question
+//                Collections.shuffle(mQuestionList);
+//                Collections.shuffle(mQuestionList);
+//                Collections.shuffle(mQuestionList);
+
+                //findViewById(R.id.ln_start_game).setVisibility(View.GONE);
+
+                startGame();
             }
-        }
-
-        question = question.replace(START_CODE, START_SHOW);
-        question = question.replace(END_CODE, END_SHOW);
-
-        SpannableString ss = new SpannableString(question);
-
-        for (int i = 0; i < positionCodeList.size(); i++) {
-            final PositionCode positionCode = positionCodeList.get(i);
-            final String finalQuestion = question;
-            span = new ClickableSpan() {
-                @Override
-                public void onClick(View view) {
-                    showDialog(finalQuestion, positionCode);
-                }
-
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    super.updateDrawState(ds);
-                    ds.setUnderlineText(false);
-                }
-
-            };
-            ss.setSpan(span, positionCode.start, positionCode.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-
-        return ss;
-    }
-
-    public void check(View view) {
-        String text = mTvQuestion.getText().toString();
-
-        String dapAn = "{3},{het},{chan}";
-        String strDapAn[] = dapAn.split(",");
-
-        String temp = "";
-        int index = 0;
-
-        for (int i = 0; i < positionCodeList.size(); i++) {
-            PositionCode positionCode = positionCodeList.get(i);
-            temp += text.substring(index, positionCode.start);
-            if (text.substring(positionCode.start, positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())) {
-                temp += "<font color='green'>" + text.substring(positionCode.start, positionCode.end).toLowerCase() + "</font>";
-            } else {
-                temp += "<font color='red'>" + text.substring(positionCode.start, positionCode.end).toLowerCase() + "</font>";
-            }
-            index = positionCode.end;
-        }
-        if (index < text.length()) {
-            temp += text.substring(index, text.length());
-        }
-        mTvQuestion.setText(Html.fromHtml(temp));
-    }
-
-    private void showDialog(final String text, final PositionCode posi) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        final EditText edittext = new EditText(this);
-        alert.setTitle("Enter Your Answer");
-        alert.setView(edittext);
-
-        alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String youEditTextValue = edittext.getText().toString();
-                youEditTextValue = standardizeString(youEditTextValue);
-                String temp = text.substring(0, posi.start);
-                String result = temp + "&" + youEditTextValue + "|";
-                temp = text.substring(posi.end, text.length());
-                result += temp;
-
-                SpannableString ss = handleClickQuestion(result);
-                mTvQuestion.setText(ss);
-                mTvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
+        });
+        builder.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
             }
         });
 
-        alert.show();
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
-    private String standardizeString(String str) {
-        str = str.trim();
-        str = str.replaceAll("\\s+", " ");
-        return str;
+    private void startGame() {
+        setUpGame();
+        showQuestion();
+    }
+
+    private void setUpGame() {
+        mCountDownTimer = new CountDownTimer(330000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mCurrentTime = millisUntilFinished;
+                mTvTime.setText(convertLongToTime(millisUntilFinished));
+
+                //set text color  time <= 5m
+                if (millisUntilFinished <= 300000) {
+                    mTvTime.setTextColor(Color.RED);
+                }
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                showScore();
+
+            }
+        }.start();
+
+        mTvTotal.setText("0/" + mTotalQuestion);
     }
 
     private void setupToolbar() {
@@ -169,19 +158,144 @@ public class FillInTheBlankActivity extends AppCompatActivity {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                checkUserOut();
             }
         });
     }
 
-    private class PositionCode {
-        int start;
-        int end;
+    @Override
+    public void onBackPressed() {
+        checkUserOut();
+    }
 
-        PositionCode(int s, int e) {
-            start = s;
-            end = e;
+    //Function check when user out game or submit quiz
+    private void checkUserOut() {
+        if (isPlaying) {
+
+            final Dialog dialog = new Dialog(FillInTheBlankActivity.this);
+            dialog.setContentView(R.layout.layout_dialog_submit_quiz);
+
+            TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
+            final TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
+            Button btnSubmit = dialog.findViewById(R.id.btn_submit);
+            Button btnContinue = dialog.findViewById(R.id.btn_continue);
+
+            updateNumberAnswered(tvAnswered);
+
+            //handel time running in dialog
+            tvTimeLeft.setText("Bạn dừng lúc: " + convertLongToTime(mCurrentTime));
+
+            //when user submit quiz
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showScore();
+                    dialog.dismiss();
+                }
+            });
+
+            //when user continue game
+            btnContinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.setCancelable(false);
+            dialog.show();
+
+        } else {
+            finish();
+
         }
+    }
+
+    private void showScore() {
+        int score = 0;
+
+        for (int i = 0; i < mQuestionList.size(); i++) {
+            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
+                if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
+                        && mListUserAnswer.get(i) == -999) {
+                    score++;
+                    break;
+                }
+            }
+        }
+
+        isPlaying = false;
+        mBtnComplete.setVisibility(View.INVISIBLE);
+        mCountDownTimer.cancel();
+
+        final Dialog dialog = new Dialog(FillInTheBlankActivity.this);
+        dialog.setContentView(R.layout.layout_dialog_score_quiz);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView tvLevel = dialog.findViewById(R.id.tv_level);
+        TextView tvScore = dialog.findViewById(R.id.tv_score);
+        TextView tvCorrectAnswer = dialog.findViewById(R.id.tv_correct_answer);
+        ImageView imgReview = dialog.findViewById(R.id.img_review);
+        ImageView imgFinish = dialog.findViewById(R.id.img_finish);
+
+        //Handel start by score
+        ImageView imgStarOne = dialog.findViewById(R.id.img_star_one);
+        ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
+        ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
+
+        if (score >= 9 && score < 13) {
+
+            imgStarTwo.setVisibility(View.VISIBLE);
+        } else if (score >= 13 && score < 17) {
+            imgStarOne.setVisibility(View.VISIBLE);
+            imgStarThree.setVisibility(View.VISIBLE);
+        } else if (score >= 17) {
+            imgStarOne.setVisibility(View.VISIBLE);
+            imgStarTwo.setVisibility(View.VISIBLE);
+            imgStarThree.setVisibility(View.VISIBLE);
+        }
+
+        //tvLevel.setText("Text level");
+        tvScore.setText(String.valueOf(score));
+        tvCorrectAnswer.setText(score + "/" + mTotalQuestion);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        imgReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                reviewQuiz();
+            }
+        });
+
+        imgFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        if (score >= 0) {
+            imgReview.setVisibility(View.VISIBLE);
+        } else {
+            imgReview.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void init() {
+        //Activity
+        mTvTime = findViewById(R.id.tv_time);
+        mTvTotal = findViewById(R.id.tv_total);
+        mBtnComplete = findViewById(R.id.btn_complete_quiz);
+        mBtnComplete.setOnClickListener(this);
+
+        //Adapter
+        mRvQuestion = findViewById(R.id.rv_question);
+        mQuestionList = new ArrayList<>();
+        mAnswerList = new ArrayList<>();
+        mAnswerByQuestionList = new ArrayList<>();
     }
 
     private void addDataDK() {
@@ -215,7 +329,7 @@ public class FillInTheBlankActivity extends AppCompatActivity {
         question = new Question(9, "Hạt nhân tạo bởi &| và nơtron.");
         mQuestionList.add(question);
 
-        question = new Question(10, "Trong mỗi nguyên, số proton bằng số electron");
+        question = new Question(10, "Trong mỗi nguyên, số proton bằng số &|.");
         mQuestionList.add(question);
     }
 
@@ -290,4 +404,127 @@ public class FillInTheBlankActivity extends AppCompatActivity {
         mAnswerByQuestionList.add(answerByQuestion);
     }
 
+    private void showQuestion() {
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL,
+                false);
+        mRvQuestion.setLayoutManager(mLayoutManager);
+
+        mFillInTheBlankAdapter = new FillInTheBlankAdapter(this,
+                mQuestionList, mAnswerList, mAnswerByQuestionList);
+        mRvQuestion.setAdapter(mFillInTheBlankAdapter);
+
+        mFillInTheBlankAdapter.setOnItemClickListener(this);
+
+        mRvQuestion.setHasFixedSize(true);
+
+        SnapHelper startSnapHelper = new StartSnapHelper();
+        startSnapHelper.attachToRecyclerView(mRvQuestion);
+    }
+
+    private void reviewQuiz() {
+
+        for (int i = 0; i < mQuestionList.size(); i++) {
+            Question question = mQuestionList.get(i);
+            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
+                AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
+                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.isCorrect()) {
+                    question.setIdCorrect(answerByQuestion.getIdAnswer());
+                    break;
+                }
+            }
+
+        }
+        mRvQuestion.scrollToPosition(0);
+        mFillInTheBlankAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_complete_quiz:
+                checkUserOut();
+        }
+    }
+
+    private static String convertLongToTime(long value) {
+        return DateFormat.format("mm:ss", new Date(value)).toString();
+    }
+
+    @Override
+    public void onUserChooseAnswer(int question, int answer) {
+        mListUserAnswer.set(question, answer);
+        updateNumberAnswered(mTvTotal);
+        if (mCheckingAnswerAdapter != null) {
+            mCheckingAnswerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateNumberAnswered(TextView textView) {
+        int count = 0;
+
+        for (int i = 0; i < mListUserAnswer.size(); i++) {
+            if (mListUserAnswer.get(i) != -1) {
+                count++;
+            }
+        }
+        textView.setText(count + "/" + mTotalQuestion);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_quiz, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mn_quiz:
+
+                final PopupWindow popupWindow = new PopupWindow(this);
+                LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.layout_popup_quiz, null, false);
+
+                GridView gridView = view.findViewById(R.id.gv_question);
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < mListUserAnswer.size(); i++) {
+                    list.add(String.valueOf(i));
+                }
+                mCheckingAnswerAdapter = new CheckingAnswerAdapter(this, R.layout.item_checking_answer, mListUserAnswer);
+                gridView.setAdapter(mCheckingAnswerAdapter);
+
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        mRvQuestion.scrollToPosition(i);
+                        popupWindow.dismiss();
+                    }
+                });
+
+                popupWindow.setContentView(view);
+                popupWindow.setFocusable(true);
+                Toolbar viewToolbar = findViewById(R.id.toolbar);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    popupWindow.showAsDropDown(viewToolbar, 0, 0, Gravity.RIGHT);
+                } else {
+                    popupWindow.showAtLocation(viewToolbar, Gravity.CENTER, 0, 0);
+                }
+                break;
+        }
+        return true;
+    }
 }
+
+/*
+          for(int i=0;i<positionCodeList.size();i++){
+        PositionCode positionCode=positionCodeList.get(i);
+        temp+=text.substring(index,positionCode.start);
+        if(text.substring(positionCode.start,positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())){
+        temp+="<font color='green'>"+text.substring(positionCode.start,positionCode.end).toLowerCase()+"</font>";
+        }else{
+        temp+="<font color='red'>"+text.substring(positionCode.start,positionCode.end).toLowerCase()+"</font>";
+        }
+        index=positionCode.end;
+        }*/
