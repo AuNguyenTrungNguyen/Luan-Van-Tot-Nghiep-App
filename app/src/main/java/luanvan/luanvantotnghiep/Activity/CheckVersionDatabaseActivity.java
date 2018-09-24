@@ -85,6 +85,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         }
 
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void saveVersion(int version) {
