@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -79,11 +80,88 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
 
         holder.tvQuestion.setText(spannableString);
         holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.tvNumberQuestion.setText(String.format("Câu %s", position + 1));
 
         if (mUIList.get(position) != null) {
             holder.tvQuestion.setText(mUIList.get(position));
             holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
         }
+        if (question.getIdCorrect() != -1) {
+            showAnswer(holder.tvQuestion.getText().toString(), position, holder);
+        }
+    }
+
+    private void showAnswer(String question, int position, ViewHolder holder) {
+
+        question = question.replace(START_SHOW, START_CODE);
+        question = question.replace(END_SHOW, END_CODE);
+
+        positionCodeList.clear();
+        for (int i = 0; i < question.length() - 1; i++) {
+            if (question.substring(i, i + 1).equals("&")) {
+                for (int j = i + 1; j < question.length() - 1; j++) {
+                    if (question.substring(j, j + 1).equals("|")) {
+                        positionCodeList.add(new PositionCode(i, j + 1));
+                        break;
+                    }
+                }
+            }
+        }
+
+        question = question.replace(START_CODE, START_SHOW);
+        question = question.replace(END_CODE, END_SHOW);
+
+        String dapAn = "";
+        for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
+            for (Answer answer : mAnswerList) {
+                if (mQuestionList.get(position).getIdQuestion() == byQuestion.getIdQuestion()
+                        && byQuestion.getIdAnswer() == answer.getIdAnswer()) {
+                    dapAn = answer.getContentAnswer();
+                }
+            }
+        }
+
+        String strDapAn[] = dapAn.split(",");
+        StringBuilder temp = new StringBuilder();
+        int index = 0;
+        for (int i = 0; i < positionCodeList.size(); i++) {
+            PositionCode positionCode = positionCodeList.get(i);
+            temp.append(question.substring(index, positionCode.start));
+            if (question.substring(positionCode.start, positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())) {
+                temp.append("<font color='green'>").append(question.substring(positionCode.start, positionCode.end).toLowerCase()).append("</font>");
+            } else {
+                temp.append("<font color='red'>").append(question.substring(positionCode.start, positionCode.end).toLowerCase()).append("</font>");
+            }
+
+            index = positionCode.end;
+        }
+        if (index < question.length()) {
+            temp.append(question.substring(index, question.length()));
+        }
+
+        holder.tvQuestion.setText(Html.fromHtml(temp.toString()));
+
+        //Show answer
+        temp = new StringBuilder();
+        index = 0;
+        for (int i = 0; i < positionCodeList.size(); i++) {
+            PositionCode positionCode = positionCodeList.get(i);
+            temp.append(question.substring(index, positionCode.start));
+            temp.append("<b><i><u>").append(strDapAn[i]).append("</u></i></b>");
+            index = positionCode.end;
+        }
+        if (index < question.length()) {
+            temp.append(question.substring(index, question.length()));
+
+        }
+        String result = temp.toString();
+
+        result = result.replace("{", "");
+        result = result.replace("}", "");
+
+        holder.tvShowAnswered.setText(Html.fromHtml(result));
+        holder.tvTextAnswer.setVisibility(View.VISIBLE);
+        holder.tvShowAnswered.setVisibility(View.VISIBLE);
     }
 
     private SpannableString handleClickQuestion(String question, final ViewHolder holder, final int position) {
@@ -157,7 +235,6 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     private int checkAnswerUser(ViewHolder holder, int position) {
 
         String text = holder.tvQuestion.getText().toString();
-
         String dapAn = "";
         for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
             for (Answer answer : mAnswerList) {
@@ -208,82 +285,18 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvNumberQuestion;
         TextView tvQuestion;
+        TextView tvTextAnswer;
+        TextView tvShowAnswered;
 
         ViewHolder(View view) {
             super(view);
+            tvNumberQuestion = view.findViewById(R.id.tv_number_question);
             tvQuestion = view.findViewById(R.id.tv_question);
+            tvTextAnswer = view.findViewById(R.id.tv_text_answer);
+            tvShowAnswered = view.findViewById(R.id.tv_show_answered);
         }
     }
 
-    //    private void setRadio(ViewHolder holder, int selection) {
-//
-//        RadioGroup rg = holder.radioGroup;
-//        RadioButton b1 = holder.rbAnswerA;
-//        RadioButton b2 = holder.rbAnswerB;
-//        RadioButton b3 = holder.rbAnswerC;
-//        RadioButton b4 = holder.rbAnswerD;
-//
-//        if (selection == 0) {
-//            b1.setChecked(true);
-//        } else if (selection == 1) {
-//            b2.setChecked(true);
-//        } else if (selection == 2) {
-//            b3.setChecked(true);
-//        } else if (selection == 3) {
-//            b4.setChecked(true);
-//        } else if (selection == -1) {
-//            rg.clearCheck();
-//        }
-//    }
-//
-//    private void setColorAnswer(ViewHolder holder, int correct, int user) {
-//
-//        RadioButton b1 = holder.rbAnswerA;
-//        RadioButton b2 = holder.rbAnswerB;
-//        RadioButton b3 = holder.rbAnswerC;
-//        RadioButton b4 = holder.rbAnswerD;
-//
-//        b1.setBackgroundColor(Color.WHITE);
-//        b2.setBackgroundColor(Color.WHITE);
-//        b3.setBackgroundColor(Color.WHITE);
-//        b4.setBackgroundColor(Color.WHITE);
-//
-//        b1.setEnabled(false);
-//        b2.setEnabled(false);
-//        b3.setEnabled(false);
-//        b4.setEnabled(false);
-//
-//        if (user == 0) {
-//            b1.setEnabled(true);
-//        } else if (user == 1) {
-//            b2.setEnabled(true);
-//        } else if (user == 2) {
-//            b3.setEnabled(true);
-//        } else if (user == 3) {
-//            b4.setEnabled(true);
-//        }
-//
-//        if (correct == 0) {
-//            b1.setBackgroundColor(Color.CYAN);
-//        } else if (correct == 1) {
-//            b2.setBackgroundColor(Color.CYAN);
-//        } else if (correct == 2) {
-//            b3.setBackgroundColor(Color.CYAN);
-//        } else if (correct == 3) {
-//            b4.setBackgroundColor(Color.CYAN);
-//        }
-//
-//        if (user == correct){
-//            if (correct == 0) {
-//                b1.setEnabled(true);
-//            } else if (correct == 1) {
-//                b2.setEnabled(true);
-//            } else if (correct == 2) {
-//                b3.setEnabled(true);
-//            } else if (correct == 3) {
-//                b4.setEnabled(true);
-//            }
-//        }
-//    }
 }

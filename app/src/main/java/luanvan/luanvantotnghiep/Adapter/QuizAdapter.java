@@ -126,7 +126,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             }
         });
 
-        if (question.getIdCorrect() != 0) {
+        if (question.getIdCorrect() != -1) {
             int ui = -1;
             for (int i = 0; i < listAnswer.size(); i++) {
                 if (listAnswer.get(i).getIdAnswer() == question.getIdCorrect()) {
