@@ -45,8 +45,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\product.png" />
-                                      <entry key="outputName" value="icon_product" />
+                                      <entry key="imageAsset" value="C:\Users\Admin\Desktop\Chat\type.png" />
+                                      <entry key="outputName" value="icon_reaction_types" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>

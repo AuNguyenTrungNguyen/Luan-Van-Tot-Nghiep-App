@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="4dp"
-    android:background="#f1f1f1"
+    android:background="#DCDCDC"
     android:orientation="vertical">
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
+        android:layout_margin="4dp"
         android:drawableLeft="@drawable/icon_reactant"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="sans-serif"
         android:hint="Chất tham gia. ví dụ H2 O2"
         android:inputType="text"
         android:textColor="@color/black"
@@ -20,9 +20,10 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
+        android:layout_margin="4dp"
         android:drawableLeft="@drawable/icon_product"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="sans-serif"
         android:hint="Chất sản phẩm. ví dụ H2O"
         android:inputType="text"
         android:textColor="@color/black"
@@ -37,6 +38,7 @@
         tools:ignore="ContentDescription">
 
         <TextView
+            android:id="@+id/tv_title_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -51,7 +53,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_reaction"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

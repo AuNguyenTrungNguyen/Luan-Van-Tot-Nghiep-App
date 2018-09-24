@@ -49,7 +49,7 @@ public class ReactionAdapter extends RecyclerView.Adapter<ReactionAdapter.ViewHo
         } else {
             holder.lnCondition.setVisibility(View.VISIBLE);
             holder.tvConditions.setText(chemicalReaction.getConditions());
-            holder.tvTitleCondition.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_product, 0, 0, 0);
+            holder.tvTitleCondition.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_condition, 0, 0, 0);
         }
 
         if (chemicalReaction.getPhenomena().equals("")) {
@@ -57,14 +57,14 @@ public class ReactionAdapter extends RecyclerView.Adapter<ReactionAdapter.ViewHo
         } else {
             holder.lnPhenomena.setVisibility(View.VISIBLE);
             holder.tvPhenomena.setText(chemicalReaction.getPhenomena());
-            holder.tvTitlePhenomena.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_product, 0, 0, 0);
+            holder.tvTitlePhenomena.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_phenomena, 0, 0, 0);
         }
 
         if (chemicalReaction.getReactionTypes().equals("")) {
             holder.lnReactionTypes.setVisibility(View.GONE);
         } else {
             holder.lnReactionTypes.setVisibility(View.VISIBLE);
-            holder.tvTitleReactionTypes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_product, 0, 0, 0);
+            holder.tvTitleReactionTypes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_reaction_types, 0, 0, 0);
 
             String[] types = chemicalReaction.getReactionTypes().split(",");
             FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(mContext);

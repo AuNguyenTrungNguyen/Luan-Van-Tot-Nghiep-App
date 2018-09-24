@@ -7,6 +7,7 @@
     <color name="background">#e7e5e5</color>
 
     <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
     <color name="red">#ff0000</color>
     <color name="blue">#0000FF</color>
     <color name="gray">#808080</color>

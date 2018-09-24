@@ -24,7 +24,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="2H2 + O2 --> H2O"
             android:textColor="@color/red"
-            android:textSize="16dp"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -42,12 +42,13 @@
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif"
                 android:text="Điều kiện:"
-                android:textColor="@color/red"
+                android:textColor="@color/blue"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_conditions"
+                android:gravity="right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -74,17 +75,18 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="Hiện tượng:"
-                android:textColor="@color/red"
+                android:textColor="@color/blue"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_phenomena"
+                android:gravity="right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif-thin"
-                android:text="Chất rắn màu xám sẫm Kẽm (Zn) tan dần và xuất hiện khí Hidro (H2) làm sủi bọt khí"
+                android:text="Chất rắn màu xám sẫm"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -106,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="Phân loại phản ứng:"
-                android:textColor="@color/red"
+                android:textColor="@color/blue"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
