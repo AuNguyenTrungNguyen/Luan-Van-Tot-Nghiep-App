@@ -10,7 +10,6 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,8 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     private static final Character START_SHOW = '{';
     private static final Character END_SHOW = '}';
     private List<PositionCode> positionCodeList = new ArrayList<>();
+
+    private static final String TAG = Constraint.TAG;
 
     public interface CommunicateQuiz {
         void onUserChooseAnswer(int question, int answer);
@@ -74,30 +75,18 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Question question = mQuestionList.get(position);
 
-        SpannableString spannableString = handleClickQuestion(question.getContentQuestion(),  holder.tvQuestion, position);
+        SpannableString spannableString = handleClickQuestion(question.getContentQuestion(), holder, position);
 
         holder.tvQuestion.setText(spannableString);
         holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if (mUIList.get(position) != null){
+        if (mUIList.get(position) != null) {
             holder.tvQuestion.setText(mUIList.get(position));
             holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
         }
-        Log.i(Constraint.TAG, "onBindViewHolder: textView = " + holder.tvQuestion.getText());
-//        if (question.getIdCorrect() != 0) {
-//            int ui = -1;
-//            for (int i = 0; i < listAnswer.size(); i++) {
-//                if (listAnswer.get(i).getIdAnswer() == question.getIdCorrect()) {
-//                    ui = i;
-//                    break;
-//                }
-//            }
-//            setColorAnswer(holder, ui, question.getAnswer());
-//        }
     }
 
-    private SpannableString handleClickQuestion(String question, final TextView textView, final int position) {
-        ClickableSpan span;
+    private SpannableString handleClickQuestion(String question, final ViewHolder holder, final int position) {
 
         question = question.replace(START_SHOW, START_CODE);
         question = question.replace(END_SHOW, END_CODE);
@@ -118,14 +107,39 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         question = question.replace(END_CODE, END_SHOW);
 
         SpannableString ss = new SpannableString(question);
-
+        ClickableSpan span;
         for (int i = 0; i < positionCodeList.size(); i++) {
             final PositionCode positionCode = positionCodeList.get(i);
             final String finalQuestion = question;
             span = new ClickableSpan() {
                 @Override
                 public void onClick(View view) {
-                    showDialog(finalQuestion, positionCode, textView, position);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                    final EditText edittext = new EditText(mContext);
+                    alert.setTitle("Enter Your Answer");
+                    alert.setView(edittext);
+
+                    alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String youEditTextValue = edittext.getText().toString();
+                            youEditTextValue = standardizeString(youEditTextValue);
+                            String temp = finalQuestion.substring(0, positionCode.start);
+                            String result = temp + "&" + youEditTextValue + "|";
+                            temp = finalQuestion.substring(positionCode.end, finalQuestion.length());
+                            result += temp;
+
+                            SpannableString ss = handleClickQuestion(result, holder, position);
+                            holder.tvQuestion.setText(ss);
+                            holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
+
+                            mUIList.set(position, ss);
+                            notifyDataSetChanged();
+
+                            communicateQuiz.onUserChooseAnswer(position, checkAnswerUser(holder, position));
+                        }
+                    });
+
+                    alert.show();
                 }
 
                 @Override
@@ -140,46 +154,15 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         return ss;
     }
 
-    private void showDialog(final String text, final PositionCode positionCode, final TextView textView, final int position) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
-        final EditText edittext = new EditText(mContext);
-        alert.setTitle("Enter Your Answer");
-        alert.setView(edittext);
+    private int checkAnswerUser(ViewHolder holder, int position) {
 
-        alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String youEditTextValue = edittext.getText().toString();
-                youEditTextValue = standardizeString(youEditTextValue);
-                String temp = text.substring(0, positionCode.start);
-                String result = temp + "&" + youEditTextValue + "|";
-                temp = text.substring(positionCode.end, text.length());
-                result += temp;
-
-                textView.setMovementMethod(LinkMovementMethod.getInstance());
-                SpannableString ss = handleClickQuestion(result, textView, position);
-
-
-                mUIList.set(position, ss);
-
-                Log.i(Constraint.TAG, "onClick: textView = " + textView.getText());
-
-                communicateQuiz.onUserChooseAnswer(position, checkAnswerUser(textView, position));
-                textView.setText(ss);
-            }
-        });
-
-        alert.show();
-    }
-
-    private int checkAnswerUser(TextView textView, int position){
-
-        String text = textView.getText().toString();
+        String text = holder.tvQuestion.getText().toString();
 
         String dapAn = "";
-        for(AnswerByQuestion byQuestion: mAnswerByQuestionList) {
-            for (Answer answer: mAnswerList) {
+        for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
+            for (Answer answer : mAnswerList) {
                 if (mQuestionList.get(position).getIdQuestion() == byQuestion.getIdQuestion()
-                        && byQuestion.getIdAnswer() == answer.getIdAnswer()){
+                        && byQuestion.getIdAnswer() == answer.getIdAnswer()) {
                     dapAn = answer.getContentAnswer();
                 }
             }
@@ -193,8 +176,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         for (int i = 0; i < positionCodeList.size(); i++) {
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(text.substring(index, positionCode.start));
-//            Log.i(Constraint.TAG, "checkAnswerUser: text.substring = " + text.substring(positionCode.start, positionCode.end).toLowerCase());
-//            Log.i(Constraint.TAG, "checkAnswerUser: strDapAn = " + strDapAn[i].toLowerCase());
+
             if (!text.substring(positionCode.start, positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())) {
                 return 0;
             }
