@@ -10,7 +10,7 @@ public class Question{
     private String mContentQuestion; //Nội dung
     private String mLevel; //Mức độ
     private int mAnswer = -1;
-    private int mIdCorrect = 0;
+    private int mIdCorrect = -1;
 
     public Question() {
     }

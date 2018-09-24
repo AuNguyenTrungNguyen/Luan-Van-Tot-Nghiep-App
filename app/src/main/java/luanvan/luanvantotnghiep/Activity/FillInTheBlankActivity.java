@@ -427,12 +427,9 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             Question question = mQuestionList.get(i);
-            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
-                AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
-                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.isCorrect()) {
-                    question.setIdCorrect(answerByQuestion.getIdAnswer());
-                    break;
-                }
+            question.setIdCorrect(mListUserAnswer.get(i));
+            if (mListUserAnswer.get(i) == -1){
+                question.setIdCorrect(0);
             }
 
         }
@@ -516,15 +513,3 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         return true;
     }
 }
-
-/*
-          for(int i=0;i<positionCodeList.size();i++){
-        PositionCode positionCode=positionCodeList.get(i);
-        temp+=text.substring(index,positionCode.start);
-        if(text.substring(positionCode.start,positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())){
-        temp+="<font color='green'>"+text.substring(positionCode.start,positionCode.end).toLowerCase()+"</font>";
-        }else{
-        temp+="<font color='red'>"+text.substring(positionCode.start,positionCode.end).toLowerCase()+"</font>";
-        }
-        index=positionCode.end;
-        }*/
