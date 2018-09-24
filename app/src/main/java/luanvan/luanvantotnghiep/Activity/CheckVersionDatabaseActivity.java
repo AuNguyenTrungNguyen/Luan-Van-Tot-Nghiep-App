@@ -1928,7 +1928,9 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         chemicalReaction.setIdChemicalReaction(1);
         chemicalReaction.setReactants("2:H2 + 1:O2");
         chemicalReaction.setProducts("2:H2O");
-        chemicalReaction.setReactionTypes("aaaa,bbbbbbbbbbbb,ccccccccccccc,ddd,e");
+        chemicalReaction.setReactionTypes("phản ứng hóa hợp,phản ứng oxi-hóa khử");
+        chemicalReaction.setConditions("Nhiệt độ: 550°C");
+        chemicalReaction.setPhenomena("bay hơi nước");
         chemicalReactionList.add(chemicalReaction);
 
         chemicalReaction = new ChemicalReaction();
