@@ -15,25 +15,28 @@ public class ChemicalReaction {
     private int mIdChemicalReaction;
     private String mReactants;
     private String mProducts;
-    private String mConditions;
-    private String mPhenomena;
-    private Boolean mTowWay;
+    private String mConditions = "";
+    private String mPhenomena = "";
+    private Boolean mTowWay = false;
+    private String mReactionTypes = "";
 
     public ChemicalReaction() {
     }
 
-    public ChemicalReaction(int mIdChemicalReaction, 
-                            String mReactants, 
-                            String mProducts, 
-                            String mConditions, 
-                            String mPhenomena, 
-                            Boolean mTowWay) {
+    public ChemicalReaction(int mIdChemicalReaction,
+                            String mReactants,
+                            String mProducts,
+                            String mConditions,
+                            String mPhenomena,
+                            Boolean mTowWay,
+                            String mReactionTypes) {
         this.mIdChemicalReaction = mIdChemicalReaction;
         this.mReactants = mReactants;
         this.mProducts = mProducts;
         this.mConditions = mConditions;
         this.mPhenomena = mPhenomena;
         this.mTowWay = mTowWay;
+        this.mReactionTypes = mReactionTypes;
     }
 
     public int getIdChemicalReaction() {
@@ -82,5 +85,13 @@ public class ChemicalReaction {
 
     public void setTowWay(Boolean mTowWay) {
         this.mTowWay = mTowWay;
+    }
+
+    public String getReactionTypes() {
+        return mReactionTypes;
+    }
+
+    public void setReactionTypes(String mReactionTypes) {
+        this.mReactionTypes = mReactionTypes;
     }
 }

@@ -25,6 +25,7 @@ import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
 import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
+import luanvan.luanvantotnghiep.Fragment.ReactionFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
 import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
@@ -1970,6 +1971,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chemicalReaction.setIdChemicalReaction(1);
         chemicalReaction.setReactants("2:H2 + 1:O2");
         chemicalReaction.setProducts("2:H2O");
+        chemicalReaction.setReactionTypes("aaaa,bbbbbbbbbbbb,ccccccccccccc,ddd,e");
         chemicalReactionList.add(chemicalReaction);
 
         chemicalReaction = new ChemicalReaction();
@@ -5967,6 +5969,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_search) {
 
             switchFragment(R.id.nav_search, SearchFragment.newInstance());
+
+        } else if (id == R.id.nav_reaction) {
+
+            switchFragment(R.id.nav_reaction, ReactionFragment.newInstance());
 
         } else if (id == R.id.nav_all) {
 

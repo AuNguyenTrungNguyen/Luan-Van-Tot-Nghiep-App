@@ -101,6 +101,7 @@ public final class ChemistryContract {
         public static final String COLUMN_CONDITIONS = "conditions";
         public static final String COLUMN_PHENOMENA = "phenomena";
         public static final String COLUMN_TOW_WAY= "tow_way";
+        public static final String COLUMN_REACTION_TYPES= "reaction_types";
     }
 
     public static class ReactWithEntry implements BaseColumns {
