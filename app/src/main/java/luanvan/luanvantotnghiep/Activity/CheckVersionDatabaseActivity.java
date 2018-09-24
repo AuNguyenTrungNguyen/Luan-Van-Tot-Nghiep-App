@@ -1,34 +1,17 @@
-package luanvan.luanvantotnghiep;
+package luanvan.luanvantotnghiep.Activity;
 
-import android.content.Context;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
-import luanvan.luanvantotnghiep.Fragment.MainFragment;
-import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
-import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
-import luanvan.luanvantotnghiep.Fragment.ReactionFragment;
-import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
-import luanvan.luanvantotnghiep.Fragment.SearchFragment;
-import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
+import luanvan.luanvantotnghiep.MainActivity;
 import luanvan.luanvantotnghiep.Model.Anion;
 import luanvan.luanvantotnghiep.Model.Cation;
 import luanvan.luanvantotnghiep.Model.ChemicalReaction;
@@ -41,42 +24,75 @@ import luanvan.luanvantotnghiep.Model.ProducedBy;
 import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
 import luanvan.luanvantotnghiep.Model.Type;
+import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CheckVersionDatabaseActivity extends AppCompatActivity {
 
-    private FragmentManager mManager;
-    private FragmentTransaction mTransaction;
-    private Toolbar mToolbarMain;
-
-    private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
-    private NavigationView mNavigationRight;
-
+    private SharedPreferences mPreferences;
     private ChemistryHelper mChemistryHelper;
-
-    private Fragment mFragmentToSet = null;
-
-    private MenuItem mMnRight = null;
-    private int mCurrentId = -1;
-
-    private boolean mIsPeriodic = false;
+    private static final String TAG = Constraint.TAG + "CheckVer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_check_version_database);
 
-        setupToolbar();
+        ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog.setMessage("Đợi chút xíu xìu xiu...");
+        mDialog.show();
 
-        init();
+        mPreferences = getSharedPreferences("CNHH", MODE_PRIVATE);
 
-        setupNavigate();
+        int oldVersion = mPreferences.getInt("DB_VER", 0);
+        int version = ChemistrySingle.getInstance(this).getWritableDatabase().getVersion();
 
-        //Load MainFragment to MainActivity
-        mTransaction.replace(R.id.container, MainFragment.newInstance());
-        mTransaction.commit();
+        if (version != oldVersion) {
+            mChemistryHelper = ChemistrySingle.getInstance(this);
+            saveVersion(version);
 
+            //Data use PERIODIC_TABLE
+            addDataTypeTable();
+
+            addDataChemistryTable();
+
+            addDataGroupTable();
+
+            addDataElementTable();
+
+            //Data use search
+            addDataChemistryOfCompound();
+
+            addDataCompound();
+
+            addDataProducedBy();
+
+            addDataChemicalReaction();
+
+            addDataCreatedReaction();
+
+            addDataReactWith();
+
+            //Data use PERIODIC_TABLE
+            addDataAnionTable();
+
+            addDataCationTable();
+
+            addDataSoluteTable();
+        } else {
+            Log.i(TAG, "onCreate: NOTHING UPDATE!!!");
+        }
+
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    private void saveVersion(int version) {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt("DB_VER", version);
+        editor.apply();
+
+        Log.i(TAG, "saveVersion: Update new version!");
     }
 
     private void addDataTypeTable() {
@@ -140,16 +156,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         type = new Type(19, "Lưỡng tính");
         typeList.add(type);
 
-        //Check and add data
-        if (typeList.size() == mChemistryHelper.getAllTypes().size()) {
-            Log.i("ANTN", "Table Type available");
-        } else {
-            //Add to database
-            mChemistryHelper.emptyType();
-            for (Type item : typeList) {
-                mChemistryHelper.addType(item);
-            }
+        mChemistryHelper.emptyType();
+        for (Type item : typeList) {
+            mChemistryHelper.addType(item);
         }
+        Log.i(TAG, "onCreate: UPDATE Type Table!!!");
     }
 
     private void addDataChemistryTable() {
@@ -1453,16 +1464,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         );
         chemistryList.add(chemical);
 
-        //Check and add data
-        if (chemistryList.size() == mChemistryHelper.getAllChemistry().size()) {
-            Log.i("ANTN", "Table Chemistry available");
-        } else {
-            //Add database
-            mChemistryHelper.emptyChemistry();
-            for (Chemistry item : chemistryList) {
-                mChemistryHelper.addChemistry(item);
-            }
+        mChemistryHelper.emptyChemistry();
+        for (Chemistry item : chemistryList) {
+            mChemistryHelper.addChemistry(item);
         }
+
+        Log.i(TAG, "onCreate: UPDATE Chemistry Table!!!");
     }
 
     private void addDataChemistryOfCompound() {
@@ -1679,16 +1686,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chemistry.setWeightChemistry(80);
         chemistryList.add(chemistry);
 
-        //Check and add data
-        if (chemistryList.size() == mChemistryHelper.getAllChemistry().size()) {
-            Log.i("ANTN", "Table Chemistry available");
-        } else {
-            //mChemistryHelper.emptyChemistry();
-            //Add to database
-            for (Chemistry item : chemistryList) {
-                mChemistryHelper.addChemistry(item);
-            }
+        for (Chemistry item : chemistryList) {
+            mChemistryHelper.addChemistry(item);
         }
+        Log.i(TAG, "onCreate: UPDATE ChemistryOfCompound Table!!!");
     }
 
     private void addDataCompound() {
@@ -1800,21 +1801,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         compound.setOtherNames("Anhydrit sulfuric, Sulfur trioxit, Trioxit sulfur");
         mCompoundList.add(compound);
 
-        //Check and add data
-        if (mCompoundList.size() == mChemistryHelper.getAllCompound().size()) {
-            Log.i("ANTN", "Table Compound available");
-        } else {
-            //mCompoundHelper.emptyCompound();
-            //Add to database
-            mChemistryHelper.emptyCompound();
-
-            for (Compound item : mCompoundList) {
-                mChemistryHelper.addCompound(item);
-            }
+        mChemistryHelper.emptyCompound();
+        for (Compound item : mCompoundList) {
+            mChemistryHelper.addCompound(item);
         }
+        Log.i(TAG, "onCreate: UPDATE Compound Table!!!");
     }
 
-    private void addDataProducedBy(){
+    private void addDataProducedBy() {
         List<ProducedBy> mProducedByList = new ArrayList<>();
         ProducedBy producedBy;
 
@@ -1919,22 +1913,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         producedBy.setIdLeftReaction(16);
         mProducedByList.add(producedBy);
 
-        //Check and add data
-        if (mProducedByList.size() == mChemistryHelper.getAllProducedBy().size()) {
-            Log.i("ANTN", "Table ProducedBy available");
-        } else {
-            //mCompoundHelper.emptyCompound();
-            //Add to database
-            mChemistryHelper.emptyProducedBy();
-
-            for (ProducedBy item : mProducedByList) {
-                mChemistryHelper.addProducedBy(item);
-            }
+        mChemistryHelper.emptyProducedBy();
+        for (ProducedBy item : mProducedByList) {
+            mChemistryHelper.addProducedBy(item);
         }
-
+        Log.i(TAG, "onCreate: UPDATE ProducedBy Table!!!");
     }
 
-    private void addDataChemicalReaction(){
+    private void addDataChemicalReaction() {
         List<ChemicalReaction> chemicalReactionList = new ArrayList<>();
         ChemicalReaction chemicalReaction;
 
@@ -1942,9 +1928,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chemicalReaction.setIdChemicalReaction(1);
         chemicalReaction.setReactants("2:H2 + 1:O2");
         chemicalReaction.setProducts("2:H2O");
-        chemicalReaction.setReactionTypes("phản ứng hóa hợp,phản ứng oxi-hóa khử");
-        chemicalReaction.setConditions("Nhiệt độ: 550°C");
-        chemicalReaction.setPhenomena("Bay hơi nước");
+        chemicalReaction.setReactionTypes("aaaa,bbbbbbbbbbbb,ccccccccccccc,ddd,e");
         chemicalReactionList.add(chemicalReaction);
 
         chemicalReaction = new ChemicalReaction();
@@ -2007,19 +1991,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chemicalReaction.setProducts("1:H2S2O7");
         chemicalReactionList.add(chemicalReaction);
 
-        //Check and add data
-        if (chemicalReactionList.size() == mChemistryHelper.getAllChemicalReaction().size()) {
-            Log.i("ANTN", "Table Reaction available");
-        } else {
-            //Add to database
-            mChemistryHelper.emptyChemicalReaction();
-            for (ChemicalReaction item : chemicalReactionList) {
-                mChemistryHelper.addChemicalReaction(item);
-            }
+        mChemistryHelper.emptyChemicalReaction();
+        for (ChemicalReaction item : chemicalReactionList) {
+            mChemistryHelper.addChemicalReaction(item);
         }
+        Log.i(TAG, "onCreate: UPDATE ChemicalReaction Table!!!");
     }
 
-    private void addDataCreatedReaction(){
+    private void addDataCreatedReaction() {
         List<CreatedReaction> createdReactionList = new ArrayList<>();
         CreatedReaction createdReaction;
 
@@ -2043,19 +2022,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createdReaction.setIdChemicalReaction(4);
         createdReactionList.add(createdReaction);
 
-        //Check and add data
-        if (createdReactionList.size() == mChemistryHelper.getAllCreatedReaction().size()) {
-            Log.i("ANTN", "Table Created available");
-        } else {
-            //Add to database
-            mChemistryHelper.emptyCreatedReaction();
-            for (CreatedReaction item : createdReactionList) {
-                mChemistryHelper.addCreatedReaction(item);
-            }
+        mChemistryHelper.emptyCreatedReaction();
+        for (CreatedReaction item : createdReactionList) {
+            mChemistryHelper.addCreatedReaction(item);
         }
+        Log.i(TAG, "onCreate: UPDATE CreatedReaction Table!!!");
     }
 
-    private void addDataReactWith(){
+    private void addDataReactWith() {
         List<ReactWith> reactWithList = new ArrayList<>();
         ReactWith reactWith;
 
@@ -2113,16 +2087,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         reactWith.setIdChemicalReaction(11);
         reactWithList.add(reactWith);
 
-        //Check and add data
-        if (reactWithList.size() == mChemistryHelper.getAllReactWith().size()) {
-            Log.i("ANTN", "Table Type available");
-        } else {
-            //Add to database
-            mChemistryHelper.emptyReactWith();
-            for (ReactWith item : reactWithList) {
-                mChemistryHelper.addReactWith(item);
-            }
+        mChemistryHelper.emptyReactWith();
+        for (ReactWith item : reactWithList) {
+            mChemistryHelper.addReactWith(item);
         }
+        Log.i(TAG, "onCreate: UPDATE ReactWith Table!!!");
     }
 
     private void addDataGroupTable() {
@@ -2184,16 +2153,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         group = new Group(18, "VIIIA");
         groupList.add(group);
 
-        //Check and add data
-        if (groupList.size() == mChemistryHelper.getAllGroups().size()) {
-            Log.i("ANTN", "Table Group available");
-        } else {
-            mChemistryHelper.emptyGroup();
-            //Add to database
-            for (Group item : groupList) {
-                mChemistryHelper.addGroup(item);
-            }
+        mChemistryHelper.emptyGroup();
+        for (Group item : groupList) {
+            mChemistryHelper.addGroup(item);
         }
+        Log.i(TAG, "onCreate: UPDATE Group Table!!!");
     }
 
     private void addDataElementTable() {
@@ -4851,16 +4815,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         element.setPicture("no_image_available");
         elementList.add(element);
 
-        //Check and add data
-        if (elementList.size() == mChemistryHelper.getAllElements().size()) {
-            Log.i("ANTN", "Table Element available");
-        } else {
-            //Add to database
-            mChemistryHelper.emptyElement();
-            for (Element item : elementList) {
-                mChemistryHelper.addElement(item);
-            }
+        mChemistryHelper.emptyElement();
+        for (Element item : elementList) {
+            mChemistryHelper.addElement(item);
         }
+        Log.i(TAG, "onCreate: UPDATE Element Table!!!");
     }
 
     private void addDataAnionTable() {
@@ -4906,17 +4865,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         anion = new Anion(13, "OH", "-");
         anionList.add(anion);
 
-        //Check and add data
-        if (anionList.size() == mChemistryHelper.getAllAnion().size()) {
-            Log.i("ANTN", "Table Anion available");
-        } else {
-            Log.i("ANTN", "Table Anion updated");
-            //Add to database
-            mChemistryHelper.emptyAnion();
-            for (Anion item : anionList) {
-                mChemistryHelper.addAnion(item);
-            }
+        mChemistryHelper.emptyAnion();
+        for (Anion item : anionList) {
+            mChemistryHelper.addAnion(item);
         }
+        Log.i(TAG, "onCreate: UPDATE Anion Table!!!");
     }
 
     private void addDataCationTable() {
@@ -4983,17 +4936,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         cation = new Cation(20, "Fe", "2+");
         cationList.add(cation);
 
-        //Check and add data
-        if (cationList.size() == mChemistryHelper.getAllCation().size()) {
-            Log.i("ANTN", "Table Cation available");
-        } else {
-            //Add to database
-            Log.i("ANTN", "Table Cation updated");
-            mChemistryHelper.emptyCation();
-            for (Cation item : cationList) {
-                mChemistryHelper.addCation(item);
-            }
+        mChemistryHelper.emptyCation();
+        for (Cation item : cationList) {
+            mChemistryHelper.addCation(item);
         }
+        Log.i(TAG, "onCreate: UPDATE Cation Table!!!");
     }
 
     private void addDataSoluteTable() {
@@ -5804,257 +5751,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         solute = new Solute(13, 20, "K");
         soluteList.add(solute);
 
-        //Check and add data
-        if (soluteList.size() == mChemistryHelper.getAllSolute().size()) {
-        } else {
-            //Add to database
-
-            Log.i("ANTN", "Table Solute updated");
-            mChemistryHelper.emptySolute();
-            for (Solute item : soluteList) {
-                mChemistryHelper.addSolute(item);
-            }
+        mChemistryHelper.emptySolute();
+        for (Solute item : soluteList) {
+            mChemistryHelper.addSolute(item);
         }
-    }
-
-    private void setupToolbar() {
-        mToolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
-        setSupportActionBar(mToolbarMain);
-
-    }
-
-    private void init() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mNavigationRight = findViewById(R.id.nav_view_right);
-        mManager = getSupportFragmentManager();
-        mTransaction = mManager.beginTransaction();
-
-        mChemistryHelper = ChemistrySingle.getInstance(this);
-
-        if (mMnRight != null) {
-            mMnRight.setVisible(false);
-        }
-    }
-
-    private void setupNavigate() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbarMain, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        mNavigationView.setNavigationItemSelectedListener(this);
-        mNavigationRight.setNavigationItemSelectedListener(this);
-
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View view, float v) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View view) {
-                InputMethodManager imm = (InputMethodManager) getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View view) {
-                if (mFragmentToSet != null) {
-                    mTransaction = mManager.beginTransaction();
-                    mTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                    mTransaction.replace(R.id.container, mFragmentToSet);
-                    mTransaction.commit();
-                }
-            }
-
-            @Override
-            public void onDrawerStateChanged(int i) {
-
-            }
-        });
-
-        mNavigationView.setItemIconTintList(null);
-        mNavigationRight.setItemIconTintList(null);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else if (mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
-            mDrawerLayout.closeDrawer(GravityCompat.END);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        int idGroup = item.getGroupId();
-
-        //close right navigation when user click right navigation
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
-
-        //handle hide and show nav right by item
-        if (idGroup == R.id.group_left_knowledge || idGroup == R.id.group_left_my_info || idGroup == R.id.group_left_app) {
-
-            if (id == R.id.nav_periodic_table) {
-                mMnRight.setVisible(true);
-            } else {
-                mMnRight.setVisible(false);
-            }
-
-        } else if (idGroup == R.id.group_right_type || idGroup == R.id.group_right_state_matter) {
-            mMnRight.setVisible(true);
-        }
-
-        //handle load fragment
-        if (id == R.id.nav_main) {
-
-            switchFragment(R.id.nav_main, MainFragment.newInstance());
-
-        } else if (id == R.id.nav_periodic_table) {
-
-            if (!mIsPeriodic) {
-                mIsPeriodic = true;
-                switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
-                mNavigationRight.getMenu().getItem(0).setChecked(true);
-            }
-
-        } else if (id == R.id.nav_solubility_table) {
-
-            switchFragment(R.id.nav_solubility_table, SolubilityTableFragment.newInstance());
-
-        } else if (id == R.id.nav_reactivity_series) {
-
-            switchFragment(R.id.nav_reactivity_series, ReactivitySeriesFragment.newInstance());
-
-        } else if (id == R.id.nav_theory) {
-
-            switchFragment(R.id.nav_theory, PickingClassFragment.newInstance());
-
-        } else if (id == R.id.nav_search) {
-
-            switchFragment(R.id.nav_search, SearchFragment.newInstance());
-
-        } else if (id == R.id.nav_reaction) {
-
-            switchFragment(R.id.nav_reaction, ReactionFragment.newInstance());
-
-        } else if (id == R.id.nav_all) {
-
-            controlRightNavgate(R.id.nav_all, 0);
-
-        } else if (id == R.id.nav_alkali_metal) {
-
-            controlRightNavgate(R.id.nav_alkali_metal, 1);
-
-        } else if (id == R.id.nav_alkaline_earth_metal) {
-
-            controlRightNavgate(R.id.nav_alkaline_earth_metal, 2);
-
-        } else if (id == R.id.nav_post_transition_metal) {
-
-            controlRightNavgate(R.id.nav_post_transition_metal, 3);
-
-        } else if (id == R.id.nav_metalloid) {
-
-            controlRightNavgate(R.id.nav_metalloid, 4);
-
-        } else if (id == R.id.nav_transition_metal) {
-
-            controlRightNavgate(R.id.nav_transition_metal, 5);
-
-        } else if (id == R.id.nav_nonmetal) {
-
-            controlRightNavgate(R.id.nav_nonmetal, 6);
-
-        } else if (id == R.id.nav_halogen) {
-
-            controlRightNavgate(R.id.nav_halogen, 7);
-
-        } else if (id == R.id.nav_noble_gas) {
-
-            controlRightNavgate(R.id.nav_noble_gas, 8);
-
-        } else if (id == R.id.nav_lanthanide) {
-
-            controlRightNavgate(R.id.nav_lanthanide, 9);
-
-        } else if (id == R.id.nav_actinide) {
-
-            controlRightNavgate(R.id.nav_actinide, 10);
-
-        } else if (id == R.id.nav_unknown_chemical_properties) {
-
-            controlRightNavgate(R.id.nav_unknown_chemical_properties, 11);
-
-        } else if (id == R.id.nav_solid) {
-
-            controlRightNavgate(R.id.nav_solid, 12);
-
-        } else if (id == R.id.nav_liquid) {
-
-            controlRightNavgate(R.id.nav_liquid, 13);
-
-        } else if (id == R.id.nav_gas) {
-
-            controlRightNavgate(R.id.nav_gas, 14);
-
-        } else if (id == R.id.nav_unknown) {
-
-            controlRightNavgate(R.id.nav_unknown, 15);
-        }
-
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        mMnRight = menu.findItem(R.id.mn_right);
-        mMnRight.setVisible(false);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mn_right:
-                mDrawerLayout.openDrawer(mNavigationRight);
-                break;
-        }
-        return true;
-    }
-
-    private void switchFragment(int id, Fragment fragment) {
-
-        if (id != R.id.nav_periodic_table) {
-            mIsPeriodic = false;
-        }
-
-        if (mCurrentId == id) {
-            mFragmentToSet = null;
-        } else {
-            mFragmentToSet = fragment;
-            mCurrentId = id;
-        }
-    }
-
-    private void controlRightNavgate(int id, int type) {
-        if (mCurrentId != id) {
-            mCurrentId = id;
-            mFragmentToSet = PeriodicTableFragment.newInstance();
-            Bundle bundle = new Bundle();
-            bundle.putInt("ID_TYPE", type);
-            mFragmentToSet.setArguments(bundle);
-        }
+        Log.i(TAG, "onCreate: UPDATE Solute Table!!!");
     }
 }
