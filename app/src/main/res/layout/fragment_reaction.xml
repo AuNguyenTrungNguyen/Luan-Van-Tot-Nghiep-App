@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/edt_reactants"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_margin="4dp"
@@ -19,6 +20,7 @@
         android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/edt_products"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_margin="4dp"
@@ -29,7 +31,20 @@
         android:textColor="@color/black"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/btn_search_reaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:fontFamily="sans-serif-medium"
+        android:padding="8dp"
+        android:text="tìm kiếm"
+        android:textColor="@color/black" />
+
     <android.support.v7.widget.CardView
+        android:id="@+id/cv_title_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -38,7 +53,6 @@
         tools:ignore="ContentDescription">
 
         <TextView
-            android:id="@+id/tv_title_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

@@ -78,9 +78,10 @@ public class ReactWithAdapter extends RecyclerView.Adapter<ReactWithAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String reactants = mDataList.get(position).getReactants();
         String products = mDataList.get(position).getProducts();
+        int twoWay = mDataList.get(position).getTwoWay();
 
         Helper helper = Helper.getInstant();
-        holder.tvWithReaction.setText(Html.fromHtml(helper.handelReactor(reactants, products)));
+        holder.tvWithReaction.setText(Html.fromHtml(helper.handelReactor(reactants, products, twoWay)));
         if (mDataTypeList.get(position).getIdType() == 3
                 || mDataTypeList.get(position).getIdType() == 4
                 || mDataTypeList.get(position).getIdType() == 5) {

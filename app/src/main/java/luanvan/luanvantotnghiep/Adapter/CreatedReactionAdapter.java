@@ -60,9 +60,10 @@ public class CreatedReactionAdapter extends RecyclerView.Adapter<CreatedReaction
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String reactants = mDataList.get(position).getReactants();
         String products = mDataList.get(position).getProducts();
+        int twoWay = mDataList.get(position).getTwoWay();
         
         Helper helper = Helper.getInstant();
-        holder.tvCreatedReaction.setText(Html.fromHtml(helper.handelReactor(reactants, products)));
+        holder.tvCreatedReaction.setText(Html.fromHtml(helper.handelReactor(reactants, products, twoWay)));
     }
 
     @Override

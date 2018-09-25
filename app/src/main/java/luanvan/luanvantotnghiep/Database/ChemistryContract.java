@@ -100,7 +100,7 @@ public final class ChemistryContract {
         public static final String COLUMN_PRODUCTS = "products";
         public static final String COLUMN_CONDITIONS = "conditions";
         public static final String COLUMN_PHENOMENA = "phenomena";
-        public static final String COLUMN_TOW_WAY= "tow_way";
+        public static final String COLUMN_TWO_WAY= "two_way";
         public static final String COLUMN_REACTION_TYPES= "reaction_types";
     }
 

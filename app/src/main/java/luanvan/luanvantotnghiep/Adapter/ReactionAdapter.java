@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.R;
+import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.Util.Helper;
 
 public class ReactionAdapter extends RecyclerView.Adapter<ReactionAdapter.ViewHolder> {
@@ -42,7 +44,10 @@ public class ReactionAdapter extends RecyclerView.Adapter<ReactionAdapter.ViewHo
         ChemicalReaction chemicalReaction = mListData.get(position);
         String reactants = chemicalReaction.getReactants();
         String products = chemicalReaction.getProducts();
-        holder.tvChemicalReaction.setText(Html.fromHtml(helper.handelReactor(reactants, products)));
+        int twoWay = chemicalReaction.getTwoWay();
+        Log.i(Constraint.TAG, "onBindViewHolder! two = " + twoWay);
+
+        holder.tvChemicalReaction.setText(Html.fromHtml(helper.handelReactor(reactants, products, twoWay)));
 
         if (chemicalReaction.getConditions().equals("")) {
             holder.lnCondition.setVisibility(View.GONE);

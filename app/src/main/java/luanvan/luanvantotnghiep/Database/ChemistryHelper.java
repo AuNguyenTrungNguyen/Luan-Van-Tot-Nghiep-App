@@ -276,7 +276,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
                     ChemistryContract.ChemicalReactionEntry.COLUMN_PRODUCTS + " TEXT, " +
                     ChemistryContract.ChemicalReactionEntry.COLUMN_CONDITIONS + " TEXT, " +
                     ChemistryContract.ChemicalReactionEntry.COLUMN_PHENOMENA + " TEXT, " +
-                    ChemistryContract.ChemicalReactionEntry.COLUMN_TOW_WAY + " BOOLEAN, " +
+                    ChemistryContract.ChemicalReactionEntry.COLUMN_TWO_WAY + " INTEGER, " +
                     ChemistryContract.ChemicalReactionEntry.COLUMN_REACTION_TYPES + " TEXT) ";
 
     //[CREATE] table React With
@@ -684,7 +684,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PRODUCTS, chemicalReaction.getProducts());
         values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CONDITIONS, chemicalReaction.getConditions());
         values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PHENOMENA, chemicalReaction.getPhenomena());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_TOW_WAY, chemicalReaction.getTowWay());
+        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_TWO_WAY, chemicalReaction.getTwoWay());
         values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_REACTION_TYPES, chemicalReaction.getReactionTypes());
 
         db.insert(ChemistryContract.ChemicalReactionEntry.TABLE_NAME, null, values);
@@ -790,7 +790,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
             chemicalReaction.setProducts((cursor.getString(2)));
             chemicalReaction.setConditions((cursor.getString(3)));
             chemicalReaction.setPhenomena((cursor.getString(4)));
-            chemicalReaction.setTowWay(Boolean.parseBoolean(cursor.getString(5)));
+            chemicalReaction.setTwoWay(Integer.parseInt(cursor.getString(5)));
             chemicalReaction.setReactionTypes((cursor.getString(6)));
             list.add(chemicalReaction);
 

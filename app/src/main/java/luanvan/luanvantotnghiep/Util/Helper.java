@@ -1,5 +1,7 @@
 package luanvan.luanvantotnghiep.Util;
 
+import android.util.Log;
+
 import luanvan.luanvantotnghiep.Model.Element;
 
 public class Helper {
@@ -14,7 +16,7 @@ public class Helper {
         return sHelper;
     }
 
-    public String handelReactor(String chatThamGia, String chatSanPham) {
+    public String handelReactor(String chatThamGia, String chatSanPham, int twoWay) {
 
         String[] danhSachCTG = chatThamGia.split("\\+");
         String[] danhSachCSP = chatSanPham.split("\\+");
@@ -38,7 +40,11 @@ public class Helper {
             }
         }
 
-        phuongTrinh.append(Constraint.SYMBOL + " ");
+        if (twoWay == 1){
+            phuongTrinh.append(Constraint.SYMBOL_TWO_WAY + " ");
+        }else{
+            phuongTrinh.append(Constraint.SYMBOL + " ");
+        }
 
         for (int i = 0; i < danhSachCSP.length; i++) {
             String[] tachCSP = danhSachCSP[i].split(":");
@@ -76,5 +82,11 @@ public class Helper {
         }
 
         return result;
+    }
+
+    //2:H2O
+    public String handelChemistryInReaction(String chemistry){
+        String[] tachChemistry = chemistry.split(":");
+        return  tachChemistry[1].toLowerCase().trim();
     }
 }
