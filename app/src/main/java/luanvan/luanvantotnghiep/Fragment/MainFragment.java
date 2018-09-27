@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import luanvan.luanvantotnghiep.Activity.FillInTheBlankActivity;
 import luanvan.luanvantotnghiep.Activity.MatchSentencesActivity;
 import luanvan.luanvantotnghiep.Activity.QuizActivity;
+import luanvan.luanvantotnghiep.Activity.SortActivity;
 import luanvan.luanvantotnghiep.R;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
@@ -48,7 +49,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.cv_quiz:
                 mContext.startActivity(new Intent(mContext, QuizActivity.class));
                 break;
@@ -59,6 +60,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             case R.id.cv_match_sentences:
                 mContext.startActivity(new Intent(mContext, MatchSentencesActivity.class));
+                break;
+
+            case R.id.cv_sort:
+                mContext.startActivity(new Intent(mContext, SortActivity.class));
                 break;
         }
     }
