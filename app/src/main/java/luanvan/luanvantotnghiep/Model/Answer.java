@@ -3,6 +3,15 @@ package luanvan.luanvantotnghiep.Model;
 public class Answer {
     private int mIdAnswer;
     private String mContentAnswer;
+    private int mShow = -1;
+
+    public int getShow() {
+        return mShow;
+    }
+
+    public void setShow(int mShow) {
+        this.mShow = mShow;
+    }
 
     public Answer() {
 

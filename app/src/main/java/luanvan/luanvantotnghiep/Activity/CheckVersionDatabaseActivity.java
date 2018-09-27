@@ -85,6 +85,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         }
 
         startActivity(new Intent(this, MainActivity.class));
+        mDialog.dismiss();
         finish();
     }
 
@@ -1926,13 +1927,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         ChemicalReaction chemicalReaction;
 
         chemicalReaction = new ChemicalReaction();
-        chemicalReaction.setIdChemicalReaction(1) ;
+        chemicalReaction.setIdChemicalReaction(1);
         chemicalReaction.setReactants("2:H2 + 1:O2");
         chemicalReaction.setProducts("2:H2O");
         chemicalReaction.setReactionTypes("phản ứng hóa hợp,phản ứng oxi-hóa khử");
         chemicalReaction.setConditions("Nhiệt độ: 550°C");
         chemicalReaction.setPhenomena("bay hơi nước");
-        chemicalReaction.setTwoWay(1);
         chemicalReactionList.add(chemicalReaction);
 
         chemicalReaction = new ChemicalReaction();

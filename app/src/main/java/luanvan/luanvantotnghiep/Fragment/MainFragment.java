@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import luanvan.luanvantotnghiep.Activity.FillInTheBlankActivity;
+import luanvan.luanvantotnghiep.Activity.MatchSentencesActivity;
 import luanvan.luanvantotnghiep.Activity.QuizActivity;
 import luanvan.luanvantotnghiep.R;
 
@@ -39,6 +40,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         view.findViewById(R.id.cv_quiz).setOnClickListener(this);
         view.findViewById(R.id.cv_fill_in_the_blank).setOnClickListener(this);
+        view.findViewById(R.id.cv_match_sentences).setOnClickListener(this);
+        view.findViewById(R.id.cv_sort).setOnClickListener(this);
 
         return view;
     }
@@ -52,6 +55,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             case R.id.cv_fill_in_the_blank:
                 mContext.startActivity(new Intent(mContext, FillInTheBlankActivity.class));
+                break;
+
+            case R.id.cv_match_sentences:
+                mContext.startActivity(new Intent(mContext, MatchSentencesActivity.class));
                 break;
         }
     }
