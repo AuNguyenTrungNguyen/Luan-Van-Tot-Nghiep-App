@@ -46,6 +46,18 @@ public class SortActivity extends AppCompatActivity {
     private List<Element> mDataList;
     private List<Element> mListAnswer = new ArrayList<>();
 
+    //TYPE OF GAME SORT
+    private static final int NUMBER_ATOM_ASC = 0;
+    private static final int NUMBER_ATOM_DEC = 1;
+    private static final int WEIGHT_ASC = 2;
+    private static final int WEIGHT_DEC = 3;
+    private static final int ELECTRONEGATIVITY_ASC = 4;
+    private static final int ELECTRONEGATIVITY_DEC = 5;
+    private static final int OXIDATION_ASC = 6;
+    private static final int OXIDATION_DEC = 7;
+    private static final int REDUCTION_ASC = 8;
+    private static final int REDUCTION_DEC = 9;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,11 +133,51 @@ public class SortActivity extends AppCompatActivity {
         mDataList = new ArrayList<>(mFilter.subList(0, 5));
 
         int type = randomQuestion();
-        if (type == 0) {
-            mTvQuestion.setText("xếp theo stt");
-        } else {
-            mTvQuestion.setText("xếp theo khối lượng");
+        switch (type) {
+            //Chemistry
+            case NUMBER_ATOM_ASC:
+                mTvQuestion.setText("Hãy sắp xếp các chất theo <b>số nguyên tử tăng dần</b>");
+                break;
+
+            case NUMBER_ATOM_DEC:
+                mTvQuestion.setText("Hãy sắp xếp các chất theo <b>số nguyên tử giảm dần</b>");
+                break;
+
+            case WEIGHT_ASC:
+                mTvQuestion.setText("Hãy sắp xếp các chất theo <b>khối lượng tăng dần</b>");
+                break;
+
+            case WEIGHT_DEC:
+                mTvQuestion.setText("Hãy sắp xếp các chất theo <b>khối lượng giảm dần</b>");
+                break;
+
+            //Element
+            case ELECTRONEGATIVITY_ASC:
+                mTvQuestion.setText("Hãy sắp xếp các chất theo <b>độ âm điện tăng dần</b>");
+                break;
+
+            case ELECTRONEGATIVITY_DEC:
+                mTvQuestion.setText("Hãy sắp xếp các chất theo <b>độ âm điện giảm dần</b>");
+                break;
+
+             //ReactSeries
+            case OXIDATION_ASC:
+                mTvQuestion.setText("Hãy sắp xếp các ion kim loại sau theo <b>tính chất oxi hóa tăng dần</b>");
+                break;
+
+            case OXIDATION_DEC:
+                mTvQuestion.setText("Hãy sắp xếp các ion kim loại sau theo <b>tính chất oxi hóa giảm dần</b>");
+                break;
+
+            case REDUCTION_ASC:
+                mTvQuestion.setText("Hãy sắp xếp các kim loại sau theo <b>tính chất khử tăng dần</b>");
+                break;
+
+            case REDUCTION_DEC:
+                mTvQuestion.setText("Hãy sắp xếp các kim loại sau theo <b>tính chất khử giảm dần</b>");
+                break;
         }
+
         mSortAdapter = new SortAdapter(this, mDataList);
 
         ItemTouchHelper.Callback callback =
@@ -141,8 +193,7 @@ public class SortActivity extends AppCompatActivity {
 
     private int randomQuestion() {
         Random random = new Random();
-        int n = random.nextInt(50) + 1;
-
-        return n % 2;
+        int n = random.nextInt(500) + 1;
+        return n % 10;
     }
 }
