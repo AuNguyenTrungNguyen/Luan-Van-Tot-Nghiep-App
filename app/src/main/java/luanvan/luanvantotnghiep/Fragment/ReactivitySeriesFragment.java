@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Adapter.ReactSeriesAdapter;
@@ -61,8 +59,6 @@ public class ReactivitySeriesFragment extends Fragment {
 
         init(view);
 
-        addDataReactSeriesTable();
-
         showReactivityList();
 
         showMemorizeAndMeaning();
@@ -93,83 +89,6 @@ public class ReactivitySeriesFragment extends Fragment {
 
     private void showReactivityList() {
         mAdapter.notifyDataSetChanged();
-    }
-
-    private void addDataReactSeriesTable() {
-
-        List<ReactSeries> reactSeriesList = new ArrayList<>();
-
-        ReactSeries reactSeries;
-        reactSeries = new ReactSeries("Li", "+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("K", "+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Ba", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Ca", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Na", "+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Mg", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Al", "3+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Mn", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Zn", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Cr", "3+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Fe", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Sn", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Pb", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("H", "+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Cu", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Fe", "3+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Ag", "+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Hg", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Pt", "2+");
-        reactSeriesList.add(reactSeries);
-
-        reactSeries = new ReactSeries("Au", "3+");
-        reactSeriesList.add(reactSeries);
-
-        //Check and add data
-        if (reactSeriesList.size() == mChemistryHelper.getAllReactSeries().size()) {
-            Log.i("ANTN", "Table ReactSeries available");
-        } else {
-            //Add to database
-            mChemistryHelper.emptyReactSeries();
-            for (ReactSeries item : reactSeriesList) {
-                mChemistryHelper.addReactSeries(item);
-            }
-        }
     }
 
     private void showMemorizeAndMeaning(){

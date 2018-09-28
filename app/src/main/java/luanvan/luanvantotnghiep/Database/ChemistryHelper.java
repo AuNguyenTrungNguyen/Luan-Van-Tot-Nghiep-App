@@ -233,7 +233,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //{CREATE] table react_series
     private static final String SQL_CREATE_REACT_SERIES = "CREATE TABLE " + ChemistryContract.ReactSeriesEntry.TABLE_NAME + " (" +
-            ChemistryContract.ReactSeriesEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            ChemistryContract.ReactSeriesEntry.COLUMN_ID + " INTEGER PRIMARY KEY ," +
             ChemistryContract.ReactSeriesEntry.COLUMN_ION + " TEXT ," +
             ChemistryContract.ReactSeriesEntry.COLUMN_VALENCE + " TEXT)";
 
@@ -983,6 +983,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(ChemistryContract.ReactSeriesEntry.COLUMN_ID, reactSeries.getIdReactSeries());
         values.put(ChemistryContract.ReactSeriesEntry.COLUMN_ION, reactSeries.getIon());
         values.put(ChemistryContract.ReactSeriesEntry.COLUMN_VALENCE, reactSeries.getValence());
 
@@ -1007,6 +1008,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         ReactSeries reactSeries;
         while (cursor.moveToNext()) {
             reactSeries = new ReactSeries();
+            reactSeries.setIdReactSeries(Integer.parseInt(cursor.getString(0)));
             reactSeries.setIon(cursor.getString(1));
             reactSeries.setValence(cursor.getString(2));
             list.add(reactSeries);

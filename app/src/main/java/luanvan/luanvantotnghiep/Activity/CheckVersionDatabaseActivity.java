@@ -21,6 +21,7 @@ import luanvan.luanvantotnghiep.Model.CreatedReaction;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
 import luanvan.luanvantotnghiep.Model.ProducedBy;
+import luanvan.luanvantotnghiep.Model.ReactSeries;
 import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
 import luanvan.luanvantotnghiep.Model.Type;
@@ -80,6 +81,10 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             addDataCationTable();
 
             addDataSoluteTable();
+
+            //Data use REACT_SERIES_TABLE
+            addDataReactSeriesTable();
+
         } else {
             Log.i(TAG, "onCreate: NOTHING UPDATE!!!");
         }
@@ -5760,5 +5765,80 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             mChemistryHelper.addSolute(item);
         }
         Log.i(TAG, "onCreate: UPDATE Solute Table!!!");
+    }
+
+    private void addDataReactSeriesTable() {
+
+        List<ReactSeries> reactSeriesList = new ArrayList<>();
+
+        ReactSeries reactSeries;
+        reactSeries = new ReactSeries(1, "Li", "+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(2, "K", "+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(3, "Ba", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(4, "Ca", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(5, "Na", "+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(6, "Mg", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(7, "Al", "3+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(8, "Mn", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(9, "Zn", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(10, "Cr", "3+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(11, "Fe", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(12, "Ni", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(13, "Sn", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(14, "Pb", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(15, "H", "+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(16, "Cu", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(17, "Fe", "3+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(18, "Ag", "+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(19, "Hg", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(20, "Pt", "2+");
+        reactSeriesList.add(reactSeries);
+
+        reactSeries = new ReactSeries(21, "Au", "3+");
+        reactSeriesList.add(reactSeries);
+
+        mChemistryHelper.emptyReactSeries();
+        for (ReactSeries item : reactSeriesList) {
+            mChemistryHelper.addReactSeries(item);
+        }
+        Log.i(TAG, "onCreate: UPDATE ReactSeries Table!!!");
     }
 }

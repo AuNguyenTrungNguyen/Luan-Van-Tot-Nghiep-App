@@ -28,4 +28,16 @@ public class Constraint {
     public static final String SYMBOL = "&rarr";
     public static final String SYMBOL_TWO_WAY = "&#x21CC";
     public static final String TAG = "CNHH";
+
+    //GAME SORT
+    public static final int NUMBER_ATOM_ASC = 0;
+    public static final int NUMBER_ATOM_DEC = 1;
+    public static final int WEIGHT_ASC = 2;
+    public static final int WEIGHT_DEC = 3;
+    public static final int ELECTRONEGATIVITY_ASC = 4;
+    public static final int ELECTRONEGATIVITY_DEC = 5;
+    public static final int OXIDATION_ASC = 6;
+    public static final int OXIDATION_DEC = 7;
+    public static final int REDUCTION_ASC = 8;
+    public static final int REDUCTION_DEC = 9;
 }
