@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Adapter.MatchQuestionAdapter;
@@ -22,6 +22,7 @@ import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
+import luanvan.luanvantotnghiep.Util.Constraint;
 
 public class TestMatchActivity extends AppCompatActivity implements MatchGame {
 
@@ -30,8 +31,7 @@ public class TestMatchActivity extends AppCompatActivity implements MatchGame {
     private List<Question> mQuestionList;
     private List<Answer> mListAnswer;
     private List<AnswerByQuestion> mAnswerByQuestionList;
-    private List<Integer> mListUserAnswer;
-    private HashMap<String, Integer> data = new HashMap<>();
+    private List<Integer> mListUserAnswer = new ArrayList<>(); //save id answer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,29 @@ public class TestMatchActivity extends AppCompatActivity implements MatchGame {
         setUpData();
 
         setUpAdapter();
+
+        findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(Constraint.TAG, "onClick: " + showScore());
+            }
+        });
+    }
+
+    private int showScore() {
+        int score = 0;
+
+        for (int i = 0; i < mQuestionList.size(); i++) {
+            for (AnswerByQuestion answerByQuestion : mAnswerByQuestionList) {
+                if (answerByQuestion.getIdQuestion() == mQuestionList.get(i).getIdQuestion()
+                        && answerByQuestion.getIdAnswer() == mListUserAnswer.get(i)) {
+                    score++;
+                    break;
+                }
+            }
+        }
+
+        return score;
     }
 
     private void init() {
@@ -65,11 +88,15 @@ public class TestMatchActivity extends AppCompatActivity implements MatchGame {
         mAnswerByQuestionList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            mQuestionList.add(new Question((i+1), String.format("%s + %s = ?", (i + 1), (i + 1))));
+            mQuestionList.add(new Question((i + 1), String.format("%s + %s = ?", (i + 1), (i + 1))));
         }
 
         for (int i = 0; i < 5; i++) {
-            mListAnswer.add(new Answer((i+1), String.format("%s chứ mấy.", (i + 1) * 2)));
+            mListAnswer.add(new Answer((i + 1), String.format("%s chứ mấy.", (i + 1) * 2)));
+        }
+
+        for (int i = 0; i < 5; i++) {
+            mAnswerByQuestionList.add(new AnswerByQuestion(i + 1, i + 1, true));
         }
 
         Collections.shuffle(mQuestionList);
@@ -78,14 +105,11 @@ public class TestMatchActivity extends AppCompatActivity implements MatchGame {
 
     private void setUpAdapter() {
 
-        int key = 65;
-        for (Answer answer : mListAnswer) {
-            data.put(String.valueOf(((char) key++)), answer.getIdAnswer());
+        for (int i = 0; i < mListAnswer.size(); i++) {
             mListUserAnswer.add(-1);
         }
 
-
-        MatchQuestionAdapter adapterQuestion = new MatchQuestionAdapter(this, mQuestionList, data);
+        MatchQuestionAdapter adapterQuestion = new MatchQuestionAdapter(this, mQuestionList, mListAnswer);
         mRvQuestion.setAdapter(adapterQuestion);
         adapterQuestion.setMatchGame(this);
 

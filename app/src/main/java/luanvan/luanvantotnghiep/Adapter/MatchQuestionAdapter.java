@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Communicate.MatchGame;
+import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 
@@ -21,16 +21,17 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
 
     private Context mContext;
     private List<Question> mQuestionList;
-    private HashMap<String, Integer> mMap;
+    private List<Answer> mListAnswer;
 
-    public MatchQuestionAdapter(Context mContext, List<Question> mListData, HashMap<String, Integer> map) {
+    public MatchQuestionAdapter(Context mContext, List<Question> mListData, List<Answer> mListHandle) {
         this.mContext = mContext;
         this.mQuestionList = mListData;
-        this.mMap = map;
+        this.mListAnswer = mListHandle;
     }
 
     private MatchGame mMatchGame;
-    public void setMatchGame(MatchGame matchGame){
+
+    public void setMatchGame(MatchGame matchGame) {
         this.mMatchGame = matchGame;
     }
 
@@ -54,18 +55,20 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
     }
 
     private void showDialog(final QuestionHolder questionHolder, final int position) {
+        Question question = mQuestionList.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Choose Your Answer");
+        builder.setTitle(question.getContentQuestion());
 
-        final String data[] = new String[mMap.size()];
-        for (int i = 0;  i < mMap.size(); i++){
-            data[i] = String.valueOf((char) (i+65));
+        final String data[] = new String[mListAnswer.size()];
+        for (int i = 0; i < mListAnswer.size(); i++) {
+            int show = i + 65;
+            data[i] = String.valueOf((char) show) + ". " + mListAnswer.get(i).getContentAnswer();
         }
         builder.setItems(data, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                questionHolder.tvChoose.setText(data[i]);
-                mMatchGame.userClick(position, mMap.get(data[i]));
+                questionHolder.tvChoose.setText(data[i].split(". ")[0]);
+                mMatchGame.userClick(position, mListAnswer.get(i).getIdAnswer());
             }
         });
         builder.show();

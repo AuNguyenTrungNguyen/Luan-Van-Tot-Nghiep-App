@@ -6,20 +6,22 @@
 
     <TextView
         android:id="@+id/tv_content_question_match"
-        android:text="Content Question"
-        android:gravity="center|left"
-        android:layout_margin="4dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="5"/>
+        android:layout_margin="4dp"
+        android:layout_weight="5"
+        android:background="@color/background"
+        android:gravity="center|left"
+        android:text="Content Question" />
 
     <TextView
         android:id="@+id/tv_user_choose"
-        android:text="X"
-        android:gravity="center"
-        android:layout_margin="4dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_margin="4dp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:gravity="center"
+        android:text="X" />
 
 </LinearLayout>
