@@ -9,8 +9,8 @@ public class Question{
     private int mIdKind; //Loại
     private String mContentQuestion; //Nội dung
     private String mLevel; //Mức độ
-    private int mAnswer = -1;
-    private int mIdCorrect = -1;
+    private int mAnswer = -1;// Save answer user select (User selected)
+    private int mIdCorrect = -1; //review (Check user true or false)
 
     public Question() {
     }

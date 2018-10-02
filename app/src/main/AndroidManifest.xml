@@ -31,23 +31,21 @@
             android:name=".Activity.FillInTheBlankActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.CheckVersionDatabaseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".Activity.MatchSentencesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.TestMatchActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity android:name=".Activity.SortActivity"></activity>
     </application>
