@@ -76,19 +76,14 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         addDataAnswerByQuestionDK();
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         chooseOption();
     }
 
     private void chooseOption() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Bạn đã sẵn sàng");
+        builder.setMessage("Bạn đã sẵn sàng?");
 
-        builder.setPositiveButton("Làm bài", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Bắt đầu", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 isPlaying = true;
                 mTotalQuestion = mQuestionList.size();
@@ -104,7 +99,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 //                Collections.shuffle(mQuestionList);
 //                Collections.shuffle(mQuestionList);
 
-                //findViewById(R.id.ln_start_game).setVisibility(View.GONE);
+                findViewById(R.id.fl_start_game).setVisibility(View.GONE);
 
                 startGame();
             }
@@ -132,18 +127,15 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
                 mCurrentTime = millisUntilFinished;
                 mTvTime.setText(convertLongToTime(millisUntilFinished));
 
-                //set text color  time <= 5m
+                //set text color red when time <= 5m
                 if (millisUntilFinished <= 300000) {
                     mTvTime.setTextColor(Color.RED);
                 }
-
             }
 
             @Override
             public void onFinish() {
-
                 showScore();
-
             }
         }.start();
 
@@ -168,15 +160,15 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         checkUserOut();
     }
 
-    //Function check when user out game or submit quiz
+    //Function check when user out game or submit
     private void checkUserOut() {
         if (isPlaying) {
 
             final Dialog dialog = new Dialog(FillInTheBlankActivity.this);
-            dialog.setContentView(R.layout.layout_dialog_submit_quiz);
+            dialog.setContentView(R.layout.layout_dialog_game_submit);
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
-            final TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
+            TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
             Button btnSubmit = dialog.findViewById(R.id.btn_submit);
             Button btnContinue = dialog.findViewById(R.id.btn_continue);
 
@@ -185,7 +177,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
             //handel time running in dialog
             tvTimeLeft.setText("Bạn dừng lúc: " + convertLongToTime(mCurrentTime));
 
-            //when user submit quiz
+            //when user submit
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -207,7 +199,6 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         } else {
             finish();
-
         }
     }
 
@@ -228,7 +219,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         mBtnComplete.setVisibility(View.INVISIBLE);
         mCountDownTimer.cancel();
 
-        final Dialog dialog = new Dialog(FillInTheBlankActivity.this);
+        final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_dialog_score_quiz);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -239,13 +230,12 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         ImageView imgReview = dialog.findViewById(R.id.img_review);
         ImageView imgFinish = dialog.findViewById(R.id.img_finish);
 
-        //Handel start by score
+        //Handel stat by score
         ImageView imgStarOne = dialog.findViewById(R.id.img_star_one);
         ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
         ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
 
         if (score >= 9 && score < 13) {
-
             imgStarTwo.setVisibility(View.VISIBLE);
         } else if (score >= 13 && score < 17) {
             imgStarOne.setVisibility(View.VISIBLE);
@@ -258,7 +248,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         //tvLevel.setText("Text level");
         tvScore.setText(String.valueOf(score));
-        tvCorrectAnswer.setText(score + "/" + mTotalQuestion);
+        tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
         dialog.setCancelable(false);
         dialog.show();
 
@@ -288,7 +278,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         //Activity
         mTvTime = findViewById(R.id.tv_time);
         mTvTotal = findViewById(R.id.tv_total);
-        mBtnComplete = findViewById(R.id.btn_complete_quiz);
+        mBtnComplete = findViewById(R.id.btn_complete);
         mBtnComplete.setOnClickListener(this);
 
         //Adapter
@@ -302,34 +292,34 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         mQuestionList = new ArrayList<>();
         Question question;
 
-        question = new Question(1, "&| là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng.");
+        question = new Question(1, "⁅⁆ là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng.");
         mQuestionList.add(question);
 
-        question = new Question(2, "Hóa học có vai trò &| trong cuộc sống chúng ta.");
+        question = new Question(2, "Hóa học có vai trò ⁅⁆ trong cuộc sống chúng ta.");
         mQuestionList.add(question);
 
-        question = new Question(3, "Chất có khắp mọi nơi, ở đâu có vật thể ở đó có &|.");
+        question = new Question(3, "Chất có khắp mọi nơi, ở đâu có vật thể ở đó có ⁅⁆.");
         mQuestionList.add(question);
 
-        question = new Question(4, "Nước &| gồm nhiều chất trộn lẫn là một &|.");
+        question = new Question(4, "Nước ⁅⁆ gồm nhiều chất trộn lẫn là một ⁅⁆.");
         mQuestionList.add(question);
 
-        question = new Question(5, "&| là chất tinh khiết.");
+        question = new Question(5, "⁅⁆ là chất tinh khiết.");
         mQuestionList.add(question);
 
-        question = new Question(6, "dựa vào sự &| về tính chất &| có thể tách một chất ra khỏi &|.");
+        question = new Question(6, "Dựa vào sự ⁅⁆ về tính chất ⁅⁆ có thể tách một chất ra khỏi ⁅⁆.");
         mQuestionList.add(question);
 
-        question = new Question(7, "&| là &| vô cùng nhỏ và &| về điện.");
+        question = new Question(7, "⁅⁆ là ⁅⁆ vô cùng nhỏ và ⁅⁆ về điện.");
         mQuestionList.add(question);
 
-        question = new Question(8, "Nguyên tử là hạt nhân mang &| và vỏ tạo bởi một hay nhiều &| mang &|.");
+        question = new Question(8, "Nguyên tử là hạt nhân mang ⁅⁆ và vỏ tạo bởi một hay nhiều ⁅⁆ mang ⁅⁆.");
         mQuestionList.add(question);
 
-        question = new Question(9, "Hạt nhân tạo bởi &| và nơtron.");
+        question = new Question(9, "Hạt nhân tạo bởi ⁅⁆ và nơtron.");
         mQuestionList.add(question);
 
-        question = new Question(10, "Trong mỗi nguyên, số proton bằng số &|.");
+        question = new Question(10, "Trong mỗi nguyên tử, số proton bằng số ⁅⁆.");
         mQuestionList.add(question);
     }
 
@@ -428,10 +418,9 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         for (int i = 0; i < mQuestionList.size(); i++) {
             Question question = mQuestionList.get(i);
             question.setIdCorrect(mListUserAnswer.get(i));
-            if (mListUserAnswer.get(i) == -1){
+            if (mListUserAnswer.get(i) == -1) {
                 question.setIdCorrect(0);
             }
-
         }
         mRvQuestion.scrollToPosition(0);
         mFillInTheBlankAdapter.notifyDataSetChanged();
@@ -440,7 +429,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_complete_quiz:
+            case R.id.btn_complete:
                 checkUserOut();
         }
     }
@@ -466,7 +455,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
                 count++;
             }
         }
-        textView.setText(count + "/" + mTotalQuestion);
+        textView.setText(String.format("Đã làm: %s/%s", count, mTotalQuestion));
     }
 
     @Override

@@ -174,7 +174,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         if (isPlaying) {
 
             final Dialog dialog = new Dialog(QuizActivity.this);
-            dialog.setContentView(R.layout.layout_dialog_submit_quiz);
+            dialog.setContentView(R.layout.layout_dialog_game_submit);
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
             final TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);

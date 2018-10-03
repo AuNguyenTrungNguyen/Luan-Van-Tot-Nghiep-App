@@ -25,7 +25,6 @@ import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
-import luanvan.luanvantotnghiep.Util.Constraint;
 
 public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAdapter.ViewHolder> {
     private Context mContext;
@@ -34,13 +33,11 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     private List<AnswerByQuestion> mAnswerByQuestionList;
     private List<SpannableString> mUIList = new ArrayList<>();
 
-    private static final Character START_CODE = '&';
-    private static final Character END_CODE = '|';
-    private static final Character START_SHOW = '{';
-    private static final Character END_SHOW = '}';
+    private static final Character START_CODE = '⁅';
+    private static final Character END_CODE = '⁆';
+    private static final Character START_SHOW = '⇠';
+    private static final Character END_SHOW = '⇢';
     private List<PositionCode> positionCodeList = new ArrayList<>();
-
-    private static final String TAG = Constraint.TAG;
 
     public interface CommunicateQuiz {
         void onUserChooseAnswer(int question, int answer);
@@ -76,12 +73,13 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Question question = mQuestionList.get(position);
 
+        //FIRST load data
         SpannableString spannableString = handleClickQuestion(question.getContentQuestion(), holder, position);
-
         holder.tvQuestion.setText(spannableString);
         holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvNumberQuestion.setText(String.format("Câu %s", position + 1));
 
+        //WHEN user update data
         if (mUIList.get(position) != null) {
             holder.tvQuestion.setText(mUIList.get(position));
             holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
@@ -98,9 +96,9 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
 
         positionCodeList.clear();
         for (int i = 0; i < question.length() - 1; i++) {
-            if (question.substring(i, i + 1).equals("&")) {
+            if (question.substring(i, i + 1).equals(String.valueOf(START_CODE))) {
                 for (int j = i + 1; j < question.length() - 1; j++) {
-                    if (question.substring(j, j + 1).equals("|")) {
+                    if (question.substring(j, j + 1).equals(String.valueOf(END_CODE))) {
                         positionCodeList.add(new PositionCode(i, j + 1));
                         break;
                     }
@@ -111,23 +109,23 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         question = question.replace(START_CODE, START_SHOW);
         question = question.replace(END_CODE, END_SHOW);
 
-        String dapAn = "";
+        String correctAnswer = "";
         for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
             for (Answer answer : mAnswerList) {
                 if (mQuestionList.get(position).getIdQuestion() == byQuestion.getIdQuestion()
                         && byQuestion.getIdAnswer() == answer.getIdAnswer()) {
-                    dapAn = answer.getContentAnswer();
+                    correctAnswer = answer.getContentAnswer();
                 }
             }
         }
 
-        String strDapAn[] = dapAn.split(",");
+        String correctAnswerArr[] = correctAnswer.split(",");
         StringBuilder temp = new StringBuilder();
         int index = 0;
         for (int i = 0; i < positionCodeList.size(); i++) {
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(question.substring(index, positionCode.start));
-            if (question.substring(positionCode.start, positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())) {
+            if (question.substring(positionCode.start, positionCode.end).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
                 temp.append("<font color='green'>").append(question.substring(positionCode.start, positionCode.end).toLowerCase()).append("</font>");
             } else {
                 temp.append("<font color='red'>").append(question.substring(positionCode.start, positionCode.end).toLowerCase()).append("</font>");
@@ -147,7 +145,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         for (int i = 0; i < positionCodeList.size(); i++) {
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(question.substring(index, positionCode.start));
-            temp.append("<b><i><u>").append(strDapAn[i]).append("</u></i></b>");
+            temp.append("<b><i><u>").append(correctAnswerArr[i]).append("</u></i></b>");
             index = positionCode.end;
         }
         if (index < question.length()) {
@@ -156,8 +154,8 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         }
         String result = temp.toString();
 
-        result = result.replace("{", "");
-        result = result.replace("}", "");
+        result = result.replace(String.valueOf(START_SHOW), "");
+        result = result.replace(String.valueOf(END_SHOW), "");
 
         holder.tvShowAnswered.setText(Html.fromHtml(result));
         holder.tvTextAnswer.setVisibility(View.VISIBLE);
@@ -171,9 +169,9 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
 
         positionCodeList.clear();
         for (int i = 0; i < question.length() - 1; i++) {
-            if (question.substring(i, i + 1).equals("&")) {
+            if (question.substring(i, i + 1).equals(String.valueOf(START_CODE))) {
                 for (int j = i + 1; j < question.length() - 1; j++) {
-                    if (question.substring(j, j + 1).equals("|")) {
+                    if (question.substring(j, j + 1).equals(String.valueOf(END_CODE))) {
                         positionCodeList.add(new PositionCode(i, j + 1));
                         break;
                     }
@@ -202,7 +200,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
                             String youEditTextValue = edittext.getText().toString();
                             youEditTextValue = standardizeString(youEditTextValue);
                             String temp = finalQuestion.substring(0, positionCode.start);
-                            String result = temp + "&" + youEditTextValue + "|";
+                            String result = temp + START_CODE + youEditTextValue + END_CODE;
                             temp = finalQuestion.substring(positionCode.end, finalQuestion.length());
                             result += temp;
 
@@ -232,20 +230,25 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         return ss;
     }
 
+    /*
+    * PARAM:    @holder: current view
+    *           @position: position of current question
+    * RETURN:   -999 if answer user is correct else return 0
+    * */
     private int checkAnswerUser(ViewHolder holder, int position) {
 
         String text = holder.tvQuestion.getText().toString();
-        String dapAn = "";
+        String correctAnswer = "";
         for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
             for (Answer answer : mAnswerList) {
                 if (mQuestionList.get(position).getIdQuestion() == byQuestion.getIdQuestion()
                         && byQuestion.getIdAnswer() == answer.getIdAnswer()) {
-                    dapAn = answer.getContentAnswer();
+                    correctAnswer = answer.getContentAnswer();
                 }
             }
         }
 
-        String strDapAn[] = dapAn.split(",");
+        String correctAnswerArr[] = correctAnswer.split(",");
 
         StringBuilder temp = new StringBuilder();
         int index = 0;
@@ -254,12 +257,11 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(text.substring(index, positionCode.start));
 
-            if (!text.substring(positionCode.start, positionCode.end).toLowerCase().equals(strDapAn[i].toLowerCase())) {
+            if (!text.substring(positionCode.start, positionCode.end).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
                 return 0;
             }
             index = positionCode.end;
         }
-
         return -999;
     }
 
@@ -269,6 +271,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         return str;
     }
 
+    //Inner class save position each question
     private class PositionCode {
         int start;
         int end;
@@ -276,6 +279,11 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         PositionCode(int s, int e) {
             start = s;
             end = e;
+        }
+
+        @Override
+        public String toString() {
+            return "start: " + start + " - end: " + end;
         }
     }
 
@@ -298,5 +306,4 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
             tvShowAnswered = view.findViewById(R.id.tv_show_answered);
         }
     }
-
 }

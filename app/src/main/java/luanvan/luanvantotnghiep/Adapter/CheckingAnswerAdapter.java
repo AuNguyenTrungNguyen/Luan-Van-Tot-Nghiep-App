@@ -18,6 +18,7 @@ import luanvan.luanvantotnghiep.R;
 public class CheckingAnswerAdapter extends ArrayAdapter{
     private Context mContext;
     private List<Integer> mListData;
+
     public CheckingAnswerAdapter(@NonNull Context context, int resource, @NonNull List<Integer> objects) {
         super(context, resource, objects);
         mContext = context;
