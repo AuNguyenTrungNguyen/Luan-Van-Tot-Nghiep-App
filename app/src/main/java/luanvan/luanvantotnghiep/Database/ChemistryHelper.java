@@ -533,37 +533,37 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void emptyBlock(){
+    public void emptyBlock() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.BlockEntry.TABLE_NAME, null, null);
         db.close();
     }
 
-    public void emptyChapter(){
+    public void emptyChapter() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.ChapterEntry.TABLE_NAME, null, null);
         db.close();
     }
 
-    public void emptyTypeOfQuestion(){
+    public void emptyTypeOfQuestion() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.TypeOfQuestionEntry.TABLE_NAME, null, null);
         db.close();
     }
 
-    public void emptyAnswer(){
+    public void emptyAnswer() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.AnswerEntry.TABLE_NAME, null, null);
         db.close();
     }
 
-    public void emptyQuestion(){
+    public void emptyQuestion() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.QuestionEntry.TABLE_NAME, null, null);
         db.close();
     }
 
-    public void emptyAnswerByQuestion(){
+    public void emptyAnswerByQuestion() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.AnswerByQuestionEntry.TABLE_NAME, null, null);
         db.close();
@@ -630,7 +630,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         values.put(ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID, question.getIdLevel());
         values.put(ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID, question.getIdBlock());
         values.put(ChemistryContract.QuestionEntry.COLUMN_TYPE_ID, question.getIdType());
-        values.put(ChemistryContract.QuestionEntry.COLUMN_TYPE_ID, question.getExtent());
+        values.put(ChemistryContract.QuestionEntry.COLUMN_EXTENT, question.getExtent());
 
         db.insert(ChemistryContract.QuestionEntry.TABLE_NAME, null, values);
         db.close();
@@ -812,6 +812,37 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    //Get Questions by Level
+    public List<Question> getQuestionsByLevel(int level) {
+        List<Question> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID + " =  ?";
+        String selectionArgs[] = {String.valueOf(level)};
+        Cursor cursor = db.query(
+                ChemistryContract.QuestionEntry.TABLE_NAME,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        Question question;
+        while (cursor.moveToNext()) {
+            question = new Question();
+            question.setIdQuestion(Integer.parseInt(cursor.getString(0)));
+            question.setContentQuestion(cursor.getString(1));
+            question.setIdLevel(Integer.parseInt(cursor.getString(2)));
+            question.setIdBlock(Integer.parseInt(cursor.getString(3)));
+            question.setIdType(Integer.parseInt(cursor.getString(4)));
+            question.setExtent(Integer.parseInt(cursor.getString(5)));
+            list.add(question);
+        }
+
+        cursor.close();
+        return list;
+    }
 
     //PERIODIC TABLE
     //{Add]

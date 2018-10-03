@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import luanvan.luanvantotnghiep.Activity.FillInTheBlankActivity;
+import luanvan.luanvantotnghiep.Activity.ChooseLevelActivity;
 import luanvan.luanvantotnghiep.Activity.MatchSentencesActivity;
 import luanvan.luanvantotnghiep.Activity.QuizActivity;
 import luanvan.luanvantotnghiep.Activity.SortActivity;
@@ -55,7 +55,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.cv_fill_in_the_blank:
-                mContext.startActivity(new Intent(mContext, FillInTheBlankActivity.class));
+                //mContext.startActivity(new Intent(mContext, FillInTheBlankActivity.class));
+                mContext.startActivity(new Intent(mContext, ChooseLevelActivity.class));
                 break;
 
             case R.id.cv_match_sentences:

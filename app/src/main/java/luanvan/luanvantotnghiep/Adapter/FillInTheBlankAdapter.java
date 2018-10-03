@@ -257,7 +257,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(text.substring(index, positionCode.start));
 
-            if (!text.substring(positionCode.start, positionCode.end).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
+            if (!text.substring(positionCode.start+1, positionCode.end-1).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
                 return 0;
             }
             index = positionCode.end;

@@ -3,6 +3,7 @@ package luanvan.luanvantotnghiep.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,11 +37,14 @@ import java.util.List;
 
 import luanvan.luanvantotnghiep.Adapter.CheckingAnswerAdapter;
 import luanvan.luanvantotnghiep.Adapter.FillInTheBlankAdapter;
+import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
+import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
 
 public class FillInTheBlankActivity extends AppCompatActivity implements View.OnClickListener, FillInTheBlankAdapter.CommunicateQuiz {
 
@@ -70,13 +76,30 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         init();
 
-        addDataDK();
+        if (getLevel() != 0) {
+            getDataByLevel(getLevel());
+            ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
+            mQuestionList = chemistryHelper.getQuestionsByLevel(getLevel());
+            mAnswerList = chemistryHelper.getAllAnswer();
+            mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
+            chooseOption();
+        } else {
+            Toast.makeText(this, "Bái bai!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 
-        addDataAnswerDK();
+    private void getDataByLevel(int level) {
+        Log.e(Constraint.TAG, "Level: " + level);
+    }
 
-        addDataAnswerByQuestionDK();
-
-        chooseOption();
+    private int getLevel() {
+        int level = 0;
+        Intent intent = this.getIntent();
+        if (intent != null) {
+            level = intent.getIntExtra("LEVEL", 0);
+        }
+        return level;
     }
 
     private void chooseOption() {
@@ -286,112 +309,6 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         mQuestionList = new ArrayList<>();
         mAnswerList = new ArrayList<>();
         mAnswerByQuestionList = new ArrayList<>();
-    }
-
-    private void addDataDK() {
-        mQuestionList = new ArrayList<>();
-        Question question;
-
-        question = new Question(1, "⁅⁆ là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng.");
-        mQuestionList.add(question);
-
-        question = new Question(2, "Hóa học có vai trò ⁅⁆ trong cuộc sống chúng ta.");
-        mQuestionList.add(question);
-
-        question = new Question(3, "Chất có khắp mọi nơi, ở đâu có vật thể ở đó có ⁅⁆.");
-        mQuestionList.add(question);
-
-        question = new Question(4, "Nước ⁅⁆ gồm nhiều chất trộn lẫn là một ⁅⁆.");
-        mQuestionList.add(question);
-
-        question = new Question(5, "⁅⁆ là chất tinh khiết.");
-        mQuestionList.add(question);
-
-        question = new Question(6, "Dựa vào sự ⁅⁆ về tính chất ⁅⁆ có thể tách một chất ra khỏi ⁅⁆.");
-        mQuestionList.add(question);
-
-        question = new Question(7, "⁅⁆ là ⁅⁆ vô cùng nhỏ và ⁅⁆ về điện.");
-        mQuestionList.add(question);
-
-        question = new Question(8, "Nguyên tử là hạt nhân mang ⁅⁆ và vỏ tạo bởi một hay nhiều ⁅⁆ mang ⁅⁆.");
-        mQuestionList.add(question);
-
-        question = new Question(9, "Hạt nhân tạo bởi ⁅⁆ và nơtron.");
-        mQuestionList.add(question);
-
-        question = new Question(10, "Trong mỗi nguyên tử, số proton bằng số ⁅⁆.");
-        mQuestionList.add(question);
-    }
-
-    private void addDataAnswerDK() {
-
-        mAnswerList = new ArrayList<>();
-        Answer answer;
-
-        answer = new Answer(1, "{hóa học}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(2, "{rất quan trọng}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(3, "{chất}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(4, "{tự nhiên},{hỗn hợp}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(5, "{nước cất}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(6, "{khác nhau},{vật lý},{hỗn hợp}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(7, "{nguyên tử},{hạt},{trung hòa}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(8, "{điện tích dương},{electron},{điện tích âm}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(9, "{proton}");
-        mAnswerList.add(answer);
-
-        answer = new Answer(10, "{electron}");
-        mAnswerList.add(answer);
-    }
-
-    private void addDataAnswerByQuestionDK() {
-        mAnswerByQuestionList = new ArrayList<>();
-        AnswerByQuestion answerByQuestion;
-
-        answerByQuestion = new AnswerByQuestion(1, 1, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(2, 2, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(3, 3, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(4, 4, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(5, 5, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(6, 6, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(7, 7, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(8, 8, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(9, 9, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(10, 10, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
     }
 
     private void showQuestion() {
