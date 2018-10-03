@@ -363,34 +363,34 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         mAnswerByQuestionList = new ArrayList<>();
         AnswerByQuestion answerByQuestion;
 
-        answerByQuestion = new AnswerByQuestion(1, 1, true);
+        answerByQuestion = new AnswerByQuestion(1, 1, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2, 2, true);
+        answerByQuestion = new AnswerByQuestion(2, 2, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3, 3, true);
+        answerByQuestion = new AnswerByQuestion(3, 3, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4, 4, true);
+        answerByQuestion = new AnswerByQuestion(4, 4, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5, 5, true);
+        answerByQuestion = new AnswerByQuestion(5, 5, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(6, 6, true);
+        answerByQuestion = new AnswerByQuestion(6, 6, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(7, 7, true);
+        answerByQuestion = new AnswerByQuestion(7, 7, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(8, 8, true);
+        answerByQuestion = new AnswerByQuestion(8, 8, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(9, 9, true);
+        answerByQuestion = new AnswerByQuestion(9, 9, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(10, 10, true);
+        answerByQuestion = new AnswerByQuestion(10, 10, 1);
         mAnswerByQuestionList.add(answerByQuestion);
     }
 

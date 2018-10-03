@@ -4,24 +4,27 @@ package luanvan.luanvantotnghiep.Model;
 
 public class Question{
     private int mIdQuestion;
-    private int mIdChapter; //Chương
-    private int mIdBlock; //Khối
-    private int mIdKind; //Loại
     private String mContentQuestion; //Nội dung
-    private String mLevel; //Mức độ
+    private int mIdLevel; //từng chặng ( 1-2-3-4 giống chương nhưng có thể mở rộng ra)
+
+    private int mIdBlock; //Khối - lớp
+    private int mIdType; //Loại câu hỏi
+
+    private int mExtent; //Mức độ dễ - trung bình - khó **mặt định là 0
+
     private int mAnswer = -1;// Save answer user select (User selected)
     private int mIdCorrect = -1; //review (Check user true or false)
 
     public Question() {
     }
 
-//    public Question(int mIdQuestion, int mIdChapter, int mIdBlock, int mIdKind, String mContentQuestion, String mLevel) {
+//    public Question(int mIdQuestion, int mIdLevel, int mIdBlock, int mIdType, String mContentQuestion, int mExtent) {
 //        this.mIdQuestion = mIdQuestion;
-//        this.mIdChapter = mIdChapter;
+//        this.mIdLevel = mIdLevel;
 //        this.mIdBlock = mIdBlock;
-//        this.mIdKind = mIdKind;
+//        this.mIdType = mIdType;
 //        this.mContentQuestion = mContentQuestion;
-//        this.mLevel = mLevel;
+//        this.mExtent = mExtent;
 //    }
 
     public Question(int mIdQuestion, String mContentQuestion) {
@@ -37,12 +40,12 @@ public class Question{
         this.mIdQuestion = mIdQuestion;
     }
 
-    public int getIdChapter() {
-        return mIdChapter;
+    public int getIdLevel() {
+        return mIdLevel;
     }
 
-    public void setIdChapter(int mIdChapter) {
-        this.mIdChapter = mIdChapter;
+    public void setIdLevel(int mIdLevel) {
+        this.mIdLevel = mIdLevel;
     }
 
     public int getIdBlock() {
@@ -53,12 +56,12 @@ public class Question{
         this.mIdBlock = mIdBlock;
     }
 
-    public int getIdKind() {
-        return mIdKind;
+    public int getIdType() {
+        return mIdType;
     }
 
-    public void setIdKind(int mIdKind) {
-        this.mIdKind = mIdKind;
+    public void setIdType(int mIdType) {
+        this.mIdType = mIdType;
     }
 
     public String getContentQuestion() {
@@ -69,12 +72,12 @@ public class Question{
         this.mContentQuestion = mContentQuestion;
     }
 
-    public String getLevel() {
-        return mLevel;
+    public int getExtent() {
+        return mExtent;
     }
 
-    public void setLevel(String mLevel) {
-        this.mLevel = mLevel;
+    public void setExtent(int mExtent) {
+        this.mExtent = mExtent;
     }
 
     public int getAnswer() {

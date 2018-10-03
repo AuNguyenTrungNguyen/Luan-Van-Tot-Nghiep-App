@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Model.Anion;
+import luanvan.luanvantotnghiep.Model.Answer;
+import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
+import luanvan.luanvantotnghiep.Model.Block;
 import luanvan.luanvantotnghiep.Model.Cation;
+import luanvan.luanvantotnghiep.Model.Chapter;
 import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Compound;
@@ -19,10 +23,12 @@ import luanvan.luanvantotnghiep.Model.CreatedReaction;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
 import luanvan.luanvantotnghiep.Model.ProducedBy;
+import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.Model.ReactSeries;
 import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
 import luanvan.luanvantotnghiep.Model.Type;
+import luanvan.luanvantotnghiep.Model.TypeOfQuestion;
 
 public class ChemistryHelper extends SQLiteOpenHelper {
 
@@ -72,6 +78,16 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_CHEMICAL_REACTION);
         db.execSQL(SQL_CREATE_REACT_WITH);
         db.execSQL(SQL_CREATE_CREATED_REACTION);
+
+        /*
+            GAME
+         */
+        db.execSQL(SQL_CREATE_BLOCK);
+        db.execSQL(SQL_CREATE_CHAPTER);
+        db.execSQL(SQL_CREATE_TYPE_OF_QUESTION);
+        db.execSQL(SQL_CREATE_ANSWER);
+        db.execSQL(SQL_CREATE_QUESTION);
+        db.execSQL(SQL_CREATE_ANSWER_BY_QUESTION);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -107,12 +123,112 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_CREATED_REACTION);
         db.execSQL(SQL_DELETE_CHEMICAL_REACTION);
 
+        /*
+            GAME
+         */
+        db.execSQL(SQL_DELETE_BLOCK);
+        db.execSQL(SQL_DELETE_CHAPTER);
+        db.execSQL(SQL_DELETE_TYPE_OF_QUESTION);
+        db.execSQL(SQL_DELETE_ANSWER);
+        db.execSQL(SQL_DELETE_QUESTION);
+        db.execSQL(SQL_DELETE_ANSWER_BY_QUESTION);
+
+
         onCreate(db);
     }
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
+    /*
+        GAME
+     */
+
+    //[CREATE] table block
+    private static final String SQL_CREATE_BLOCK =
+            "CREATE TABLE " + ChemistryContract.BlockEntry.TABLE_NAME + " (" +
+                    ChemistryContract.BlockEntry.COLUMN_BLOCK_ID + " INTEGER PRIMARY KEY )";
+
+    //[CREATE] table chapter
+    private static final String SQL_CREATE_CHAPTER =
+            "CREATE TABLE " + ChemistryContract.ChapterEntry.TABLE_NAME + " (" +
+                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONTENT + " TEXT NOT NULL ," +
+                    "FOREIGN KEY(" + ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + ") " +
+                    "REFERENCES " + ChemistryContract.BlockEntry.TABLE_NAME + "(" + ChemistryContract.BlockEntry.COLUMN_BLOCK_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table type of question
+    private static final String SQL_CREATE_TYPE_OF_QUESTION =
+            "CREATE TABLE " + ChemistryContract.TypeOfQuestionEntry.TABLE_NAME + " (" +
+                    ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_NAME + " INTEGER NOT NULL ," +
+                    ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_DESCRIPTION + " TEXT)";
+
+    //[CREATE] table answer
+    private static final String SQL_CREATE_ANSWER =
+            "CREATE TABLE " + ChemistryContract.AnswerEntry.TABLE_NAME + " (" +
+                    ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.AnswerEntry.COLUMN_ANSWER_CONTENT + " TEXT NOT NULL)";
+
+
+    //[CREATE] table question
+    private static final String SQL_CREATE_QUESTION =
+            "CREATE TABLE " + ChemistryContract.QuestionEntry.TABLE_NAME + " (" +
+                    ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.QuestionEntry.COLUMN_QUESTION_CONTENT + " TEXT NOT NULL ," +
+                    ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.QuestionEntry.COLUMN_TYPE_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.QuestionEntry.COLUMN_EXTENT + " INTEGER NOT NULL ," +
+                    "FOREIGN KEY(" + ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID + ") " +
+                    "REFERENCES " + ChemistryContract.BlockEntry.TABLE_NAME + "(" + ChemistryContract.BlockEntry.COLUMN_BLOCK_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.QuestionEntry.COLUMN_TYPE_ID + ") " +
+                    "REFERENCES " + ChemistryContract.TypeOfQuestionEntry.TABLE_NAME + "(" + ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table answer by question
+    private static final String SQL_CREATE_ANSWER_BY_QUESTION =
+            "CREATE TABLE " + ChemistryContract.AnswerByQuestionEntry.TABLE_NAME + " (" +
+                    ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.AnswerByQuestionEntry.COLUMN_CORRECT + " INTERGER NOT NULL ," +
+                    "PRIMARY KEY(" + ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID + ", " +
+                    ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.QuestionEntry.TABLE_NAME + "(" + ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID + ") " +
+                    "REFERENCES " + ChemistryContract.AnswerEntry.TABLE_NAME + "(" + ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[DROP] table block
+    private static final String SQL_DELETE_BLOCK =
+            "DROP TABLE IF EXISTS " + ChemistryContract.BlockEntry.TABLE_NAME;
+
+    //[DROP] table block
+    private static final String SQL_DELETE_CHAPTER =
+            "DROP TABLE IF EXISTS " + ChemistryContract.ChapterEntry.TABLE_NAME;
+
+    //[DROP] table block
+    private static final String SQL_DELETE_TYPE_OF_QUESTION =
+            "DROP TABLE IF EXISTS " + ChemistryContract.TypeOfQuestionEntry.TABLE_NAME;
+
+    //[DROP] table block
+    private static final String SQL_DELETE_ANSWER =
+            "DROP TABLE IF EXISTS " + ChemistryContract.AnswerEntry.TABLE_NAME;
+
+    //[DROP] table block
+    private static final String SQL_DELETE_QUESTION =
+            "DROP TABLE IF EXISTS " + ChemistryContract.QuestionEntry.TABLE_NAME;
+
+    //[DROP] table block
+    private static final String SQL_DELETE_ANSWER_BY_QUESTION =
+            "DROP TABLE IF EXISTS " + ChemistryContract.AnswerByQuestionEntry.TABLE_NAME;
+
 
     /*
      * TABLES PERIODIC_TABLE
@@ -416,6 +532,286 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.delete(ChemistryContract.ReactSeriesEntry.TABLE_NAME, null, null);
         db.close();
     }
+
+    public void emptyBlock(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.BlockEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyChapter(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.ChapterEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyTypeOfQuestion(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.TypeOfQuestionEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyAnswer(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.AnswerEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyQuestion(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.QuestionEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyAnswerByQuestion(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.AnswerByQuestionEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    //GAME
+    //{Add}
+    public void addBlock(Block block) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.BlockEntry.COLUMN_BLOCK_ID, block.getIdBlock());
+
+        db.insert(ChemistryContract.BlockEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addChapter(Chapter chapter) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID, chapter.getIdChapter());
+        values.put(ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID, chapter.getIdBlock());
+        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONTENT, chapter.getContentChapter());
+
+        db.insert(ChemistryContract.ChapterEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addTypeOfQuestion(TypeOfQuestion typeOfQuestion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_ID, typeOfQuestion.getIdType());
+        values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_NAME, typeOfQuestion.getNameType());
+        values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_DESCRIPTION, typeOfQuestion.getDescription());
+
+        db.insert(ChemistryContract.TypeOfQuestionEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addAnswer(Answer answer) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID, answer.getIdAnswer());
+        values.put(ChemistryContract.AnswerEntry.COLUMN_ANSWER_CONTENT, answer.getContentAnswer());
+
+        db.insert(ChemistryContract.AnswerEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addQuestion(Question question) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID, question.getIdQuestion());
+        values.put(ChemistryContract.QuestionEntry.COLUMN_QUESTION_CONTENT, question.getContentQuestion());
+        values.put(ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID, question.getIdLevel());
+        values.put(ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID, question.getIdBlock());
+        values.put(ChemistryContract.QuestionEntry.COLUMN_TYPE_ID, question.getIdType());
+        values.put(ChemistryContract.QuestionEntry.COLUMN_TYPE_ID, question.getExtent());
+
+        db.insert(ChemistryContract.QuestionEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addAnswerByQuestion(AnswerByQuestion answerByQuestion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID, answerByQuestion.getIdQuestion());
+        values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID, answerByQuestion.getIdAnswer());
+        values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_CORRECT, answerByQuestion.getCorrect());
+
+        db.insert(ChemistryContract.AnswerByQuestionEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    //[Get all]
+    public List<Block> getAllBlock() {
+        List<Block> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.BlockEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Block block;
+        while (cursor.moveToNext()) {
+            block = new Block();
+            block.setIdBlock(Integer.parseInt(cursor.getString(0)));
+            list.add(block);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Chapter> getAllChapter() {
+        List<Chapter> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.ChapterEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Chapter chapter;
+        while (cursor.moveToNext()) {
+            chapter = new Chapter();
+            chapter.setIdChapter(Integer.parseInt(cursor.getString(0)));
+            chapter.setIdBlock(Integer.parseInt(cursor.getString(1)));
+            chapter.setContentChapter(cursor.getString(2));
+            list.add(chapter);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<TypeOfQuestion> getAllTypeOfQuestion() {
+        List<TypeOfQuestion> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.TypeOfQuestionEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        TypeOfQuestion typeOfQuestion;
+        while (cursor.moveToNext()) {
+            typeOfQuestion = new TypeOfQuestion();
+            typeOfQuestion.setIdType(Integer.parseInt(cursor.getString(0)));
+            typeOfQuestion.setNameType(cursor.getString(1));
+            typeOfQuestion.setDescription(cursor.getString(2));
+            list.add(typeOfQuestion);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Answer> getAllAnswer() {
+        List<Answer> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.AnswerEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Answer answer;
+        while (cursor.moveToNext()) {
+            answer = new Answer();
+            answer.setIdAnswer(Integer.parseInt(cursor.getString(0)));
+            answer.setContentAnswer(cursor.getString(1));
+            list.add(answer);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Question> getAllQuestion() {
+        List<Question> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.QuestionEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Question question;
+        while (cursor.moveToNext()) {
+            question = new Question();
+            question.setIdQuestion(Integer.parseInt(cursor.getString(0)));
+            question.setContentQuestion(cursor.getString(1));
+            question.setIdLevel(Integer.parseInt(cursor.getString(2)));
+            question.setIdBlock(Integer.parseInt(cursor.getString(3)));
+            question.setIdType(Integer.parseInt(cursor.getString(4)));
+            question.setExtent(Integer.parseInt(cursor.getString(5)));
+            list.add(question);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<AnswerByQuestion> getAllAnswerByQuestion() {
+        List<AnswerByQuestion> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.AnswerByQuestionEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        AnswerByQuestion answerByQuestion;
+        while (cursor.moveToNext()) {
+            answerByQuestion = new AnswerByQuestion();
+            answerByQuestion.setIdQuestion(Integer.parseInt(cursor.getString(0)));
+            answerByQuestion.setIdAnswer(Integer.parseInt(cursor.getString(1)));
+            answerByQuestion.setCorrect(Integer.parseInt(cursor.getString(2)));
+            list.add(answerByQuestion);
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
 
     //PERIODIC TABLE
     //{Add]

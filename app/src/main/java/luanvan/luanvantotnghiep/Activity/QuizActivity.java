@@ -134,7 +134,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 mTvTime.setText(convertLongToTime(millisUntilFinished));
 
                 //set text color  time <= 5m
-                if (millisUntilFinished <= 300000){
+                if (millisUntilFinished <= 300000) {
                     mTvTime.setTextColor(Color.RED);
                 }
 
@@ -219,7 +219,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
                 if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
                         && mListUserAnswer.get(i) == mAnswerByQuestionList.get(j).getIdAnswer()) {
-                    if (mAnswerByQuestionList.get(j).isCorrect()) {
+                    if (mAnswerByQuestionList.get(j).getCorrect() == 1) {
                         score++;
                         break;
                     }
@@ -322,7 +322,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         question = new Question(6, "Nhận xét nào sau đây đúng?");
         mQuestionList.add(question);
-        
+
         question = new Question(7, "Hỗn hợp nào sau đây có thể tách riêng các chất thành phần bằng cách cho hỗn hợp vào nước, sau đó khuấy đều và lọc?");
         mQuestionList.add(question);
 
@@ -370,246 +370,246 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerByQuestionList = new ArrayList<>();
         AnswerByQuestion answerByQuestion;
 
-        answerByQuestion = new AnswerByQuestion(1, 1, false);
+        answerByQuestion = new AnswerByQuestion(1, 1, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(1, 2, false);
+        answerByQuestion = new AnswerByQuestion(1, 2, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(1, 3, false);
+        answerByQuestion = new AnswerByQuestion(1, 3, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(1, 4, true);
+        answerByQuestion = new AnswerByQuestion(1, 4, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2, 1, true);
+        answerByQuestion = new AnswerByQuestion(2, 1, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2, 2, false);
+        answerByQuestion = new AnswerByQuestion(2, 2, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2, 3, false);
+        answerByQuestion = new AnswerByQuestion(2, 3, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2, 4, false);
+        answerByQuestion = new AnswerByQuestion(2, 4, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3, 5, false);
+        answerByQuestion = new AnswerByQuestion(3, 5, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3, 6, true);
+        answerByQuestion = new AnswerByQuestion(3, 6, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3, 7, false);
+        answerByQuestion = new AnswerByQuestion(3, 7, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3, 8, false);
+        answerByQuestion = new AnswerByQuestion(3, 8, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4, 9, false);
+        answerByQuestion = new AnswerByQuestion(4, 9, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4, 10, false);
+        answerByQuestion = new AnswerByQuestion(4, 10, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4, 11, false);
+        answerByQuestion = new AnswerByQuestion(4, 11, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4, 12, true);
+        answerByQuestion = new AnswerByQuestion(4, 12, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5, 13, false);
+        answerByQuestion = new AnswerByQuestion(5, 13, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5, 14, false);
+        answerByQuestion = new AnswerByQuestion(5, 14, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5, 15, true);
+        answerByQuestion = new AnswerByQuestion(5, 15, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5, 16, false);
+        answerByQuestion = new AnswerByQuestion(5, 16, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(6, 17, false);
+        answerByQuestion = new AnswerByQuestion(6, 17, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(6, 18, false);
+        answerByQuestion = new AnswerByQuestion(6, 18, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(6, 19, false);
+        answerByQuestion = new AnswerByQuestion(6, 19, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(6, 20, true);
+        answerByQuestion = new AnswerByQuestion(6, 20, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
         //7777777
-        answerByQuestion = new AnswerByQuestion(7, 21, true);
+        answerByQuestion = new AnswerByQuestion(7, 21, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(7, 22, false);
+        answerByQuestion = new AnswerByQuestion(7, 22, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(7, 23, false);
+        answerByQuestion = new AnswerByQuestion(7, 23, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(7, 24, false);
+        answerByQuestion = new AnswerByQuestion(7, 24, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
         //8888888888
-        answerByQuestion = new AnswerByQuestion(8, 25, true);
+        answerByQuestion = new AnswerByQuestion(8, 25, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(8, 26, false);
+        answerByQuestion = new AnswerByQuestion(8, 26, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(8, 27, false);
+        answerByQuestion = new AnswerByQuestion(8, 27, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(8, 28, false);
+        answerByQuestion = new AnswerByQuestion(8, 28, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(9, 29, false);
+        answerByQuestion = new AnswerByQuestion(9, 29, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(9, 30, false);
+        answerByQuestion = new AnswerByQuestion(9, 30, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(9, 31, false);
+        answerByQuestion = new AnswerByQuestion(9, 31, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(9, 32, true);
+        answerByQuestion = new AnswerByQuestion(9, 32, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(10, 33, false);
+        answerByQuestion = new AnswerByQuestion(10, 33, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(10, 34, false);
+        answerByQuestion = new AnswerByQuestion(10, 34, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(10, 35, true);
+        answerByQuestion = new AnswerByQuestion(10, 35, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(10, 36, false);
+        answerByQuestion = new AnswerByQuestion(10, 36, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(11, 33, false);
+        answerByQuestion = new AnswerByQuestion(11, 33, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(11, 35, false);
+        answerByQuestion = new AnswerByQuestion(11, 35, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(11, 39, true);
+        answerByQuestion = new AnswerByQuestion(11, 39, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(11, 40, false);
+        answerByQuestion = new AnswerByQuestion(11, 40, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(12, 41, false);
+        answerByQuestion = new AnswerByQuestion(12, 41, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(12, 42, false);
+        answerByQuestion = new AnswerByQuestion(12, 42, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(12, 43, true);
+        answerByQuestion = new AnswerByQuestion(12, 43, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(12, 44, false);
+        answerByQuestion = new AnswerByQuestion(12, 44, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(13, 45, true);
+        answerByQuestion = new AnswerByQuestion(13, 45, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(13, 46, false);
+        answerByQuestion = new AnswerByQuestion(13, 46, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(13, 47, false);
+        answerByQuestion = new AnswerByQuestion(13, 47, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(13, 48, false);
+        answerByQuestion = new AnswerByQuestion(13, 48, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(14, 49, false);
+        answerByQuestion = new AnswerByQuestion(14, 49, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(14, 50, false);
+        answerByQuestion = new AnswerByQuestion(14, 50, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(14, 51, true);
+        answerByQuestion = new AnswerByQuestion(14, 51, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(14, 52, false);
+        answerByQuestion = new AnswerByQuestion(14, 52, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(15, 53, false);
+        answerByQuestion = new AnswerByQuestion(15, 53, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(15, 54, false);
+        answerByQuestion = new AnswerByQuestion(15, 54, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(15, 55, true);
+        answerByQuestion = new AnswerByQuestion(15, 55, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(15, 56, false);
+        answerByQuestion = new AnswerByQuestion(15, 56, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(16, 57, false);
+        answerByQuestion = new AnswerByQuestion(16, 57, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(16, 58, false);
+        answerByQuestion = new AnswerByQuestion(16, 58, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(16, 59, false);
+        answerByQuestion = new AnswerByQuestion(16, 59, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(16, 60, true);
+        answerByQuestion = new AnswerByQuestion(16, 60, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(17, 61, false);
+        answerByQuestion = new AnswerByQuestion(17, 61, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(17, 62, false);
+        answerByQuestion = new AnswerByQuestion(17, 62, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(17, 63, true);
+        answerByQuestion = new AnswerByQuestion(17, 63, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(17, 64, false);
+        answerByQuestion = new AnswerByQuestion(17, 64, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(18, 46, false);
+        answerByQuestion = new AnswerByQuestion(18, 46, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(18, 47, false);
+        answerByQuestion = new AnswerByQuestion(18, 47, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(18, 67, false);
+        answerByQuestion = new AnswerByQuestion(18, 67, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(18, 68, true);
+        answerByQuestion = new AnswerByQuestion(18, 68, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(19, 69, false);
+        answerByQuestion = new AnswerByQuestion(19, 69, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(19, 70, false);
+        answerByQuestion = new AnswerByQuestion(19, 70, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(19, 71, false);
+        answerByQuestion = new AnswerByQuestion(19, 71, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(19, 72, true);
+        answerByQuestion = new AnswerByQuestion(19, 72, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(20, 69, false);
+        answerByQuestion = new AnswerByQuestion(20, 69, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(20, 70, true);
+        answerByQuestion = new AnswerByQuestion(20, 70, 1);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(20, 71, false);
+        answerByQuestion = new AnswerByQuestion(20, 71, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(20, 72, false);
+        answerByQuestion = new AnswerByQuestion(20, 72, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
     }
@@ -849,7 +849,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             Question question = mQuestionList.get(i);
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
                 AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
-                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.isCorrect()) {
+                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.getCorrect() == 1) {
                     question.setIdCorrect(answerByQuestion.getIdAnswer());
                     break;
                 }
@@ -876,7 +876,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     public void onUserChooseAnswer(int question, int answer) {
         mListUserAnswer.set(question, answer);
         updateNumberAnswered(mTvTotal);
-        if(mCheckingAnswerAdapter != null){
+        if (mCheckingAnswerAdapter != null) {
             mCheckingAnswerAdapter.notifyDataSetChanged();
         }
     }
@@ -912,7 +912,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i < mListUserAnswer.size(); i++) {
                     list.add(String.valueOf(i));
                 }
-                mCheckingAnswerAdapter = new CheckingAnswerAdapter(this,R.layout.item_checking_answer, mListUserAnswer);
+                mCheckingAnswerAdapter = new CheckingAnswerAdapter(this, R.layout.item_checking_answer, mListUserAnswer);
                 gridView.setAdapter(mCheckingAnswerAdapter);
 
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -928,7 +928,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 Toolbar viewToolbar = findViewById(R.id.toolbar);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     popupWindow.showAsDropDown(viewToolbar, 0, 0, Gravity.RIGHT);
-                }else{
+                } else {
                     popupWindow.showAtLocation(viewToolbar, Gravity.CENTER, 0, 0);
                 }
                 break;

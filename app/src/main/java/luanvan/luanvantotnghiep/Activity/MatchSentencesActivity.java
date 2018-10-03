@@ -76,7 +76,7 @@ public class MatchSentencesActivity extends AppCompatActivity {
                 int idQuestionCorrect = answerByQuestion.getIdQuestion();
                 int idAnswerCorrect = answerByQuestion.getIdAnswer();
 
-                if (idAnswer == idAnswerCorrect && idQuestion == idQuestionCorrect && answerByQuestion.isCorrect()){
+                if (idAnswer == idAnswerCorrect && idQuestion == idQuestionCorrect && answerByQuestion.getCorrect() == 1) {
                     score++;
                     break;
                 }
@@ -152,7 +152,7 @@ public class MatchSentencesActivity extends AppCompatActivity {
                 int idQuestionCorrect = answerByQuestion.getIdQuestion();
                 int idAnswerCorrect = answerByQuestion.getIdAnswer();
 
-                if (idAnswer == idAnswerCorrect && idQuestion == idQuestionCorrect && answerByQuestion.isCorrect()){
+                if (idAnswer == idAnswerCorrect && idQuestion == idQuestionCorrect && answerByQuestion.getCorrect() == 1) {
                     //tìm sao cho ra position của nó
                     ((Answer) listA.get(i)).setShow(getPosition(idQuestion));
                     break;
@@ -164,10 +164,10 @@ public class MatchSentencesActivity extends AppCompatActivity {
         matchSentencesAdapterQ.notifyDataSetChanged();
     }
 
-    private int getPosition(int idQuestion){
+    private int getPosition(int idQuestion) {
         for (int i = 0; i < listQ.size(); i++) {
-            if (idQuestion == ((Question) listQ.get(i)).getIdQuestion()){
-                return (i+1);
+            if (idQuestion == ((Question) listQ.get(i)).getIdQuestion()) {
+                return (i + 1);
             }
         }
         return 0;
@@ -305,34 +305,34 @@ public class MatchSentencesActivity extends AppCompatActivity {
         mAnswerByQuestionList = new ArrayList<>();
         AnswerByQuestion answerByQuestion;
 
-        answerByQuestion = new AnswerByQuestion(1, 1, true);
+        answerByQuestion = new AnswerByQuestion(1, 1, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(2, 2, true);
+        answerByQuestion = new AnswerByQuestion(2, 2, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(3, 3, true);
+        answerByQuestion = new AnswerByQuestion(3, 3, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(4, 4, true);
+        answerByQuestion = new AnswerByQuestion(4, 4, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(5, 5, true);
+        answerByQuestion = new AnswerByQuestion(5, 5, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(6, 6, true);
+        answerByQuestion = new AnswerByQuestion(6, 6, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(7, 7, true);
+        answerByQuestion = new AnswerByQuestion(7, 7, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(8, 8, true);
+        answerByQuestion = new AnswerByQuestion(8, 8, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(9, 9, true);
+        answerByQuestion = new AnswerByQuestion(9, 9, 0);
         mAnswerByQuestionList.add(answerByQuestion);
 
-        answerByQuestion = new AnswerByQuestion(10, 10, true);
+        answerByQuestion = new AnswerByQuestion(10, 10, 0);
         mAnswerByQuestionList.add(answerByQuestion);
     }
 

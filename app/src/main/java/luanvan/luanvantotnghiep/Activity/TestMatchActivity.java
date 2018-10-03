@@ -96,7 +96,7 @@ public class TestMatchActivity extends AppCompatActivity implements MatchGame {
         }
 
         for (int i = 0; i < 5; i++) {
-            mAnswerByQuestionList.add(new AnswerByQuestion(i + 1, i + 1, true));
+            mAnswerByQuestionList.add(new AnswerByQuestion(i + 1, i + 1, 1));
         }
 
         Collections.shuffle(mQuestionList);

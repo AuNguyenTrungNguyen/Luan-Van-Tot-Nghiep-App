@@ -3,12 +3,12 @@ package luanvan.luanvantotnghiep.Model;
 public class AnswerByQuestion {
     private int mIdQuestion;
     private int mIdAnswer;
-    private boolean mCorrect;
+    private int mCorrect;
 
     public AnswerByQuestion() {
     }
 
-    public AnswerByQuestion(int mIdQuestion, int mIdAnswer, boolean mCorrect) {
+    public AnswerByQuestion(int mIdQuestion, int mIdAnswer, int mCorrect) {
         this.mIdQuestion = mIdQuestion;
         this.mIdAnswer = mIdAnswer;
         this.mCorrect = mCorrect;
@@ -30,11 +30,11 @@ public class AnswerByQuestion {
         this.mIdAnswer = mIdAnswer;
     }
 
-    public boolean isCorrect() {
+    public int getCorrect() {
         return mCorrect;
     }
 
-    public void setCorrect(boolean mCorrect) {
+    public void setCorrect(int mCorrect) {
         this.mCorrect = mCorrect;
     }
 }

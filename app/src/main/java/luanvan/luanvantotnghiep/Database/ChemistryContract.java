@@ -100,8 +100,8 @@ public final class ChemistryContract {
         public static final String COLUMN_PRODUCTS = "products";
         public static final String COLUMN_CONDITIONS = "conditions";
         public static final String COLUMN_PHENOMENA = "phenomena";
-        public static final String COLUMN_TWO_WAY= "two_way";
-        public static final String COLUMN_REACTION_TYPES= "reaction_types";
+        public static final String COLUMN_TWO_WAY = "two_way";
+        public static final String COLUMN_REACTION_TYPES = "reaction_types";
     }
 
     public static class ReactWithEntry implements BaseColumns {
@@ -113,8 +113,49 @@ public final class ChemistryContract {
 
     public static class CreatedReactionEntry implements BaseColumns {
         public static final String TABLE_NAME = "created_reaction";
-        public static final String COLUMN_CREATE_RIGHT_ID= "created_right_id";
+        public static final String COLUMN_CREATE_RIGHT_ID = "created_right_id";
         public static final String COLUMN_CHEMICAL_REACTION_ID = "chemical_reaction_id";
     }
 
+    public static class BlockEntry implements BaseColumns {
+        public static final String TABLE_NAME = "block";
+        public static final String COLUMN_BLOCK_ID = "block_id";
+    }
+
+    public static class ChapterEntry implements BaseColumns {
+        public static final String TABLE_NAME = "chapter";
+        public static final String COLUMN_CHAPTER_ID = "chapter_id";
+        public static final String COLUMN_BLOCK_ID = "block_id";
+        public static final String COLUMN_CHAPTER_CONTENT = "chapter_content";
+    }
+
+    public static class TypeOfQuestionEntry implements BaseColumns {
+        public static final String TABLE_NAME = "type_of_question";
+        public static final String COLUMN_TYPE_ID = "type_id";
+        public static final String COLUMN_TYPE_NAME = "type_name";
+        public static final String COLUMN_TYPE_DESCRIPTION = "type_description";
+    }
+
+    public static class AnswerEntry implements BaseColumns {
+        public static final String TABLE_NAME = "answer";
+        public static final String COLUMN_ANSWER_ID = "answer_id";
+        public static final String COLUMN_ANSWER_CONTENT = "answer_content";
+    }
+
+    public static class QuestionEntry implements BaseColumns {
+        public static final String TABLE_NAME = "question";
+        public static final String COLUMN_QUESTION_ID = "question_id";
+        public static final String COLUMN_QUESTION_CONTENT = "question_content";
+        public static final String COLUMN_LEVEL_ID = "level_id";
+        public static final String COLUMN_BLOCK_ID = "block_id";
+        public static final String COLUMN_TYPE_ID = "type_id";
+        public static final String COLUMN_EXTENT = "extent";
+    }
+
+    public static class AnswerByQuestionEntry implements BaseColumns {
+        public static final String TABLE_NAME = "answer_by_question";
+        public static final String COLUMN_QUESTION_ID = "question_id";
+        public static final String COLUMN_ANSWER_ID = "answer_id";
+        public static final String COLUMN_CORRECT = "correct";
+    }
 }
