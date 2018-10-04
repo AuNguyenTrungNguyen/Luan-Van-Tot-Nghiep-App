@@ -66,6 +66,7 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
     private int type = -1;
 
     private ItemTouchHelper mTouchHelper;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,7 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
     private void checkUserOut() {
         if (isPlaying) {
 
-            final Dialog dialog = new Dialog(SortActivity.this);
+            dialog = new Dialog(SortActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
@@ -414,6 +415,10 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showScore() {
         int score = 0;
+
+        if (dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
 
         mListAnswer.addAll(mDataList);
         Collections.sort(mListAnswer, getComparatorByType(type));
