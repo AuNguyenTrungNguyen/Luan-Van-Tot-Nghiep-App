@@ -11,13 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -267,8 +264,18 @@ public class DetailElementActivity extends AppCompatActivity implements View.OnC
                 mTvColor.setText(Html.fromHtml("<font color='gray'>Màu sắc: </font><font color='black'>" + chemistry.getColorChemistry() + "</font>"));
                 mTvIsotope.setText(Html.fromHtml("<font color='gray'>Đồng vị (bền): </font><font color='black'>" + element.getIsotopes() + "</font>"));
 
-                mTvMeltingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ nóng chảy: </font><font color='black'>" + String.valueOf(element.getMeltingPoint() + "°C") + "</font>"));
-                mTvBoilingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ sội: </font><font color='black'>" + String.valueOf(element.getBoilingPoint() + "°C") + "</font>"));
+                double meltingPoint = element.getMeltingPoint();
+                mTvMeltingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ nóng chảy: </font><font color='black'>" + String.valueOf(meltingPoint + "°C") + "</font>"));
+                if (meltingPoint == 0) {
+                    mTvMeltingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ nóng chảy: </font><font color='black'>Chưa có dữ liệu</font>"));
+                }
+
+                double boilingPoint = element.getBoilingPoint();
+                mTvBoilingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ sôi: </font><font color='black'>" + String.valueOf(boilingPoint + "°C") + "</font>"));
+                if (meltingPoint == 0) {
+                    mTvBoilingPoint.setText(Html.fromHtml("<font color='gray'>Nhiệt độ sôi: </font><font color='black'>Chưa có dữ liệu</font>"));
+                }
+
 
                 String discoverer = element.getDiscoverer();
                 mTvDiscoverer.setText(Html.fromHtml("<font color='gray'>Khám phá bởi:  </font><font color='black'>" + discoverer + "</font>"));
