@@ -43,6 +43,7 @@
                 app:cardUseCompatPadding="true">
 
                 <TextView
+                    android:background="@drawable/background_game_complete"
                     android:id="@+id/tv_time_sort"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

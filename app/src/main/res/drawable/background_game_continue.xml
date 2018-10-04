@@ -5,5 +5,5 @@
     <solid android:color="@android:color/transparent" />
     <stroke
         android:width="4dp"
-        android:color="@color/green_2" />
+        android:color="@color/red_4" />
 </shape>

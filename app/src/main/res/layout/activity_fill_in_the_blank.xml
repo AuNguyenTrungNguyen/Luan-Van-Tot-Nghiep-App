@@ -48,6 +48,7 @@
                     app:cardUseCompatPadding="true">
 
                     <TextView
+                        android:background="@drawable/background_game_complete"
                         android:id="@+id/tv_time"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -69,6 +70,7 @@
                     app:cardUseCompatPadding="true">
 
                     <TextView
+                        android:background="@drawable/background_game_complete"
                         android:id="@+id/tv_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,9 +95,12 @@
 
         <Button
             android:id="@+id/btn_complete"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Hoàn Thành" />
+            android:layout_gravity="center"
+            android:background="@drawable/background_game_complete"
+            android:text="hoàn thành"
+            android:textColor="#14a895" />
 
     </LinearLayout>
 
