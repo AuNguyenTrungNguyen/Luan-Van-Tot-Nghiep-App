@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import luanvan.luanvantotnghiep.Activity.ChooseLevelActivity;
-import luanvan.luanvantotnghiep.Activity.MatchSentencesActivity;
-import luanvan.luanvantotnghiep.Activity.QuizActivity;
 import luanvan.luanvantotnghiep.Activity.SortActivity;
 import luanvan.luanvantotnghiep.R;
 
@@ -49,22 +47,28 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
+        Intent intent = new Intent(mContext, ChooseLevelActivity.class);
         switch (view.getId()) {
             case R.id.cv_quiz:
-                mContext.startActivity(new Intent(mContext, QuizActivity.class));
+                intent.putExtra("TYPE", 1);
+                mContext.startActivity(intent);
                 break;
 
             case R.id.cv_fill_in_the_blank:
-                //mContext.startActivity(new Intent(mContext, FillInTheBlankActivity.class));
-                mContext.startActivity(new Intent(mContext, ChooseLevelActivity.class));
+                intent.putExtra("TYPE", 2);
+                mContext.startActivity(intent);
                 break;
 
             case R.id.cv_match_sentences:
-                mContext.startActivity(new Intent(mContext, MatchSentencesActivity.class));
+                intent.putExtra("TYPE", 3);
+                mContext.startActivity(intent);
                 break;
 
             case R.id.cv_sort:
-                mContext.startActivity(new Intent(mContext, SortActivity.class));
+//                intent.putExtra("TYPE", 4);
+//                mContext.startActivity(intent);
+                startActivity(new Intent(mContext, SortActivity.class));
                 break;
         }
     }

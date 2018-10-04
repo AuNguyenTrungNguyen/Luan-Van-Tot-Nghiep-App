@@ -816,11 +816,13 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     }
 
     //Get Questions by Level
-    public List<Question> getQuestionsByLevel(int level) {
+    public List<Question> getQuestionsByLevel(int block, int type, int level) {
         List<Question> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String selection = ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID + " =  ?";
-        String selectionArgs[] = {String.valueOf(level)};
+        String selection = ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID + " =  ? and "
+                + ChemistryContract.QuestionEntry.COLUMN_TYPE_ID + " = ? and "
+                + ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID + " = ?";
+        String selectionArgs[] = {String.valueOf(block), String.valueOf(type), String.valueOf(level)};
         Cursor cursor = db.query(
                 ChemistryContract.QuestionEntry.TABLE_NAME,
                 null,

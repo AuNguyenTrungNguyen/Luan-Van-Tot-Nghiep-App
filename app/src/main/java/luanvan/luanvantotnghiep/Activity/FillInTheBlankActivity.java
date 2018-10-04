@@ -16,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,9 +28,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +44,7 @@ import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class FillInTheBlankActivity extends AppCompatActivity implements View.OnClickListener, FillInTheBlankAdapter.CommunicateQuiz {
 
@@ -71,35 +71,15 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_in_the_blank);
+        PreferencesManager.getInstance().init(this);
 
         setupToolbar();
 
         init();
 
-        if (getLevel() != 0) {
-            getDataByLevel(getLevel());
-            ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
-            mQuestionList = chemistryHelper.getQuestionsByLevel(getLevel());
-            mAnswerList = chemistryHelper.getAllAnswer();
-            mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
+        if (checkGame()){
             chooseOption();
-        } else {
-            Toast.makeText(this, "Bái bai!", Toast.LENGTH_SHORT).show();
-            finish();
         }
-    }
-
-    private void getDataByLevel(int level) {
-        Log.e(Constraint.TAG, "Level: " + level);
-    }
-
-    private int getLevel() {
-        int level = 0;
-        Intent intent = this.getIntent();
-        if (intent != null) {
-            level = intent.getIntExtra("LEVEL", 0);
-        }
-        return level;
     }
 
     private void chooseOption() {
@@ -118,9 +98,9 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
                 }
 
                 //random list question
-//                Collections.shuffle(mQuestionList);
-//                Collections.shuffle(mQuestionList);
-//                Collections.shuffle(mQuestionList);
+                Collections.shuffle(mQuestionList);
+                Collections.shuffle(mQuestionList);
+                Collections.shuffle(mQuestionList);
 
                 findViewById(R.id.fl_start_game).setVisibility(View.GONE);
 
@@ -279,7 +259,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                reviewQuiz();
+                review();
             }
         });
 
@@ -330,7 +310,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         startSnapHelper.attachToRecyclerView(mRvQuestion);
     }
 
-    private void reviewQuiz() {
+    private void review() {
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             Question question = mQuestionList.get(i);
@@ -417,5 +397,35 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
                 break;
         }
         return true;
+    }
+
+    private boolean checkGame(){
+
+        int block = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_BLOCK, 8);
+        int type = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_TYPE, 0);
+        int level = getLevel();
+
+//        Log.i(Constraint.TAG, "checkGame: block = " + block);
+//        Log.i(Constraint.TAG, "checkGame: type = " + type);
+//        Log.i(Constraint.TAG, "checkGame: level = " + level);
+
+        if (block != 0 && type != 0 && level != 0) {
+            ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
+            mQuestionList = chemistryHelper.getQuestionsByLevel(block, type, level);
+            mAnswerList = chemistryHelper.getAllAnswer();
+            mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
+            return true;
+        }
+
+        return false;
+    }
+
+    private int getLevel() {
+        int level = 0;
+        Intent intent = this.getIntent();
+        if (intent != null) {
+            level = intent.getIntExtra("LEVEL", 0);
+        }
+        return level;
     }
 }

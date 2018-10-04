@@ -24,7 +24,7 @@ import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
 
-public class TestMatchActivity extends AppCompatActivity implements MatchGame {
+public class MatchActivity extends AppCompatActivity implements MatchGame {
 
     private RecyclerView mRvQuestion;
     private RecyclerView mRvAnswer;
@@ -36,7 +36,7 @@ public class TestMatchActivity extends AppCompatActivity implements MatchGame {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_match);
+        setContentView(R.layout.activity_match);
 
         init();
 

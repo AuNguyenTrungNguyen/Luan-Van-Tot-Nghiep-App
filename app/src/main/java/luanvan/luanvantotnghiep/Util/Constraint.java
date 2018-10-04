@@ -40,4 +40,7 @@ public class Constraint {
     public static final int OXIDATION_DEC = 7;
     public static final int REDUCTION_ASC = 8;
     public static final int REDUCTION_DEC = 9;
+
+    public static final String PRE_KEY_BLOCK = "KEY_BLOCK";
+    public static final String PRE_KEY_TYPE = "KEY_TYPE";
 }

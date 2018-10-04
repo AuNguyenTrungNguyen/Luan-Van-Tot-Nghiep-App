@@ -457,7 +457,6 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-        mTouchHelper.attachToRecyclerView(null);
 
         isPlaying = false;
         mBtnComplete.setVisibility(View.INVISIBLE);
@@ -479,12 +478,12 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
         ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
         ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
 
-        if (score >= 9 && score < 13) {
+        if (score >= 1 && score < 2) {
             imgStarTwo.setVisibility(View.VISIBLE);
-        } else if (score >= 13 && score < 17) {
+        } else if (score >= 2 && score < 5) {
             imgStarOne.setVisibility(View.VISIBLE);
             imgStarThree.setVisibility(View.VISIBLE);
-        } else if (score >= 17) {
+        } else if (score >= 5) {
             imgStarOne.setVisibility(View.VISIBLE);
             imgStarTwo.setVisibility(View.VISIBLE);
             imgStarThree.setVisibility(View.VISIBLE);
