@@ -3,6 +3,7 @@ package luanvan.luanvantotnghiep.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,11 +82,11 @@ public class MatchSentencesAdapter extends RecyclerView.Adapter<MatchSentencesAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements ActionView {
         TextView textView;
-        LinearLayout layout;
+        CardView layout;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.tv_drag);
-            layout = itemView.findViewById(R.id.ln_drag);
+            layout = itemView.findViewById(R.id.cv_drag);
         }
 
         @Override

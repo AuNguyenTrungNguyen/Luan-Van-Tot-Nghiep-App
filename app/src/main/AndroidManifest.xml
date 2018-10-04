@@ -40,7 +40,9 @@
             android:name=".Activity.MatchSentencesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.TestMatchActivity"></activity>
-        <activity android:name=".Activity.SortActivity" />
+        <activity
+            android:name=".Activity.SortActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.ChooseLevelActivity"></activity>
     </application>
 

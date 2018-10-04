@@ -23,6 +23,7 @@ import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Block;
 import luanvan.luanvantotnghiep.Model.Cation;
+import luanvan.luanvantotnghiep.Model.Chapter;
 import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Compound;
@@ -104,6 +105,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             addDataQuestionTable();
 
             addDataAnswerByQuestionTable();
+
+            addDataChapterTable();
 
             Log.i(TAG, "onCreate: ADD DATA FINISH!!!");
 
@@ -694,6 +697,35 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 mChemistryHelper.addAnswerByQuestion(item);
             }
             Log.i(TAG, "onCreate: UPDATE AnswerByQuestion Table!!!");
+
+        } catch (JSONException e) {
+            Log.i(TAG, "JSONException: " + e.getMessage());
+        }
+    }
+
+    private void addDataChapterTable() {
+
+        List<Chapter> list = new ArrayList<>();
+
+        try {
+            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
+            JSONArray array = (JSONArray) obj.get("Chapter");
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject o = (JSONObject) array.get(i);
+                Chapter item = new Chapter();
+                item.setIdChapter(Integer.parseInt(o.getString("mIdChapter")));
+                item.setNameChapter(o.getString("mNameChapter"));
+                item.setIdBlock(Integer.parseInt(o.getString("mIdBlock")));
+                item.setContentChapter(o.getString("mContentChapter"));
+                list.add(item);
+            }
+
+            mChemistryHelper.emptyChapter();
+            for (Chapter item : list) {
+                mChemistryHelper.addChapter(item);
+            }
+            Log.i(TAG, "onCreate: UPDATE Chapter Table!!!");
 
         } catch (JSONException e) {
             Log.i(TAG, "JSONException: " + e.getMessage());

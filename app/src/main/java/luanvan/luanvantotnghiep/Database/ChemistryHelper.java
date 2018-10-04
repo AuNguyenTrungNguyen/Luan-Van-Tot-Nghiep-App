@@ -32,7 +32,7 @@ import luanvan.luanvantotnghiep.Model.TypeOfQuestion;
 
 public class ChemistryHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Chemistry.db";
 
     public ChemistryHelper(Context context) {
@@ -154,6 +154,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_CHAPTER =
             "CREATE TABLE " + ChemistryContract.ChapterEntry.TABLE_NAME + " (" +
                     ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME + " TEXT NOT NULL ," +
                     ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + " INTEGER NOT NULL ," +
                     ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONTENT + " TEXT NOT NULL ," +
                     "FOREIGN KEY(" + ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + ") " +
@@ -588,6 +589,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID, chapter.getIdChapter());
+        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME, chapter.getNameChapter());
         values.put(ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID, chapter.getIdBlock());
         values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONTENT, chapter.getContentChapter());
 
@@ -692,8 +694,9 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             chapter = new Chapter();
             chapter.setIdChapter(Integer.parseInt(cursor.getString(0)));
-            chapter.setIdBlock(Integer.parseInt(cursor.getString(1)));
-            chapter.setContentChapter(cursor.getString(2));
+            chapter.setNameChapter(cursor.getString(1));
+            chapter.setIdBlock(Integer.parseInt(cursor.getString(2)));
+            chapter.setContentChapter(cursor.getString(3));
             list.add(chapter);
 
         }

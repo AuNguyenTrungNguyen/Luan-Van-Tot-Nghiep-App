@@ -13,15 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Activity.ShowTheoryActivity;
+import luanvan.luanvantotnghiep.Model.Chapter;
 import luanvan.luanvantotnghiep.R;
 
 public class ExpandAdapter extends BaseExpandableListAdapter{
 
     private Context mContext;
     private List<String> mListHeader;
-    private HashMap<String, List<String>> mListItem;
+    private HashMap<String, List<Chapter>> mListItem;
 
-    public ExpandAdapter(Context mContext, List<String> mListHeader, HashMap<String, List<String>> mListItem) {
+    public ExpandAdapter(Context mContext, List<String> mListHeader, HashMap<String, List<Chapter>> mListItem) {
         this.mContext = mContext;
         this.mListHeader = mListHeader;
         this.mListItem = mListItem;
@@ -76,20 +77,22 @@ public class ExpandAdapter extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        final String item = (String) getChild(i, i1);
+    public View getChildView(final int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+        final Chapter item = (Chapter) getChild(i, i1);
         if(view == null){
             view = LayoutInflater.from(mContext).inflate(R.layout.expand_item, viewGroup, false);
         }
 
         LinearLayout layout = view.findViewById(R.id.expand_item);
         TextView tvItem = view.findViewById(R.id.tv_expand_item);
-        tvItem.setText(item);
+        tvItem.setText(String.format("Chuyên đề %s: %s", item.getIdChapter(),item.getNameChapter()));
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.startActivity(new Intent(mContext, ShowTheoryActivity.class));
+                Intent intent = new Intent(mContext, ShowTheoryActivity.class);
+                intent.putExtra("CONTENT",item.getContentChapter());
+                mContext.startActivity(intent);
             }
         });
 

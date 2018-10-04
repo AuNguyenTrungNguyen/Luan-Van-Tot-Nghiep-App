@@ -125,6 +125,7 @@ public final class ChemistryContract {
     public static class ChapterEntry implements BaseColumns {
         public static final String TABLE_NAME = "chapter";
         public static final String COLUMN_CHAPTER_ID = "chapter_id";
+        public static final String COLUMN_CHAPTER_NAME = "chapter_name";
         public static final String COLUMN_BLOCK_ID = "block_id";
         public static final String COLUMN_CHAPTER_CONTENT = "chapter_content";
     }

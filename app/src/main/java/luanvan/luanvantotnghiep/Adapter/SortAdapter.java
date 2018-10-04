@@ -3,6 +3,8 @@ package luanvan.luanvantotnghiep.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -33,7 +35,6 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> im
     private int mType;
 
     private List<Integer> mListUI = new ArrayList<>();
-    private boolean mIsMove = true;
 
     public SortAdapter(Context mContext, List<Object> mListData, int type) {
         this.mContext = mContext;
@@ -82,9 +83,11 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> im
 
         //handle show answer add value
         if (mListUI.get(position) == 0) {
-            holder.layout.setBackgroundColor(Color.CYAN);
+            holder.itemView.setBackgroundColor(0);
+            holder.layout.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.green_3));
         } else if (mListUI.get(position) == 1) {
-            holder.layout.setBackgroundColor(Color.RED);
+            holder.itemView.setBackgroundColor(0);
+            holder.layout.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.red_1));
         }
     }
 
@@ -95,33 +98,31 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> im
 
     @Override
     public void onMove(int oldPosition, int newPosition) {
-        if (mIsMove) {
-            if (oldPosition < newPosition) {
-                for (int i = oldPosition; i < newPosition; i++) {
-                    Collections.swap(mListData, i, i + 1);
-                }
-            } else {
-                for (int i = oldPosition; i > newPosition; i--) {
-                    Collections.swap(mListData, i, i - 1);
-                }
+        if (oldPosition < newPosition) {
+            for (int i = oldPosition; i < newPosition; i++) {
+                Collections.swap(mListData, i, i + 1);
             }
-            notifyItemMoved(oldPosition, newPosition);
+        } else {
+            for (int i = oldPosition; i > newPosition; i--) {
+                Collections.swap(mListData, i, i - 1);
+            }
         }
+        notifyItemMoved(oldPosition, newPosition);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements ActionView {
         TextView textView;
-        LinearLayout layout;
+        CardView layout;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.tv_drag);
-            layout = itemView.findViewById(R.id.ln_drag);
+            layout = itemView.findViewById(R.id.cv_drag);
         }
 
         @Override
         public void change() {
-            itemView.setBackgroundColor(Color.LTGRAY);
+            itemView.setBackgroundResource(R.color.green_1);
         }
 
         @Override
@@ -132,10 +133,6 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> im
 
     public void setUI(int position, int value) {
         mListUI.set(position, value);
-    }
-
-    public void setNoMove() {
-        mIsMove = false;
     }
 
     private String handleOxidation(ReactSeries reactSeries) {

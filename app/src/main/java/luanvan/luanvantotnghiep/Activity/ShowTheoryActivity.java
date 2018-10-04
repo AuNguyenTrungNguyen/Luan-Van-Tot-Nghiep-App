@@ -13,7 +13,7 @@ public class ShowTheoryActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
 
-    private static final String FILENAME = "lop_8.pdf";
+
     private PDFView mPdfView;
 
     @Override
@@ -24,7 +24,10 @@ public class ShowTheoryActivity extends AppCompatActivity {
         setupToolbar();
 
         mPdfView = findViewById(R.id.pdfView);
-        mPdfView.fromAsset(FILENAME).load();
+
+        if (getIntent() != null) {
+            mPdfView.fromAsset(getIntent().getStringExtra("CONTENT")).load();
+        }
     }
 
     private void setupToolbar() {

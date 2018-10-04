@@ -35,6 +35,32 @@
 
     <color name="oxidizing_reducing">#00FFFF</color>
 
+    <!-- Screens background color-->
+    <color name="red_1">#f64c73</color>
+    <color name="red_2">#d1395c</color>
+    <color name="red_3">#f98da5</color>
+
+    <color name="green_1">#20d2bb</color>
+    <color name="green_2">#14a895</color>
+    <color name="green_3">#8cf9eb</color>
+
+    <color name="blue_1">#3395ff</color>
+    <color name="blue_2">#2278d4</color>
+    <color name="blue_3">#93c6fd</color>
+
+    <color name="purple_1">#c873f4</color>
+    <color name="purple_2">#a854d4</color>
+    <color name="purple_3">#e4b5fc</color>
+
+    <color name="color_1">#F8FDE2</color>
+    <color name="color_2">#F9D1B6</color>
+    <color name="color_3">#F4A78E</color>
+    <color name="color_4">#A0879C</color>
+    <color name="color_5">#6E6D85</color>
+    <color name="color_6">#BAAFBC</color>
+
+
+
 
 </resources>
 
