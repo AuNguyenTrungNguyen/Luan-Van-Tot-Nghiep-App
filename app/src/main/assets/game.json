@@ -106,7 +106,7 @@
   "Question": [
     {
       "mIdQuestion": "1",
-      "mContentQuestion": "⁅⁆ là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng.",
+      "mContentQuestion": "&| là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -114,7 +114,7 @@
     },
     {
       "mIdQuestion": "2",
-      "mContentQuestion": "Hóa học có vai trò ⁅⁆ trong cuộc sống chúng ta.",
+      "mContentQuestion": "Hóa học có vai trò &| trong cuộc sống chúng ta.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -122,7 +122,7 @@
     },
     {
       "mIdQuestion": "3",
-      "mContentQuestion": "Chất có khắp mọi nơi, ở đâu có vật thể ở đó có ⁅⁆.",
+      "mContentQuestion": "Chất có khắp mọi nơi, ở đâu có vật thể ở đó có &|.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -130,7 +130,7 @@
     },
     {
       "mIdQuestion": "4",
-      "mContentQuestion": "Nước ⁅⁆ gồm nhiều chất trộn lẫn là một ⁅⁆.",
+      "mContentQuestion": "Nước &| gồm nhiều chất trộn lẫn là một &|.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -138,7 +138,7 @@
     },
     {
       "mIdQuestion": "5",
-      "mContentQuestion": "⁅⁆ là chất tinh khiết.",
+      "mContentQuestion": "&| là chất tinh khiết.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -146,7 +146,7 @@
     },
     {
       "mIdQuestion": "6",
-      "mContentQuestion": "Dựa vào sự ⁅⁆ về tính chất ⁅⁆ có thể tách một chất ra khỏi ⁅⁆.",
+      "mContentQuestion": "Dựa vào sự &| về tính chất &| có thể tách một chất ra khỏi &|.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -154,7 +154,7 @@
     },
     {
       "mIdQuestion": "7",
-      "mContentQuestion": "Nguyên tử là hạt vô cùng ⁅⁆ và trung hòa về ⁅⁆.",
+      "mContentQuestion": "Nguyên tử là hạt vô cùng &| và trung hòa về &|.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -162,7 +162,7 @@
     },
     {
       "mIdQuestion": "8",
-      "mContentQuestion": "Nguyên tử là hạt nhân mang ⁅⁆ và vỏ tạo bởi một hay nhiều ⁅⁆ mang ⁅⁆.",
+      "mContentQuestion": "Nguyên tử là hạt nhân mang &| và vỏ tạo bởi một hay nhiều &| mang &|.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -170,7 +170,7 @@
     },
     {
       "mIdQuestion": "9",
-      "mContentQuestion": "Hạt nhân tạo bởi ⁅⁆ và nơtron.",
+      "mContentQuestion": "Hạt nhân tạo bởi &| và nơtron.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -178,7 +178,7 @@
     },
     {
       "mIdQuestion": "10",
-      "mContentQuestion": "Trong mỗi nguyên tử, số proton bằng số ⁅⁆.",
+      "mContentQuestion": "Trong mỗi nguyên, số proton bằng số &|.",
       "mIdLevel": "1",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -186,7 +186,7 @@
     },
     {
       "mIdQuestion": "11",
-      "mContentQuestion": "Hiện tượng chất biến đổi mà vẫn giữ nguyên là chất ⁅⁆, được gọi là hiện tượng ⁅⁆.",
+      "mContentQuestion": "Hiện tượng chất biến đổi mà vẫn giữ nguyên là chất &|, được gọi là hiện tượng &|.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -194,7 +194,7 @@
     },
     {
       "mIdQuestion": "12",
-      "mContentQuestion": "Hiện tượng chất biến đổi có tạo ra chất khác, được gọi là hiện tượng ⁅⁆.",
+      "mContentQuestion": "Hiện tượng chất biến đổi có tạo ra chất khác, được gọi là hiện tượng &|.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -202,7 +202,7 @@
     },
     {
       "mIdQuestion": "13",
-      "mContentQuestion": "Quá trình biến đổi từ chất này thành chất khác gọi là ⁅⁆.",
+      "mContentQuestion": "Quá trình biến đổi từ chất này thành chất khác gọi là &|.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -210,7 +210,7 @@
     },
     {
       "mIdQuestion": "14",
-      "mContentQuestion": "Trong phản ứng hóa học chỉ có ⁅⁆ giữa các nguyên tử thay đổi làm cho phân tử này biến đổi thành ⁅⁆ khác.",
+      "mContentQuestion": "Trong phản ứng hóa học chỉ có &| giữa các nguyên tử thay đổi làm cho phân tử này biến đổi thành &| khác.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -218,7 +218,7 @@
     },
     {
       "mIdQuestion": "15",
-      "mContentQuestion": "Phản ứng xảy ra được khi các ⁅⁆ tiếp xúc với nhau, có trường hợp đun nóng, có trường hợp cần chất xúc tác, … .",
+      "mContentQuestion": "Phản ứng xảy ra được khi các &| tiếp xúc với nhau, có trường hợp đun nóng, có trường hợp cần chất xúc tác, … .",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -226,7 +226,7 @@
     },
     {
       "mIdQuestion": "16",
-      "mContentQuestion": "Nhận biết ⁅⁆ xảy ra dựa vào dấu hiệu có chất mới tạo thành",
+      "mContentQuestion": "Nhận biết &| xảy ra dựa vào dấu hiệu có chất mới tạo thành",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -234,7 +234,7 @@
     },
     {
       "mIdQuestion": "17",
-      "mContentQuestion": "Định luật: \"Trong một ⁅⁆, tổng ⁅⁆ của các sản phẩm bằng tổng khối lượng các chất ⁅⁆ phản ứng.",
+      "mContentQuestion": "Định luật: \"Trong một &|, tổng &| của các sản phẩm bằng tổng khối lượng các chất &| phản ứng.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -242,7 +242,7 @@
     },
     {
       "mIdQuestion": "18",
-      "mContentQuestion": "Áp dụng: Trong một phản ứng có n chất, kể cả chất phản ứng và ⁅⁆, nếu biết ⁅⁆ của (n-1) chất thì tính được khối lượng của các chất còn lại.",
+      "mContentQuestion": "Áp dụng: Trong một phản ứng có n chất, kể cả chất phản ứng và &|, nếu biết &| của (n-1) chất thì tính được khối lượng của các chất còn lại.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -250,7 +250,7 @@
     },
     {
       "mIdQuestion": "19",
-      "mContentQuestion": "⁅⁆ hóa học biểu diễn ngắn gọn ⁅⁆ hóa học.",
+      "mContentQuestion": "&| hóa học biểu diễn ngắn gọn &| hóa học.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
@@ -258,10 +258,66 @@
     },
     {
       "mIdQuestion": "20",
-      "mContentQuestion": "Phương trình hóa học cho biết ⁅⁆ về số nguyên tử, số  ⁅⁆ giữa các chất cũng như từng cặp chất trong phản ứng.",
+      "mContentQuestion": "Phương trình hóa học cho biết &| về số nguyên tử, số  &| giữa các chất cũng như từng cặp chất trong phản ứng.",
       "mIdLevel": "2",
       "mIdBlock": "8",
       "mIdType": "2",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "21",
+      "mContentQuestion": "Nước cất",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "22",
+      "mContentQuestion": "Nước tự nhiên bao gồm nhiều chất trộn lẫn",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "23",
+      "mContentQuestion": "Hóa học",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "24",
+      "mContentQuestion": "Cơ thể người có 63 - 68% về khối lượng",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "25",
+      "mContentQuestion": "Dựa vào sự khác nhau về tính chất vật lý",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "26",
+      "mContentQuestion": "Hạt nhân",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
+      "mExtent": "0"
+    },
+    {
+      "mIdQuestion": "27",
+      "mContentQuestion": "electron",
+      "mIdLevel": "1",
+      "mIdBlock": "8",
+      "mIdType": "3",
       "mExtent": "0"
     }
   ],
@@ -365,6 +421,41 @@
       "mIdQuestion": "20",
       "mIdAnswer": "20",
       "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "21",
+      "mIdAnswer": "21",
+      "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "22",
+      "mIdAnswer": "22",
+      "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "23",
+      "mIdAnswer": "23",
+      "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "24",
+      "mIdAnswer": "24",
+      "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "25",
+      "mIdAnswer": "25",
+      "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "26",
+      "mIdAnswer": "26",
+      "mCorrect": "1"
+    },
+    {
+      "mIdQuestion": "27",
+      "mIdAnswer": "27",
+      "mCorrect": "1"
     }
   ],
   "Answer": [
@@ -447,6 +538,34 @@
     {
       "mIdAnswer": "20",
       "mContentAnswer": "tỷ lệ,phân tử"
+    },
+    {
+      "mIdAnswer": "21",
+      "mContentAnswer": "là chất tinh khiết"
+    },
+    {
+      "mIdAnswer": "22",
+      "mContentAnswer": "là một hỗn hợp"
+    },
+    {
+      "mIdAnswer": "23",
+      "mContentAnswer": "là ngành khoa học nghiên cứu các chất , sự biến đổi và ứng dụng của chúng"
+    },
+    {
+      "mIdAnswer": "24",
+      "mContentAnswer": "là nước"
+    },
+    {
+      "mIdAnswer": "25",
+      "mContentAnswer": "có thẻ tách một chất ra khỏi hợp chất"
+    },
+    {
+      "mIdAnswer": "26",
+      "mContentAnswer": "mang điện tích dương"
+    },
+    {
+      "mIdAnswer": "27",
+      "mContentAnswer": "mang điện tích âm"
     }
   ],
   "Block": [

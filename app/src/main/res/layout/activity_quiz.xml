@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#808080"
     android:orientation="vertical"
     tools:context=".Activity.QuizActivity">
 
@@ -20,6 +19,7 @@
         android:layout_height="match_parent"
         android:layout_margin="40dp"
         android:background="@drawable/quiz"
+        android:visibility="gone"
         android:orientation="horizontal" />
 
     <LinearLayout
@@ -52,6 +52,7 @@
                     app:cardUseCompatPadding="true">
 
                     <TextView
+                        android:background="@drawable/background_game_complete"
                         android:id="@+id/tv_time"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -73,6 +74,7 @@
                     app:cardUseCompatPadding="true">
 
                     <TextView
+                        android:background="@drawable/background_game_complete"
                         android:id="@+id/tv_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,6 +96,7 @@
                     app:cardUseCompatPadding="true">
 
                     <ImageView
+                        android:background="@drawable/background_game_complete"
                         android:id="@+id/img_flag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -116,9 +119,14 @@
 
         <Button
             android:id="@+id/btn_complete_quiz"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="hoàn thành" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_game_complete"
+            android:text="@string/complete"
+            android:textColor="@color/green_2" />
 
     </LinearLayout>
 

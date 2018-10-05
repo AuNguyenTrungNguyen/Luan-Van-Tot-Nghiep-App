@@ -36,9 +36,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MatchActivity"></activity>
-        <activity android:name=".Activity.SortActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activity.MatchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.SortActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.ChooseLevelActivity"></activity>
     </application>
 

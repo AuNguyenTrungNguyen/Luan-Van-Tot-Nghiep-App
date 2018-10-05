@@ -32,7 +32,7 @@ import luanvan.luanvantotnghiep.Model.TypeOfQuestion;
 
 public class ChemistryHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Chemistry.db";
 
     public ChemistryHelper(Context context) {

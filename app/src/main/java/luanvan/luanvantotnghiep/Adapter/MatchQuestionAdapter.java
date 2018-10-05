@@ -1,5 +1,6 @@
 package luanvan.luanvantotnghiep.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -43,10 +45,10 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final QuestionHolder questionHolder, final int i) {
+    public void onBindViewHolder(@NonNull final QuestionHolder questionHolder, @SuppressLint("RecyclerView") final int i) {
         Question question = mQuestionList.get(i);
         questionHolder.tvContent.setText(question.getContentQuestion());
-        questionHolder.tvChoose.setOnClickListener(new View.OnClickListener() {
+        questionHolder.lnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog(questionHolder, i);
@@ -82,11 +84,13 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
     static class QuestionHolder extends RecyclerView.ViewHolder {
         TextView tvContent;
         TextView tvChoose;
+        LinearLayout lnChoose;
 
         QuestionHolder(@NonNull View itemView) {
             super(itemView);
             tvContent = itemView.findViewById(R.id.tv_content_question_match);
             tvChoose = itemView.findViewById(R.id.tv_user_choose);
+            lnChoose = itemView.findViewById(R.id.ln_question_match);
         }
     }
 }

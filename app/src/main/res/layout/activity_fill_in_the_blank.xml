@@ -99,8 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/background_game_complete"
-            android:text="hoàn thành"
-            android:textColor="#14a895" />
+            android:text="@string/complete"
+            android:textColor="@color/green_2" />
 
     </LinearLayout>
 
