@@ -67,6 +67,8 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     private List<Integer> mListUserAnswer;
     private CheckingAnswerAdapter mCheckingAnswerAdapter;
 
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +169,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     private void checkUserOut() {
         if (isPlaying) {
 
-            final Dialog dialog = new Dialog(FillInTheBlankActivity.this);
+            dialog = new Dialog(FillInTheBlankActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
@@ -207,6 +209,10 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
     private void showScore() {
         int score = 0;
+
+        if (dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {

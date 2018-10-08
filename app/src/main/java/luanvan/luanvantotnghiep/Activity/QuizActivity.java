@@ -62,6 +62,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private List<Integer> mListUserAnswer;
     private CheckingAnswerAdapter mCheckingAnswerAdapter;
 
+    private Dialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,7 +175,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void checkUserOut() {
         if (isPlaying) {
 
-            final Dialog dialog = new Dialog(QuizActivity.this);
+            dialog = new Dialog(QuizActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
@@ -214,6 +216,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showScore() {
         int score = 0;
+
+        if (dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
