@@ -59,9 +59,10 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mPreferences = getSharedPreferences("CNHH", MODE_PRIVATE);
 
         int oldVersion = mPreferences.getInt("DB_VER", 0);
-        int version = ChemistrySingle.getInstance(this).getWritableDatabase().getVersion();
+        int versionDatabase = ChemistrySingle.getInstance(this).getWritableDatabase().getVersion();
+        int version = getVersion();
 
-        if (version != oldVersion) {
+        if (version != oldVersion || versionDatabase != oldVersion) {
             mChemistryHelper = ChemistrySingle.getInstance(this);
             saveVersion(version);
 
@@ -135,6 +136,18 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
         mDialog.dismiss();
         finish();
+    }
+
+    private int getVersion() {
+        try {
+            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
+            String version = (String) obj.get("Version");
+            return Integer.parseInt(version);
+
+        } catch (JSONException e) {
+            Log.i(TAG, "JSONException: " + e.getMessage());
+            return -1;
+        }
     }
 
     private void saveVersion(int version) {
@@ -258,9 +271,9 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 item.setBoilingPoint(Double.parseDouble(o.getString("mBoilingPoint")));
 
                 //handle discoverer is null property
-                if(o.has("mDiscoverer")){
+                if (o.has("mDiscoverer")) {
                     item.setDiscoverer(o.getString("mDiscoverer"));
-                }else{
+                } else {
                     item.setDiscoverer("");
                 }
 
@@ -295,9 +308,9 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 item.setIdCompound(Integer.parseInt(o.getString("mIdCompound")));
 
                 //handle other names is null property
-                if(o.has("mDiscoverer")){
+                if (o.has("mDiscoverer")) {
                     item.setOtherNames(o.getString("mOtherNames"));
-                }else{
+                } else {
                     item.setOtherNames("");
                 }
 
@@ -361,23 +374,23 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 item.setTwoWay(Integer.parseInt(o.getString("mTwoWay")));
 
                 //handle conditions is null property
-                if(o.has("mDiscoverer")){
+                if (o.has("mDiscoverer")) {
                     item.setConditions(o.getString("mConditions"));
-                }else{
+                } else {
                     item.setConditions("");
                 }
 
                 //handle phenomena is null property
-                if(o.has("mPhenomena")){
+                if (o.has("mPhenomena")) {
                     item.setPhenomena(o.getString("mPhenomena"));
-                }else{
+                } else {
                     item.setPhenomena("");
                 }
 
                 //handle reaction types is null property
-                if(o.has("mReactionTypes")){
+                if (o.has("mReactionTypes")) {
                     item.setReactionTypes(o.getString("mReactionTypes"));
-                }else{
+                } else {
                     item.setReactionTypes("");
                 }
 

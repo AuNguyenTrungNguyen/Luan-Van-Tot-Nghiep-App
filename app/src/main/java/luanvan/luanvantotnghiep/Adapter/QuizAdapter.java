@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Model.Answer;
@@ -25,6 +27,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     private List<Question> mQuestionList;
     private List<Answer> mAnswerList;
     private List<AnswerByQuestion> mAnswerByQuestionList;
+    private HashMap<Integer, List<Answer>> map = new HashMap<>();
 
     public interface CommunicateQuiz {
         void onUserChooseAnswer(int question, int answer);
@@ -45,6 +48,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         this.mAnswerList = mAnswerList;
         this.mAnswerByQuestionList = mAnswerByQuestionList;
 
+        for (int i = 0; i < mQuestionList.size(); i++) {
+            map.put(i, null);
+        }
     }
 
     @NonNull
@@ -55,12 +61,12 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Question question = mQuestionList.get(position);
         holder.tvQuestion.setText(Html.fromHtml("Câu " + (position + 1) + ". " + question.getContentQuestion()));
 
         //list: content 4 ids answer by question
-        List<AnswerByQuestion> list = new ArrayList();
+        List<AnswerByQuestion> list = new ArrayList<>();
         int idQuestion = question.getIdQuestion();
         for (AnswerByQuestion answerByQuestion : mAnswerByQuestionList) {
             if (idQuestion == answerByQuestion.getIdQuestion()) {
@@ -69,20 +75,24 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         }
 
         //listAnswer: content 4 answers by list
-        final List<Answer> listAnswer = new ArrayList<>();
-        for (Answer answer : mAnswerList) {
-            int idAnswer = answer.getIdAnswer();
-            for (AnswerByQuestion answerByQuestion : list) {
-                if (idAnswer == answerByQuestion.getIdAnswer()) {
-                    listAnswer.add(answer);
+        if (map.get(position) == null) {
+            List<Answer> listMap = new ArrayList<>();
+            for (Answer answer : mAnswerList) {
+                int idAnswer = answer.getIdAnswer();
+                for (AnswerByQuestion answerByQuestion : list) {
+                    if (idAnswer == answerByQuestion.getIdAnswer()) {
+                        listMap.add(answer);
+                    }
                 }
             }
+            //random answer
+            Collections.shuffle(listMap);
+            Collections.shuffle(listMap);
+            Collections.shuffle(listMap);
+            map.put(position, listMap);
         }
-        
-        //random answer
-//        Collections.shuffle(listAnswer);
-//        Collections.shuffle(listAnswer);
-//        Collections.shuffle(listAnswer);
+
+        final List<Answer> listAnswer = map.get(position);
 
         //set data
         holder.rbAnswerA.setText(Html.fromHtml("A. " + listAnswer.get(0).getContentAnswer()));
@@ -98,7 +108,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(0);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(0).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(holder.getAdapterPosition(), listAnswer.get(0).getIdAnswer());
             }
         });
         holder.rbAnswerB.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +116,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(1);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(1).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(holder.getAdapterPosition(), listAnswer.get(1).getIdAnswer());
             }
         });
         holder.rbAnswerC.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +124,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(2);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(2).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(holder.getAdapterPosition(), listAnswer.get(2).getIdAnswer());
             }
         });
         holder.rbAnswerD.setOnClickListener(new View.OnClickListener() {
@@ -122,14 +132,14 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             public void onClick(View view) {
                 question.setAnswer(3);
                 setRadio(holder, question.getAnswer());
-                communicateQuiz.onUserChooseAnswer(position, listAnswer.get(3).getIdAnswer());
+                communicateQuiz.onUserChooseAnswer(holder.getAdapterPosition(), listAnswer.get(3).getIdAnswer());
             }
         });
 
         if (question.getIdCorrect() != -1) {
             int ui = -1;
-            for (int i = 0; i < listAnswer.size(); i++) {
-                if (listAnswer.get(i).getIdAnswer() == question.getIdCorrect()) {
+            for (int i = 0; i < map.get(position).size(); i++) {
+                if (map.get(position).get(i).getIdAnswer() == question.getIdCorrect()) {
                     ui = i;
                     break;
                 }
@@ -196,7 +206,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             b4.setBackgroundColor(Color.CYAN);
         }
 
-        if (user == correct){
+        if (user == correct) {
             if (correct == 0) {
                 b1.setEnabled(true);
             } else if (correct == 1) {
