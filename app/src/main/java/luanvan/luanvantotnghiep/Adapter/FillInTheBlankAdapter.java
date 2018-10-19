@@ -40,7 +40,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     private List<PositionCode> positionCodeList = new ArrayList<>();
 
     public interface CommunicateQuiz {
-        void onUserChooseAnswer(int question, int answer);
+        void onUserChooseAnswer(int question, String answer);
     }
 
     private CommunicateQuiz communicateQuiz;
@@ -84,7 +84,7 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
             holder.tvQuestion.setText(mUIList.get(position));
             holder.tvQuestion.setMovementMethod(LinkMovementMethod.getInstance());
         }
-        if (question.getIdCorrect() != -1) {
+        if (!question.getIdCorrect().equals("")) {
             showAnswer(holder.tvQuestion.getText().toString(), position, holder);
         }
     }
@@ -112,8 +112,8 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         String correctAnswer = "";
         for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
             for (Answer answer : mAnswerList) {
-                if (mQuestionList.get(position).getIdQuestion() == byQuestion.getIdQuestion()
-                        && byQuestion.getIdAnswer() == answer.getIdAnswer()) {
+                if (mQuestionList.get(position).getIdQuestion().equals(byQuestion.getIdQuestion())
+                        && byQuestion.getIdAnswer().equals(answer.getIdAnswer())) {
                     correctAnswer = answer.getContentAnswer();
                 }
             }
@@ -125,7 +125,9 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
         for (int i = 0; i < positionCodeList.size(); i++) {
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(question.substring(index, positionCode.start));
-            if (question.substring(positionCode.start, positionCode.end).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
+//            Log.i("hns", "user: " + question.substring(positionCode.start, positionCode.end).toLowerCase());
+//            Log.i("hns", "user: " + correctAnswerArr[i].toLowerCase());
+            if (question.substring(positionCode.start + 1, positionCode.end - 1).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
                 temp.append("<font color='green'>").append(question.substring(positionCode.start, positionCode.end).toLowerCase()).append("</font>");
             } else {
                 temp.append("<font color='red'>").append(question.substring(positionCode.start, positionCode.end).toLowerCase()).append("</font>");
@@ -231,18 +233,18 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
     }
 
     /*
-    * PARAM:    @holder: current view
-    *           @position: position of current question
-    * RETURN:   -999 if answer user is correct else return 0
-    * */
-    private int checkAnswerUser(ViewHolder holder, int position) {
+     * PARAM:    @holder: current view
+     *           @position: position of current question
+     * RETURN:   -999 if answer user is correct else return 0
+     * */
+    private String checkAnswerUser(ViewHolder holder, int position) {
 
         String text = holder.tvQuestion.getText().toString();
         String correctAnswer = "";
         for (AnswerByQuestion byQuestion : mAnswerByQuestionList) {
             for (Answer answer : mAnswerList) {
-                if (mQuestionList.get(position).getIdQuestion() == byQuestion.getIdQuestion()
-                        && byQuestion.getIdAnswer() == answer.getIdAnswer()) {
+                if (mQuestionList.get(position).getIdQuestion().equals(byQuestion.getIdQuestion())
+                        && byQuestion.getIdAnswer().equals(answer.getIdAnswer())) {
                     correctAnswer = answer.getContentAnswer();
                 }
             }
@@ -257,12 +259,12 @@ public class FillInTheBlankAdapter extends RecyclerView.Adapter<FillInTheBlankAd
             PositionCode positionCode = positionCodeList.get(i);
             temp.append(text.substring(index, positionCode.start));
 
-            if (!text.substring(positionCode.start+1, positionCode.end-1).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
-                return 0;
+            if (!text.substring(positionCode.start + 1, positionCode.end - 1).toLowerCase().equals(correctAnswerArr[i].toLowerCase())) {
+                return "FALSE";
             }
             index = positionCode.end;
         }
-        return -999;
+        return "TRUE";
     }
 
     private String standardizeString(String str) {

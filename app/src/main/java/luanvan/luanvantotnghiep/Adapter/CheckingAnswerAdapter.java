@@ -17,9 +17,9 @@ import luanvan.luanvantotnghiep.R;
 
 public class CheckingAnswerAdapter extends ArrayAdapter{
     private Context mContext;
-    private List<Integer> mListData;
+    private List<String> mListData;
 
-    public CheckingAnswerAdapter(@NonNull Context context, int resource, @NonNull List<Integer> objects) {
+    public CheckingAnswerAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
         super(context, resource, objects);
         mContext = context;
         mListData = objects;
@@ -41,7 +41,7 @@ public class CheckingAnswerAdapter extends ArrayAdapter{
         TextView tvChecking = convertView.findViewById(R.id.tv_checking_answer);
         tvChecking.setText(String.valueOf(position+1));
 
-        if (mListData.get(position) == - 1){
+        if (mListData.get(position).equals("")){
             lnChecking.setBackgroundResource(R.drawable.item_checking_false);
             tvChecking.setTextColor(Color.BLACK);
         }else{

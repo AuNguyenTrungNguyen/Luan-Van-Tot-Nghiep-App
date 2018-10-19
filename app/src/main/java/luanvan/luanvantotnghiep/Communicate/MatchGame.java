@@ -1,5 +1,5 @@
 package luanvan.luanvantotnghiep.Communicate;
 
 public interface MatchGame {
-    void userClick(int position, int idAnswer);
+    void userClick(int position, String idAnswer);
 }

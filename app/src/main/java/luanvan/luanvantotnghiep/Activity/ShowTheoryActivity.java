@@ -3,18 +3,33 @@ package luanvan.luanvantotnghiep.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
 
-import com.github.barteksc.pdfviewer.PDFView;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
+import luanvan.luanvantotnghiep.Adapter.ExpandAdapter;
+import luanvan.luanvantotnghiep.Database.ChemistryHelper;
+import luanvan.luanvantotnghiep.Model.Chapter;
+import luanvan.luanvantotnghiep.Model.Description;
+import luanvan.luanvantotnghiep.Model.Heading;
+import luanvan.luanvantotnghiep.Model.Title;
 import luanvan.luanvantotnghiep.R;
+import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
 
 public class ShowTheoryActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    private ExpandableListView mExpandThematic;
+    private TextView mTvNameChapter;
 
-
-    private PDFView mPdfView;
+    private static final String TAG = Constraint.TAG + "ShowTheory";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +38,93 @@ public class ShowTheoryActivity extends AppCompatActivity {
 
         setupToolbar();
 
-        mPdfView = findViewById(R.id.pdfView);
+        init();
 
         if (getIntent() != null) {
-            mPdfView.fromAsset(getIntent().getStringExtra("CONTENT")).load();
+            /*Set name chapter*/
+            Bundle bundle = getIntent().getExtras();
+            Chapter chapter = (Chapter) bundle.getSerializable("CHAPTER");
+            mTvNameChapter.setText(chapter.getNameChapter());
+
+            /*Get database*/
+            ChemistryHelper mChemistryHelper = ChemistrySingle.getInstance(this);
+            List<Heading> headingList = mChemistryHelper.getAllHeading();
+            List<Title> titleList = mChemistryHelper.getAllTitle();
+            List<Description> descriptionList = mChemistryHelper.getAllDescription();
+
+            Log.i(TAG, "headingList: " + headingList.size());
+            Log.i(TAG, "titleList: " + titleList.size());
+            Log.i(TAG, "descriptionList: " + descriptionList.size());
+
+            /*Prepare expand*/
+            String idChap = chapter.getIdChapter();
+            final List<Heading> showHeading = new ArrayList<>();
+            final HashMap<Heading, List<Title>> showTitle = new HashMap<>();
+
+            /*List heading and sort by sortOrder*/
+            for (Heading heading : headingList) {
+                if (heading.getIdChapter().equals(idChap)) {
+                    showHeading.add(heading);
+                }
+            }
+            Collections.sort(showHeading, new Comparator<Heading>() {
+                public int compare(Heading o1, Heading o2) {
+                    return Integer.parseInt(o1.getSortOrder()) - Integer.parseInt(o2.getSortOrder());
+                }
+            });
+
+            /*Map title and sort bu sortOrder*/
+            for (Heading heading : showHeading) {
+                String idHead = heading.getIdHeading();
+                List<Title> list = new ArrayList<>();
+                for (Title title : titleList) {
+                    if (title.getIdHeading().equals(idHead)) {
+                        list.add(title);
+                    }
+                }
+                Collections.sort(list, new Comparator<Title>() {
+                    public int compare(Title o1, Title o2) {
+                        return Integer.parseInt(o1.getSortOrder()) - Integer.parseInt(o2.getSortOrder());
+                    }
+                });
+                showTitle.put(heading, list);
+            }
+
+            Log.i(TAG, "showHeading: " + showHeading.size());
+            Log.i(TAG, "showTitle: " + showTitle.size());
+
+            /*Show expand*/
+            ExpandAdapter mAdapter = new ExpandAdapter(this, showHeading, showTitle);
+            mExpandThematic.setAdapter(mAdapter);
+
+            //Expand all
+            for (int i = 0; i < mAdapter.getGroupCount(); i++) {
+                mExpandThematic.expandGroup(i);
+            }
+
+            //Disable group close and handle onclick group item
+            mExpandThematic.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                    Log.i(TAG, "onGroupClick: " + showHeading.get(groupPosition).getNameHeading());
+                    return true;
+                }
+            });
+
+            //Handle onclick child item
+            mExpandThematic.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                    Log.i(TAG, "onChildClick: " + showTitle.get(showHeading.get(i)).get(i1).getNameTitle());
+                    return false;
+                }
+            });
+
         }
     }
 
     private void setupToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -44,72 +136,8 @@ public class ShowTheoryActivity extends AppCompatActivity {
         });
     }
 
-    //Not use library
-//    private ParcelFileDescriptor mFileDescriptor;
-//    private PdfRenderer mPdfRenderer;
-//
-//    private ListView mLvPDF;
-//    private List<Bitmap> mList;
-//    private ShowPDFAdapter mAdapter;
-
-    //    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        mLvPDF = view.findViewById(R.id.lv_pdf);
-//        mList = new ArrayList<>();
-//        mAdapter = new ShowPDFAdapter(getActivity(), mList);
-//        mLvPDF.setAdapter(mAdapter);
-//
-//    }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        try {
-//            openRenderer(getActivity());
-//            showPage();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//    private void showPage() {
-//
-//        final int pageCount = mPdfRenderer.getPageCount();
-//        for (int i = 0; i < pageCount; i++) {
-//            PdfRenderer.Page page = mPdfRenderer.openPage(i);
-//            Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
-//                    Bitmap.Config.ARGB_8888);
-//            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-//            mList.add(bitmap);
-//            page.close();
-//        }
-//
-//        mPdfRenderer.close();
-//        mAdapter.notifyDataSetChanged();
-//    }
-//
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//    private void openRenderer(Context context) throws IOException {
-//
-//        File file = new File(context.getCacheDir(), FILENAME);
-//        if (!file.exists()) {
-//
-//            InputStream asset = context.getAssets().open(FILENAME);
-//            FileOutputStream output = new FileOutputStream(file);
-//            final byte[] buffer = new byte[1024];
-//            int size;
-//            while ((size = asset.read(buffer)) != -1) {
-//                output.write(buffer, 0, size);
-//            }
-//            asset.close();
-//            output.close();
-//        }
-//        mFileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
-//
-//        if (mFileDescriptor != null) {
-//            mPdfRenderer = new PdfRenderer(mFileDescriptor);
-//        }
-//    }
+    private void init() {
+        mTvNameChapter = findViewById(R.id.tv_name_chapter);
+        mExpandThematic = findViewById(R.id.elv_thematic);
+    }
 }

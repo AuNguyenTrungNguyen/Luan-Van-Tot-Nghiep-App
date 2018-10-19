@@ -3,16 +3,18 @@ package luanvan.luanvantotnghiep.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import luanvan.luanvantotnghiep.CustomTree.Tree;
+import luanvan.luanvantotnghiep.CustomTree.TreeAdapter;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
@@ -24,9 +26,9 @@ public class ChooseLevelActivity extends AppCompatActivity {
 
     private ChemistryHelper mHelper;
 
-    private ListView mListView;
-    private List<String> mLevelList;
-    private ArrayAdapter<String> mAdapter;
+    private RecyclerView mRvTree;
+    private List<Tree> mList;
+    private TreeAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,62 +45,52 @@ public class ChooseLevelActivity extends AppCompatActivity {
         saveType(type);
 
         //Get all levels with type exit
-        setupLevel(type);
+        setupLevel(type, 1);
 
-        Intent intent = null;
-        switch (type){
-            case 1:
-                intent = new Intent(ChooseLevelActivity.this, QuizActivity.class);
-                break;
-
-            case 2:
-                intent = new Intent(ChooseLevelActivity.this, FillInTheBlankActivity.class);
-                break;
-
-            case 3:
-                intent = new Intent(ChooseLevelActivity.this, MatchActivity.class);
-                break;
-
-            case 4:
-                intent = new Intent(ChooseLevelActivity.this, SortActivity.class);
-                break;
-        }
-
-        final Intent finalIntent = intent;
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (finalIntent != null){
-                    finalIntent.putExtra("LEVEL", Integer.parseInt(mLevelList.get(i)));
-                    startActivity(finalIntent);
-                    finish();
-                }
-            }
-        });
+//        final Intent finalIntent = intent;
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (finalIntent != null){
+//                    finalIntent.putExtra("LEVEL", Integer.parseInt(mLevelList.get(i)));
+//                    startActivity(finalIntent);
+//                    finish();
+//                }
+//            }
+//        });
     }
 
     private void init() {
 
         mHelper = ChemistrySingle.getInstance(this);
 
-        mListView = findViewById(R.id.lv_level);
-        mLevelList = new ArrayList<>();
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLevelList);
-
-        mListView.setAdapter(mAdapter);
+        mRvTree = findViewById(R.id.rv_tree);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setReverseLayout(true);
+        mRvTree.setLayoutManager(manager);
+        mRvTree.setHasFixedSize(true);
+        mList = new ArrayList<>();
+        mAdapter = new TreeAdapter(this, mList);
+        mRvTree.setAdapter(mAdapter);
     }
 
-    private void setupLevel(int type) {
+    private void setupLevel(int type, int extent) {
+        mList.clear();
         List<Question> list = mHelper.getAllQuestion();
 
-        List<String> temp = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
         for (Question question : list) {
-            if (question.getIdType() == type)
-                temp.add(String.valueOf(question.getIdLevel()));
+            if (question.getIdType() == type && question.getExtent() == extent)
+                temp.add(question.getIdLevel());
         }
 
-        mLevelList.addAll(new HashSet<>(temp));
-        Collections.sort(mLevelList);
+        List<Integer> listLevel = new ArrayList<>(new HashSet<>(temp));
+
+        for (int i = 0; i < listLevel.size(); i++) {
+            boolean isLeft = listLevel.get(i) % 2 == 0;
+            mList.add(new Tree(isLeft, "Leaf: " + listLevel.get(i), listLevel.get(i)));
+        }
+
         mAdapter.notifyDataSetChanged();
     }
 
@@ -111,7 +103,32 @@ public class ChooseLevelActivity extends AppCompatActivity {
         return type;
     }
 
-    private void saveType(int type){
+    private void saveType(int type) {
         PreferencesManager.getInstance().saveIntData(Constraint.PRE_KEY_TYPE, type);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_extent,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mn_extent_easy:
+                setupLevel(getType(),Constraint.EXTENT_EASY);
+                break;
+
+            case R.id.mn_extent_normal:
+                setupLevel(getType(),Constraint.EXTENT_NORMAL);
+                break;
+
+            case R.id.mn_extent_difficult:
+                setupLevel(getType(),Constraint.EXTENT_DIFFICULT);
+                break;
+        }
+        return true;
     }
 }

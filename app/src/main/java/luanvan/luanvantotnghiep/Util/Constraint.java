@@ -43,4 +43,9 @@ public class Constraint {
 
     public static final String PRE_KEY_BLOCK = "KEY_BLOCK";
     public static final String PRE_KEY_TYPE = "KEY_TYPE";
+
+    //Extent
+    public static final int EXTENT_EASY = 1;
+    public static final int EXTENT_NORMAL = 2;
+    public static final int EXTENT_DIFFICULT = 3;
 }

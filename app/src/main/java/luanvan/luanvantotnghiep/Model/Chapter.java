@@ -1,26 +1,28 @@
 package luanvan.luanvantotnghiep.Model;
 
-public class Chapter {
-    private int mIdChapter;
+import java.io.Serializable;
+
+public class Chapter implements Serializable {
+    private String mIdChapter;
     private String mNameChapter;
     private int mIdBlock;
-    private String mContentChapter;
+    private int mConfirm; //0 - NOT; 1 - OKE
 
     public Chapter() {
     }
 
-    public Chapter(int mIdChapter, String mNameChapter, int mIdBlock, String mContentChapter) {
+    public Chapter(String mIdChapter, String mNameChapter, int mIdBlock, int mConfirm) {
         this.mIdChapter = mIdChapter;
         this.mNameChapter = mNameChapter;
         this.mIdBlock = mIdBlock;
-        this.mContentChapter = mContentChapter;
+        this.mConfirm = mConfirm;
     }
 
-    public int getIdChapter() {
+    public String getIdChapter() {
         return mIdChapter;
     }
 
-    public void setIdChapter(int mIdChapter) {
+    public void setIdChapter(String mIdChapter) {
         this.mIdChapter = mIdChapter;
     }
 
@@ -40,11 +42,11 @@ public class Chapter {
         this.mIdBlock = mIdBlock;
     }
 
-    public String getContentChapter() {
-        return mContentChapter;
+    public int getConfirm() {
+        return mConfirm;
     }
 
-    public void setContentChapter(String mContentChapter) {
-        this.mContentChapter = mContentChapter;
+    public void setConfirm(int mConfirm) {
+        this.mConfirm = mConfirm;
     }
 }

@@ -30,7 +30,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     private int mTotalQuestion = 0;
 
     //List use update UI and handle score
-    private List<Integer> mListUserAnswer;
+    private List<String> mListUserAnswer;
     private CheckingAnswerAdapter mCheckingAnswerAdapter;
 
     private Dialog dialog;
@@ -96,13 +95,13 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
                 //prepare data score
                 mListUserAnswer = new ArrayList<>();
                 for (int i = 0; i < mTotalQuestion; i++) {
-                    mListUserAnswer.add(i, -1);
+                    mListUserAnswer.add(i, "");
                 }
 
                 //random list question
-                Collections.shuffle(mQuestionList);
-                Collections.shuffle(mQuestionList);
-                Collections.shuffle(mQuestionList);
+//                Collections.shuffle(mQuestionList);
+//                Collections.shuffle(mQuestionList);
+//                Collections.shuffle(mQuestionList);
 
                 findViewById(R.id.fl_start_game).setVisibility(View.GONE);
 
@@ -216,8 +215,8 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
-                if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
-                        && mListUserAnswer.get(i) == -999) {
+                if (mQuestionList.get(i).getIdQuestion().equals(mAnswerByQuestionList.get(j).getIdQuestion())
+                        && mListUserAnswer.get(i).equals("TRUE")) {
                     score++;
                     break;
                 }
@@ -244,18 +243,18 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
         ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
 
-        if (score >= 9 && score < 13) {
+        if (score >= 3 && score < 5) {
             imgStarTwo.setVisibility(View.VISIBLE);
-        } else if (score >= 13 && score < 17) {
+        } else if (score >= 5 && score < 7) {
             imgStarOne.setVisibility(View.VISIBLE);
             imgStarThree.setVisibility(View.VISIBLE);
-        } else if (score >= 17) {
+        } else if (score >= 8) {
             imgStarOne.setVisibility(View.VISIBLE);
             imgStarTwo.setVisibility(View.VISIBLE);
             imgStarThree.setVisibility(View.VISIBLE);
         }
 
-        //tvLevel.setText("Text level");
+        tvLevel.setText("Level " + getLevel());
         tvScore.setText(String.valueOf(score));
         tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
         dialog.setCancelable(false);
@@ -321,8 +320,8 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         for (int i = 0; i < mQuestionList.size(); i++) {
             Question question = mQuestionList.get(i);
             question.setIdCorrect(mListUserAnswer.get(i));
-            if (mListUserAnswer.get(i) == -1) {
-                question.setIdCorrect(0);
+            if (mListUserAnswer.get(i).equals("")) {
+                question.setIdCorrect("0");
             }
         }
         mRvQuestion.scrollToPosition(0);
@@ -342,7 +341,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    public void onUserChooseAnswer(int question, int answer) {
+    public void onUserChooseAnswer(int question, String answer) {
         mListUserAnswer.set(question, answer);
         updateNumberAnswered(mTvTotal);
         if (mCheckingAnswerAdapter != null) {
@@ -354,7 +353,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         int count = 0;
 
         for (int i = 0; i < mListUserAnswer.size(); i++) {
-            if (mListUserAnswer.get(i) != -1) {
+            if (!mListUserAnswer.get(i).equals("")) {
                 count++;
             }
         }
@@ -410,10 +409,6 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         int block = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_BLOCK, 8);
         int type = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_TYPE, 0);
         int level = getLevel();
-
-//        Log.i(Constraint.TAG, "checkGame: block = " + block);
-//        Log.i(Constraint.TAG, "checkGame: type = " + type);
-//        Log.i(Constraint.TAG, "checkGame: level = " + level);
 
         if (block != 0 && type != 0 && level != 0) {
             ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);

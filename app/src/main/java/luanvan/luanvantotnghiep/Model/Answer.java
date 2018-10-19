@@ -1,7 +1,7 @@
 package luanvan.luanvantotnghiep.Model;
 
 public class Answer {
-    private int mIdAnswer;
+    private String mIdAnswer;
     private String mContentAnswer;
     private int mShow = -1;
 
@@ -17,16 +17,16 @@ public class Answer {
 
     }
 
-    public Answer(int mIdAnswer, String mContentAnswer) {
+    public Answer(String mIdAnswer, String mContentAnswer) {
         this.mIdAnswer = mIdAnswer;
         this.mContentAnswer = mContentAnswer;
     }
 
-    public int getIdAnswer() {
+    public String getIdAnswer() {
         return mIdAnswer;
     }
 
-    public void setIdAnswer(int mIdAnswer) {
+    public void setIdAnswer(String mIdAnswer) {
         this.mIdAnswer = mIdAnswer;
     }
 

@@ -3,7 +3,7 @@ package luanvan.luanvantotnghiep.Model;
 
 
 public class Question{
-    private int mIdQuestion;
+    private String mIdQuestion;
     private String mContentQuestion; //Nội dung
     private int mIdLevel; //từng chặng ( 1-2-3-4 giống chương nhưng có thể mở rộng ra)
 
@@ -13,7 +13,7 @@ public class Question{
     private int mExtent; //Mức độ dễ - trung bình - khó **mặt định là 0
 
     private int mAnswer = -1;// Save answer user select (User selected)
-    private int mIdCorrect = -1; //review (Check user true or false)
+    private String mIdCorrect = ""; //review (Check user true or false)
 
     public Question() {
     }
@@ -27,16 +27,16 @@ public class Question{
 //        this.mExtent = mExtent;
 //    }
 
-    public Question(int mIdQuestion, String mContentQuestion) {
+    public Question(String mIdQuestion, String mContentQuestion) {
         this.mIdQuestion = mIdQuestion;
         this.mContentQuestion = mContentQuestion;
     }
 
-    public int getIdQuestion() {
+    public String getIdQuestion() {
         return mIdQuestion;
     }
 
-    public void setIdQuestion(int mIdQuestion) {
+    public void setIdQuestion(String mIdQuestion) {
         this.mIdQuestion = mIdQuestion;
     }
 
@@ -88,11 +88,11 @@ public class Question{
         this.mAnswer = mAnswer;
     }
 
-    public int getIdCorrect() {
+    public String getIdCorrect() {
         return mIdCorrect;
     }
 
-    public void setIdCorrect(int mIdCorrect) {
+    public void setIdCorrect(String mIdCorrect) {
         this.mIdCorrect = mIdCorrect;
     }
 }

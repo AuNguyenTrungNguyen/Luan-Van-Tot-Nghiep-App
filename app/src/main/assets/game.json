@@ -1,106 +1,24 @@
 ﻿{
-  "Chapter": [
-    {
-      "mIdChapter": "1",
-      "mNameChapter": "CHẤT - NGUYÊN TỬ - PHÂN TỬ",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "2",
-      "mNameChapter": "PHẢN ỨNG HÓA HỌC",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "3",
-      "mNameChapter": "MOL - TÍNH TOÁN HÓA HỌC",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "4",
-      "mNameChapter": "OXI - KHÔNG KHÍ",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "5",
-      "mNameChapter": "HIĐRO - NƯỚC",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "6",
-      "mNameChapter": "DUNG DỊCH",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "7",
-      "mNameChapter": "LẬP CTHH CỦA HỢP CHẤT KHI BIẾT HÓA TRỊ ",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "8",
-      "mNameChapter": "TÌM HÓA TRỊ CỦA 1 NGUYÊN TỐ KHI BIẾT CTHH",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "9",
-      "mNameChapter": "TINH TOÁN THEO CTHH",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "10",
-      "mNameChapter": "TÍNH TOÁN THEO PTHH",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "11",
-      "mNameChapter": "HIỆU SUẤT PHẢN ỨNG",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "12",
-      "mNameChapter": "CÔNG THỨC HÓA HỌC",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "13",
-      "mNameChapter": "ĐIỀU CHẾ CÁC CHẤT",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    },
-    {
-      "mIdChapter": "14",
-      "mNameChapter": "NHẬN BIẾT VÀ TÁCH CHẤT",
-      "mIdBlock": "8",
-      "mContentChapter": "8-1.pdf"
-    }
-  ],
   "TypeOfQuestion": [
     {
       "mIdType": "1",
-      "mNameType": "Trắc nghiệm"
+      "mNameType": "Trắc nghiệm",
+      "mDescription": ""
     },
     {
       "mIdType": "2",
-      "mNameType": "Điền khuyết"
+      "mNameType": "Điền khuyết",
+      "mDescription": ""
     },
     {
       "mIdType": "3",
-      "mNameType": "Nối cột"
+      "mNameType": "Nối cột",
+      "mDescription": ""
     },
     {
       "mIdType": "4",
-      "mNameType": "Sắp xếp"
+      "mNameType": "Sắp xếp",
+      "mDescription": ""
     }
   ],
   "Question": [
@@ -566,23 +484,6 @@
     {
       "mIdAnswer": "27",
       "mContentAnswer": "mang điện tích âm"
-    }
-  ],
-  "Block": [
-    {
-      "mIdBlock": "8"
-    },
-    {
-      "mIdBlock": "9"
-    },
-    {
-      "mIdBlock": "10"
-    },
-    {
-      "mIdBlock": "11"
-    },
-    {
-      "mIdBlock": "12"
     }
   ],
   "Version": "1"

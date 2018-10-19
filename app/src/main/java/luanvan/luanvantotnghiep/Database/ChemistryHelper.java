@@ -20,13 +20,19 @@ import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Compound;
 import luanvan.luanvantotnghiep.Model.CreatedReaction;
+import luanvan.luanvantotnghiep.Model.Description;
+import luanvan.luanvantotnghiep.Model.DescriptionOfChapter;
+import luanvan.luanvantotnghiep.Model.DescriptionOfHeading;
+import luanvan.luanvantotnghiep.Model.DescriptionOfTitle;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
+import luanvan.luanvantotnghiep.Model.Heading;
 import luanvan.luanvantotnghiep.Model.ProducedBy;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.Model.ReactSeries;
 import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
+import luanvan.luanvantotnghiep.Model.Title;
 import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.Model.TypeOfQuestion;
 
@@ -50,6 +56,8 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
+
+        db.execSQL(SQL_CREATE_BLOCK);
         /*
             PERIODIC TABLE
          */
@@ -82,12 +90,22 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         /*
             GAME
          */
-        db.execSQL(SQL_CREATE_BLOCK);
-        db.execSQL(SQL_CREATE_CHAPTER);
+
         db.execSQL(SQL_CREATE_TYPE_OF_QUESTION);
         db.execSQL(SQL_CREATE_ANSWER);
         db.execSQL(SQL_CREATE_QUESTION);
         db.execSQL(SQL_CREATE_ANSWER_BY_QUESTION);
+
+        /*
+            THEMATIC
+         */
+        db.execSQL(SQL_CREATE_CHAPTER);
+        db.execSQL(SQL_CREATE_HEADING);
+        db.execSQL(SQL_CREATE_TITLE);
+        db.execSQL(SQL_CREATE_DESCRIPTION);
+        db.execSQL(SQL_CREATE_DESCRIPTION_OF_CHAPTER);
+        db.execSQL(SQL_CREATE_DESCRIPTION_OF_HEADING);
+        db.execSQL(SQL_CREATE_DESCRIPTION_OF_TITLE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -96,7 +114,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
             PERIODIC TABLE
          */
         db.execSQL(SQL_DELETE_ELEMENT);
-        ///
         db.execSQL(SQL_DELETE_GROUP);
         db.execSQL(SQL_DELETE_CHEMISTRY);
         db.execSQL(SQL_DELETE_TYPE);
@@ -118,21 +135,29 @@ public class ChemistryHelper extends SQLiteOpenHelper {
          */
         db.execSQL(SQL_DELETE_COMPOUND);
         db.execSQL(SQL_DELETE_PRODUCED_BY);
-
         db.execSQL(SQL_DELETE_REACT_WITH);
         db.execSQL(SQL_DELETE_CREATED_REACTION);
         db.execSQL(SQL_DELETE_CHEMICAL_REACTION);
 
         /*
+            THEMATIC
+         */
+        db.execSQL(SQL_DELETE_DESCRIPTION_OF_TITLE);
+        db.execSQL(SQL_DELETE_DESCRIPTION_OF_HEADING);
+        db.execSQL(SQL_DELETE_DESCRIPTION_OF_CHAPTER);
+        db.execSQL(SQL_DELETE_DESCRIPTION);
+        db.execSQL(SQL_DELETE_TITLE);
+        db.execSQL(SQL_DELETE_HEADING);
+        db.execSQL(SQL_DELETE_CHAPTER);
+
+        /*
             GAME
          */
-        db.execSQL(SQL_DELETE_BLOCK);
-        db.execSQL(SQL_DELETE_CHAPTER);
         db.execSQL(SQL_DELETE_TYPE_OF_QUESTION);
         db.execSQL(SQL_DELETE_ANSWER);
         db.execSQL(SQL_DELETE_QUESTION);
         db.execSQL(SQL_DELETE_ANSWER_BY_QUESTION);
-
+        db.execSQL(SQL_DELETE_BLOCK);
 
         onCreate(db);
     }
@@ -144,22 +169,10 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     /*
         GAME
      */
-
     //[CREATE] table block
     private static final String SQL_CREATE_BLOCK =
             "CREATE TABLE " + ChemistryContract.BlockEntry.TABLE_NAME + " (" +
                     ChemistryContract.BlockEntry.COLUMN_BLOCK_ID + " INTEGER PRIMARY KEY )";
-
-    //[CREATE] table chapter
-    private static final String SQL_CREATE_CHAPTER =
-            "CREATE TABLE " + ChemistryContract.ChapterEntry.TABLE_NAME + " (" +
-                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID + " INTEGER PRIMARY KEY ," +
-                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME + " TEXT NOT NULL ," +
-                    ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + " INTEGER NOT NULL ," +
-                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONTENT + " TEXT NOT NULL ," +
-                    "FOREIGN KEY(" + ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + ") " +
-                    "REFERENCES " + ChemistryContract.BlockEntry.TABLE_NAME + "(" + ChemistryContract.BlockEntry.COLUMN_BLOCK_ID + ") " +
-                    "ON DELETE CASCADE)";
 
     //[CREATE] table type of question
     private static final String SQL_CREATE_TYPE_OF_QUESTION =
@@ -171,14 +184,14 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     //[CREATE] table answer
     private static final String SQL_CREATE_ANSWER =
             "CREATE TABLE " + ChemistryContract.AnswerEntry.TABLE_NAME + " (" +
-                    ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID + " TEXT PRIMARY KEY ," +
                     ChemistryContract.AnswerEntry.COLUMN_ANSWER_CONTENT + " TEXT NOT NULL)";
 
 
     //[CREATE] table question
     private static final String SQL_CREATE_QUESTION =
             "CREATE TABLE " + ChemistryContract.QuestionEntry.TABLE_NAME + " (" +
-                    ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID + " INTEGER PRIMARY KEY ," +
+                    ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID + " TEXT PRIMARY KEY ," +
                     ChemistryContract.QuestionEntry.COLUMN_QUESTION_CONTENT + " TEXT NOT NULL ," +
                     ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID + " INTEGER NOT NULL ," +
                     ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID + " INTEGER NOT NULL ," +
@@ -194,8 +207,8 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     //[CREATE] table answer by question
     private static final String SQL_CREATE_ANSWER_BY_QUESTION =
             "CREATE TABLE " + ChemistryContract.AnswerByQuestionEntry.TABLE_NAME + " (" +
-                    ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID + " INTEGER NOT NULL ," +
-                    ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID + " TEXT NOT NULL ," +
                     ChemistryContract.AnswerByQuestionEntry.COLUMN_CORRECT + " INTERGER NOT NULL ," +
                     "PRIMARY KEY(" + ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID + ", " +
                     ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID + "), " +
@@ -210,26 +223,142 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_BLOCK =
             "DROP TABLE IF EXISTS " + ChemistryContract.BlockEntry.TABLE_NAME;
 
-    //[DROP] table block
-    private static final String SQL_DELETE_CHAPTER =
-            "DROP TABLE IF EXISTS " + ChemistryContract.ChapterEntry.TABLE_NAME;
-
-    //[DROP] table block
+    //[DROP] table type of question
     private static final String SQL_DELETE_TYPE_OF_QUESTION =
             "DROP TABLE IF EXISTS " + ChemistryContract.TypeOfQuestionEntry.TABLE_NAME;
 
-    //[DROP] table block
+    //[DROP] table answer
     private static final String SQL_DELETE_ANSWER =
             "DROP TABLE IF EXISTS " + ChemistryContract.AnswerEntry.TABLE_NAME;
 
-    //[DROP] table block
+    //[DROP] table question
     private static final String SQL_DELETE_QUESTION =
             "DROP TABLE IF EXISTS " + ChemistryContract.QuestionEntry.TABLE_NAME;
 
-    //[DROP] table block
+    //[DROP] table answer by question
     private static final String SQL_DELETE_ANSWER_BY_QUESTION =
             "DROP TABLE IF EXISTS " + ChemistryContract.AnswerByQuestionEntry.TABLE_NAME;
 
+     /*
+        THEMATIC
+     */
+
+    //[CREATE] table chapter
+    private static final String SQL_CREATE_CHAPTER =
+            "CREATE TABLE " + ChemistryContract.ChapterEntry.TABLE_NAME + " (" +
+                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID + " TEXT PRIMARY KEY ," +
+                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME + " TEXT NOT NULL ," +
+                    ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + " INTEGER NOT NULL ," +
+                    ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONFIRM + " INTEGER NOT NULL ," +
+                    "FOREIGN KEY(" + ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID + ") " +
+                    "REFERENCES " + ChemistryContract.BlockEntry.TABLE_NAME + "(" + ChemistryContract.BlockEntry.COLUMN_BLOCK_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table heading
+    private static final String SQL_CREATE_HEADING =
+            "CREATE TABLE " + ChemistryContract.HeadingEntry.TABLE_NAME + " (" +
+                    ChemistryContract.HeadingEntry.COLUMN_HEADING_ID + " TEXT PRIMARY KEY ," +
+                    ChemistryContract.HeadingEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.HeadingEntry.COLUMN_HEADING_NAME + " TEXT NOT NULL ," +
+                    ChemistryContract.HeadingEntry.COLUMN_SORT_ORDER + " TEXT NOT NULL ," +
+                    "FOREIGN KEY(" + ChemistryContract.HeadingEntry.COLUMN_CHAPTER_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChapterEntry.TABLE_NAME + "(" + ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table title
+    private static final String SQL_CREATE_TITLE =
+            "CREATE TABLE " + ChemistryContract.TitleEntry.TABLE_NAME + " (" +
+                    ChemistryContract.TitleEntry.COLUMN_TITLE_ID + " TEXT PRIMARY KEY ," +
+                    ChemistryContract.TitleEntry.COLUMN_HEADING_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.TitleEntry.COLUMN_TITLE_NAME + " TEXT NOT NULL ," +
+                    ChemistryContract.TitleEntry.COLUMN_SORT_ORDER + " TEXT NOT NULL ," +
+                    "FOREIGN KEY(" + ChemistryContract.TitleEntry.COLUMN_HEADING_ID + ") " +
+                    "REFERENCES " + ChemistryContract.HeadingEntry.TABLE_NAME + "(" + ChemistryContract.HeadingEntry.COLUMN_HEADING_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table type of description
+//    private static final String SQL_CREATE_TYPE_OF_DESCRIPTION =
+//            "CREATE TABLE " + ChemistryContract.TypeOfDescriptionEntry.TABLE_NAME + " (" +
+//                    ChemistryContract.TypeOfDescriptionEntry.COLUMN_TYPE_OF_DESCRIPTION_ID + " TEXT PRIMARY KEY ," +
+//                    ChemistryContract.TypeOfDescriptionEntry.COLUMN_TYPE_OF_DESCRIPTION_NAME + " TEXT NOT NULL)";
+
+    //[CREATE] table description
+    private static final String SQL_CREATE_DESCRIPTION =
+            "CREATE TABLE " + ChemistryContract.DescriptionEntry.TABLE_NAME + " (" +
+                    ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID + " TEXT PRIMARY KEY ," +
+                    ChemistryContract.DescriptionEntry.COLUMN_TYPE_OF_DESCRIPTION_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_NAME + " TEXT NOT NULL ," +
+                    ChemistryContract.DescriptionEntry.COLUMN_SORT_ORDER + " TEXT NOT NULL)";
+
+    //[CREATE] table description of chapter
+    private static final String SQL_CREATE_DESCRIPTION_OF_CHAPTER =
+            "CREATE TABLE " + ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME + " (" +
+                    ChemistryContract.DescriptionOfChapterEntry.COLUMN_CHAPTER_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.DescriptionOfChapterEntry.COLUMN_DESCRIPTION_ID + " TEXT NOT NULL ," +
+                    "PRIMARY KEY(" + ChemistryContract.DescriptionOfChapterEntry.COLUMN_CHAPTER_ID + ", " +
+                    ChemistryContract.DescriptionOfChapterEntry.COLUMN_DESCRIPTION_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.DescriptionOfChapterEntry.COLUMN_CHAPTER_ID + ") " +
+                    "REFERENCES " + ChemistryContract.ChapterEntry.TABLE_NAME + "(" + ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.DescriptionOfChapterEntry.COLUMN_DESCRIPTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.DescriptionEntry.TABLE_NAME + "(" + ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table description of heading
+    private static final String SQL_CREATE_DESCRIPTION_OF_HEADING =
+            "CREATE TABLE " + ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME + " (" +
+                    ChemistryContract.DescriptionOfHeadingEntry.COLUMN_HEADING_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.DescriptionOfHeadingEntry.COLUMN_DESCRIPTION_ID + " TEXT NOT NULL ," +
+                    "PRIMARY KEY(" + ChemistryContract.DescriptionOfHeadingEntry.COLUMN_HEADING_ID + ", " +
+                    ChemistryContract.DescriptionOfHeadingEntry.COLUMN_DESCRIPTION_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.DescriptionOfHeadingEntry.COLUMN_HEADING_ID + ") " +
+                    "REFERENCES " + ChemistryContract.HeadingEntry.TABLE_NAME + "(" + ChemistryContract.HeadingEntry.COLUMN_HEADING_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.DescriptionOfHeadingEntry.COLUMN_DESCRIPTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.DescriptionEntry.TABLE_NAME + "(" + ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[CREATE] table description of title
+    private static final String SQL_CREATE_DESCRIPTION_OF_TITLE =
+            "CREATE TABLE " + ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME + " (" +
+                    ChemistryContract.DescriptionOfTitleEntry.COLUMN_TITLE_ID + " TEXT NOT NULL ," +
+                    ChemistryContract.DescriptionOfTitleEntry.COLUMN_DESCRIPTION_ID + " TEXT NOT NULL ," +
+                    "PRIMARY KEY(" + ChemistryContract.DescriptionOfTitleEntry.COLUMN_TITLE_ID + ", " +
+                    ChemistryContract.DescriptionOfTitleEntry.COLUMN_DESCRIPTION_ID + "), " +
+                    "FOREIGN KEY(" + ChemistryContract.DescriptionOfTitleEntry.COLUMN_TITLE_ID + ") " +
+                    "REFERENCES " + ChemistryContract.TitleEntry.TABLE_NAME + "(" + ChemistryContract.TitleEntry.COLUMN_TITLE_ID + ") " +
+                    "ON DELETE CASCADE," +
+                    "FOREIGN KEY(" + ChemistryContract.DescriptionOfTitleEntry.COLUMN_DESCRIPTION_ID + ") " +
+                    "REFERENCES " + ChemistryContract.DescriptionEntry.TABLE_NAME + "(" + ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID + ") " +
+                    "ON DELETE CASCADE)";
+
+    //[DROP] table chapter
+    private static final String SQL_DELETE_CHAPTER =
+            "DROP TABLE IF EXISTS " + ChemistryContract.ChapterEntry.TABLE_NAME;
+
+    //[DROP] table heading
+    private static final String SQL_DELETE_HEADING =
+            "DROP TABLE IF EXISTS " + ChemistryContract.HeadingEntry.TABLE_NAME;
+
+    //[DROP] table title
+    private static final String SQL_DELETE_TITLE =
+            "DROP TABLE IF EXISTS " + ChemistryContract.TitleEntry.TABLE_NAME;
+
+    //[DROP] table description
+    private static final String SQL_DELETE_DESCRIPTION =
+            "DROP TABLE IF EXISTS " + ChemistryContract.DescriptionEntry.TABLE_NAME;
+
+    //[DROP] table description of chapter
+    private static final String SQL_DELETE_DESCRIPTION_OF_CHAPTER =
+            "DROP TABLE IF EXISTS " + ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME;
+
+    //[DROP] table description of heading
+    private static final String SQL_DELETE_DESCRIPTION_OF_HEADING =
+            "DROP TABLE IF EXISTS " + ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME;
+
+    //[DROP] table description of title
+    private static final String SQL_DELETE_DESCRIPTION_OF_TITLE =
+            "DROP TABLE IF EXISTS " + ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME;
 
     /*
      * TABLES PERIODIC_TABLE
@@ -509,7 +638,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
     public void emptyAnion() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.AnionEntry.TABLE_NAME, null, null);
@@ -540,12 +668,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void emptyChapter() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(ChemistryContract.ChapterEntry.TABLE_NAME, null, null);
-        db.close();
-    }
-
     public void emptyTypeOfQuestion() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ChemistryContract.TypeOfQuestionEntry.TABLE_NAME, null, null);
@@ -570,30 +692,57 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //GAME
-    //{Add}
-    public void addBlock(Block block) {
+    public void emptyChapter() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.ChapterEntry.TABLE_NAME, null, null);
+        db.close();
+    }
 
+    public void emptyHeading() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.HeadingEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyTitle() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.TitleEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyDescription() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.DescriptionEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyDescriptionOfChapter() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyDescriptionOfHeading() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void emptyDescriptionOfTitle() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    //GAME
+    //[Add]
+    public void addBlock(Block block) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(ChemistryContract.BlockEntry.COLUMN_BLOCK_ID, block.getIdBlock());
 
         db.insert(ChemistryContract.BlockEntry.TABLE_NAME, null, values);
-        db.close();
-    }
-
-    public void addChapter(Chapter chapter) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID, chapter.getIdChapter());
-        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME, chapter.getNameChapter());
-        values.put(ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID, chapter.getIdBlock());
-        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONTENT, chapter.getContentChapter());
-
-        db.insert(ChemistryContract.ChapterEntry.TABLE_NAME, null, values);
         db.close();
     }
 
@@ -677,34 +826,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<Chapter> getAllChapter() {
-        List<Chapter> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
-                ChemistryContract.ChapterEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-
-        Chapter chapter;
-        while (cursor.moveToNext()) {
-            chapter = new Chapter();
-            chapter.setIdChapter(Integer.parseInt(cursor.getString(0)));
-            chapter.setNameChapter(cursor.getString(1));
-            chapter.setIdBlock(Integer.parseInt(cursor.getString(2)));
-            chapter.setContentChapter(cursor.getString(3));
-            list.add(chapter);
-
-        }
-        cursor.close();
-
-        return list;
-    }
-
     public List<TypeOfQuestion> getAllTypeOfQuestion() {
         List<TypeOfQuestion> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -748,7 +869,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         Answer answer;
         while (cursor.moveToNext()) {
             answer = new Answer();
-            answer.setIdAnswer(Integer.parseInt(cursor.getString(0)));
+            answer.setIdAnswer(cursor.getString(0));
             answer.setContentAnswer(cursor.getString(1));
             list.add(answer);
 
@@ -774,7 +895,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         Question question;
         while (cursor.moveToNext()) {
             question = new Question();
-            question.setIdQuestion(Integer.parseInt(cursor.getString(0)));
+            question.setIdQuestion(cursor.getString(0));
             question.setContentQuestion(cursor.getString(1));
             question.setIdLevel(Integer.parseInt(cursor.getString(2)));
             question.setIdBlock(Integer.parseInt(cursor.getString(3)));
@@ -804,8 +925,8 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         AnswerByQuestion answerByQuestion;
         while (cursor.moveToNext()) {
             answerByQuestion = new AnswerByQuestion();
-            answerByQuestion.setIdQuestion(Integer.parseInt(cursor.getString(0)));
-            answerByQuestion.setIdAnswer(Integer.parseInt(cursor.getString(1)));
+            answerByQuestion.setIdQuestion(cursor.getString(0));
+            answerByQuestion.setIdAnswer(cursor.getString(1));
             answerByQuestion.setCorrect(Integer.parseInt(cursor.getString(2)));
             list.add(answerByQuestion);
 
@@ -836,7 +957,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         Question question;
         while (cursor.moveToNext()) {
             question = new Question();
-            question.setIdQuestion(Integer.parseInt(cursor.getString(0)));
+            question.setIdQuestion(cursor.getString(0));
             question.setContentQuestion(cursor.getString(1));
             question.setIdLevel(Integer.parseInt(cursor.getString(2)));
             question.setIdBlock(Integer.parseInt(cursor.getString(3)));
@@ -850,7 +971,7 @@ public class ChemistryHelper extends SQLiteOpenHelper {
     }
 
     //PERIODIC TABLE
-    //{Add]
+    //[Add]
     public void addType(Type type) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -918,7 +1039,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         db.insert(ChemistryContract.ElementEntry.TABLE_NAME, null, values);
         db.close();
     }
-
 
     //[Get all]
     public List<Type> getAllTypes() {
@@ -1046,7 +1166,6 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    //ANTN
     //Get Chemistry by id
     public Chemistry getChemistryById(int id) {
 
@@ -1451,9 +1570,289 @@ public class ChemistryHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    //    Solution - 1
-//    private static final String SQL_CREATE_CHEMISTRY = "CREATE TABLE chemistry (chemistry_id INTEGER PRIMARY KEY," +
-//            " chemistry_type_id INTEGER NOT NULL CONSTRAINT chemistry_type_id REFERENCES type(type_id) ON DELETE CASCADE," +
-//            " chemistry_name TEXT)";
+    //THEMATIC
+    //[Add]
+    public void addChapter(Chapter chapter) {
 
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID, chapter.getIdChapter());
+        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME, chapter.getNameChapter());
+        values.put(ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID, chapter.getIdBlock());
+        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONFIRM, chapter.getConfirm());
+
+        db.insert(ChemistryContract.ChapterEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addHeading(Heading heading) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.HeadingEntry.COLUMN_HEADING_ID, heading.getIdHeading());
+        values.put(ChemistryContract.HeadingEntry.COLUMN_CHAPTER_ID, heading.getIdChapter());
+        values.put(ChemistryContract.HeadingEntry.COLUMN_HEADING_NAME, heading.getNameHeading());
+        values.put(ChemistryContract.HeadingEntry.COLUMN_SORT_ORDER, heading.getSortOrder());
+
+        db.insert(ChemistryContract.HeadingEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addTitle(Title title) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.TitleEntry.COLUMN_TITLE_ID, title.getIdTitle());
+        values.put(ChemistryContract.TitleEntry.COLUMN_HEADING_ID, title.getIdHeading());
+        values.put(ChemistryContract.TitleEntry.COLUMN_TITLE_NAME, title.getNameTitle());
+        values.put(ChemistryContract.TitleEntry.COLUMN_SORT_ORDER, title.getSortOrder());
+
+        db.insert(ChemistryContract.TitleEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addDescription(Description description) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID, description.getIdDescription());
+        values.put(ChemistryContract.DescriptionEntry.COLUMN_TYPE_OF_DESCRIPTION_ID, description.getIdTypeOfDescription());
+        values.put(ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_NAME, description.getNameDescription());
+        values.put(ChemistryContract.DescriptionEntry.COLUMN_SORT_ORDER, description.getSortOrder());
+
+        db.insert(ChemistryContract.DescriptionEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addDescriptionOfChapter(DescriptionOfChapter descriptionOfChapter) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.DescriptionOfChapterEntry.COLUMN_CHAPTER_ID, descriptionOfChapter.getIdChapter());
+        values.put(ChemistryContract.DescriptionOfChapterEntry.COLUMN_DESCRIPTION_ID, descriptionOfChapter.getIdDescription());
+
+        db.insert(ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addDescriptionOfHeading(DescriptionOfHeading descriptionOfHeading) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.DescriptionOfHeadingEntry.COLUMN_HEADING_ID, descriptionOfHeading.getIdHeading());
+        values.put(ChemistryContract.DescriptionOfHeadingEntry.COLUMN_DESCRIPTION_ID, descriptionOfHeading.getIdDescription());
+
+        db.insert(ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void addDescriptionOfTitle(DescriptionOfTitle descriptionOfTitle) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ChemistryContract.DescriptionOfTitleEntry.COLUMN_TITLE_ID, descriptionOfTitle.getIdTitle());
+        values.put(ChemistryContract.DescriptionOfTitleEntry.COLUMN_DESCRIPTION_ID, descriptionOfTitle.getIdDescription());
+
+        long check = db.insert(ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME, null, values);
+        Log.i("hns", check + "");
+        db.close();
+    }
+
+    //{Get all}
+    public List<Chapter> getAllChapter() {
+        List<Chapter> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.ChapterEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Chapter chapter;
+        while (cursor.moveToNext()) {
+            chapter = new Chapter();
+            chapter.setIdChapter(cursor.getString(0));
+            chapter.setNameChapter(cursor.getString(1));
+            chapter.setIdBlock(Integer.parseInt(cursor.getString(2)));
+            chapter.setConfirm(Integer.parseInt(cursor.getString(3)));
+
+            list.add(chapter);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Heading> getAllHeading() {
+        List<Heading> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.HeadingEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Heading heading;
+        while (cursor.moveToNext()) {
+            heading = new Heading();
+            heading.setIdHeading(cursor.getString(0));
+            heading.setIdChapter(cursor.getString(1));
+            heading.setNameHeading(cursor.getString(2));
+            heading.setSortOrder(cursor.getString(3));
+
+            list.add(heading);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Title> getAllTitle() {
+        List<Title> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.TitleEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Title title;
+        while (cursor.moveToNext()) {
+            title = new Title();
+            title.setIdTitle(cursor.getString(0));
+            title.setIdHeading(cursor.getString(1));
+            title.setNameTitle(cursor.getString(2));
+            title.setSortOrder(cursor.getString(3));
+
+            list.add(title);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<Description> getAllDescription() {
+        List<Description> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.DescriptionEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Description description;
+        while (cursor.moveToNext()) {
+            description = new Description();
+            description.setIdDescription(cursor.getString(0));
+            description.setIdTypeOfDescription(cursor.getString(1));
+            description.setNameDescription(cursor.getString(2));
+            description.setSortOrder(cursor.getString(3));
+
+            list.add(description);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<DescriptionOfChapter> getAllDescriptionOfChapter() {
+        List<DescriptionOfChapter> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        DescriptionOfChapter descriptionOfChapter;
+        while (cursor.moveToNext()) {
+            descriptionOfChapter = new DescriptionOfChapter();
+            descriptionOfChapter.setIdChapter(cursor.getString(0));
+            descriptionOfChapter.setIdDescription(cursor.getString(1));
+
+            list.add(descriptionOfChapter);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<DescriptionOfHeading> getAllDescriptionOfHeading() {
+        List<DescriptionOfHeading> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        DescriptionOfHeading descriptionOfHeading;
+        while (cursor.moveToNext()) {
+            descriptionOfHeading = new DescriptionOfHeading();
+            descriptionOfHeading.setIdHeading(cursor.getString(0));
+            descriptionOfHeading.setIdDescription(cursor.getString(1));
+
+            list.add(descriptionOfHeading);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public List<DescriptionOfTitle> getAllDescriptionOfTitle() {
+        List<DescriptionOfTitle> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        DescriptionOfTitle descriptionOfTitle;
+        while (cursor.moveToNext()) {
+            descriptionOfTitle = new DescriptionOfTitle();
+            descriptionOfTitle.setIdTitle(cursor.getString(0));
+            descriptionOfTitle.setIdDescription(cursor.getString(1));
+
+            list.add(descriptionOfTitle);
+        }
+        cursor.close();
+
+        return list;
+    }
 }

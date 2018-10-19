@@ -32,10 +32,10 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
     private List<Question> mQuestionList;
     private List<Answer> mListAnswer;
     private List<AnswerByQuestion> mAnswerByQuestionList = new ArrayList<>();
-    private List<Integer> mListUserAnswer;
+    private List<String> mListUserAnswer;
     private ChemistryHelper mChemistryHelper;
 
-    public MatchQuestionAdapter(Context mContext, List<Question> mListData, List<Answer> mListHandle, List<Integer> mListUserAnswer) {
+    public MatchQuestionAdapter(Context mContext, List<Question> mListData, List<Answer> mListHandle, List<String> mListUserAnswer) {
         this.mContext = mContext;
         this.mQuestionList = mListData;
         this.mListAnswer = mListHandle;
@@ -74,11 +74,11 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
 
             mAnswerByQuestionList.addAll(mChemistryHelper.getAllAnswerByQuestion());
             // correct answer
-            int review = -1;
+            String review = "";
             for (int j = 0; j < mQuestionList.size(); j++) {
                 for (AnswerByQuestion answerByQuestion : mAnswerByQuestionList) {
-                    if (answerByQuestion.getIdQuestion() == question.getIdQuestion()
-                            && answerByQuestion.getIdAnswer() == mListAnswer.get(j).getIdAnswer()) {
+                    if (answerByQuestion.getIdQuestion().equals(question.getIdQuestion())
+                            && answerByQuestion.getIdAnswer().equals(mListAnswer.get(j).getIdAnswer())) {
                         review = mListAnswer.get(j).getIdAnswer();
                         break;
                     }

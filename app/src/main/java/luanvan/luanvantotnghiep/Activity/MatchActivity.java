@@ -20,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,25 +27,13 @@ import java.util.Date;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Adapter.MatchQuestionAdapter;
-import luanvan.luanvantotnghiep.Adapter.SortAdapter;
 import luanvan.luanvantotnghiep.Communicate.MatchGame;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
-import luanvan.luanvantotnghiep.Model.Chemistry;
-import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Question;
-import luanvan.luanvantotnghiep.Model.ReactSeries;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
-import luanvan.luanvantotnghiep.Util.Constraint;
-
-import static luanvan.luanvantotnghiep.Util.Constraint.ELECTRONEGATIVITY_ASC;
-import static luanvan.luanvantotnghiep.Util.Constraint.ELECTRONEGATIVITY_DEC;
-import static luanvan.luanvantotnghiep.Util.Constraint.NUMBER_ATOM_ASC;
-import static luanvan.luanvantotnghiep.Util.Constraint.NUMBER_ATOM_DEC;
-import static luanvan.luanvantotnghiep.Util.Constraint.WEIGHT_ASC;
-import static luanvan.luanvantotnghiep.Util.Constraint.WEIGHT_DEC;
 
 public class MatchActivity extends AppCompatActivity implements MatchGame, View.OnClickListener {
 
@@ -58,7 +45,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
     private List<Question> mQuestionList;
     private List<Answer> mListAnswer;
     private List<AnswerByQuestion> mAnswerByQuestionList;
-    private List<Integer> mListUserAnswer = new ArrayList<>(); //save id answer
+    private List<String> mListUserAnswer = new ArrayList<>(); //save id answer
 
     private MatchQuestionAdapter mAdapterQuestion;
 
@@ -180,7 +167,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         for (Question question : mDataQuestionList) {
             for (AnswerByQuestion answerByQuestion : mAnswerByQuestionList) {
-                if (answerByQuestion.getIdQuestion() == question.getIdQuestion()) {
+                if (answerByQuestion.getIdQuestion().equals(question.getIdQuestion())) {
                     mDataABQList.add(answerByQuestion);
                 }
             }
@@ -188,7 +175,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         for (AnswerByQuestion answerByQuestion : mDataABQList) {
             for (Answer answer : mListAnswer) {
-                if (answer.getIdAnswer() == answerByQuestion.getIdAnswer()) {
+                if (answer.getIdAnswer().equals(answerByQuestion.getIdAnswer())) {
                     mDataAnswerList.add(answer);
                 }
             }
@@ -226,7 +213,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         }.start();
 
         for (int i = 0; i < mDataAnswerList.size(); i++) {
-            mListUserAnswer.add(-1);
+            mListUserAnswer.add("");
         }
         Log.i("hns", " size " + mDataAnswerList.size());
 
@@ -239,7 +226,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
     }
 
     @Override
-    public void userClick(int position, int idAnswer) {
+    public void userClick(int position, String idAnswer) {
         mListUserAnswer.set(position, idAnswer);
     }
 
@@ -299,8 +286,8 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         for (int i = 0; i < mDataQuestionList.size(); i++) {
             for (AnswerByQuestion answerByQuestion : mDataABQList) {
-                if (answerByQuestion.getIdQuestion() == mDataQuestionList.get(i).getIdQuestion()
-                        && answerByQuestion.getIdAnswer() == mListUserAnswer.get(i)) {
+                if (answerByQuestion.getIdQuestion().equals(mDataQuestionList.get(i).getIdQuestion())
+                        && answerByQuestion.getIdAnswer().equals(mListUserAnswer.get(i))) {
                     score++;
                     break;
                 }

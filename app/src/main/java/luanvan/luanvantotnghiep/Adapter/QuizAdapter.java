@@ -30,7 +30,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     private HashMap<Integer, List<Answer>> map = new HashMap<>();
 
     public interface CommunicateQuiz {
-        void onUserChooseAnswer(int question, int answer);
+        void onUserChooseAnswer(int question, String answer);
     }
 
     private CommunicateQuiz communicateQuiz;
@@ -67,9 +67,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
         //list: content 4 ids answer by question
         List<AnswerByQuestion> list = new ArrayList<>();
-        int idQuestion = question.getIdQuestion();
+        String idQuestion = question.getIdQuestion();
         for (AnswerByQuestion answerByQuestion : mAnswerByQuestionList) {
-            if (idQuestion == answerByQuestion.getIdQuestion()) {
+            if (idQuestion.equals(answerByQuestion.getIdQuestion())) {
                 list.add(answerByQuestion);
             }
         }
@@ -78,9 +78,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         if (map.get(position) == null) {
             List<Answer> listMap = new ArrayList<>();
             for (Answer answer : mAnswerList) {
-                int idAnswer = answer.getIdAnswer();
+                String idAnswer = answer.getIdAnswer();
                 for (AnswerByQuestion answerByQuestion : list) {
-                    if (idAnswer == answerByQuestion.getIdAnswer()) {
+                    if (idAnswer.equals(answerByQuestion.getIdAnswer())) {
                         listMap.add(answer);
                     }
                 }
@@ -136,10 +136,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
             }
         });
 
-        if (question.getIdCorrect() != -1) {
+        if (!question.getIdCorrect().equals("")) {
             int ui = -1;
             for (int i = 0; i < map.get(position).size(); i++) {
-                if (map.get(position).get(i).getIdAnswer() == question.getIdCorrect()) {
+                if (map.get(position).get(i).getIdAnswer().equals(question.getIdCorrect())) {
                     ui = i;
                     break;
                 }

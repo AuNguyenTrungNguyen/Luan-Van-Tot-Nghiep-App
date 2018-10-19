@@ -1,32 +1,32 @@
 package luanvan.luanvantotnghiep.Model;
 
 public class AnswerByQuestion {
-    private int mIdQuestion;
-    private int mIdAnswer;
+    private String mIdQuestion;
+    private String mIdAnswer;
     private int mCorrect;
 
     public AnswerByQuestion() {
     }
 
-    public AnswerByQuestion(int mIdQuestion, int mIdAnswer, int mCorrect) {
+    public AnswerByQuestion(String mIdQuestion, String mIdAnswer, int mCorrect) {
         this.mIdQuestion = mIdQuestion;
         this.mIdAnswer = mIdAnswer;
         this.mCorrect = mCorrect;
     }
 
-    public int getIdQuestion() {
+    public String getIdQuestion() {
         return mIdQuestion;
     }
 
-    public void setIdQuestion(int mIdQuestion) {
+    public void setIdQuestion(String mIdQuestion) {
         this.mIdQuestion = mIdQuestion;
     }
 
-    public int getIdAnswer() {
+    public String getIdAnswer() {
         return mIdAnswer;
     }
 
-    public void setIdAnswer(int mIdAnswer) {
+    public void setIdAnswer(String mIdAnswer) {
         this.mIdAnswer = mIdAnswer;
     }
 

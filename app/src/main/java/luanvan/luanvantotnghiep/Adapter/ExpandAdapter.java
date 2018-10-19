@@ -1,7 +1,6 @@
 package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,40 +11,41 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-import luanvan.luanvantotnghiep.Activity.ShowTheoryActivity;
 import luanvan.luanvantotnghiep.Model.Chapter;
+import luanvan.luanvantotnghiep.Model.Heading;
+import luanvan.luanvantotnghiep.Model.Title;
 import luanvan.luanvantotnghiep.R;
 
-public class ExpandAdapter extends BaseExpandableListAdapter{
+public class ExpandAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
-    private List<String> mListHeader;
-    private HashMap<String, List<Chapter>> mListItem;
+    private List<Heading> mListHeadeing;
+    private HashMap<Heading, List<Title>> mMapTitle;
 
-    public ExpandAdapter(Context mContext, List<String> mListHeader, HashMap<String, List<Chapter>> mListItem) {
+    public ExpandAdapter(Context mContext, List<Heading> mListHeadeing, HashMap<Heading, List<Title>> mMapTitle) {
         this.mContext = mContext;
-        this.mListHeader = mListHeader;
-        this.mListItem = mListItem;
+        this.mListHeadeing = mListHeadeing;
+        this.mMapTitle = mMapTitle;
     }
 
     @Override
     public int getGroupCount() {
-        return mListHeader.size();
+        return mListHeadeing.size();
     }
 
     @Override
     public int getChildrenCount(int i) {
-        return mListItem.get(mListHeader.get(i)).size();
+        return mMapTitle.get(mListHeadeing.get(i)).size();
     }
 
     @Override
     public Object getGroup(int i) {
-        return mListHeader.get(i);
+        return mListHeadeing.get(i);
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        return mListItem.get(mListHeader.get(i)).get(i1);
+        return mMapTitle.get(mListHeadeing.get(i)).get(i1);
     }
 
     @Override
@@ -65,36 +65,26 @@ public class ExpandAdapter extends BaseExpandableListAdapter{
 
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        final String header = (String) getGroup(i);
-        if(view == null){
+        final Heading heading = (Heading) getGroup(i);
+        if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.expand_header, viewGroup, false);
         }
 
         TextView tvHeader = view.findViewById(R.id.tv_expand_header);
-        tvHeader.setText(header);
+        tvHeader.setText(heading.getNameHeading());
 
         return view;
     }
 
     @Override
     public View getChildView(final int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        final Chapter item = (Chapter) getChild(i, i1);
-        if(view == null){
+        final Title title = (Title) getChild(i, i1);
+        if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.expand_item, viewGroup, false);
         }
 
-        LinearLayout layout = view.findViewById(R.id.expand_item);
         TextView tvItem = view.findViewById(R.id.tv_expand_item);
-        tvItem.setText(String.format("Chuyên đề %s: %s", item.getIdChapter(),item.getNameChapter()));
-
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, ShowTheoryActivity.class);
-                intent.putExtra("CONTENT",item.getContentChapter());
-                mContext.startActivity(intent);
-            }
-        });
+        tvItem.setText(title.getNameTitle());
 
         return view;
     }

@@ -30,4 +30,12 @@ public class PreferencesManager {
     public void saveIntData(String key, int value){
         mPreferences.edit().putInt(key, value).apply();
     }
+
+    public boolean getBooleanData(String key, boolean defValue){
+        return mPreferences.getBoolean(key, defValue);
+    }
+
+    public void saveBooleanData(String key, boolean value){
+        mPreferences.edit().putBoolean(key, value).apply();
+    }
 }

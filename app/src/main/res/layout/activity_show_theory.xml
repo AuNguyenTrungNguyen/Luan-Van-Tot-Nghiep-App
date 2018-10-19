@@ -12,9 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfView"
+    <TextView
+        android:id="@+id/tv_name_chapter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="30sp" />
+
+    <ExpandableListView
+        android:id="@+id/elv_thematic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -59,7 +59,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private int mTotalQuestion = 0;
 
     //List use update UI and handle score
-    private List<Integer> mListUserAnswer;
+    private List<String> mListUserAnswer;
     private CheckingAnswerAdapter mCheckingAnswerAdapter;
 
     private Dialog dialog;
@@ -73,12 +73,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-        addDataQuestion();
-
-        addDataAnswer();
-
-        addDataAnswerByQuestion();
-
+//        addDataQuestion();
+//
+//        addDataAnswer();
+//
+//        addDataAnswerByQuestion();
     }
 
     @Override
@@ -99,7 +98,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 //prepare data score
                 mListUserAnswer = new ArrayList<>();
                 for (int i = 0; i < mTotalQuestion; i++) {
-                    mListUserAnswer.add(i, -1);
+                    mListUserAnswer.add(i, "");
                 }
 
                 //random list question
@@ -223,8 +222,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int i = 0; i < mQuestionList.size(); i++) {
             for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
-                if (mQuestionList.get(i).getIdQuestion() == mAnswerByQuestionList.get(j).getIdQuestion()
-                        && mListUserAnswer.get(i) == mAnswerByQuestionList.get(j).getIdAnswer()) {
+                if (mQuestionList.get(i).getIdQuestion().equals(mAnswerByQuestionList.get(j).getIdQuestion())
+                        && mListUserAnswer.get(i).equals(mAnswerByQuestionList.get(j).getIdAnswer())) {
                     if (mAnswerByQuestionList.get(j).getCorrect() == 1) {
                         score++;
                         break;
@@ -307,528 +306,528 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerByQuestionList = new ArrayList<>();
     }
 
-    private void addDataQuestion() {
-        mQuestionList = new ArrayList<>();
-        Question question;
-
-        question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
-        mQuestionList.add(question);
-
-        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
-        mQuestionList.add(question);
-
-        question = new Question(3, "Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
-        mQuestionList.add(question);
-
-        question = new Question(4, "Nước sông hồ thuộc loại:");
-        mQuestionList.add(question);
-
-        question = new Question(5, "Để tách rượu ra khỏi hỗn hợp rượu lẫn nước, dùng cách nào sau đây?");
-        mQuestionList.add(question);
-
-        question = new Question(6, "Nhận xét nào sau đây đúng?");
-        mQuestionList.add(question);
-
-        question = new Question(7, "Hỗn hợp nào sau đây có thể tách riêng các chất thành phần bằng cách cho hỗn hợp vào nước, sau đó khuấy đều và lọc?");
-        mQuestionList.add(question);
-
-        question = new Question(8, "Tính chất nào của chất trong số các chất sau đây có thể biết được bằng cách quan sát trực tiếp mà không phải dùng dụng cụ đo hay làm thí nghiệm?");
-        mQuestionList.add(question);
-
-        question = new Question(9, "Dựa vào tính chất nào dưới đây mà ta khẳng định được trong chất lỏng là tinh khiết?");
-        mQuestionList.add(question);
-
-        question = new Question(10, "Cách hợp lí nhất để tách muối từ nước biển là:");
-        mQuestionList.add(question);
-
-        question = new Question(11, "Rượu etylic( cồn) sôi ở 78,3<small><sup>o</sup></small>C nước sôi ở 100<small><sup>o</sup></small>C. Muốn tách rượu ra khỏi hỗn hợp nước có thể dùng cách nào trong số các cách cho dưới đây?");
-        mQuestionList.add(question);
-
-        question = new Question(12, "Trong số các câu sau, câu nào đúng nhất khi nói về khoa học hóa học?");
-        mQuestionList.add(question);
-
-        question = new Question(13, "Nguyên tử có khả năng liên kết với nhau do nhờ có loại hạt nào?");
-        mQuestionList.add(question);
-
-        question = new Question(14, "Đường kính của nguyên tử cỡ khoảng bao nhiêu mét?");
-        mQuestionList.add(question);
-
-        question = new Question(15, "Phân tử khối của Cu nặng gấp bao nhiêu lần phân tử O<small><sub>2</sub></small>?");
-        mQuestionList.add(question);
-
-        question = new Question(16, "Khối lượng của nguyên tử cỡ bao nhiêu kg?");
-        mQuestionList.add(question);
-
-        question = new Question(17, "Nguyên tử khối là khối lượng của một nguyên tử tính bằng đơn vị nào?");
-        mQuestionList.add(question);
-
-        question = new Question(18, "Trong khoảng không gian giữa hạt nhân và lớp vỏ electron của nguyên tử có những gì?");
-        mQuestionList.add(question);
-
-        question = new Question(19, "Thành phần cấu tạo của hầu hết của các loại nguyên tử gồm:");
-        mQuestionList.add(question);
-
-        question = new Question(20, "Chọn câu phát biểu đúng về cấu tạo của hạt nhân trong các phát biểu sau: Hạt nhân nguyên tử cấu tạo bởi:");
-        mQuestionList.add(question);
-    }
-
-    private void addDataAnswerByQuestion() {
-        mAnswerByQuestionList = new ArrayList<>();
-        AnswerByQuestion answerByQuestion;
-
-        answerByQuestion = new AnswerByQuestion(1, 1, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(1, 2, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(1, 3, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(1, 4, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(2, 1, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(2, 2, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(2, 3, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(2, 4, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(3, 5, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(3, 6, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(3, 7, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(3, 8, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(4, 9, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(4, 10, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(4, 11, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(4, 12, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(5, 13, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(5, 14, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(5, 15, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(5, 16, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(6, 17, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(6, 18, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(6, 19, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(6, 20, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        //7777777
-        answerByQuestion = new AnswerByQuestion(7, 21, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(7, 22, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(7, 23, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(7, 24, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        //8888888888
-        answerByQuestion = new AnswerByQuestion(8, 25, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(8, 26, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(8, 27, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(8, 28, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(9, 29, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(9, 30, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(9, 31, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(9, 32, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(10, 33, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(10, 34, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(10, 35, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(10, 36, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(11, 33, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(11, 35, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(11, 39, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(11, 40, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(12, 41, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(12, 42, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(12, 43, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(12, 44, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(13, 45, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(13, 46, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(13, 47, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(13, 48, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(14, 49, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(14, 50, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(14, 51, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(14, 52, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(15, 53, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(15, 54, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(15, 55, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(15, 56, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(16, 57, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(16, 58, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(16, 59, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(16, 60, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(17, 61, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(17, 62, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(17, 63, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(17, 64, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(18, 46, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(18, 47, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(18, 67, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(18, 68, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(19, 69, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(19, 70, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(19, 71, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(19, 72, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(20, 69, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(20, 70, 1);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(20, 71, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-        answerByQuestion = new AnswerByQuestion(20, 72, 0);
-        mAnswerByQuestionList.add(answerByQuestion);
-
-    }
-
-    private void addDataAnswer() {
-
-        mAnswerList = new ArrayList<>();
-        Answer answer;
-
-        answer = new Answer(1, "Ấm nhôm, bình thủy tinh, nồi đất sét.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(2, "Xenlulozơ, kẽm, vàng.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(3, "Thao, bút, tập, sách.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(4, "Nước biển, ao, hồ, suối.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(5, "Bàn ghế, đường kính, vải may áo.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(6, "Muối ăn, đường kính, bột sắt, nước cất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(7, "Bút chì, thước kẻ, nước cất, vàng.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(8, "Nhôm, sắt, than củi, chảo gang.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(9, "Đơn chất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(10, "Hợp chất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(11, "Chất tinh khiết.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(12, "Hỗn hợp.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(13, "Lọc.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(14, "Dùng phễu chiết.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(15, "Chưng cất phân đoạn.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(16, "Đốt.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(17, "Xăng, khí nitơ, muối ăn, nước tự nhiên là hỗn hợp.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(18, "Sữa, không khí, nước chanh, trà đá là hợp chất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(19, "Muối ăn, đường, khí cacbonic, nước cất là chất tinh khiết.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(20, "Dựa vào sự khác nhau về tính chất vật lý có thể tách một chất ra khỏi hỗn hợp.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(21, "Bột đá vôi và muối ăn.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(22, "Bột than và bột sắt.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(23, "Đường và muối.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(24, "Giấm và rượu.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(25, "Màu sắc.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(26, "Tính tan trong nước.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(27, "Khối lượng riêng.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(28, "Nhiệt độ nóng chảy.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(29, "Không màu, không mùi.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(30, "Không tan trong nước.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(31, "Lọc được qua giấy lọc .");
-        mAnswerList.add(answer);
-
-        answer = new Answer(32, "Có nhiệt độ sôi nhất định.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(33, "Lọc.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(34, "Chưng cất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(35, "Bay hơi.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(36, "Để yên cho muối lắng xuống rồi gạn đi.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(39, "Chưng cất ở nhiệt độ khoảng 80<small><sup>o</sup></small>C.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(40, "Không tách được.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(41, "Hóa học là khoa học nghiên cứu tính chất vật lí của chất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(42, "Hóa học là khoa học nghiên cứu tính chất hóa học của chất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(43, "Hóa học là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng của chúng.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(44, "Hóa học là khoa học nghiên cứu tính chất và ứng dụng của chất.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(45, "Electron.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(46, "Prôton.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(47, "Nơtron.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(48, "Tất cả đều sai.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(49, "10<small><sup>-6</sup></small>m.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(50, "10<small><sup>-8</sup></small>m.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(51, "10<small><sup>-10</sup></small>m.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(52, "10<small><sup>-20</sup></small>m.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(53, "64 lần.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(54, "4 lần.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(55, "2 lần.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(56, "34 lần.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(57, "10<small><sup>-6</sup></small>kg.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(58, "10<small><sup>-10</sup></small>kg.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(59, "10<small><sup>-20</sup></small>kg.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(60, "10<small><sup>-27</sup></small>kg.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(61, "Gam.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(62, "Kilôgam.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(63, "Đơn vị Cabon (dvC).");
-        mAnswerList.add(answer);
-
-        answer = new Answer(64, "Cả 3 đơn vị trên.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(67, "Cả Prôton và Nơtron.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(68, "Không có gì( trống rỗng).");
-        mAnswerList.add(answer);
-
-        answer = new Answer(69, "Prôton và electron.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(70, "Nơtron và electron.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(71, "Prôton và nơtron.");
-        mAnswerList.add(answer);
-
-        answer = new Answer(72, "Prôton, nơtron và electron.");
-        mAnswerList.add(answer);
-    }
+//    private void addDataQuestion() {
+//        mQuestionList = new ArrayList<>();
+//        Question question;
+//
+//        question = new Question(1, "Chỉ ra dãy nào chỉ gồm toàn là vật thể tự nhiên?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(2, "Chỉ ra dãy nào chỉ gồm toàn là vật thể nhân tạo?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(3, "Cho dãy các cụm từ sau, dãy nào dưới đây chỉ chất?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(4, "Nước sông hồ thuộc loại:");
+//        mQuestionList.add(question);
+//
+//        question = new Question(5, "Để tách rượu ra khỏi hỗn hợp rượu lẫn nước, dùng cách nào sau đây?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(6, "Nhận xét nào sau đây đúng?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(7, "Hỗn hợp nào sau đây có thể tách riêng các chất thành phần bằng cách cho hỗn hợp vào nước, sau đó khuấy đều và lọc?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(8, "Tính chất nào của chất trong số các chất sau đây có thể biết được bằng cách quan sát trực tiếp mà không phải dùng dụng cụ đo hay làm thí nghiệm?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(9, "Dựa vào tính chất nào dưới đây mà ta khẳng định được trong chất lỏng là tinh khiết?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(10, "Cách hợp lí nhất để tách muối từ nước biển là:");
+//        mQuestionList.add(question);
+//
+//        question = new Question(11, "Rượu etylic( cồn) sôi ở 78,3<small><sup>o</sup></small>C nước sôi ở 100<small><sup>o</sup></small>C. Muốn tách rượu ra khỏi hỗn hợp nước có thể dùng cách nào trong số các cách cho dưới đây?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(12, "Trong số các câu sau, câu nào đúng nhất khi nói về khoa học hóa học?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(13, "Nguyên tử có khả năng liên kết với nhau do nhờ có loại hạt nào?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(14, "Đường kính của nguyên tử cỡ khoảng bao nhiêu mét?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(15, "Phân tử khối của Cu nặng gấp bao nhiêu lần phân tử O<small><sub>2</sub></small>?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(16, "Khối lượng của nguyên tử cỡ bao nhiêu kg?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(17, "Nguyên tử khối là khối lượng của một nguyên tử tính bằng đơn vị nào?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(18, "Trong khoảng không gian giữa hạt nhân và lớp vỏ electron của nguyên tử có những gì?");
+//        mQuestionList.add(question);
+//
+//        question = new Question(19, "Thành phần cấu tạo của hầu hết của các loại nguyên tử gồm:");
+//        mQuestionList.add(question);
+//
+//        question = new Question(20, "Chọn câu phát biểu đúng về cấu tạo của hạt nhân trong các phát biểu sau: Hạt nhân nguyên tử cấu tạo bởi:");
+//        mQuestionList.add(question);
+//    }
+//
+//    private void addDataAnswerByQuestion() {
+//        mAnswerByQuestionList = new ArrayList<>();
+//        AnswerByQuestion answerByQuestion;
+//
+//        answerByQuestion = new AnswerByQuestion(1, 1, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(1, 2, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(1, 3, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(1, 4, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(2, 1, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(2, 2, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(2, 3, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(2, 4, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(3, 5, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(3, 6, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(3, 7, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(3, 8, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(4, 9, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(4, 10, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(4, 11, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(4, 12, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(5, 13, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(5, 14, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(5, 15, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(5, 16, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(6, 17, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(6, 18, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(6, 19, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(6, 20, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        //7777777
+//        answerByQuestion = new AnswerByQuestion(7, 21, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(7, 22, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(7, 23, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(7, 24, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        //8888888888
+//        answerByQuestion = new AnswerByQuestion(8, 25, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(8, 26, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(8, 27, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(8, 28, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(9, 29, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(9, 30, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(9, 31, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(9, 32, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(10, 33, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(10, 34, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(10, 35, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(10, 36, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(11, 33, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(11, 35, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(11, 39, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(11, 40, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(12, 41, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(12, 42, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(12, 43, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(12, 44, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(13, 45, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(13, 46, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(13, 47, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(13, 48, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(14, 49, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(14, 50, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(14, 51, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(14, 52, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(15, 53, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(15, 54, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(15, 55, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(15, 56, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(16, 57, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(16, 58, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(16, 59, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(16, 60, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(17, 61, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(17, 62, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(17, 63, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(17, 64, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(18, 46, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(18, 47, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(18, 67, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(18, 68, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(19, 69, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(19, 70, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(19, 71, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(19, 72, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(20, 69, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(20, 70, 1);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(20, 71, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//        answerByQuestion = new AnswerByQuestion(20, 72, 0);
+//        mAnswerByQuestionList.add(answerByQuestion);
+//
+//    }
+//
+//    private void addDataAnswer() {
+//
+//        mAnswerList = new ArrayList<>();
+//        Answer answer;
+//
+//        answer = new Answer(1, "Ấm nhôm, bình thủy tinh, nồi đất sét.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(2, "Xenlulozơ, kẽm, vàng.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(3, "Thao, bút, tập, sách.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(4, "Nước biển, ao, hồ, suối.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(5, "Bàn ghế, đường kính, vải may áo.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(6, "Muối ăn, đường kính, bột sắt, nước cất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(7, "Bút chì, thước kẻ, nước cất, vàng.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(8, "Nhôm, sắt, than củi, chảo gang.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(9, "Đơn chất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(10, "Hợp chất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(11, "Chất tinh khiết.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(12, "Hỗn hợp.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(13, "Lọc.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(14, "Dùng phễu chiết.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(15, "Chưng cất phân đoạn.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(16, "Đốt.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(17, "Xăng, khí nitơ, muối ăn, nước tự nhiên là hỗn hợp.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(18, "Sữa, không khí, nước chanh, trà đá là hợp chất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(19, "Muối ăn, đường, khí cacbonic, nước cất là chất tinh khiết.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(20, "Dựa vào sự khác nhau về tính chất vật lý có thể tách một chất ra khỏi hỗn hợp.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(21, "Bột đá vôi và muối ăn.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(22, "Bột than và bột sắt.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(23, "Đường và muối.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(24, "Giấm và rượu.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(25, "Màu sắc.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(26, "Tính tan trong nước.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(27, "Khối lượng riêng.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(28, "Nhiệt độ nóng chảy.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(29, "Không màu, không mùi.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(30, "Không tan trong nước.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(31, "Lọc được qua giấy lọc .");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(32, "Có nhiệt độ sôi nhất định.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(33, "Lọc.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(34, "Chưng cất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(35, "Bay hơi.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(36, "Để yên cho muối lắng xuống rồi gạn đi.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(39, "Chưng cất ở nhiệt độ khoảng 80<small><sup>o</sup></small>C.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(40, "Không tách được.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(41, "Hóa học là khoa học nghiên cứu tính chất vật lí của chất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(42, "Hóa học là khoa học nghiên cứu tính chất hóa học của chất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(43, "Hóa học là khoa học nghiên cứu các chất, sự biến đổi và ứng dụng của chúng.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(44, "Hóa học là khoa học nghiên cứu tính chất và ứng dụng của chất.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(45, "Electron.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(46, "Prôton.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(47, "Nơtron.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(48, "Tất cả đều sai.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(49, "10<small><sup>-6</sup></small>m.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(50, "10<small><sup>-8</sup></small>m.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(51, "10<small><sup>-10</sup></small>m.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(52, "10<small><sup>-20</sup></small>m.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(53, "64 lần.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(54, "4 lần.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(55, "2 lần.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(56, "34 lần.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(57, "10<small><sup>-6</sup></small>kg.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(58, "10<small><sup>-10</sup></small>kg.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(59, "10<small><sup>-20</sup></small>kg.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(60, "10<small><sup>-27</sup></small>kg.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(61, "Gam.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(62, "Kilôgam.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(63, "Đơn vị Cabon (dvC).");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(64, "Cả 3 đơn vị trên.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(67, "Cả Prôton và Nơtron.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(68, "Không có gì( trống rỗng).");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(69, "Prôton và electron.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(70, "Nơtron và electron.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(71, "Prôton và nơtron.");
+//        mAnswerList.add(answer);
+//
+//        answer = new Answer(72, "Prôton, nơtron và electron.");
+//        mAnswerList.add(answer);
+//    }
 
     private void showQuestion() {
 
@@ -851,17 +850,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void reviewQuiz() {
 
-        for (int i = 0; i < mQuestionList.size(); i++) {
-            Question question = mQuestionList.get(i);
-            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
-                AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
-                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.getCorrect() == 1) {
-                    question.setIdCorrect(answerByQuestion.getIdAnswer());
-                    break;
-                }
-            }
-
-        }
+//        for (int i = 0; i < mQuestionList.size(); i++) {
+//            Question question = mQuestionList.get(i);
+//            for (int j = 0; j < mAnswerByQuestionList.size(); j++) {
+//                AnswerByQuestion answerByQuestion = mAnswerByQuestionList.get(j);
+//                if (question.getIdQuestion() == answerByQuestion.getIdQuestion() && answerByQuestion.getCorrect() == 1) {
+//                    question.setIdCorrect(answerByQuestion.getIdAnswer());
+//                    break;
+//                }
+//            }
+//
+//        }
         mRvQuestion.scrollToPosition(0);
         mQuizAdapter.notifyDataSetChanged();
     }
@@ -879,7 +878,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onUserChooseAnswer(int question, int answer) {
+    public void onUserChooseAnswer(int question, String answer) {
         mListUserAnswer.set(question, answer);
         updateNumberAnswered(mTvTotal);
         if (mCheckingAnswerAdapter != null) {
@@ -891,7 +890,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         int count = 0;
 
         for (int i = 0; i < mListUserAnswer.size(); i++) {
-            if (mListUserAnswer.get(i) != -1) {
+            if (!mListUserAnswer.get(i).equals("")) {
                 count++;
             }
         }

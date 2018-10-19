@@ -2,10 +2,16 @@ package luanvan.luanvantotnghiep.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,45 +34,88 @@ import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.Model.Compound;
 import luanvan.luanvantotnghiep.Model.CreatedReaction;
+import luanvan.luanvantotnghiep.Model.Description;
+import luanvan.luanvantotnghiep.Model.DescriptionOfChapter;
+import luanvan.luanvantotnghiep.Model.DescriptionOfHeading;
+import luanvan.luanvantotnghiep.Model.DescriptionOfTitle;
 import luanvan.luanvantotnghiep.Model.Element;
 import luanvan.luanvantotnghiep.Model.Group;
+import luanvan.luanvantotnghiep.Model.Heading;
 import luanvan.luanvantotnghiep.Model.ProducedBy;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.Model.ReactSeries;
 import luanvan.luanvantotnghiep.Model.ReactWith;
 import luanvan.luanvantotnghiep.Model.Solute;
+import luanvan.luanvantotnghiep.Model.Title;
 import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.Model.TypeOfQuestion;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class CheckVersionDatabaseActivity extends AppCompatActivity {
 
-    private SharedPreferences mPreferences;
     private ChemistryHelper mChemistryHelper;
     private static final String TAG = Constraint.TAG + "CheckVer";
+
+    private static final String PRE_NAME = "Firebase_Database";
+    private static final String KEY_GAME = "Version_Game";
+    private static final String KEY_THEMATIC = "Version_Thematic";
+    private static final String KEY_OFFLINE = "Version_Offline";
+    private ProgressDialog dialog;
+
+    //Reference Thematic
+    private DatabaseReference myVersionThematic;
+    private DatabaseReference myChapter;
+    private DatabaseReference myHeading;
+    private DatabaseReference myTitle;
+    private DatabaseReference myDescription;
+    private DatabaseReference myDescriptionOfChapter;
+    private DatabaseReference myDescriptionOfHeading;
+    private DatabaseReference myDescriptionOfTitle;
+
+    //Listener Thematic
+    private ValueEventListener mListenerChapter;
+    private ValueEventListener mListenerHeading;
+    private ValueEventListener mListenerTitle;
+    private ValueEventListener mListenerDescription;
+    private ValueEventListener mListenerDescriptionOfChapter;
+    private ValueEventListener mListenerDescriptionOfHeading;
+    private ValueEventListener mListenerDescriptionOfTitle;
+
+    //Reference Game
+    private DatabaseReference myVersionGame;
+    private DatabaseReference myTypeOfQuestion;
+    private DatabaseReference myAnswer;
+    private DatabaseReference myQuestion;
+    private DatabaseReference myAnswerByQuestion;
+
+    //Listener Game
+    private ValueEventListener myListenerTypeOfQuestion;
+    private ValueEventListener myListenerAnswer;
+    private ValueEventListener myListenerQuestion;
+    private ValueEventListener myListenerAnswerByQuestion;
+
+    //Check success online
+    private boolean gameSuccess = false;
+    private boolean thematicSuccess = false;
+    private int newVersionGame = 0;
+    private int newVersionThematic = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_version_database);
 
-        ProgressDialog mDialog = new ProgressDialog(this);
-        mDialog.setMessage("Đợi chút xíu xìu xiu...");
-        mDialog.show();
+        init();
 
-        mPreferences = getSharedPreferences("CNHH", MODE_PRIVATE);
 
-        int oldVersion = mPreferences.getInt("DB_VER", 0);
-        int versionDatabase = ChemistrySingle.getInstance(this).getWritableDatabase().getVersion();
-        int version = getVersion();
-
-        if (version != oldVersion || versionDatabase != oldVersion) {
-            mChemistryHelper = ChemistrySingle.getInstance(this);
-            saveVersion(version);
-
-            //Data use PERIODIC_TABLE
+        /*get version share pre*/
+        int oldVersionOffline = PreferencesManager.getInstance().getIntData(KEY_OFFLINE, 0);
+        int versionOffline = getVersionOffline();
+        if (versionOffline != oldVersionOffline) {
+            /*Data use PERIODIC_TABLE*/
             addDataTypeTable();
 
             addDataChemistryTable();
@@ -75,7 +124,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
 
             addDataElementTable();
 
-            //Data use search
+            /*Data use search*/
             addDataCompound();
 
             addDataProducedBy();
@@ -86,61 +135,71 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
 
             addDataReactWith();
 
-            //Data use SOLUBILITY_TABLE
+            /*Data use SOLUBILITY_TABLE*/
             addDataAnionTable();
 
             addDataCationTable();
 
             addDataSoluteTable();
 
-            //Data use REACT_SERIES_TABLE
+            /*Data use REACT_SERIES_TABLE*/
             addDataReactSeriesTable();
 
-            //Data GAME
-            addDataBlockTable();
+            /*Save new version offline*/
+            saveVersion(KEY_OFFLINE, versionOffline);
 
-            addDataTypeOfGameTable();
-
-            addDataAnswerTable();
-
-            addDataQuestionTable();
-
-            addDataAnswerByQuestionTable();
-
-            addDataChapterTable();
-
-            Log.i(TAG, "onCreate: ADD DATA FINISH!!!");
+            /*Check data online*/
+            checkGame();
+            checkThematic();
 
         } else {
-            Log.i(TAG, "onCreate: NOTHING UPDATE!!!");
-//            Log.i(TAG, "onCreate: getAllTypes " + mChemistryHelper.getAllTypes().size());
-//            Log.i(TAG, "onCreate: getAllChemistry " + mChemistryHelper.getAllChemistry().size());
-//            Log.i(TAG, "onCreate: getAllGroups " + mChemistryHelper.getAllGroups().size());
-//            Log.i(TAG, "onCreate: getAllElements " + mChemistryHelper.getAllElements().size());
-//            Log.i(TAG, "onCreate: getAllCompound " + mChemistryHelper.getAllCompound().size());
-//            Log.i(TAG, "onCreate: getAllProducedBy " + mChemistryHelper.getAllProducedBy().size());
-//            Log.i(TAG, "onCreate: getAllChemicalReaction " + mChemistryHelper.getAllChemicalReaction().size());
-//            Log.i(TAG, "onCreate: getAllCreatedReaction " + mChemistryHelper.getAllCreatedReaction().size());
-//            Log.i(TAG, "onCreate: getAllReactWith " + mChemistryHelper.getAllReactWith().size());
-//            Log.i(TAG, "onCreate: getAllAnion " + mChemistryHelper.getAllAnion().size());
-//            Log.i(TAG, "onCreate: getAllCation " + mChemistryHelper.getAllCation().size());
-//            Log.i(TAG, "onCreate: getAllSolute " + mChemistryHelper.getAllSolute().size());
-//            Log.i(TAG, "onCreate: getAllReactSeries " + mChemistryHelper.getAllReactSeries().size());
-//            Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
-//            Log.i(TAG, "onCreate: getAllTypeOfQuestion " + mChemistryHelper.getAllTypeOfQuestion().size());
-//            Log.i(TAG, "onCreate: getAllAnswer " + mChemistryHelper.getAllAnswer().size());
-//            Log.i(TAG, "onCreate: getAllQuestion " + mChemistryHelper.getAllQuestion().size());
-//            Log.i(TAG, "onCreate: getAllAnswerByQuestion " + mChemistryHelper.getAllAnswerByQuestion().size());
+            /*Check data online*/
+            checkGame();
+            checkThematic();
         }
-
-        startActivity(new Intent(this, MainActivity.class));
-        mDialog.dismiss();
-        finish();
     }
 
-    private int getVersion() {
+    private void init() {
+
+        PreferencesManager.getInstance().init(this);
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Đang tải dữ liệu...");
+        dialog.setCancelable(false);
+        dialog.show();
+
+        //mPreferences = getSharedPreferences(PRE_NAME, MODE_PRIVATE);
+        mChemistryHelper = ChemistrySingle.getInstance(this);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        //THEMATIC
+        myVersionThematic = database.getReference("VERSION_THEMATIC");
+        myChapter = database.getReference("CHAPTER");
+        myHeading = database.getReference("HEADING");
+        myTitle = database.getReference("TITLE");
+        myDescription = database.getReference("DESCRIPTION");
+        myDescriptionOfChapter = database.getReference("DES_CHAPTER");
+        myDescriptionOfHeading = database.getReference("DES_HEADING");
+        myDescriptionOfTitle = database.getReference("DES_TITLE");
+
+        //GAME
+        myVersionGame = database.getReference("VERSION_GAME");
+        myTypeOfQuestion = database.getReference("TYPE_QUESTION");
+        myAnswer = database.getReference("ANSWER");
+        myQuestion = database.getReference("QUESTION");
+        myAnswerByQuestion = database.getReference("ANSWER_BY_QUESTION");
+
+        //Data BLOCK
+        boolean isAddBlock = PreferencesManager.getInstance().getBooleanData("ADD_BLOCK", true);
+        addDataBlockTable(isAddBlock);
+        if (isAddBlock)
+            PreferencesManager.getInstance().saveBooleanData("ADD_BLOCK", false);
+    }
+
+    //Get version offline
+    private int getVersionOffline() {
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
+            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
             String version = (String) obj.get("Version");
             return Integer.parseInt(version);
 
@@ -150,14 +209,80 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         }
     }
 
-    private void saveVersion(int version) {
-        SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putInt("DB_VER", version);
-        editor.apply();
-
-        Log.i(TAG, "saveVersion: Update new version!");
+    //Save version to SharePre
+    private void saveVersion(String key, int version) {
+        PreferencesManager.getInstance().saveIntData(key, version);
+        Log.i(TAG, "saveVersion: Update " + key);
     }
 
+    //Check and handle data game
+    private void checkGame() {
+        myVersionGame.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String s = dataSnapshot.getValue(String.class);
+                int versionGame = Integer.parseInt(s);
+                Log.i(TAG, "versionGame: " + versionGame);
+
+                //Get old version
+                int oldVersionGame = PreferencesManager.getInstance().getIntData(KEY_GAME, 0);
+                Log.i(TAG, "oldVersionGame: " + oldVersionGame);
+                newVersionGame = versionGame;
+                if (versionGame != oldVersionGame) {
+                    mChemistryHelper.emptyAnswerByQuestion();
+                    mChemistryHelper.emptyAnswer();
+                    mChemistryHelper.emptyQuestion();
+                    mChemistryHelper.emptyTypeOfQuestion();
+                    getDataTypeOfQuestion();
+                } else {
+                    gameSuccess = true;
+                    goMain();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value myVersionGame.", error.toException());
+            }
+        });
+    }
+
+    //Check and handle data thematic
+    private void checkThematic() {
+        myVersionThematic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String s = dataSnapshot.getValue(String.class);
+                int versionThematic = Integer.parseInt(s);
+                Log.i(TAG, "versionThematic: " + versionThematic);
+
+                //Get old version
+                int oldVersionThematic = PreferencesManager.getInstance().getIntData(KEY_THEMATIC, 0);
+                Log.i(TAG, "oldVersionThematic: " + oldVersionThematic);
+                newVersionThematic = versionThematic;
+                if (versionThematic != oldVersionThematic) {
+                    mChemistryHelper.emptyDescriptionOfTitle();
+                    mChemistryHelper.emptyDescriptionOfHeading();
+                    mChemistryHelper.emptyDescriptionOfChapter();
+                    mChemistryHelper.emptyDescription();
+                    mChemistryHelper.emptyTitle();
+                    mChemistryHelper.emptyHeading();
+                    mChemistryHelper.emptyChapter();
+                    getDataChapter();
+                } else {
+                    thematicSuccess = true;
+                    goMain();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value myVersionGame.", error.toException());
+            }
+        });
+    }
+
+    //Offline
     private void addDataTypeTable() {
 
         List<Type> list = new ArrayList<>();
@@ -577,171 +702,34 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         }
     }
 
-    private void addDataBlockTable() {
+    private void addDataBlockTable(boolean flag) {
 
-        List<Block> list = new ArrayList<>();
+        if (flag) {
+            List<Block> list = new ArrayList<>();
+            try {
+                JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
+                JSONArray array = (JSONArray) obj.get("Block");
 
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
-            JSONArray array = (JSONArray) obj.get("Block");
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject o = (JSONObject) array.get(i);
+                    Block item = new Block();
 
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = (JSONObject) array.get(i);
-                Block item = new Block();
-                item.setIdBlock(Integer.parseInt(o.getString("mIdBlock")));
-                list.add(item);
+                    item.setIdBlock(Integer.parseInt(o.getString("mIdBlock")));
+                    list.add(item);
+                }
+
+                mChemistryHelper.emptyBlock();
+                for (Block item : list) {
+                    mChemistryHelper.addBlock(item);
+                }
+
+                Log.i(TAG, "addDataBlockTable: CREATE Block Table!!!");
+
+            } catch (JSONException e) {
+                Log.i(TAG, "JSONException: " + e.getMessage());
             }
-
-            mChemistryHelper.emptyBlock();
-            for (Block item : list) {
-                mChemistryHelper.addBlock(item);
-            }
-            Log.i(TAG, "onCreate: UPDATE Block Table!!!");
-
-        } catch (JSONException e) {
-            Log.i(TAG, "JSONException: " + e.getMessage());
-        }
-    }
-
-    private void addDataTypeOfGameTable() {
-
-        List<TypeOfQuestion> list = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
-            JSONArray array = (JSONArray) obj.get("TypeOfQuestion");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = (JSONObject) array.get(i);
-                TypeOfQuestion item = new TypeOfQuestion();
-                item.setIdType(Integer.parseInt(o.getString("mIdType")));
-                item.setNameType(o.getString("mNameType"));
-                list.add(item);
-            }
-
-            mChemistryHelper.emptyTypeOfQuestion();
-            for (TypeOfQuestion item : list) {
-                mChemistryHelper.addTypeOfQuestion(item);
-            }
-            Log.i(TAG, "onCreate: UPDATE TypeOfQuestion Table!!!");
-
-        } catch (JSONException e) {
-            Log.i(TAG, "JSONException: " + e.getMessage());
-        }
-    }
-
-    private void addDataAnswerTable() {
-
-        List<Answer> list = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
-            JSONArray array = (JSONArray) obj.get("Answer");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = (JSONObject) array.get(i);
-                Answer item = new Answer();
-                item.setIdAnswer(Integer.parseInt(o.getString("mIdAnswer")));
-                item.setContentAnswer(o.getString("mContentAnswer"));
-                list.add(item);
-            }
-
-            mChemistryHelper.emptyAnswer();
-            for (Answer item : list) {
-                mChemistryHelper.addAnswer(item);
-            }
-            Log.i(TAG, "onCreate: UPDATE Answer Table!!!");
-
-        } catch (JSONException e) {
-            Log.i(TAG, "JSONException: " + e.getMessage());
-        }
-    }
-
-    private void addDataQuestionTable() {
-
-        List<Question> list = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
-            JSONArray array = (JSONArray) obj.get("Question");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = (JSONObject) array.get(i);
-                Question item = new Question();
-                item.setIdQuestion(Integer.parseInt(o.getString("mIdQuestion")));
-                item.setContentQuestion(o.getString("mContentQuestion"));
-                item.setIdLevel(Integer.parseInt(o.getString("mIdLevel")));
-                item.setIdBlock(Integer.parseInt(o.getString("mIdBlock")));
-                item.setIdType(Integer.parseInt(o.getString("mIdType")));
-                item.setExtent(Integer.parseInt(o.getString("mExtent")));
-                list.add(item);
-            }
-
-            mChemistryHelper.emptyQuestion();
-            for (Question item : list) {
-                mChemistryHelper.addQuestion(item);
-            }
-            Log.i(TAG, "onCreate: UPDATE Question Table!!!");
-
-        } catch (JSONException e) {
-            Log.i(TAG, "JSONException: " + e.getMessage());
-        }
-    }
-
-    private void addDataAnswerByQuestionTable() {
-
-        List<AnswerByQuestion> list = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
-            JSONArray array = (JSONArray) obj.get("AnswerByQuestion");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = (JSONObject) array.get(i);
-                AnswerByQuestion item = new AnswerByQuestion();
-                item.setIdQuestion(Integer.parseInt(o.getString("mIdQuestion")));
-                item.setIdAnswer(Integer.parseInt(o.getString("mIdAnswer")));
-                item.setCorrect(Integer.parseInt(o.getString("mCorrect")));
-                list.add(item);
-            }
-
-            mChemistryHelper.emptyAnswerByQuestion();
-            for (AnswerByQuestion item : list) {
-                mChemistryHelper.addAnswerByQuestion(item);
-            }
-            Log.i(TAG, "onCreate: UPDATE AnswerByQuestion Table!!!");
-
-        } catch (JSONException e) {
-            Log.i(TAG, "JSONException: " + e.getMessage());
-        }
-    }
-
-    private void addDataChapterTable() {
-
-        List<Chapter> list = new ArrayList<>();
-
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("game.json"));
-            JSONArray array = (JSONArray) obj.get("Chapter");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject o = (JSONObject) array.get(i);
-                Chapter item = new Chapter();
-                item.setIdChapter(Integer.parseInt(o.getString("mIdChapter")));
-                item.setNameChapter(o.getString("mNameChapter"));
-                item.setIdBlock(Integer.parseInt(o.getString("mIdBlock")));
-                item.setContentChapter(o.getString("mContentChapter"));
-                list.add(item);
-            }
-
-            mChemistryHelper.emptyChapter();
-            for (Chapter item : list) {
-                mChemistryHelper.addChapter(item);
-            }
-            Log.i(TAG, "onCreate: UPDATE Chapter Table!!!");
-
-        } catch (JSONException e) {
-            Log.i(TAG, "JSONException: " + e.getMessage());
+        } else {
+            Log.i(TAG, "addDataBlockTable: Block Table Exist!!!");
         }
     }
 
@@ -759,5 +747,281 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             return null;
         }
         return json;
+    }
+
+    //ONLINE
+    //Thematic
+    private void getDataChapter() {
+        mListenerChapter = myChapter.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Chapter chapter = postSnapshot.getValue(Chapter.class);
+                    assert chapter != null;
+                    if (chapter.getConfirm() == 1) {
+                        mChemistryHelper.addChapter(chapter);
+                    }
+                }
+                getDataHeading();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataHeading() {
+        mListenerHeading = myHeading.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Heading heading = postSnapshot.getValue(Heading.class);
+                    mChemistryHelper.addHeading(heading);
+                }
+                getDataTitle();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataTitle() {
+        mListenerTitle = myTitle.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Title title = postSnapshot.getValue(Title.class);
+                    mChemistryHelper.addTitle(title);
+                }
+                getDataDescription();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataDescription() {
+        mListenerDescription = myDescription.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Description description = postSnapshot.getValue(Description.class);
+                    mChemistryHelper.addDescription(description);
+                }
+                getDataDescriptionOfChapter();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataDescriptionOfChapter() {
+        mListenerDescriptionOfChapter = myDescriptionOfChapter.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    DescriptionOfChapter descriptionOfChapter = postSnapshot.getValue(DescriptionOfChapter.class);
+                    mChemistryHelper.addDescriptionOfChapter(descriptionOfChapter);
+                }
+                getDataDescriptionOfHeading();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataDescriptionOfHeading() {
+        mListenerDescriptionOfHeading = myDescriptionOfHeading.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    DescriptionOfHeading descriptionOfHeading = postSnapshot.getValue(DescriptionOfHeading.class);
+                    mChemistryHelper.addDescriptionOfHeading(descriptionOfHeading);
+                }
+                getDataDescriptionOfTitle();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataDescriptionOfTitle() {
+        mListenerDescriptionOfTitle = myDescriptionOfTitle.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    DescriptionOfTitle descriptionOfTitle = postSnapshot.getValue(DescriptionOfTitle.class);
+                    mChemistryHelper.addDescriptionOfTitle(descriptionOfTitle);
+                }
+                handleSuccessThematic();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void handleSuccessThematic() {
+        saveVersion(KEY_THEMATIC, newVersionThematic);
+
+        myChapter.removeEventListener(mListenerChapter);
+        myHeading.removeEventListener(mListenerHeading);
+        myTitle.removeEventListener(mListenerTitle);
+
+        myDescription.removeEventListener(mListenerDescription);
+        myDescriptionOfChapter.removeEventListener(mListenerDescriptionOfChapter);
+        myDescriptionOfHeading.removeEventListener(mListenerDescriptionOfHeading);
+        myDescriptionOfTitle.removeEventListener(mListenerDescriptionOfTitle);
+
+        thematicSuccess = true;
+        goMain();
+    }
+
+    //Game
+    private void getDataTypeOfQuestion() {
+        myListenerTypeOfQuestion = myTypeOfQuestion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    TypeOfQuestion typeOfQuestion = postSnapshot.getValue(TypeOfQuestion.class);
+                    mChemistryHelper.addTypeOfQuestion(typeOfQuestion);
+                }
+                getDataQuestion();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataQuestion() {
+        myListenerQuestion = myQuestion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Question question = postSnapshot.getValue(Question.class);
+                    mChemistryHelper.addQuestion(question);
+                }
+                getDataAnswer();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataAnswer() {
+        myListenerAnswer = myAnswer.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Answer answer = postSnapshot.getValue(Answer.class);
+                    mChemistryHelper.addAnswer(answer);
+                }
+                getDataAnswerByQuestion();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataAnswerByQuestion() {
+        myListenerAnswerByQuestion = myAnswerByQuestion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    AnswerByQuestion answerByQuestion = postSnapshot.getValue(AnswerByQuestion.class);
+                    mChemistryHelper.addAnswerByQuestion(answerByQuestion);
+                }
+                handleSuccessGame();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void handleSuccessGame() {
+        saveVersion(KEY_GAME, newVersionGame);
+
+        myTypeOfQuestion.removeEventListener(myListenerTypeOfQuestion);
+        myQuestion.removeEventListener(myListenerQuestion);
+        myAnswer.removeEventListener(myListenerAnswer);
+        myAnswerByQuestion.removeEventListener(myListenerAnswerByQuestion);
+
+        gameSuccess = true;
+        goMain();
+    }
+
+    private void goMain() {
+        if (gameSuccess && thematicSuccess) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+
+            //Block
+            Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
+
+            //Chemistry
+            Log.i(TAG, "onCreate: getAllTypesChemistry " + mChemistryHelper.getAllTypes().size());
+            Log.i(TAG, "onCreate: getAllChemistry " + mChemistryHelper.getAllChemistry().size());
+            Log.i(TAG, "onCreate: getAllGroups " + mChemistryHelper.getAllGroups().size());
+            Log.i(TAG, "onCreate: getAllElements " + mChemistryHelper.getAllElements().size());
+            Log.i(TAG, "onCreate: getAllCompound " + mChemistryHelper.getAllCompound().size());
+            Log.i(TAG, "onCreate: getAllProducedBy " + mChemistryHelper.getAllProducedBy().size());
+            Log.i(TAG, "onCreate: getAllChemicalReaction " + mChemistryHelper.getAllChemicalReaction().size());
+            Log.i(TAG, "onCreate: getAllCreatedReaction " + mChemistryHelper.getAllCreatedReaction().size());
+            Log.i(TAG, "onCreate: getAllReactWith " + mChemistryHelper.getAllReactWith().size());
+            Log.i(TAG, "onCreate: getAllAnion " + mChemistryHelper.getAllAnion().size());
+            Log.i(TAG, "onCreate: getAllCation " + mChemistryHelper.getAllCation().size());
+            Log.i(TAG, "onCreate: getAllSolute " + mChemistryHelper.getAllSolute().size());
+            Log.i(TAG, "onCreate: getAllReactSeries " + mChemistryHelper.getAllReactSeries().size());
+
+            //Thematic
+            Log.i(TAG, "onCreate: getAllChapter: " + mChemistryHelper.getAllChapter().size());
+            Log.i(TAG, "onCreate: getAllHeading: " + mChemistryHelper.getAllHeading().size());
+            Log.i(TAG, "onCreate: getAllTitle: " + mChemistryHelper.getAllTitle().size());
+            Log.i(TAG, "onCreate: getAllDescription: " + mChemistryHelper.getAllDescription().size());
+            Log.i(TAG, "onCreate: getAllDescriptionOfChapter: " + mChemistryHelper.getAllDescriptionOfChapter().size());
+            Log.i(TAG, "onCreate: getAllDescriptionOfHeading: " + mChemistryHelper.getAllDescriptionOfHeading().size());
+            Log.i(TAG, "onCreate: getAllDescriptionOfTitle: " + mChemistryHelper.getAllDescriptionOfTitle().size());
+
+            //Game
+            Log.i(TAG, "onCreate: getAllTypeOfQuestion " + mChemistryHelper.getAllTypeOfQuestion().size());
+            Log.i(TAG, "onCreate: getAllQuestion " + mChemistryHelper.getAllQuestion().size());
+            Log.i(TAG, "onCreate: getAllAnswer " + mChemistryHelper.getAllAnswer().size());
+            Log.i(TAG, "onCreate: getAllAnswerByQuestion " + mChemistryHelper.getAllAnswerByQuestion().size());
+
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 }
