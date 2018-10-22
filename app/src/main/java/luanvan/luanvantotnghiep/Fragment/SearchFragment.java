@@ -3,6 +3,7 @@ package luanvan.luanvantotnghiep.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,6 +84,8 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
     private ChipChemistryAdapter mChipChemistryAdapter;
     private CreatedReactionAdapter mCreatedReactionAdapter;
     private ReactWithAdapter mReactWithAdapter;
+
+    private SearchView.SearchAutoComplete searchAutoComplete;
 
     public SearchFragment() {
     }
@@ -149,23 +154,60 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     //Log.i("onQueryTextChange", newText);
-
                     return false;
                 }
 
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    if (!TextUtils.equals(query.toLowerCase(), oldText[0].toLowerCase())){
-
+                    searchAutoComplete.dismissDropDown();
+                    if (!TextUtils.equals(query.toLowerCase(), oldText[0].toLowerCase())) {
                         textSubmit(query);
                         oldText[0] = query;
+
                     }
-                    return true;
+                    return false;
                 }
             };
             mSearchView.setOnQueryTextListener(queryTextListener);
+
+            //Test auto complete
+            searchAutoComplete = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+            searchAutoComplete.setTextColor(Color.WHITE);
+
+            // Create a new ArrayAdapter and add data to search auto complete object.
+            List<String> list = handleComplete();
+            ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, list);
+            searchAutoComplete.setAdapter(newsAdapter);
+
+            searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
+                    String queryString = (String) adapterView.getItemAtPosition(itemIndex);
+                    //String param = queryString.split(" - ")[0];
+                    textSubmit(queryString);
+                }
+            });
+
         }
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private List<String> handleComplete() {
+        List<String> result = new ArrayList<>();
+        for (Chemistry chemistry : mChemistryHelper.getAllChemistry()) {
+            boolean isFindElement = false;
+            for (Element element : mChemistryHelper.getAllElements()) {
+                if (chemistry.getIdChemistry() == element.getIdElement()) {
+                    result.add(element.getMolecularFormula() + " - " + chemistry.getNameChemistry());
+                    isFindElement = true;
+                    break;
+                }
+            }
+            if (!isFindElement) {
+                result.add(chemistry.getSymbolChemistry() + " - " + chemistry.getNameChemistry());
+            }
+        }
+        return result;
     }
 
     @Override
@@ -182,7 +224,17 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
     }
 
     private void textSubmit(String string) {
+        String[] tmp = string.split(" - ");
+        String param = tmp[0];
+        if (tmp.length > 1) {
+            param = tmp[1];
+        }
+
+        Log.i("hns", "tmp: " + tmp.length);
+
+        searchAutoComplete.dismissDropDown();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
         imm.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
 
         mChemistryList.addAll(mChemistryHelper.getAllChemistry());
@@ -203,7 +255,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
 
         //search by symbol
         for (Element element : mElementList) {
-            if (string.toLowerCase().equals(element.getMolecularFormula().toLowerCase())) {
+            if (param.toLowerCase().equals(element.getMolecularFormula().toLowerCase())) {
                 for (Chemistry chemistry : mChemistryList) {
                     if (element.getIdElement() == chemistry.getIdChemistry()) {
                         for (Type type : mTypeList) {
@@ -225,7 +277,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
 
         //search by name
         for (Chemistry chemistry : mChemistryList) {
-            if (string.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
+            if (param.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
                 for (Element element : mElementList) {
                     if (chemistry.getIdChemistry() == element.getIdElement()) {
                         for (Type type : mTypeList) {
@@ -246,8 +298,8 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
 
         //Comp
         for (Chemistry chemistry : mChemistryList) {
-            if (string.toLowerCase().equals(chemistry.getSymbolChemistry().toLowerCase())
-                    || string.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
+            if (param.toLowerCase().equals(chemistry.getSymbolChemistry().toLowerCase())
+                    || param.toLowerCase().equals(chemistry.getNameChemistry().toLowerCase())) {
                 for (Compound compound : mCompoundList) {
                     if (chemistry.getIdChemistry() == compound.getIdCompound()) {
                         for (Type type : mTypeList) {
@@ -270,6 +322,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         } else if (!mIsElement && !mIsCompound) { //ko có rồi
             Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
         } else { //1 trong 2
+            //mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(param)), false);
             if (mIsElement) {
                 mTvSymbolChemistry.setText(Html.fromHtml(Helper.getInstant().handelText(elementData.getMolecularFormula())));
                 mTvNameChemistry.setText(Html.fromHtml("<font color='gray'>Tên: </font><font color='black'>" + chemistryEle.getNameChemistry() + "</font>"));
@@ -362,11 +415,13 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         builder.setPositiveButton(chemistryEle.getNameChemistry(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 textSubmit(chemistryEle.getNameChemistry());
+                searchAutoComplete.dismissDropDown();
             }
         });
         builder.setNegativeButton(chemistryCom.getNameChemistry(), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 textSubmit(chemistryCom.getNameChemistry());
+                searchAutoComplete.dismissDropDown();
             }
         });
 
