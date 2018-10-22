@@ -81,10 +81,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
 
     private Context mContext;
 
-    private ChipChemistryAdapter mChipChemistryAdapter;
-    private CreatedReactionAdapter mCreatedReactionAdapter;
-    private ReactWithAdapter mReactWithAdapter;
-
     private SearchView.SearchAutoComplete searchAutoComplete;
 
     public SearchFragment() {
@@ -362,7 +358,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
     //SEND DATA TO ADAPTER
     private void setParamAdapter(Integer idChemistry) {
         //chip
-        mChipChemistryAdapter = new ChipChemistryAdapter(mContext, idChemistry);
+        ChipChemistryAdapter mChipChemistryAdapter = new ChipChemistryAdapter(mContext, idChemistry);
 
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(mContext);
         layoutManager.setFlexDirection(FlexDirection.ROW);
@@ -377,7 +373,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         mCvChipChemistry.setVisibility(mChipChemistryAdapter.getShowChipChemistry());
 
         //phương trình tạo thành
-        mCreatedReactionAdapter = new CreatedReactionAdapter(mContext, idChemistry);
+        CreatedReactionAdapter mCreatedReactionAdapter = new CreatedReactionAdapter(mContext, idChemistry);
         RecyclerView.LayoutManager layoutCreatedReaction = new LinearLayoutManager(mContext,
                 LinearLayoutManager.VERTICAL,
                 false);
@@ -388,7 +384,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         mCvCreatedReaction.setVisibility(mCreatedReactionAdapter.getShowCreatedReaction());
 
         //được phản ứng với chất nào
-        mReactWithAdapter = new ReactWithAdapter(mContext, idChemistry);
+        ReactWithAdapter mReactWithAdapter = new ReactWithAdapter(mContext, idChemistry);
         RecyclerView.LayoutManager layoutReactWith = new LinearLayoutManager(mContext,
                 LinearLayoutManager.VERTICAL,
                 false);
