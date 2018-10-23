@@ -2,17 +2,19 @@ package luanvan.luanvantotnghiep.Activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,8 @@ import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class MatchActivity extends AppCompatActivity implements MatchGame, View.OnClickListener {
 
@@ -43,7 +47,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
     private Button mBtnComplete;
 
     private List<Question> mQuestionList;
-    private List<Answer> mListAnswer;
+    private List<Answer> mAnswerList;
     private List<AnswerByQuestion> mAnswerByQuestionList;
     private List<String> mListUserAnswer = new ArrayList<>(); //save id answer
 
@@ -68,9 +72,9 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         init();
 
-        setUpData();
-
-        setUpGame();
+        if (checkGame()) {
+            chooseOption();
+        }
     }
 
 
@@ -140,20 +144,20 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //checkUserOut();
+                checkUserOut();
             }
         });
     }
 
     private void setUpData() {
         mQuestionList = new ArrayList<>();
-        mListAnswer = new ArrayList<>();
+        mAnswerList = new ArrayList<>();
         mAnswerByQuestionList = new ArrayList<>();
 
         ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
         mQuestionList.addAll(chemistryHelper.getAllQuestion());
         mAnswerByQuestionList.addAll(chemistryHelper.getAllAnswerByQuestion());
-        mListAnswer.addAll(chemistryHelper.getAllAnswer());
+        mAnswerList.addAll(chemistryHelper.getAllAnswer());
 
         mDataQuestionList = new ArrayList<>();
         mDataAnswerList = new ArrayList<>();
@@ -174,13 +178,12 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         }
 
         for (AnswerByQuestion answerByQuestion : mDataABQList) {
-            for (Answer answer : mListAnswer) {
+            for (Answer answer : mAnswerList) {
                 if (answer.getIdAnswer().equals(answerByQuestion.getIdAnswer())) {
                     mDataAnswerList.add(answer);
                 }
             }
         }
-
 
         Collections.shuffle(mDataQuestionList);
         Collections.shuffle(mDataAnswerList);
@@ -194,7 +197,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         isPlaying = true;
 
-        mCountDownTimer = new CountDownTimer(10000, 1000) {
+        mCountDownTimer = new CountDownTimer(310000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mCurrentTime = millisUntilFinished;
@@ -215,7 +218,6 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         for (int i = 0; i < mDataAnswerList.size(); i++) {
             mListUserAnswer.add("");
         }
-        Log.i("hns", " size " + mDataAnswerList.size());
 
         mAdapterQuestion = new MatchQuestionAdapter(this, mDataQuestionList, mDataAnswerList, mListUserAnswer);
         mRvQuestion.setAdapter(mAdapterQuestion);
@@ -358,15 +360,66 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
             question.setAnswer(0);
         }
         mAdapterQuestion.notifyDataSetChanged();
-
-        for (int i = 0; i < mListUserAnswer.size(); i++) {
-            Log.i("hns", "" + mListUserAnswer.get(i));
-
-        }
     }
 
     @Override
     public void onBackPressed() {
         checkUserOut();
+    }
+
+    private boolean checkGame() {
+
+        int block = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_BLOCK, 8);
+        int type = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_TYPE, 0);
+        int extent = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_EXTENT, 1);
+        int level = getLevel();
+
+        if (block != 0 && type != 0 && level != 0 && extent != 0) {
+            ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
+            mQuestionList = chemistryHelper.getQuestionsByLevel(block, type, level, extent);
+            mAnswerList = chemistryHelper.getAllAnswer();
+            mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
+            return true;
+        }
+
+        return false;
+    }
+
+    private int getLevel() {
+        int level = 0;
+        Intent intent = this.getIntent();
+        if (intent != null) {
+            level = intent.getIntExtra("LEVEL", 0);
+        }
+        return level;
+    }
+
+    private void chooseOption() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Bạn đã sẵn sàng");
+
+        builder.setPositiveButton("Làm bài", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                isPlaying = true;
+
+                findViewById(R.id.ln_start_game).setVisibility(View.GONE);
+
+                startGame();
+            }
+        });
+        builder.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    private void startGame(){
+        setUpData();
+        setUpGame();
     }
 }

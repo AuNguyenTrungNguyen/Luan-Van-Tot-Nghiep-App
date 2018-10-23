@@ -56,7 +56,9 @@
             android:name=".Activity.SortActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Activity.ChooseLevelActivity"/>
+        <activity
+            android:name=".Activity.ChooseLevelActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

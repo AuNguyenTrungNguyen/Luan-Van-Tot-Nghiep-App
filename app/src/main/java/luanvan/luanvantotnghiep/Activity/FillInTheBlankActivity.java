@@ -30,6 +30,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -99,9 +100,9 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
                 }
 
                 //random list question
-//                Collections.shuffle(mQuestionList);
-//                Collections.shuffle(mQuestionList);
-//                Collections.shuffle(mQuestionList);
+                Collections.shuffle(mQuestionList);
+                Collections.shuffle(mQuestionList);
+                Collections.shuffle(mQuestionList);
 
                 findViewById(R.id.fl_start_game).setVisibility(View.GONE);
 
@@ -408,11 +409,12 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         int block = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_BLOCK, 8);
         int type = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_TYPE, 0);
+        int extent = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_EXTENT, 1);
         int level = getLevel();
 
-        if (block != 0 && type != 0 && level != 0) {
+        if (block != 0 && type != 0 && level != 0 && extent != 0) {
             ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
-            mQuestionList = chemistryHelper.getQuestionsByLevel(block, type, level);
+            mQuestionList = chemistryHelper.getQuestionsByLevel(block, type, level, extent);
             mAnswerList = chemistryHelper.getAllAnswer();
             mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
             return true;

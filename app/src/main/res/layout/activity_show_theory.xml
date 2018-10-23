@@ -19,7 +19,7 @@
         android:layout_margin="2dp"
         android:gravity="center"
         android:textColor="#000"
-        android:textSize="30sp" />
+        android:textSize="22sp" />
 
     <ExpandableListView
         android:id="@+id/elv_thematic"

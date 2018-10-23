@@ -59,7 +59,6 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     private ChemistryHelper mChemistryHelper;
     private static final String TAG = Constraint.TAG + "CheckVer";
 
-    private static final String PRE_NAME = "Firebase_Database";
     private static final String KEY_GAME = "Version_Game";
     private static final String KEY_THEMATIC = "Version_Thematic";
     private static final String KEY_OFFLINE = "Version_Offline";
@@ -163,12 +162,11 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
 
         PreferencesManager.getInstance().init(this);
 
-        dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(CheckVersionDatabaseActivity.this);
         dialog.setMessage("Đang tải dữ liệu...");
         dialog.setCancelable(false);
         dialog.show();
 
-        //mPreferences = getSharedPreferences(PRE_NAME, MODE_PRIVATE);
         mChemistryHelper = ChemistrySingle.getInstance(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -986,39 +984,39 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-
-            //Block
-            Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
-
-            //Chemistry
-            Log.i(TAG, "onCreate: getAllTypesChemistry " + mChemistryHelper.getAllTypes().size());
-            Log.i(TAG, "onCreate: getAllChemistry " + mChemistryHelper.getAllChemistry().size());
-            Log.i(TAG, "onCreate: getAllGroups " + mChemistryHelper.getAllGroups().size());
-            Log.i(TAG, "onCreate: getAllElements " + mChemistryHelper.getAllElements().size());
-            Log.i(TAG, "onCreate: getAllCompound " + mChemistryHelper.getAllCompound().size());
-            Log.i(TAG, "onCreate: getAllProducedBy " + mChemistryHelper.getAllProducedBy().size());
-            Log.i(TAG, "onCreate: getAllChemicalReaction " + mChemistryHelper.getAllChemicalReaction().size());
-            Log.i(TAG, "onCreate: getAllCreatedReaction " + mChemistryHelper.getAllCreatedReaction().size());
-            Log.i(TAG, "onCreate: getAllReactWith " + mChemistryHelper.getAllReactWith().size());
-            Log.i(TAG, "onCreate: getAllAnion " + mChemistryHelper.getAllAnion().size());
-            Log.i(TAG, "onCreate: getAllCation " + mChemistryHelper.getAllCation().size());
-            Log.i(TAG, "onCreate: getAllSolute " + mChemistryHelper.getAllSolute().size());
-            Log.i(TAG, "onCreate: getAllReactSeries " + mChemistryHelper.getAllReactSeries().size());
-
-            //Thematic
-            Log.i(TAG, "onCreate: getAllChapter: " + mChemistryHelper.getAllChapter().size());
-            Log.i(TAG, "onCreate: getAllHeading: " + mChemistryHelper.getAllHeading().size());
-            Log.i(TAG, "onCreate: getAllTitle: " + mChemistryHelper.getAllTitle().size());
-            Log.i(TAG, "onCreate: getAllDescription: " + mChemistryHelper.getAllDescription().size());
-            Log.i(TAG, "onCreate: getAllDescriptionOfChapter: " + mChemistryHelper.getAllDescriptionOfChapter().size());
-            Log.i(TAG, "onCreate: getAllDescriptionOfHeading: " + mChemistryHelper.getAllDescriptionOfHeading().size());
-            Log.i(TAG, "onCreate: getAllDescriptionOfTitle: " + mChemistryHelper.getAllDescriptionOfTitle().size());
-
-            //Game
-            Log.i(TAG, "onCreate: getAllTypeOfQuestion " + mChemistryHelper.getAllTypeOfQuestion().size());
-            Log.i(TAG, "onCreate: getAllQuestion " + mChemistryHelper.getAllQuestion().size());
-            Log.i(TAG, "onCreate: getAllAnswer " + mChemistryHelper.getAllAnswer().size());
-            Log.i(TAG, "onCreate: getAllAnswerByQuestion " + mChemistryHelper.getAllAnswerByQuestion().size());
+//
+//            //Block
+//            Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
+//
+//            //Chemistry
+//            Log.i(TAG, "onCreate: getAllTypesChemistry " + mChemistryHelper.getAllTypes().size());
+//            Log.i(TAG, "onCreate: getAllChemistry " + mChemistryHelper.getAllChemistry().size());
+//            Log.i(TAG, "onCreate: getAllGroups " + mChemistryHelper.getAllGroups().size());
+//            Log.i(TAG, "onCreate: getAllElements " + mChemistryHelper.getAllElements().size());
+//            Log.i(TAG, "onCreate: getAllCompound " + mChemistryHelper.getAllCompound().size());
+//            Log.i(TAG, "onCreate: getAllProducedBy " + mChemistryHelper.getAllProducedBy().size());
+//            Log.i(TAG, "onCreate: getAllChemicalReaction " + mChemistryHelper.getAllChemicalReaction().size());
+//            Log.i(TAG, "onCreate: getAllCreatedReaction " + mChemistryHelper.getAllCreatedReaction().size());
+//            Log.i(TAG, "onCreate: getAllReactWith " + mChemistryHelper.getAllReactWith().size());
+//            Log.i(TAG, "onCreate: getAllAnion " + mChemistryHelper.getAllAnion().size());
+//            Log.i(TAG, "onCreate: getAllCation " + mChemistryHelper.getAllCation().size());
+//            Log.i(TAG, "onCreate: getAllSolute " + mChemistryHelper.getAllSolute().size());
+//            Log.i(TAG, "onCreate: getAllReactSeries " + mChemistryHelper.getAllReactSeries().size());
+//
+//            //Thematic
+//            Log.i(TAG, "onCreate: getAllChapter: " + mChemistryHelper.getAllChapter().size());
+//            Log.i(TAG, "onCreate: getAllHeading: " + mChemistryHelper.getAllHeading().size());
+//            Log.i(TAG, "onCreate: getAllTitle: " + mChemistryHelper.getAllTitle().size());
+//            Log.i(TAG, "onCreate: getAllDescription: " + mChemistryHelper.getAllDescription().size());
+//            Log.i(TAG, "onCreate: getAllDescriptionOfChapter: " + mChemistryHelper.getAllDescriptionOfChapter().size());
+//            Log.i(TAG, "onCreate: getAllDescriptionOfHeading: " + mChemistryHelper.getAllDescriptionOfHeading().size());
+//            Log.i(TAG, "onCreate: getAllDescriptionOfTitle: " + mChemistryHelper.getAllDescriptionOfTitle().size());
+//
+//            //Game
+//            Log.i(TAG, "onCreate: getAllTypeOfQuestion " + mChemistryHelper.getAllTypeOfQuestion().size());
+//            Log.i(TAG, "onCreate: getAllQuestion " + mChemistryHelper.getAllQuestion().size());
+//            Log.i(TAG, "onCreate: getAllAnswer " + mChemistryHelper.getAllAnswer().size());
+//            Log.i(TAG, "onCreate: getAllAnswerByQuestion " + mChemistryHelper.getAllAnswerByQuestion().size());
 
             startActivity(new Intent(this, MainActivity.class));
             finish();

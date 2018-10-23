@@ -89,7 +89,6 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
                     int show = j + 65;
                     questionHolder.tvReviewAnswer.setText(String.valueOf((char) show));
                 }
-
             }
 
             // user choose
@@ -98,6 +97,8 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
                     int show = i + 65;
                     questionHolder.tvChoose.setText(String.valueOf((char) show));
                     break;
+                }else {
+                    questionHolder.tvChoose.setText("X");
                 }
             }
 
@@ -144,6 +145,7 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
             super(itemView);
             tvContent = itemView.findViewById(R.id.tv_content_question_match);
             tvChoose = itemView.findViewById(R.id.tv_user_choose);
+            tvChoose.setText("?");
             tvReviewAnswer = itemView.findViewById(R.id.tv_review_answer);
             lnChoose = itemView.findViewById(R.id.ln_question_match);
         }

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,6 +40,8 @@ public class ChooseLevelActivity extends AppCompatActivity {
 
         init();
 
+        setupToolbar();
+
         //Get TypeOfGame from Fragment
         int type = getType();
 
@@ -46,18 +50,7 @@ public class ChooseLevelActivity extends AppCompatActivity {
 
         //Get all levels with type exit
         setupLevel(type, 1);
-
-//        final Intent finalIntent = intent;
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                if (finalIntent != null){
-//                    finalIntent.putExtra("LEVEL", Integer.parseInt(mLevelList.get(i)));
-//                    startActivity(finalIntent);
-//                    finish();
-//                }
-//            }
-//        });
+        saveExtent(1);
     }
 
     private void init() {
@@ -74,7 +67,21 @@ public class ChooseLevelActivity extends AppCompatActivity {
         mRvTree.setAdapter(mAdapter);
     }
 
+    private void setupToolbar() {
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
     private void setupLevel(int type, int extent) {
+        saveExtent(extent);
         mList.clear();
         List<Question> list = mHelper.getAllQuestion();
 
@@ -107,6 +114,10 @@ public class ChooseLevelActivity extends AppCompatActivity {
         PreferencesManager.getInstance().saveIntData(Constraint.PRE_KEY_TYPE, type);
     }
 
+    private void saveExtent(int extent) {
+        PreferencesManager.getInstance().saveIntData(Constraint.PRE_KEY_EXTENT, extent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -130,5 +141,10 @@ public class ChooseLevelActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
