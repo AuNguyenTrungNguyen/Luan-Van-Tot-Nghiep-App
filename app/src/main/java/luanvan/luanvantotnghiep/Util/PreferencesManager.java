@@ -38,4 +38,12 @@ public class PreferencesManager {
     public void saveBooleanData(String key, boolean value){
         mPreferences.edit().putBoolean(key, value).apply();
     }
+
+    public String getStringData(String key, String defValue){
+        return mPreferences.getString(key, defValue);
+    }
+
+    public void saveStringData(String key, String value){
+        mPreferences.edit().putString(key, value).apply();
+    }
 }

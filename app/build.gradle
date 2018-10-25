@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -33,10 +34,12 @@ dependencies {
 
     //firebase
     implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+//    implementation 'com.google.firebase:firebase-admin:6.5.0'
+//    annotationProcessor 'com.google.auto.value:auto-value:1.5.2'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }
-
-apply plugin: 'com.google.gms.google-services'

@@ -1,6 +1,7 @@
 package luanvan.luanvantotnghiep;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,15 +13,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
 
+import luanvan.luanvantotnghiep.Activity.SignInActivity;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
@@ -29,19 +29,9 @@ import luanvan.luanvantotnghiep.Fragment.ReactionFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
 import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
-import luanvan.luanvantotnghiep.Model.Anion;
-import luanvan.luanvantotnghiep.Model.Cation;
-import luanvan.luanvantotnghiep.Model.ChemicalReaction;
-import luanvan.luanvantotnghiep.Model.Chemistry;
-import luanvan.luanvantotnghiep.Model.Compound;
-import luanvan.luanvantotnghiep.Model.CreatedReaction;
-import luanvan.luanvantotnghiep.Model.Element;
-import luanvan.luanvantotnghiep.Model.Group;
-import luanvan.luanvantotnghiep.Model.ProducedBy;
-import luanvan.luanvantotnghiep.Model.ReactWith;
-import luanvan.luanvantotnghiep.Model.Solute;
-import luanvan.luanvantotnghiep.Model.Type;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -209,6 +199,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             switchFragment(R.id.nav_reaction, ReactionFragment.newInstance());
 
+        } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            PreferencesManager preferencesManager = PreferencesManager.getInstance();
+            preferencesManager.init(this);
+            preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
         } else if (id == R.id.nav_all) {
 
             controlRightNavgate(R.id.nav_all, 0);

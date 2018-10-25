@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="luanvan.luanvantotnghiep">
 
-    <!--android:hardwareAccelerated="false"-->
+    <!-- android:hardwareAccelerated="false" -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,54 +11,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
 
         <activity
-            android:name=".Activity.DetailElementActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Activity.ConfigElectronActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Activity.ShowTheoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Activity.QuizActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Activity.FillInTheBlankActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Activity.CheckVersionDatabaseActivity">
+            android:name=".Activity.SignInActivity"
+            android:label="Đăng Nhập">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activity.DetailElementActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.ConfigElectronActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.ShowTheoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.QuizActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.FillInTheBlankActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.CheckVersionDatabaseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Activity.MatchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activity.SortActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activity.ChooseLevelActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.SignUpActivity"
+            android:parentActivityName=".Activity.SignUpActivity"
+            android:label="Đăng Ký"/>
     </application>
 
 </manifest>
