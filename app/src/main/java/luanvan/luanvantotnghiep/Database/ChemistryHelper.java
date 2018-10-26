@@ -736,68 +736,78 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //GAME
     //[Add]
-    public void addBlock(Block block) {
+    public void addBlockList(List<Block> blockList) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.BlockEntry.COLUMN_BLOCK_ID, block.getIdBlock());
-
-        db.insert(ChemistryContract.BlockEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Block block : blockList) {
+            values.put(ChemistryContract.BlockEntry.COLUMN_BLOCK_ID, block.getIdBlock());
+            db.insert(ChemistryContract.BlockEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addTypeOfQuestion(TypeOfQuestion typeOfQuestion) {
+    public void addTypeOfQuestionList(List<TypeOfQuestion> typeOfQuestionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_ID, typeOfQuestion.getIdType());
-        values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_NAME, typeOfQuestion.getNameType());
-        values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_DESCRIPTION, typeOfQuestion.getDescription());
-
-        db.insert(ChemistryContract.TypeOfQuestionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (TypeOfQuestion typeOfQuestion : typeOfQuestionList) {
+            values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_ID, typeOfQuestion.getIdType());
+            values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_NAME, typeOfQuestion.getNameType());
+            values.put(ChemistryContract.TypeOfQuestionEntry.COLUMN_TYPE_DESCRIPTION, typeOfQuestion.getDescription());
+            db.insert(ChemistryContract.TypeOfQuestionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addAnswer(Answer answer) {
+    public void addAnswerList(List<Answer> answerList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID, answer.getIdAnswer());
-        values.put(ChemistryContract.AnswerEntry.COLUMN_ANSWER_CONTENT, answer.getContentAnswer());
-
-        db.insert(ChemistryContract.AnswerEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Answer answer : answerList) {
+            values.put(ChemistryContract.AnswerEntry.COLUMN_ANSWER_ID, answer.getIdAnswer());
+            values.put(ChemistryContract.AnswerEntry.COLUMN_ANSWER_CONTENT, answer.getContentAnswer());
+            db.insert(ChemistryContract.AnswerEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addQuestion(Question question) {
+    public void addQuestionList(List<Question> questionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID, question.getIdQuestion());
-        values.put(ChemistryContract.QuestionEntry.COLUMN_QUESTION_CONTENT, question.getContentQuestion());
-        values.put(ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID, question.getIdLevel());
-        values.put(ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID, question.getIdBlock());
-        values.put(ChemistryContract.QuestionEntry.COLUMN_TYPE_ID, question.getIdType());
-        values.put(ChemistryContract.QuestionEntry.COLUMN_EXTENT, question.getExtent());
-
-        db.insert(ChemistryContract.QuestionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Question question : questionList) {
+            values.put(ChemistryContract.QuestionEntry.COLUMN_QUESTION_ID, question.getIdQuestion());
+            values.put(ChemistryContract.QuestionEntry.COLUMN_QUESTION_CONTENT, question.getContentQuestion());
+            values.put(ChemistryContract.QuestionEntry.COLUMN_LEVEL_ID, question.getIdLevel());
+            values.put(ChemistryContract.QuestionEntry.COLUMN_BLOCK_ID, question.getIdBlock());
+            values.put(ChemistryContract.QuestionEntry.COLUMN_TYPE_ID, question.getIdType());
+            values.put(ChemistryContract.QuestionEntry.COLUMN_EXTENT, question.getExtent());
+            db.insert(ChemistryContract.QuestionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addAnswerByQuestion(AnswerByQuestion answerByQuestion) {
+    public void addAnswerByQuestionList(List<AnswerByQuestion> answerByQuestionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID, answerByQuestion.getIdQuestion());
-        values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID, answerByQuestion.getIdAnswer());
-        values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_CORRECT, answerByQuestion.getCorrect());
-
-        db.insert(ChemistryContract.AnswerByQuestionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (AnswerByQuestion answerByQuestion : answerByQuestionList) {
+            values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_QUESTION_ID, answerByQuestion.getIdQuestion());
+            values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_ANSWER_ID, answerByQuestion.getIdAnswer());
+            values.put(ChemistryContract.AnswerByQuestionEntry.COLUMN_CORRECT, answerByQuestion.getCorrect());
+            db.insert(ChemistryContract.AnswerByQuestionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     //[Get all]
@@ -973,72 +983,80 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //PERIODIC TABLE
     //[Add]
-    public void addType(Type type) {
+    public void addTypeList(List<Type> typeList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.TypeEntry.COLUMN_ID, type.getIdType());
-        values.put(ChemistryContract.TypeEntry.COLUMN_NAME, type.getNameType());
-
-        db.insert(ChemistryContract.TypeEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Type type : typeList) {
+            values.put(ChemistryContract.TypeEntry.COLUMN_ID, type.getIdType());
+            values.put(ChemistryContract.TypeEntry.COLUMN_NAME, type.getNameType());
+            db.insert(ChemistryContract.TypeEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addChemistry(Chemistry chemistry) {
+    public void addChemistryList(List<Chemistry> chemistryList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_ID, chemistry.getIdChemistry());
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_TYPE_ID, chemistry.getIdType());
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_SYMBOL, chemistry.getSymbolChemistry());
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_NAME, chemistry.getNameChemistry());
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_STATUS, chemistry.getStatusChemistry());
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_COLOR, chemistry.getColorChemistry());
-        values.put(ChemistryContract.ChemistryEntry.COLUMN_WEIGHT, chemistry.getWeightChemistry());
-
-        db.insert(ChemistryContract.ChemistryEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Chemistry chemistry : chemistryList) {
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_ID, chemistry.getIdChemistry());
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_TYPE_ID, chemistry.getIdType());
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_SYMBOL, chemistry.getSymbolChemistry());
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_NAME, chemistry.getNameChemistry());
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_STATUS, chemistry.getStatusChemistry());
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_COLOR, chemistry.getColorChemistry());
+            values.put(ChemistryContract.ChemistryEntry.COLUMN_WEIGHT, chemistry.getWeightChemistry());
+            db.insert(ChemistryContract.ChemistryEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addGroup(Group group) {
+    public void addGroupList(List<Group> groupList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.GroupEntry.COLUMN_ID, group.getIdGroup());
-        values.put(ChemistryContract.GroupEntry.COLUMN_NAME, group.getNameGroup());
-
-        db.insert(ChemistryContract.GroupEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Group group : groupList) {
+            values.put(ChemistryContract.GroupEntry.COLUMN_ID, group.getIdGroup());
+            values.put(ChemistryContract.GroupEntry.COLUMN_NAME, group.getNameGroup());
+            db.insert(ChemistryContract.GroupEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addElement(Element element) {
+    public void addElementList(List<Element> elementList) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        db.beginTransaction();
         ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ElementEntry.COLUMN_ID, element.getIdElement());
-        values.put(ChemistryContract.ElementEntry.COLUMN_GROUP_ID, element.getIdGroup());
-        values.put(ChemistryContract.ElementEntry.COLUMN_MOLECULAR_FORMULA, element.getMolecularFormula());
-        values.put(ChemistryContract.ElementEntry.COLUMN_PERIOD, element.getPeriod());
-        values.put(ChemistryContract.ElementEntry.COLUMN_CLASS, element.getClassElement());
-        values.put(ChemistryContract.ElementEntry.COLUMN_NEUTRON, element.getNeutron());
-        values.put(ChemistryContract.ElementEntry.COLUMN_SIMPLE_CONFIG, element.getSimplifiedConfiguration());
-        values.put(ChemistryContract.ElementEntry.COLUMN_CONFIG, element.getConfiguration());
-        values.put(ChemistryContract.ElementEntry.COLUMN_SHELL, element.getShell());
-        values.put(ChemistryContract.ElementEntry.COLUMN_ELECTRONEGATIVITY, element.getElectronegativity());
-        values.put(ChemistryContract.ElementEntry.COLUMN_VALENCE, element.getValence());
-        values.put(ChemistryContract.ElementEntry.COLUMN_ENGLISH_NAME, element.getEnglishName());
-        values.put(ChemistryContract.ElementEntry.COLUMN_MELTING_POINT, element.getMeltingPoint());
-        values.put(ChemistryContract.ElementEntry.COLUMN_BOILING_POINT, element.getBoilingPoint());
-        values.put(ChemistryContract.ElementEntry.COLUMN_DISCOVERER, element.getDiscoverer());
-        values.put(ChemistryContract.ElementEntry.COLUMN_YEAR_DISCOVERY, element.getYearDiscovery());
-        values.put(ChemistryContract.ElementEntry.COLUMN_ISOTOPES, element.getIsotopes());
-        values.put(ChemistryContract.ElementEntry.COLUMN_PICTURE, element.getPicture());
-
-        db.insert(ChemistryContract.ElementEntry.TABLE_NAME, null, values);
-        db.close();
+        for (Element element : elementList) {
+            values.put(ChemistryContract.ElementEntry.COLUMN_ID, element.getIdElement());
+            values.put(ChemistryContract.ElementEntry.COLUMN_GROUP_ID, element.getIdGroup());
+            values.put(ChemistryContract.ElementEntry.COLUMN_MOLECULAR_FORMULA, element.getMolecularFormula());
+            values.put(ChemistryContract.ElementEntry.COLUMN_PERIOD, element.getPeriod());
+            values.put(ChemistryContract.ElementEntry.COLUMN_CLASS, element.getClassElement());
+            values.put(ChemistryContract.ElementEntry.COLUMN_NEUTRON, element.getNeutron());
+            values.put(ChemistryContract.ElementEntry.COLUMN_SIMPLE_CONFIG, element.getSimplifiedConfiguration());
+            values.put(ChemistryContract.ElementEntry.COLUMN_CONFIG, element.getConfiguration());
+            values.put(ChemistryContract.ElementEntry.COLUMN_SHELL, element.getShell());
+            values.put(ChemistryContract.ElementEntry.COLUMN_ELECTRONEGATIVITY, element.getElectronegativity());
+            values.put(ChemistryContract.ElementEntry.COLUMN_VALENCE, element.getValence());
+            values.put(ChemistryContract.ElementEntry.COLUMN_ENGLISH_NAME, element.getEnglishName());
+            values.put(ChemistryContract.ElementEntry.COLUMN_MELTING_POINT, element.getMeltingPoint());
+            values.put(ChemistryContract.ElementEntry.COLUMN_BOILING_POINT, element.getBoilingPoint());
+            values.put(ChemistryContract.ElementEntry.COLUMN_DISCOVERER, element.getDiscoverer());
+            values.put(ChemistryContract.ElementEntry.COLUMN_YEAR_DISCOVERY, element.getYearDiscovery());
+            values.put(ChemistryContract.ElementEntry.COLUMN_ISOTOPES, element.getIsotopes());
+            values.put(ChemistryContract.ElementEntry.COLUMN_PICTURE, element.getPicture());
+            db.insert(ChemistryContract.ElementEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     //[Get all]
@@ -1202,70 +1220,80 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //SEARCH CHEMISTRY
     //[Add]
-    public void addCompound(Compound compound) {
+    public void addCompoundList(List<Compound> compoundList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.CompoundEntry.COLUMN_ID, compound.getIdCompound());
-        values.put(ChemistryContract.CompoundEntry.COLUMN_OTHER_NAMES, compound.getOtherNames());
-
-        db.insert(ChemistryContract.CompoundEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Compound compound : compoundList) {
+            values.put(ChemistryContract.CompoundEntry.COLUMN_ID, compound.getIdCompound());
+            values.put(ChemistryContract.CompoundEntry.COLUMN_OTHER_NAMES, compound.getOtherNames());
+            db.insert(ChemistryContract.CompoundEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addProducedBy(ProducedBy producedBy) {
+    public void addProducedByList(List<ProducedBy> producedByList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID, producedBy.getIdRightReaction());
-        values.put(ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID, producedBy.getIdLeftReaction());
-
-        db.insert(ChemistryContract.ProducedByEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (ProducedBy producedBy : producedByList) {
+            values.put(ChemistryContract.ProducedByEntry.COLUMN_RIGHT_REACTION_ID, producedBy.getIdRightReaction());
+            values.put(ChemistryContract.ProducedByEntry.COLUMN_LEFT_REACTION_ID, producedBy.getIdLeftReaction());
+            db.insert(ChemistryContract.ProducedByEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addChemicalReaction(ChemicalReaction chemicalReaction) {
+    public void addChemicalReactionList(List<ChemicalReaction> chemicalReactionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CHEMICAL_REACTION_ID, chemicalReaction.getIdChemicalReaction());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_REACTANTS, chemicalReaction.getReactants());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PRODUCTS, chemicalReaction.getProducts());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CONDITIONS, chemicalReaction.getConditions());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PHENOMENA, chemicalReaction.getPhenomena());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_TWO_WAY, chemicalReaction.getTwoWay());
-        values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_REACTION_TYPES, chemicalReaction.getReactionTypes());
-
-        db.insert(ChemistryContract.ChemicalReactionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (ChemicalReaction chemicalReaction : chemicalReactionList) {
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CHEMICAL_REACTION_ID, chemicalReaction.getIdChemicalReaction());
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_REACTANTS, chemicalReaction.getReactants());
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PRODUCTS, chemicalReaction.getProducts());
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_CONDITIONS, chemicalReaction.getConditions());
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_PHENOMENA, chemicalReaction.getPhenomena());
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_TWO_WAY, chemicalReaction.getTwoWay());
+            values.put(ChemistryContract.ChemicalReactionEntry.COLUMN_REACTION_TYPES, chemicalReaction.getReactionTypes());
+            db.insert(ChemistryContract.ChemicalReactionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addReactWith(ReactWith reactWith) {
+    public void addReactWithList(List<ReactWith> reactWithList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_1_ID, reactWith.getIdChemistry_1());
-        values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_2_ID, reactWith.getIdChemistry_2());
-        values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMICAL_REACTION_ID, reactWith.getIdChemicalReaction());
-
-        db.insert(ChemistryContract.ReactWithEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (ReactWith reactWith : reactWithList) {
+            values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_1_ID, reactWith.getIdChemistry_1());
+            values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMISTRY_2_ID, reactWith.getIdChemistry_2());
+            values.put(ChemistryContract.ReactWithEntry.COLUMN_CHEMICAL_REACTION_ID, reactWith.getIdChemicalReaction());
+            db.insert(ChemistryContract.ReactWithEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addCreatedReaction(CreatedReaction createdReaction) {
+    public void addCreatedReactionList(List<CreatedReaction> createdReactionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.CreatedReactionEntry.COLUMN_CREATE_RIGHT_ID, createdReaction.getIdCreatedRight());
-        values.put(ChemistryContract.CreatedReactionEntry.COLUMN_CHEMICAL_REACTION_ID, createdReaction.getIdChemicalReaction());
-
-        db.insert(ChemistryContract.CreatedReactionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (CreatedReaction createdReaction : createdReactionList) {
+            values.put(ChemistryContract.CreatedReactionEntry.COLUMN_CREATE_RIGHT_ID, createdReaction.getIdCreatedRight());
+            values.put(ChemistryContract.CreatedReactionEntry.COLUMN_CHEMICAL_REACTION_ID, createdReaction.getIdChemicalReaction());
+            db.insert(ChemistryContract.CreatedReactionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     //[Get all]
@@ -1407,43 +1435,49 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //SOLUBILITY TABLE
     //[Add]
-    public void addAnion(Anion anion) {
+    public void addAnionList(List<Anion> anionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.AnionEntry.COLUMN_ID, anion.getIdAnion());
-        values.put(ChemistryContract.AnionEntry.COLUMN_NAME, anion.getNameAnion());
-        values.put(ChemistryContract.AnionEntry.COLUMN_VALENCE, anion.getValenceAnion());
-
-        db.insert(ChemistryContract.AnionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (int i = 0; i < anionList.size(); i++) {
+            values.put(ChemistryContract.AnionEntry.COLUMN_ID, anionList.get(i).getIdAnion());
+            values.put(ChemistryContract.AnionEntry.COLUMN_NAME, anionList.get(i).getNameAnion());
+            values.put(ChemistryContract.AnionEntry.COLUMN_VALENCE, anionList.get(i).getValenceAnion());
+            db.insert(ChemistryContract.AnionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addCation(Cation cation) {
+    public void addCationList(List<Cation> cationList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.CationEntry.COLUMN_ID, cation.getIdCation());
-        values.put(ChemistryContract.CationEntry.COLUMN_NAME, cation.getNameCation());
-        values.put(ChemistryContract.CationEntry.COLUMN_VALENCE, cation.getValenceCation());
-
-        db.insert(ChemistryContract.CationEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (int i = 0; i < cationList.size(); i++) {
+            values.put(ChemistryContract.CationEntry.COLUMN_ID, cationList.get(i).getIdCation());
+            values.put(ChemistryContract.CationEntry.COLUMN_NAME, cationList.get(i).getNameCation());
+            values.put(ChemistryContract.CationEntry.COLUMN_VALENCE, cationList.get(i).getValenceCation());
+            db.insert(ChemistryContract.CationEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addSolute(Solute solute) {
+    public void addSoluteList(List<Solute> soluteList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.SoluteEntry.COLUMN_ANION_ID, solute.getAnion());
-        values.put(ChemistryContract.SoluteEntry.COLUMN_CATION_ID, solute.getCation());
-        values.put(ChemistryContract.SoluteEntry.COLUMN_SOLUTE, solute.getSolute());
-
-        db.insert(ChemistryContract.SoluteEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (int i = 0; i < soluteList.size(); i++) {
+            values.put(ChemistryContract.SoluteEntry.COLUMN_ANION_ID, soluteList.get(i).getAnion());
+            values.put(ChemistryContract.SoluteEntry.COLUMN_CATION_ID, soluteList.get(i).getCation());
+            values.put(ChemistryContract.SoluteEntry.COLUMN_SOLUTE, soluteList.get(i).getSolute());
+            db.insert(ChemistryContract.SoluteEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     //[Get all]
@@ -1530,17 +1564,19 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //REACTIVITY TABLE
     //[Add]
-    public void addReactSeries(ReactSeries reactSeries) {
+    public void addReactSeriesList(List<ReactSeries> reactSeriesList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
+        db.beginTransaction();
         ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ReactSeriesEntry.COLUMN_ID, reactSeries.getIdReactSeries());
-        values.put(ChemistryContract.ReactSeriesEntry.COLUMN_ION, reactSeries.getIon());
-        values.put(ChemistryContract.ReactSeriesEntry.COLUMN_VALENCE, reactSeries.getValence());
-
-        db.insert(ChemistryContract.ReactSeriesEntry.TABLE_NAME, null, values);
-        db.close();
+        for (ReactSeries reactSeries : reactSeriesList) {
+            values.put(ChemistryContract.ReactSeriesEntry.COLUMN_ID, reactSeries.getIdReactSeries());
+            values.put(ChemistryContract.ReactSeriesEntry.COLUMN_ION, reactSeries.getIon());
+            values.put(ChemistryContract.ReactSeriesEntry.COLUMN_VALENCE, reactSeries.getValence());
+            db.insert(ChemistryContract.ReactSeriesEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     //[Get all]
@@ -1573,97 +1609,112 @@ public class ChemistryHelper extends SQLiteOpenHelper {
 
     //THEMATIC
     //[Add]
-    public void addChapter(Chapter chapter) {
+    public void addChapterList(List<Chapter> chapterList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID, chapter.getIdChapter());
-        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME, chapter.getNameChapter());
-        values.put(ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID, chapter.getIdBlock());
-        values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONFIRM, chapter.getConfirm());
-
-        db.insert(ChemistryContract.ChapterEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Chapter chapter : chapterList) {
+            values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_ID, chapter.getIdChapter());
+            values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_NAME, chapter.getNameChapter());
+            values.put(ChemistryContract.ChapterEntry.COLUMN_BLOCK_ID, chapter.getIdBlock());
+            values.put(ChemistryContract.ChapterEntry.COLUMN_CHAPTER_CONFIRM, chapter.getConfirm());
+            db.insert(ChemistryContract.ChapterEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addHeading(Heading heading) {
+    public void addHeadingList(List<Heading> headingList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.HeadingEntry.COLUMN_HEADING_ID, heading.getIdHeading());
-        values.put(ChemistryContract.HeadingEntry.COLUMN_CHAPTER_ID, heading.getIdChapter());
-        values.put(ChemistryContract.HeadingEntry.COLUMN_HEADING_NAME, heading.getNameHeading());
-        values.put(ChemistryContract.HeadingEntry.COLUMN_SORT_ORDER, heading.getSortOrder());
-
-        db.insert(ChemistryContract.HeadingEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Heading heading : headingList) {
+            values.put(ChemistryContract.HeadingEntry.COLUMN_HEADING_ID, heading.getIdHeading());
+            values.put(ChemistryContract.HeadingEntry.COLUMN_CHAPTER_ID, heading.getIdChapter());
+            values.put(ChemistryContract.HeadingEntry.COLUMN_HEADING_NAME, heading.getNameHeading());
+            values.put(ChemistryContract.HeadingEntry.COLUMN_SORT_ORDER, heading.getSortOrder());
+            db.insert(ChemistryContract.HeadingEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addTitle(Title title) {
+    public void addTitleList(List<Title> titleList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Title title : titleList) {
+            values.put(ChemistryContract.TitleEntry.COLUMN_TITLE_ID, title.getIdTitle());
+            values.put(ChemistryContract.TitleEntry.COLUMN_HEADING_ID, title.getIdHeading());
+            values.put(ChemistryContract.TitleEntry.COLUMN_TITLE_NAME, title.getNameTitle());
+            values.put(ChemistryContract.TitleEntry.COLUMN_SORT_ORDER, title.getSortOrder());
+            db.insert(ChemistryContract.TitleEntry.TABLE_NAME, null, values);
+        }
 
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.TitleEntry.COLUMN_TITLE_ID, title.getIdTitle());
-        values.put(ChemistryContract.TitleEntry.COLUMN_HEADING_ID, title.getIdHeading());
-        values.put(ChemistryContract.TitleEntry.COLUMN_TITLE_NAME, title.getNameTitle());
-        values.put(ChemistryContract.TitleEntry.COLUMN_SORT_ORDER, title.getSortOrder());
-
-        db.insert(ChemistryContract.TitleEntry.TABLE_NAME, null, values);
-        db.close();
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addDescription(Description description) {
+    public void addDescriptionList(List<Description> descriptionList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID, description.getIdDescription());
-        values.put(ChemistryContract.DescriptionEntry.COLUMN_TYPE_OF_DESCRIPTION_ID, description.getIdTypeOfDescription());
-        values.put(ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_NAME, description.getNameDescription());
-        values.put(ChemistryContract.DescriptionEntry.COLUMN_SORT_ORDER, description.getSortOrder());
-
-        db.insert(ChemistryContract.DescriptionEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (Description description : descriptionList) {
+            values.put(ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_ID, description.getIdDescription());
+            values.put(ChemistryContract.DescriptionEntry.COLUMN_TYPE_OF_DESCRIPTION_ID, description.getIdTypeOfDescription());
+            values.put(ChemistryContract.DescriptionEntry.COLUMN_DESCRIPTION_NAME, description.getNameDescription());
+            values.put(ChemistryContract.DescriptionEntry.COLUMN_SORT_ORDER, description.getSortOrder());
+            db.insert(ChemistryContract.DescriptionEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addDescriptionOfChapter(DescriptionOfChapter descriptionOfChapter) {
+    public void addDescriptionOfChapterList(List<DescriptionOfChapter> descriptionOfChapterList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.DescriptionOfChapterEntry.COLUMN_CHAPTER_ID, descriptionOfChapter.getIdChapter());
-        values.put(ChemistryContract.DescriptionOfChapterEntry.COLUMN_DESCRIPTION_ID, descriptionOfChapter.getIdDescription());
-
-        db.insert(ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (DescriptionOfChapter descriptionOfChapter : descriptionOfChapterList) {
+            values.put(ChemistryContract.DescriptionOfChapterEntry.COLUMN_CHAPTER_ID, descriptionOfChapter.getIdChapter());
+            values.put(ChemistryContract.DescriptionOfChapterEntry.COLUMN_DESCRIPTION_ID, descriptionOfChapter.getIdDescription());
+            db.insert(ChemistryContract.DescriptionOfChapterEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addDescriptionOfHeading(DescriptionOfHeading descriptionOfHeading) {
+    public void addDescriptionOfHeadingList(List<DescriptionOfHeading> descriptionOfHeadingList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.DescriptionOfHeadingEntry.COLUMN_HEADING_ID, descriptionOfHeading.getIdHeading());
-        values.put(ChemistryContract.DescriptionOfHeadingEntry.COLUMN_DESCRIPTION_ID, descriptionOfHeading.getIdDescription());
-
-        db.insert(ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME, null, values);
-        db.close();
+        db.beginTransaction();
+        ContentValues values = new ContentValues(1);
+        for (DescriptionOfHeading descriptionOfHeading : descriptionOfHeadingList) {
+            values.put(ChemistryContract.DescriptionOfHeadingEntry.COLUMN_HEADING_ID, descriptionOfHeading.getIdHeading());
+            values.put(ChemistryContract.DescriptionOfHeadingEntry.COLUMN_DESCRIPTION_ID, descriptionOfHeading.getIdDescription());
+            db.insert(ChemistryContract.DescriptionOfHeadingEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
-    public void addDescriptionOfTitle(DescriptionOfTitle descriptionOfTitle) {
+    public void addDescriptionOfTitleList(List<DescriptionOfTitle> descriptionOfTitleList) {
 
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
 
-        ContentValues values = new ContentValues();
-        values.put(ChemistryContract.DescriptionOfTitleEntry.COLUMN_TITLE_ID, descriptionOfTitle.getIdTitle());
-        values.put(ChemistryContract.DescriptionOfTitleEntry.COLUMN_DESCRIPTION_ID, descriptionOfTitle.getIdDescription());
-
-        long check = db.insert(ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME, null, values);
-        Log.i("hns", check + "");
-        db.close();
+        ContentValues values = new ContentValues(1);
+        for (DescriptionOfTitle descriptionOfTitle : descriptionOfTitleList) {
+            values.put(ChemistryContract.DescriptionOfTitleEntry.COLUMN_TITLE_ID, descriptionOfTitle.getIdTitle());
+            values.put(ChemistryContract.DescriptionOfTitleEntry.COLUMN_DESCRIPTION_ID, descriptionOfTitle.getIdDescription());
+            db.insert(ChemistryContract.DescriptionOfTitleEntry.TABLE_NAME, null, values);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 
     //{Get all}

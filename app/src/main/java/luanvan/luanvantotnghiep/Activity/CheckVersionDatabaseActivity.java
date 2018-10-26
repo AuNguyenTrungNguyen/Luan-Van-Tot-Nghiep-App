@@ -102,13 +102,15 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     private int newVersionGame = 0;
     private int newVersionThematic = 0;
 
+    //Read data offline
+    private JSONObject mJsonObject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_version_database);
 
         init();
-
 
         /*get version share pre*/
         int oldVersionOffline = PreferencesManager.getInstance().getIntData(KEY_OFFLINE, 0);
@@ -159,6 +161,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     }
 
     private void init() {
+        Log.i(TAG, "init: ");
 
         PreferencesManager.getInstance().init(this);
 
@@ -168,6 +171,11 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         dialog.show();
 
         mChemistryHelper = ChemistrySingle.getInstance(this);
+        try {
+            mJsonObject = new JSONObject(loadJSONFromAsset());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         //THEMATIC
@@ -197,8 +205,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     //Get version offline
     private int getVersionOffline() {
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            String version = (String) obj.get("Version");
+            String version = (String) mJsonObject.get("Version");
             return Integer.parseInt(version);
 
         } catch (JSONException e) {
@@ -286,8 +293,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Type> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Type");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Type");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -298,9 +305,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyType();
-            for (Type item : list) {
-                mChemistryHelper.addType(item);
-            }
+            mChemistryHelper.addTypeList(list);
             Log.i(TAG, "onCreate: UPDATE Type Table!!!");
 
         } catch (JSONException e) {
@@ -313,8 +318,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Chemistry> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Chemistry");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Chemistry");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -330,9 +335,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyChemistry();
-            for (Chemistry item : list) {
-                mChemistryHelper.addChemistry(item);
-            }
+            mChemistryHelper.addChemistryList(list);
             Log.i(TAG, "onCreate: UPDATE Chemistry Table!!!");
 
         } catch (JSONException e) {
@@ -345,8 +348,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Group> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Group");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Group");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -357,9 +360,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyGroup();
-            for (Group item : list) {
-                mChemistryHelper.addGroup(item);
-            }
+            mChemistryHelper.addGroupList(list);
             Log.i(TAG, "onCreate: UPDATE Group Table!!!");
 
         } catch (JSONException e) {
@@ -372,8 +373,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Element> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Element");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Element");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -407,9 +408,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyElement();
-            for (Element item : list) {
-                mChemistryHelper.addElement(item);
-            }
+            mChemistryHelper.addElementList(list);
             Log.i(TAG, "onCreate: UPDATE Element Table!!!");
 
         } catch (JSONException e) {
@@ -422,8 +421,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Compound> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Compound");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Compound");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -441,9 +440,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyCompound();
-            for (Compound item : list) {
-                mChemistryHelper.addCompound(item);
-            }
+            mChemistryHelper.addCompoundList(list);
             Log.i(TAG, "onCreate: UPDATE Compound Table!!!");
 
         } catch (JSONException e) {
@@ -456,8 +453,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<ProducedBy> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("ProducedBy");
+
+            JSONArray array = (JSONArray) mJsonObject.get("ProducedBy");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -470,9 +467,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyProducedBy();
-            for (ProducedBy item : list) {
-                mChemistryHelper.addProducedBy(item);
-            }
+            mChemistryHelper.addProducedByList(list);
             Log.i(TAG, "onCreate: UPDATE ProducedBy Table!!!");
 
         } catch (JSONException e) {
@@ -485,8 +480,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<ChemicalReaction> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("ChemicalReaction");
+
+            JSONArray array = (JSONArray) mJsonObject.get("ChemicalReaction");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -521,9 +516,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyChemicalReaction();
-            for (ChemicalReaction item : list) {
-                mChemistryHelper.addChemicalReaction(item);
-            }
+            mChemistryHelper.addChemicalReactionList(list);
             Log.i(TAG, "onCreate: UPDATE ChemicalReaction Table!!!");
 
         } catch (JSONException e) {
@@ -536,8 +529,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<CreatedReaction> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("CreatedReaction");
+
+            JSONArray array = (JSONArray) mJsonObject.get("CreatedReaction");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -549,9 +542,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyCreatedReaction();
-            for (CreatedReaction item : list) {
-                mChemistryHelper.addCreatedReaction(item);
-            }
+            mChemistryHelper.addCreatedReactionList(list);
             Log.i(TAG, "onCreate: UPDATE CreatedReaction Table!!!");
 
         } catch (JSONException e) {
@@ -564,8 +555,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<ReactWith> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("ReactWith");
+
+            JSONArray array = (JSONArray) mJsonObject.get("ReactWith");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -578,9 +569,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyReactWith();
-            for (ReactWith item : list) {
-                mChemistryHelper.addReactWith(item);
-            }
+            mChemistryHelper.addReactWithList(list);
             Log.i(TAG, "onCreate: UPDATE ReactWith Table!!!");
 
         } catch (JSONException e) {
@@ -593,8 +582,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Anion> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Anion");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Anion");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -606,9 +595,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyAnion();
-            for (Anion item : list) {
-                mChemistryHelper.addAnion(item);
-            }
+            mChemistryHelper.addAnionList(list);
             Log.i(TAG, "onCreate: UPDATE Anion Table!!!");
 
         } catch (JSONException e) {
@@ -621,8 +608,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Cation> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Cation");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Cation");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -634,9 +621,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyCation();
-            for (Cation item : list) {
-                mChemistryHelper.addCation(item);
-            }
+            mChemistryHelper.addCationList(list);
             Log.i(TAG, "onCreate: UPDATE Cation Table!!!");
 
         } catch (JSONException e) {
@@ -649,8 +634,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<Solute> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("Solute");
+
+            JSONArray array = (JSONArray) mJsonObject.get("Solute");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -662,9 +647,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptySolute();
-            for (Solute item : list) {
-                mChemistryHelper.addSolute(item);
-            }
+            mChemistryHelper.addSoluteList(list);
             Log.i(TAG, "onCreate: UPDATE Solute Table!!!");
 
         } catch (JSONException e) {
@@ -677,8 +660,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         List<ReactSeries> list = new ArrayList<>();
 
         try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-            JSONArray array = (JSONArray) obj.get("ReactSeries");
+
+            JSONArray array = (JSONArray) mJsonObject.get("ReactSeries");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject o = (JSONObject) array.get(i);
@@ -690,9 +673,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             }
 
             mChemistryHelper.emptyReactSeries();
-            for (ReactSeries item : list) {
-                mChemistryHelper.addReactSeries(item);
-            }
+            mChemistryHelper.addReactSeriesList(list);
             Log.i(TAG, "onCreate: UPDATE ReactSeries Table!!!");
 
         } catch (JSONException e) {
@@ -705,8 +686,8 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         if (flag) {
             List<Block> list = new ArrayList<>();
             try {
-                JSONObject obj = new JSONObject(loadJSONFromAsset("chemistry.json"));
-                JSONArray array = (JSONArray) obj.get("Block");
+
+                JSONArray array = (JSONArray) mJsonObject.get("Block");
 
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject o = (JSONObject) array.get(i);
@@ -717,10 +698,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 }
 
                 mChemistryHelper.emptyBlock();
-                for (Block item : list) {
-                    mChemistryHelper.addBlock(item);
-                }
-
+                mChemistryHelper.addBlockList(list);
                 Log.i(TAG, "addDataBlockTable: CREATE Block Table!!!");
 
             } catch (JSONException e) {
@@ -731,10 +709,10 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         }
     }
 
-    public String loadJSONFromAsset(String path) {
+    private String loadJSONFromAsset() {
         String json;
         try {
-            InputStream is = this.getAssets().open(path);
+            InputStream is = this.getAssets().open("chemistry.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -753,13 +731,15 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerChapter = myChapter.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Chapter> chapterList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Chapter chapter = postSnapshot.getValue(Chapter.class);
                     assert chapter != null;
                     if (chapter.getConfirm() == 1) {
-                        mChemistryHelper.addChapter(chapter);
+                        chapterList.add(chapter);
                     }
                 }
+                mChemistryHelper.addChapterList(chapterList);
                 getDataHeading();
             }
 
@@ -774,10 +754,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerHeading = myHeading.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Heading> headingList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Heading heading = postSnapshot.getValue(Heading.class);
-                    mChemistryHelper.addHeading(heading);
+                    headingList.add(heading);
                 }
+                mChemistryHelper.addHeadingList(headingList);
                 getDataTitle();
             }
 
@@ -792,10 +774,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerTitle = myTitle.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Title> titleList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Title title = postSnapshot.getValue(Title.class);
-                    mChemistryHelper.addTitle(title);
+                    titleList.add(title);
                 }
+                mChemistryHelper.addTitleList(titleList);
                 getDataDescription();
             }
 
@@ -810,10 +794,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerDescription = myDescription.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Description> descriptionList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Description description = postSnapshot.getValue(Description.class);
-                    mChemistryHelper.addDescription(description);
+                    descriptionList.add(description);
                 }
+                mChemistryHelper.addDescriptionList(descriptionList);
                 getDataDescriptionOfChapter();
             }
 
@@ -828,10 +814,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerDescriptionOfChapter = myDescriptionOfChapter.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<DescriptionOfChapter> descriptionOfChapterList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     DescriptionOfChapter descriptionOfChapter = postSnapshot.getValue(DescriptionOfChapter.class);
-                    mChemistryHelper.addDescriptionOfChapter(descriptionOfChapter);
+                    descriptionOfChapterList.add(descriptionOfChapter);
                 }
+                mChemistryHelper.addDescriptionOfChapterList(descriptionOfChapterList);
                 getDataDescriptionOfHeading();
             }
 
@@ -846,10 +834,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerDescriptionOfHeading = myDescriptionOfHeading.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<DescriptionOfHeading> descriptionOfHeadingList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     DescriptionOfHeading descriptionOfHeading = postSnapshot.getValue(DescriptionOfHeading.class);
-                    mChemistryHelper.addDescriptionOfHeading(descriptionOfHeading);
+                    descriptionOfHeadingList.add(descriptionOfHeading);
                 }
+                mChemistryHelper.addDescriptionOfHeadingList(descriptionOfHeadingList);
                 getDataDescriptionOfTitle();
             }
 
@@ -864,10 +854,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         mListenerDescriptionOfTitle = myDescriptionOfTitle.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<DescriptionOfTitle> descriptionOfTitleList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     DescriptionOfTitle descriptionOfTitle = postSnapshot.getValue(DescriptionOfTitle.class);
-                    mChemistryHelper.addDescriptionOfTitle(descriptionOfTitle);
+                                        descriptionOfTitleList.add(descriptionOfTitle);
                 }
+                mChemistryHelper.addDescriptionOfTitleList(descriptionOfTitleList);
                 handleSuccessThematic();
             }
 
@@ -899,10 +891,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         myListenerTypeOfQuestion = myTypeOfQuestion.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<TypeOfQuestion> typeOfQuestionList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     TypeOfQuestion typeOfQuestion = postSnapshot.getValue(TypeOfQuestion.class);
-                    mChemistryHelper.addTypeOfQuestion(typeOfQuestion);
+                    typeOfQuestionList.add(typeOfQuestion);
                 }
+                mChemistryHelper.addTypeOfQuestionList(typeOfQuestionList);
                 getDataQuestion();
             }
 
@@ -917,10 +911,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         myListenerQuestion = myQuestion.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Question> questionList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Question question = postSnapshot.getValue(Question.class);
-                    mChemistryHelper.addQuestion(question);
+                    questionList.add(question);
                 }
+                mChemistryHelper.addQuestionList(questionList);
                 getDataAnswer();
             }
 
@@ -935,10 +931,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         myListenerAnswer = myAnswer.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Answer> answerList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Answer answer = postSnapshot.getValue(Answer.class);
-                    mChemistryHelper.addAnswer(answer);
+                    answerList.add(answer);
                 }
+                mChemistryHelper.addAnswerList(answerList);
                 getDataAnswerByQuestion();
             }
 
@@ -953,10 +951,12 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         myListenerAnswerByQuestion = myAnswerByQuestion.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<AnswerByQuestion> answerByQuestionList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     AnswerByQuestion answerByQuestion = postSnapshot.getValue(AnswerByQuestion.class);
-                    mChemistryHelper.addAnswerByQuestion(answerByQuestion);
+                    answerByQuestionList.add(answerByQuestion);
                 }
+                mChemistryHelper.addAnswerByQuestionList(answerByQuestionList);
                 handleSuccessGame();
             }
 
