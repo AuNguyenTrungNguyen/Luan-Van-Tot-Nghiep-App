@@ -4,10 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -47,9 +46,9 @@ import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = Constraint.TAG + "SignUp";
+    private static final String TAG = Constraint.TAG + "ForgotPassword";
 
     private FirebaseAuth mAuth;
     private DatabaseReference myUser;
@@ -70,43 +69,33 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private LinearLayout mViewInfo;
     private EditText mEdtPassword;
     private EditText mEdtConfirmPassword;
-    private EditText mEdtName;
-    private RadioButton mRdb8;
-    private RadioButton mRdb9;
-    private RadioButton mRdb10;
-    private RadioButton mRdb11;
-    private RadioButton mRdb12;
 
-    private Button mBtnSignUp;
+    private Button mBtnChangePassword;
 
     private String phoneKey = "";
     private List<User> userList = new ArrayList<>();
-    private PreferencesManager mPreferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-
+        setContentView(R.layout.activity_forgot_password);
         init();
 
         mBtnSendPhone.setOnClickListener(this);
         mBtnVerify.setOnClickListener(this);
         mBtnReSend.setOnClickListener(this);
-        mBtnSignUp.setOnClickListener(this);
-
+        mBtnChangePassword.setOnClickListener(this);
     }
 
     private void init() {
 
         mAuth = FirebaseAuth.getInstance();
         myUser = FirebaseDatabase.getInstance().getReference().child("USER");
-        mPreferencesManager = PreferencesManager.getInstance();
-        mPreferencesManager.init(this);
 
-        mTvStatus = findViewById(R.id.tv_status_sign_in);
+        mTvStatus = findViewById(R.id.tv_status_forgot_password);
         mTvStatus.setText("Vui lòng nhập số điện thoại và gửi mã xác nhận để đổi mật khẩu." +
-                " Số điện thoại của bạn sẽ bị khóa nếu bạn gửi quá nhiều yêu cầu từ số điện thoại này");
+                " Số điện thoại của bạn sẽ bị khóa nếu bạn gửi quá nhiều yêu cầu từ số điện thoại này!");
+
 
         mEdtPhone = findViewById(R.id.edt_phone);
         mBtnSendPhone = findViewById(R.id.btn_send_phone);
@@ -119,15 +108,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mViewInfo = findViewById(R.id.view_info);
         mEdtPassword = findViewById(R.id.edt_password);
         mEdtConfirmPassword = findViewById(R.id.edt_confirm_password);
-        mEdtName = findViewById(R.id.edt_name);
 
-        mRdb8 = findViewById(R.id.rdb_8);
-        mRdb9 = findViewById(R.id.rdb_9);
-        mRdb10 = findViewById(R.id.rdb_10);
-        mRdb11 = findViewById(R.id.rdb_11);
-        mRdb12 = findViewById(R.id.rdb_12);
-
-        mBtnSignUp = findViewById(R.id.btn_sign_up);
+        mBtnChangePassword = findViewById(R.id.btn_change_password);
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -140,7 +122,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onVerificationFailed(FirebaseException e) {
                 Log.i(TAG, "onVerificationFailed: " + e.getMessage());
                 mTvStatus.setText("Ứng dụng đã chặn tất cả yêu cầu từ số điện thoại này do bạn gửi quá nhiều yêu cầu." +
-                        " Vui lòng đợi khoảng 1 giờ sau để gửi lại yêu cầu hoặc liên hệ với nhà phát triển để giải quyết vấn đề.");
+                        "Vui lòng đợi khoảng 1 giờ sau để gửi lại yêu cầu hoặc liên hệ với nhà phát triển để giải quyết vấn đề.");
+                hideView(mViewVerify);
             }
 
             @Override
@@ -169,7 +152,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 mEdtVerify.setText("");
                 mEdtPassword.setText("");
                 mEdtConfirmPassword.setText("");
-                mEdtName.setText("");
             }
 
             @Override
@@ -191,7 +173,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 mEdtPassword.setText("");
                 mEdtConfirmPassword.setText("");
-                mEdtName.setText("");
             }
 
             @Override
@@ -201,6 +182,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         hideView(mViewVerify, mViewInfo);
+
     }
 
     private void hideView(View... views) {
@@ -243,10 +225,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 resendCode();
                 break;
 
-            case R.id.btn_sign_up:
-                signUp();
+            case R.id.btn_change_password:
+                changePassword();
                 break;
         }
+    }
+
+    private void resendCode() {
+        mTvStatus.setText("Hãy đợi mã xác nhận và nhập!");
+        String phone = handelPhone(phoneKey);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phone,
+                60,
+                TimeUnit.SECONDS,
+                this,
+                mCallbacks,
+                mToken);
     }
 
     private void getListUser() {
@@ -280,8 +274,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
 
-            if (isExist) {
-                mTvStatus.setText("Số điện thoại đã được sử dụng!");
+            if (!isExist) {
+                mTvStatus.setText("Số điện thoại chưa được đăng ký, bạn hãy đăng ký tài khoản trước!");
             } else {
                 sendPhone(phoneKey);
                 mBtnSendPhone.setEnabled(false);
@@ -291,7 +285,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void signUp() {
+    private void changePassword() {
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -301,43 +295,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         String password = mEdtPassword.getText().toString();
         String confirmPassword = mEdtConfirmPassword.getText().toString();
-        String name = mEdtName.getText().toString();
 
-        int block = 0;
-
-        if (mRdb8.isChecked()) {
-            block = 8;
-        } else if (mRdb9.isChecked()) {
-            block = 9;
-        } else if (mRdb10.isChecked()) {
-            block = 10;
-        } else if (mRdb11.isChecked()) {
-            block = 11;
-        } else if (mRdb12.isChecked()) {
-            block = 12;
-        }
-
-        if (checkPushData(password, confirmPassword, name)) {
-            final String phoneEncode = encodeSHA512(phoneKey);
-            String passwordEncode = encodeSHA512(password);
-
-            User user = new User();
-            user.setPhone(phoneEncode);
-            user.setPassword(passwordEncode);
-            user.setName(name);
-            user.setBlock(block);
-
-            final int finalBlock = block;
+        if (checkPushData(password, confirmPassword)) {
             myUser.removeEventListener(myUserListener);
-            myUser.child(phoneEncode).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, finalBlock);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneEncode);
-                    Toast.makeText(SignUpActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            });
+            myUser.child(encodeSHA512(mEdtPhone.getText().toString())).child("password").setValue(encodeSHA512(password));
+            Toast.makeText(this, "Cập nhật mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -360,15 +323,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signUpWithPhoneAuthCredential(credential);
+        signInWithPhoneAuthCredential(credential);
     }
 
-    private void signUpWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Đang xác thực...");
         dialog.setCancelable(false);
         dialog.show();
-        Log.i(TAG, "signUpWithPhoneAuthCredential: ");
+        Log.i(TAG, "signInWithPhoneAuthCredential: ");
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -378,7 +341,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             mEdtVerify.setEnabled(false);
                             mBtnReSend.setEnabled(false);
                             showView(mViewInfo);
-                            mTvStatus.setText("Xác nhận thành công. Nhập thông tin tài khoản");
+                            mTvStatus.setText("Xác nhận thành công. Nhập mật khẩu mới");
 
                             //Set Focus
                             mEdtPassword.setFocusable(true);
@@ -410,18 +373,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 mCallbacks);
     }
 
-    private void resendCode() {
-        mTvStatus.setText("Hãy đợi mã xác nhận và nhập!");
-        String phone = handelPhone(phoneKey);
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phone,
-                60,
-                TimeUnit.SECONDS,
-                this,
-                mCallbacks,
-                mToken);
-    }
-
     private String handelPhone(String phone) {
         String result = phone;
         if (phone.substring(0, 1).equals("0")) {
@@ -446,7 +397,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    private boolean checkPushData(String password, String confirmPassword, String name) {
+    private boolean checkPushData(String password, String confirmPassword) {
         if (password.equals("")) {
             setFocusViewError(mEdtPassword, "Mật khẩu không được rỗng!");
             return false;
@@ -459,9 +410,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else if (!password.equals(confirmPassword)) {
             setFocusViewError(mEdtConfirmPassword, "Mật khẩu xác nhận không giống!");
             return false;
-        } else if (name.equals("")) {
-            setFocusViewError(mEdtName, "Tên hiển thị không được rỗng!");
-            return false;
         }
         return true;
     }
@@ -472,5 +420,4 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
     }
-
 }

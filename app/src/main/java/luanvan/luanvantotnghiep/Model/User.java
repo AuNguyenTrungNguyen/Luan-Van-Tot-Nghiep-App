@@ -6,6 +6,7 @@ public class User {
     private String mName;
     private int mBlock;
     private int mType = 0;
+    private int mDisable = 0; //0 Không khóa, 1 khóa
 
     public User() {
     }
@@ -48,5 +49,13 @@ public class User {
 
     public void setBlock(int mBlock) {
         this.mBlock = mBlock;
+    }
+
+    public int getDisable() {
+        return mDisable;
+    }
+
+    public void setDisable(int mDisable) {
+        this.mDisable = mDisable;
     }
 }

@@ -1,16 +1,22 @@
 package luanvan.luanvantotnghiep.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,14 +35,18 @@ import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private PreferencesManager mPreferencesManager;
 
+    private LinearLayout mLnSignIn;
     private EditText mEdtPhone;
     private EditText mEdtPassword;
     private Button mBtnSignIn;
     private Button mBtnSignUp;
+    private TextView mTvForgotPassword;
+
+    private ProgressDialog mProgressDialog;
 
     private List<User> userList = new ArrayList<>();
 
@@ -46,29 +56,21 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         init();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         checkUser();
-
-        mBtnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
-
-        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
-            }
-        });
-
     }
 
     private void signIn() {
+        mProgressDialog = new ProgressDialog(SignInActivity.this);
+        mProgressDialog.setTitle("Xin hãy chờ một tý...");
+        mProgressDialog.setMessage("Đang kiểm tra đăng nhập...");
         View view = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
@@ -80,6 +82,7 @@ public class SignInActivity extends AppCompatActivity {
             final String passwordEncode = encodeSHA512(password);
             DatabaseReference myUser = FirebaseDatabase.getInstance().getReference().child("USER");
             userList.clear();
+            mProgressDialog.show();
             myUser.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -87,17 +90,34 @@ public class SignInActivity extends AppCompatActivity {
                         User user = postSnapshot.getValue(User.class);
                         userList.add(user);
                     }
-
+                    boolean isPhoneExist = false;
+                    boolean isPasswordCorrect = false;
+                    boolean isDisableAccount = false;
                     for (User user : userList) {
-                        if (user.getPhone().equals(phoneEncode) && user.getPassword().equals(passwordEncode)) {
-                            mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneEncode);
-                            startActivity(new Intent(SignInActivity.this, CheckVersionDatabaseActivity.class));
-                            finish();
-                        } else if (!user.getPhone().equals(phoneEncode)) {
-                            setFocusViewError(mEdtPhone, "Sai số điện thoại!");
-                        } else if (!user.getPassword().equals(passwordEncode)) {
-                            setFocusViewError(mEdtPassword, "Sai mật khẩu!");
+                        if (user.getPhone().equals(phoneEncode)) {
+                            isPhoneExist = true;
+                            if (user.getDisable() == 1) {
+                                isDisableAccount = true;
+                                break;
+                            } else if (user.getPassword().equals(passwordEncode)) {
+                                isPasswordCorrect = true;
+                                mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneEncode);
+                                mProgressDialog.dismiss();
+                                startActivity(new Intent(SignInActivity.this, CheckVersionDatabaseActivity.class));
+                                finish();
+                                break;
+                            }
                         }
+                    }
+                    if (!isPhoneExist) {
+                        mProgressDialog.dismiss();
+                        setFocusViewError(mEdtPhone, "Sai số điện thoại!");
+                    } else if (isDisableAccount) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(SignInActivity.this, "Tài khoản của bạn đã bị khóa", Toast.LENGTH_SHORT).show();
+                    } else if (!isPasswordCorrect) {
+                        mProgressDialog.dismiss();
+                        setFocusViewError(mEdtPassword, "Sai mật khẩu!");
                     }
                 }
 
@@ -160,10 +180,29 @@ public class SignInActivity extends AppCompatActivity {
         mPreferencesManager = PreferencesManager.getInstance();
         mPreferencesManager.init(this);
 
+        mLnSignIn = findViewById(R.id.ln_sign_in);
+//        Glide.with(this).load(R.drawable.bg_sign_in).into(new SimpleTarget<Drawable>() {
+//            @Override
+//            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                    mLnSignIn.setBackground(resource);
+//                }
+//            }
+//        });
+
         mEdtPhone = findViewById(R.id.edt_phone);
         mEdtPassword = findViewById(R.id.edt_password);
         mBtnSignIn = findViewById(R.id.btn_sign_in);
+        mBtnSignIn.setOnClickListener(this);
         mBtnSignUp = findViewById(R.id.btn_sign_up);
+        mBtnSignUp.setOnClickListener(this);
+
+        mTvForgotPassword = findViewById(R.id.tv_forgot_password);
+        SpannableString content = new SpannableString(mTvForgotPassword.getText().toString());
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        mTvForgotPassword.setText(content);
+
+        mTvForgotPassword.setOnClickListener(this);
     }
 
     private void setFocusViewError(EditText editText, String message) {
@@ -171,5 +210,22 @@ public class SignInActivity extends AppCompatActivity {
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_sign_in:
+                signIn();
+                break;
+
+            case R.id.btn_sign_up:
+                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+                break;
+
+            case R.id.tv_forgot_password:
+                startActivity(new Intent(SignInActivity.this, ForgotPasswordActivity.class));
+                break;
+        }
     }
 }
