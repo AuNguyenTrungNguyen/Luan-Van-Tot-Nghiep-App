@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:icon="@drawable/ic_menu_rank"
+        android:title=""
+        app:showAsAction="always"
+        tools:ignore="HardcodedText">
+        <menu>
+            <item
+            android:id="@+id/mn_rank_easy"
+            android:title="Dễ">
+            </item>
+
+            <item
+            android:id="@+id/mn_rank_normal"
+            android:title="Trung bình">
+            </item>
+
+            <item
+            android:id="@+id/mn_rank_difficult"
+            android:title="Khó">
+            </item>
+        </menu>
+    </item>
+
+
+</menu>

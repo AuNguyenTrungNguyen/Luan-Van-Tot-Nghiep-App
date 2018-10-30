@@ -3,10 +3,9 @@ package luanvan.luanvantotnghiep.Activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,13 +14,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -41,10 +38,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
+import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
 import luanvan.luanvantotnghiep.Model.User;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
-import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -199,12 +197,25 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
+        InternetCheck internetCheck;
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         switch (view.getId()) {
             case R.id.btn_send_phone:
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                getListUser();
+                //getListUser();
+                internetCheck = new InternetCheck();
+                internetCheck.setListener(new AsyncTaskListener() {
+                    @Override
+                    public void passResultInternet(Boolean internet) {
+                        if (internet){
+                            getListUser();
+                        }else{
+                            Toast.makeText(ForgotPasswordActivity.this, "Vui lòng kiểm tra mạng!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                internetCheck.execute();
                 break;
 
             case R.id.btn_verify:
@@ -226,7 +237,19 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.btn_change_password:
-                changePassword();
+                //changePassword();
+                internetCheck = new InternetCheck();
+                internetCheck.setListener(new AsyncTaskListener() {
+                    @Override
+                    public void passResultInternet(Boolean internet) {
+                        if (internet){
+                            changePassword();
+                        }else{
+                            Toast.makeText(ForgotPasswordActivity.this, "Vui lòng kiểm tra mạng!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                internetCheck.execute();
                 break;
         }
     }

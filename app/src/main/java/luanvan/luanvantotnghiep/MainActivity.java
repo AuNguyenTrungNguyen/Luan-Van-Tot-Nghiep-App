@@ -25,6 +25,7 @@ import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
 import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
+import luanvan.luanvantotnghiep.Fragment.RankFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactionFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
 import luanvan.luanvantotnghiep.Fragment.SearchFragment;
@@ -198,6 +199,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_reaction) {
 
             switchFragment(R.id.nav_reaction, ReactionFragment.newInstance());
+
+        }else if (id == R.id.nav_rank) {
+
+            switchFragment(R.id.nav_rank, RankFragment.newInstance());
 
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();

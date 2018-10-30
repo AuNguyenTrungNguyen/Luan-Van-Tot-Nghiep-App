@@ -3,9 +3,7 @@ package luanvan.luanvantotnghiep.Activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -42,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
+import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
 import luanvan.luanvantotnghiep.Model.User;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
@@ -217,12 +217,25 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+        InternetCheck internetCheck;
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         switch (view.getId()) {
             case R.id.btn_send_phone:
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                getListUser();
+//                getListUser();
+                internetCheck = new InternetCheck();
+                internetCheck.setListener(new AsyncTaskListener() {
+                    @Override
+                    public void passResultInternet(Boolean internet) {
+                        if (internet){
+                            getListUser();
+                        }else{
+                            Toast.makeText(SignUpActivity.this, "Vui lòng kiểm tra mạng!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                internetCheck.execute();
                 break;
 
             case R.id.btn_verify:
@@ -244,7 +257,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_sign_up:
-                signUp();
+                //signUp();
+                internetCheck = new InternetCheck();
+                internetCheck.setListener(new AsyncTaskListener() {
+                    @Override
+                    public void passResultInternet(Boolean internet) {
+                        if (internet){
+                            signUp();
+                        }else{
+                            Toast.makeText(SignUpActivity.this, "Vui lòng kiểm tra mạng!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                internetCheck.execute();
                 break;
         }
     }

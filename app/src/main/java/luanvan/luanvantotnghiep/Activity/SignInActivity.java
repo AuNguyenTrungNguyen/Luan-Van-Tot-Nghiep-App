@@ -30,6 +30,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
+import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
 import luanvan.luanvantotnghiep.Model.User;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
@@ -216,7 +218,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_sign_in:
-                signIn();
+                InternetCheck internetCheck = new InternetCheck();
+                internetCheck.setListener(new AsyncTaskListener() {
+                    @Override
+                    public void passResultInternet(Boolean internet) {
+                        if (internet){
+                            signIn();
+                        }else{
+                            Toast.makeText(SignInActivity.this, "Vui lòng kiểm tra mạng!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                internetCheck.execute();
                 break;
 
             case R.id.btn_sign_up:
