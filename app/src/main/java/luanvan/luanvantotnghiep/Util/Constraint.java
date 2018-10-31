@@ -42,10 +42,12 @@ public class Constraint {
     public static final int REDUCTION_DEC = 9;
 
     //Key Preference
-    public static final String PRE_KEY_PHONE = "KEY_PHONE";
+    public static final String PRE_KEY_PHONE_ENCODE = "KEY_PHONE_ENCODE";
+    public static final String PRE_KEY_PHONE= "KEY_PHONE";
     public static final String PRE_KEY_BLOCK = "KEY_BLOCK";
     public static final String PRE_KEY_TYPE = "KEY_TYPE";
     public static final String PRE_KEY_EXTENT = "KEY_EXTENT";
+    public static final String PRE_KEY_NAME = "KEY_NAME";
 
     //Extent
     public static final int EXTENT_EASY = 1;
@@ -54,4 +56,12 @@ public class Constraint {
 
     //EnCode SHA
     public static final String SLAT = "luậnvăn";
+    public static final String SLAT_RANK_EASY = "1";
+    public static final String SLAT_RANK_NORMAL = "2";
+    public static final String SLAT_RANK_DIFFICULT = "3";
+
+    //RANK
+    public static final String PRE_KEY_RANK_EASY = "KEY_RANK_EASY";
+    public static final String PRE_KEY_RANK_NORMAL = "KEY_RANK_NORMAL";
+    public static final String PRE_KEY_RANK_DIFFICULT = "KEY_RANK_DIFFICULT";
 }

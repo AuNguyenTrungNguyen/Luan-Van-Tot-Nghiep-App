@@ -42,11 +42,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private NavigationView mNavigationRight;
 
     private ChemistryHelper mChemistryHelper;
 
     private Fragment mFragmentToSet = null;
 
+    private MenuItem mMnRight = null;
     private int mCurrentId = -1;
 
     private boolean mIsPeriodic = false;
@@ -71,16 +73,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setupToolbar() {
         mToolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbarMain);
+
     }
 
     private void init() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationRight = findViewById(R.id.nav_view_right);
         mManager = getSupportFragmentManager();
         mTransaction = mManager.beginTransaction();
 
         mChemistryHelper = ChemistrySingle.getInstance(this);
 
+        if (mMnRight != null) {
+            mMnRight.setVisible(false);
+        }
     }
 
     private void setupNavigate() {
@@ -89,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
+        mNavigationRight.setNavigationItemSelectedListener(this);
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -119,6 +127,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mNavigationView.setItemIconTintList(null);
+        mNavigationRight.setItemIconTintList(null);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
+
     }
 
     @Override
@@ -138,14 +149,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        int idGroup = item.getGroupId();
 
+        //close right navigation when user click right navigation
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
+
+        //handle hide and show nav right by item
+        if (idGroup == R.id.group_left_knowledge || idGroup == R.id.group_left_my_info || idGroup == R.id.group_left_app) {
+
+            if (id == R.id.nav_periodic_table) {
+                mMnRight.setVisible(true);
+            } else {
+                mMnRight.setVisible(false);
+            }
+
+        } else if (idGroup == R.id.group_right_type || idGroup == R.id.group_right_state_matter) {
+            mMnRight.setVisible(true);
+        }
+
+        //handle load fragment
         if (id == R.id.nav_main) {
 
             switchFragment(R.id.nav_main, MainFragment.newInstance());
 
         } else if (id == R.id.nav_periodic_table) {
 
-            switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
+            if (!mIsPeriodic) {
+                mIsPeriodic = true;
+                switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
+                mNavigationRight.getMenu().getItem(0).setChecked(true);
+            }
 
         } else if (id == R.id.nav_solubility_table) {
 
@@ -178,17 +211,98 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
             startActivity(new Intent(this, SignInActivity.class));
             finish();
+        } else if (id == R.id.nav_all) {
+
+            controlRightNavgate(R.id.nav_all, 0);
+
+        } else if (id == R.id.nav_alkali_metal) {
+
+            controlRightNavgate(R.id.nav_alkali_metal, 1);
+
+        } else if (id == R.id.nav_alkaline_earth_metal) {
+
+            controlRightNavgate(R.id.nav_alkaline_earth_metal, 2);
+
+        } else if (id == R.id.nav_post_transition_metal) {
+
+            controlRightNavgate(R.id.nav_post_transition_metal, 3);
+
+        } else if (id == R.id.nav_metalloid) {
+
+            controlRightNavgate(R.id.nav_metalloid, 4);
+
+        } else if (id == R.id.nav_transition_metal) {
+
+            controlRightNavgate(R.id.nav_transition_metal, 5);
+
+        } else if (id == R.id.nav_nonmetal) {
+
+            controlRightNavgate(R.id.nav_nonmetal, 6);
+
+        } else if (id == R.id.nav_halogen) {
+
+            controlRightNavgate(R.id.nav_halogen, 7);
+
+        } else if (id == R.id.nav_noble_gas) {
+
+            controlRightNavgate(R.id.nav_noble_gas, 8);
+
+        } else if (id == R.id.nav_lanthanide) {
+
+            controlRightNavgate(R.id.nav_lanthanide, 9);
+
+        } else if (id == R.id.nav_actinide) {
+
+            controlRightNavgate(R.id.nav_actinide, 10);
+
+        } else if (id == R.id.nav_unknown_chemical_properties) {
+
+            controlRightNavgate(R.id.nav_unknown_chemical_properties, 11);
+
+        } else if (id == R.id.nav_solid) {
+
+            controlRightNavgate(R.id.nav_solid, 12);
+
+        } else if (id == R.id.nav_liquid) {
+
+            controlRightNavgate(R.id.nav_liquid, 13);
+
+        } else if (id == R.id.nav_gas) {
+
+            controlRightNavgate(R.id.nav_gas, 14);
+
+        } else if (id == R.id.nav_unknown) {
+
+            controlRightNavgate(R.id.nav_unknown, 15);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        mMnRight = menu.findItem(R.id.mn_right);
+        mMnRight.setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mn_right:
+                mDrawerLayout.openDrawer(mNavigationRight);
+                break;
+        }
+        return true;
+    }
+
     private void switchFragment(int id, Fragment fragment) {
 
-//        if (id != R.id.nav_periodic_table) {
-//            mIsPeriodic = false;
-//        }
+        if (id != R.id.nav_periodic_table) {
+            mIsPeriodic = false;
+        }
 
         if (mCurrentId == id) {
             mFragmentToSet = null;
@@ -198,4 +312,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    private void controlRightNavgate(int id, int type) {
+        if (mCurrentId != id) {
+            mCurrentId = id;
+            mFragmentToSet = PeriodicTableFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID_TYPE", type);
+            mFragmentToSet.setArguments(bundle);
+        }
+    }
 }

@@ -46,4 +46,12 @@ public class PreferencesManager {
     public void saveStringData(String key, String value){
         mPreferences.edit().putString(key, value).apply();
     }
+
+    public float getFloatData(String key, float defValue){
+        return mPreferences.getFloat(key, defValue);
+    }
+
+    public void saveFloatData(String key, float value){
+        mPreferences.edit().putFloat(key, value).apply();
+    }
 }

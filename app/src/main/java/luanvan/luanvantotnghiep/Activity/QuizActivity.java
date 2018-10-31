@@ -1,5 +1,6 @@
 package luanvan.luanvantotnghiep.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +31,15 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -69,6 +80,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private Dialog dialog;
 
+    private PreferencesManager mPreferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +91,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-        if (checkGame()){
+        if (checkGame()) {
             chooseOption();
         }
     }
@@ -213,7 +226,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private void showScore() {
         int score = 0;
 
-        if (dialog != null && dialog.isShowing()){
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
 
@@ -287,6 +300,30 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             imgReview.setVisibility(View.INVISIBLE);
         }
+
+        int extent = mPreferencesManager.getIntData(Constraint.PRE_KEY_EXTENT, 1);
+        if (extent == Constraint.EXTENT_EASY) {
+            int scorePre = mPreferencesManager.getIntData(Constraint.PRE_KEY_RANK_EASY, 0);
+            if (scorePre == 0) {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, score);
+            } else {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, (score + scorePre) / 2);
+            }
+        } else if (extent == Constraint.EXTENT_NORMAL) {
+            int scorePre = mPreferencesManager.getIntData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            if (scorePre == 0) {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, score);
+            } else {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, (score + scorePre) / 2);
+            }
+        } else if (extent == Constraint.EXTENT_DIFFICULT) {
+            int scorePre = mPreferencesManager.getIntData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            if (scorePre == 0) {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, score);
+            } else {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, (score + scorePre) / 2);
+            }
+        }
     }
 
     private void init() {
@@ -301,6 +338,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mQuestionList = new ArrayList<>();
         mAnswerList = new ArrayList<>();
         mAnswerByQuestionList = new ArrayList<>();
+
+        mPreferencesManager = PreferencesManager.getInstance();
+        mPreferencesManager.init(this);
     }
 
     private void showQuestion() {
@@ -415,7 +455,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    private boolean checkGame(){
+    private boolean checkGame() {
 
         int block = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_BLOCK, 8);
         int type = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_TYPE, 0);

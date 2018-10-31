@@ -60,7 +60,9 @@
     <color name="color_5">#6E6D85</color>
     <color name="color_6">#BAAFBC</color>
 
-
+    <color name="rank_1">#ffd700</color>
+    <color name="rank_2">#C0C0C0</color>
+    <color name="rank_3">#CD7F32</color>
 
 
 </resources>

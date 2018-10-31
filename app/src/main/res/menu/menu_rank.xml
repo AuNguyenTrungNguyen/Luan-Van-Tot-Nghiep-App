@@ -3,27 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
+        android:id="@+id/item_rank"
         android:icon="@drawable/ic_menu_rank"
-        android:title=""
+        android:title="action_notification"
         app:showAsAction="always"
         tools:ignore="HardcodedText">
         <menu>
             <item
-            android:id="@+id/mn_rank_easy"
-            android:title="Dễ">
-            </item>
+                android:id="@+id/mn_rank_easy"
+                android:title="Dễ" />
 
             <item
-            android:id="@+id/mn_rank_normal"
-            android:title="Trung bình">
-            </item>
+                android:id="@+id/mn_rank_normal"
+                android:title="Trung bình" />
 
             <item
-            android:id="@+id/mn_rank_difficult"
-            android:title="Khó">
-            </item>
+                android:id="@+id/mn_rank_difficult"
+                android:title="Khó" />
         </menu>
     </item>
-
 
 </menu>
