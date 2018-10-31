@@ -326,7 +326,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         String password = mEdtPassword.getText().toString();
         String confirmPassword = mEdtConfirmPassword.getText().toString();
-        String name = mEdtName.getText().toString();
+        final String name = mEdtName.getText().toString();
 
         int block = 0;
 
@@ -358,7 +358,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onSuccess(Void aVoid) {
                     mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, finalBlock);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneEncode);
+                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
+                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneKey);
+                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, name);
                     Toast.makeText(SignUpActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                     finish();
                 }

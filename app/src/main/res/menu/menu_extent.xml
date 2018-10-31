@@ -1,27 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
-
-    <!--<item-->
-        <!--android:id="@+id/mn_extent_easy"-->
-        <!--android:title="Dễ"-->
-        <!--app:showAsAction="ifRoom">-->
-    <!--</item>-->
-
-    <!--<item-->
-        <!--android:id="@+id/mn_extent_normal"-->
-        <!--android:title="Trung bình"-->
-        <!--app:showAsAction="ifRoom">-->
-    <!--</item>-->
-
-    <!--<item-->
-        <!--android:id="@+id/mn_extent_difficult"-->
-        <!--android:title="Khó"-->
-        <!--app:showAsAction="ifRoom">-->
-    <!--</item>-->
-
-<!--</menu>-->
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -32,21 +9,19 @@
         tools:ignore="HardcodedText">
         <menu>
             <item
-            android:id="@+id/mn_extent_easy"
-            android:title="Dễ">
-            </item>
+                android:id="@+id/mn_extent_easy"
+                android:title="Dễ" />
 
             <item
-            android:id="@+id/mn_extent_normal"
-            android:title="Trung bình">
-            </item>
+                android:id="@+id/mn_extent_normal"
+                android:title="Trung bình" />
 
             <item
-            android:id="@+id/mn_extent_difficult"
-            android:title="Khó">
-            </item>
+                android:id="@+id/mn_extent_difficult"
+                android:title="Khó" />
+
         </menu>
-    </item>
 
+    </item>
 
 </menu>

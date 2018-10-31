@@ -103,7 +103,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 break;
                             } else if (user.getPassword().equals(passwordEncode)) {
                                 isPasswordCorrect = true;
-                                mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneEncode);
+                                mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
                                 mProgressDialog.dismiss();
                                 startActivity(new Intent(SignInActivity.this, CheckVersionDatabaseActivity.class));
                                 finish();
@@ -171,7 +171,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void checkUser() {
-        String phone = mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, "");
+        String phone = mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
         if (!phone.equals("")) {
             startActivity(new Intent(this, CheckVersionDatabaseActivity.class));
             finish();
