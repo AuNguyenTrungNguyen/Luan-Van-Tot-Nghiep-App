@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +22,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -199,6 +203,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             PreferencesManager preferencesManager = PreferencesManager.getInstance();
             preferencesManager.init(this);
             preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
+            preferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, 8);
+            preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
+            preferencesManager.saveStringData(Constraint.PRE_KEY_NAME, "");
+            preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
             startActivity(new Intent(this, SignInActivity.class));
             finish();
         }
@@ -241,35 +251,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void pushDataScore() {
         String phone = mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, "");
-        int block = mPreferencesManager.getIntData(Constraint.PRE_KEY_BLOCK, 8);
-        String name = mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "");
+        final int block = mPreferencesManager.getIntData(Constraint.PRE_KEY_BLOCK, 8);
+        final String name = mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("RANK");
+        final DatabaseReference reference = firebaseDatabase.getReference("RANK");
 
-        Rank rankEasy = new Rank();
-        rankEasy.setBlock(block);
-        rankEasy.setExtent(Constraint.EXTENT_EASY);
-        rankEasy.setName(name);
-        rankEasy.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0));
-
-        Rank rankNormal = new Rank();
-        rankNormal.setBlock(block);
-        rankNormal.setExtent(Constraint.EXTENT_NORMAL);
-        rankNormal.setName(name);
-        rankNormal.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0));
-
-        Rank rankDifficult = new Rank();
-        rankDifficult.setBlock(block);
-        rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
-        rankDifficult.setName(name);
-        rankDifficult.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0));
-
-        String keyEasy = encodeSHA512(phone, Constraint.EXTENT_EASY);
-        String keyNormal = encodeSHA512(phone, Constraint.EXTENT_NORMAL);
-        String keyDifficult = encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
-
-        reference.child(keyEasy).setValue(rankEasy);
-        reference.child(keyNormal).setValue(rankNormal);
-        reference.child(keyDifficult).setValue(rankDifficult);
+        if (!phone.equals("") && !name.equals("")) {
+            final float scoreEasy = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            final String keyEasy = encodeSHA512(phone, Constraint.EXTENT_EASY);
+            final Rank rankEasy = new Rank();
+            rankEasy.setBlock(block);
+            rankEasy.setExtent(Constraint.EXTENT_EASY);
+            rankEasy.setName(name);
+            rankEasy.setScore(scoreEasy);
+            reference.child(keyEasy).setValue(rankEasy);
+//            Rank rankNormal = new Rank();
+//            rankNormal.setBlock(block);
+//            rankNormal.setExtent(Constraint.EXTENT_NORMAL);
+//            rankNormal.setName(name);
+//            rankNormal.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0));
+//
+//            String keyNormal = encodeSHA512(phone, Constraint.EXTENT_NORMAL);
+//            reference.child(keyNormal).setValue(rankNormal);
+//
+//            Rank rankDifficult = new Rank();
+//            rankDifficult.setBlock(block);
+//            rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
+//            rankDifficult.setName(name);
+//            rankDifficult.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0));
+//
+//            String keyDifficult = encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
+//            reference.child(keyDifficult).setValue(rankDifficult)
+        }
     }
 }
