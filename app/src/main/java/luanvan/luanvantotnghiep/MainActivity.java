@@ -1,5 +1,6 @@
 package luanvan.luanvantotnghiep;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +18,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import luanvan.luanvantotnghiep.Activity.SignInActivity;
-import luanvan.luanvantotnghiep.Database.ChemistryHelper;
+import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
+import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
 import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
@@ -30,7 +39,7 @@ import luanvan.luanvantotnghiep.Fragment.ReactionFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
 import luanvan.luanvantotnghiep.Fragment.SearchFragment;
 import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
-import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Model.Rank;
 import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
@@ -42,16 +51,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
-    private NavigationView mNavigationRight;
-
-    private ChemistryHelper mChemistryHelper;
 
     private Fragment mFragmentToSet = null;
 
-    private MenuItem mMnRight = null;
-    private int mCurrentId = -1;
+    private int mCurrentId = R.id.nav_main;
 
     private boolean mIsPeriodic = false;
+
+    private PreferencesManager mPreferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,23 +78,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setupToolbar() {
-        mToolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
+        mToolbarMain = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbarMain);
 
     }
 
+    @SuppressLint("CommitTransaction")
     private void init() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mNavigationRight = findViewById(R.id.nav_view_right);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mNavigationView = findViewById(R.id.nav_view);
         mManager = getSupportFragmentManager();
         mTransaction = mManager.beginTransaction();
 
-        mChemistryHelper = ChemistrySingle.getInstance(this);
-
-        if (mMnRight != null) {
-            mMnRight.setVisible(false);
-        }
+        mPreferencesManager = PreferencesManager.getInstance();
+        mPreferencesManager.init(this);
     }
 
     private void setupNavigate() {
@@ -96,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
-        mNavigationRight.setNavigationItemSelectedListener(this);
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -107,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDrawerOpened(@NonNull View view) {
                 InputMethodManager imm = (InputMethodManager) getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+                assert imm != null;
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
 
@@ -127,9 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mNavigationView.setItemIconTintList(null);
-        mNavigationRight.setItemIconTintList(null);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
-
     }
 
     @Override
@@ -145,40 +146,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        int idGroup = item.getGroupId();
 
-        //close right navigation when user click right navigation
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, mNavigationRight);
-
-        //handle hide and show nav right by item
-        if (idGroup == R.id.group_left_knowledge || idGroup == R.id.group_left_my_info || idGroup == R.id.group_left_app) {
-
-            if (id == R.id.nav_periodic_table) {
-                mMnRight.setVisible(true);
-            } else {
-                mMnRight.setVisible(false);
-            }
-
-        } else if (idGroup == R.id.group_right_type || idGroup == R.id.group_right_state_matter) {
-            mMnRight.setVisible(true);
-        }
-
-        //handle load fragment
         if (id == R.id.nav_main) {
 
             switchFragment(R.id.nav_main, MainFragment.newInstance());
 
         } else if (id == R.id.nav_periodic_table) {
 
-            if (!mIsPeriodic) {
-                mIsPeriodic = true;
-                switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
-                mNavigationRight.getMenu().getItem(0).setChecked(true);
-            }
+            switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
 
         } else if (id == R.id.nav_solubility_table) {
 
@@ -200,109 +179,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             switchFragment(R.id.nav_reaction, ReactionFragment.newInstance());
 
-        }else if (id == R.id.nav_rank) {
-
-            switchFragment(R.id.nav_rank, RankFragment.newInstance());
+        } else if (id == R.id.nav_rank) {
+            InternetCheck internetCheck = new InternetCheck();
+            internetCheck.setListener(new AsyncTaskListener() {
+                @Override
+                public void passResultInternet(Boolean internet) {
+                    if (internet) {
+                        pushDataScore();
+                        switchFragment(R.id.nav_rank, RankFragment.newInstance());
+                    } else {
+                        Toast.makeText(MainActivity.this, "Vui lòng kiểm tra mạng!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            internetCheck.execute();
 
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             PreferencesManager preferencesManager = PreferencesManager.getInstance();
             preferencesManager.init(this);
-            preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
+            preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
             startActivity(new Intent(this, SignInActivity.class));
             finish();
-        } else if (id == R.id.nav_all) {
-
-            controlRightNavgate(R.id.nav_all, 0);
-
-        } else if (id == R.id.nav_alkali_metal) {
-
-            controlRightNavgate(R.id.nav_alkali_metal, 1);
-
-        } else if (id == R.id.nav_alkaline_earth_metal) {
-
-            controlRightNavgate(R.id.nav_alkaline_earth_metal, 2);
-
-        } else if (id == R.id.nav_post_transition_metal) {
-
-            controlRightNavgate(R.id.nav_post_transition_metal, 3);
-
-        } else if (id == R.id.nav_metalloid) {
-
-            controlRightNavgate(R.id.nav_metalloid, 4);
-
-        } else if (id == R.id.nav_transition_metal) {
-
-            controlRightNavgate(R.id.nav_transition_metal, 5);
-
-        } else if (id == R.id.nav_nonmetal) {
-
-            controlRightNavgate(R.id.nav_nonmetal, 6);
-
-        } else if (id == R.id.nav_halogen) {
-
-            controlRightNavgate(R.id.nav_halogen, 7);
-
-        } else if (id == R.id.nav_noble_gas) {
-
-            controlRightNavgate(R.id.nav_noble_gas, 8);
-
-        } else if (id == R.id.nav_lanthanide) {
-
-            controlRightNavgate(R.id.nav_lanthanide, 9);
-
-        } else if (id == R.id.nav_actinide) {
-
-            controlRightNavgate(R.id.nav_actinide, 10);
-
-        } else if (id == R.id.nav_unknown_chemical_properties) {
-
-            controlRightNavgate(R.id.nav_unknown_chemical_properties, 11);
-
-        } else if (id == R.id.nav_solid) {
-
-            controlRightNavgate(R.id.nav_solid, 12);
-
-        } else if (id == R.id.nav_liquid) {
-
-            controlRightNavgate(R.id.nav_liquid, 13);
-
-        } else if (id == R.id.nav_gas) {
-
-            controlRightNavgate(R.id.nav_gas, 14);
-
-        } else if (id == R.id.nav_unknown) {
-
-            controlRightNavgate(R.id.nav_unknown, 15);
         }
-
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        mMnRight = menu.findItem(R.id.mn_right);
-        mMnRight.setVisible(false);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mn_right:
-                mDrawerLayout.openDrawer(mNavigationRight);
-                break;
-        }
-        return true;
-    }
-
     private void switchFragment(int id, Fragment fragment) {
-
-        if (id != R.id.nav_periodic_table) {
-            mIsPeriodic = false;
-        }
 
         if (mCurrentId == id) {
             mFragmentToSet = null;
@@ -312,13 +216,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void controlRightNavgate(int id, int type) {
-        if (mCurrentId != id) {
-            mCurrentId = id;
-            mFragmentToSet = PeriodicTableFragment.newInstance();
-            Bundle bundle = new Bundle();
-            bundle.putInt("ID_TYPE", type);
-            mFragmentToSet.setArguments(bundle);
+    @SuppressLint("NewApi")
+    private String encodeSHA512(String text, int extent) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            if (extent == 1) {
+                md.update(Constraint.SLAT_RANK_EASY.getBytes(StandardCharsets.UTF_8));
+            } else if (extent == 2) {
+                md.update(Constraint.SLAT_RANK_NORMAL.getBytes(StandardCharsets.UTF_8));
+            } else if (extent == 3) {
+                md.update(Constraint.SLAT_RANK_DIFFICULT.getBytes(StandardCharsets.UTF_8));
+            }
+            byte[] bytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
+            for (byte aDigest : bytes) {
+                //sb.append(Integer.toString((aDigest & 0xff) + 0x100, 16).substring(1));
+                sb.append(String.format("%02x", aDigest));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
+        return sb.toString();
+    }
+
+    private void pushDataScore() {
+        String phone = mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, "");
+        int block = mPreferencesManager.getIntData(Constraint.PRE_KEY_BLOCK, 8);
+        String name = mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference("RANK");
+
+        Rank rankEasy = new Rank();
+        rankEasy.setBlock(block);
+        rankEasy.setExtent(Constraint.EXTENT_EASY);
+        rankEasy.setName(name);
+        rankEasy.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0));
+
+        Rank rankNormal = new Rank();
+        rankNormal.setBlock(block);
+        rankNormal.setExtent(Constraint.EXTENT_NORMAL);
+        rankNormal.setName(name);
+        rankNormal.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0));
+
+        Rank rankDifficult = new Rank();
+        rankDifficult.setBlock(block);
+        rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
+        rankDifficult.setName(name);
+        rankDifficult.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0));
+
+        String keyEasy = encodeSHA512(phone, Constraint.EXTENT_EASY);
+        String keyNormal = encodeSHA512(phone, Constraint.EXTENT_NORMAL);
+        String keyDifficult = encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
+
+        reference.child(keyEasy).setValue(rankEasy);
+        reference.child(keyNormal).setValue(rankNormal);
+        reference.child(keyDifficult).setValue(rankDifficult);
     }
 }
