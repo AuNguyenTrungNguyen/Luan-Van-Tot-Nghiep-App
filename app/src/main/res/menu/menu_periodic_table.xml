@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@android:drawable/ic_menu_directions"
+        android:title=""
+        app:showAsAction="ifRoom">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_all"
+                android:title="Tất cả"
+                app:showAsAction="always" />
+
+            <item
+                android:id="@+id/nav_alkali_metal"
+                android:title="Kim loại kiềm" />
+
+            <item
+                android:id="@+id/nav_alkaline_earth_metal"
+                android:title="Kim loại kiềm thổ" />
+
+            <item
+                android:id="@+id/nav_post_transition_metal"
+                android:title="Kim loại yếu" />
+
+            <item
+                android:id="@+id/nav_metalloid"
+                android:title="Á kim" />
+
+            <item
+                android:id="@+id/nav_transition_metal"
+                android:title="Kim loại chuyển tiếp" />
+
+            <item
+                android:id="@+id/nav_nonmetal"
+                android:title="Phi kim" />
+
+            <item
+                android:id="@+id/nav_halogen"
+                android:title="Halogen" />
+
+            <item
+                android:id="@+id/nav_noble_gas"
+                android:title="Khí trơ" />
+
+            <item
+                android:id="@+id/nav_lanthanide"
+                android:title="Họ Lantan" />
+
+            <item
+                android:id="@+id/nav_actinide"
+                android:title="Họ Actini" />
+
+            <item
+                android:id="@+id/nav_unknown_chemical_properties"
+                android:title="Thuộc tính hóa học chưa rõ" />
+
+        </menu>
+
+    </item>
+
+    <item
+        android:icon="@android:drawable/ic_menu_help"
+        android:title=""
+        app:showAsAction="ifRoom">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_solid"
+                android:title="Rắn" />
+
+            <item
+                android:id="@+id/nav_liquid"
+                android:title="Lỏng" />
+
+            <item
+                android:id="@+id/nav_gas"
+                android:title="Khí" />
+
+            <item
+                android:id="@+id/nav_unknown"
+                android:title="Chưa xác định" />
+
+        </menu>
+
+    </item>
+
+</menu>
+

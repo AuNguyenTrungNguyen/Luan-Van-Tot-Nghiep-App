@@ -12,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -61,6 +64,8 @@ public class PeriodicTableFragment extends Fragment {
 
     private ChemistryHelper mChemistryHelper;
 
+    private int mIDType = 0;
+
     public PeriodicTableFragment() {
     }
 
@@ -74,6 +79,12 @@ public class PeriodicTableFragment extends Fragment {
         mContext = context;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -83,15 +94,7 @@ public class PeriodicTableFragment extends Fragment {
 
         init(view);
 
-        int idType = 0;
-
-        //Get Data from activity
-        if (getArguments() != null) {
-            idType = getArguments().getInt("ID_TYPE");
-            Log.i("ANTN", "idType: " + idType);
-        }
-
-        showPeriodicTable(idType);
+        showPeriodicTable(mIDType);
 
         return view;
     }
@@ -462,4 +465,87 @@ public class PeriodicTableFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_periodic_table, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+
+            case R.id.nav_all:
+                reloadFragment(0);
+                return true;
+
+            case R.id.nav_alkali_metal:
+                reloadFragment(1);
+                return true;
+
+            case R.id.nav_alkaline_earth_metal:
+                reloadFragment(2);
+                return true;
+
+            case R.id.nav_post_transition_metal:
+                reloadFragment(3);
+                return true;
+
+            case R.id.nav_metalloid:
+                reloadFragment(4);
+                return true;
+
+            case R.id.nav_transition_metal:
+                reloadFragment(5);
+                return true;
+
+            case R.id.nav_nonmetal:
+                reloadFragment(6);
+                return true;
+
+            case R.id.nav_halogen:
+                reloadFragment(7);
+                return true;
+
+            case R.id.nav_noble_gas:
+                reloadFragment(8);
+                return true;
+
+            case R.id.nav_lanthanide:
+                reloadFragment(9);
+                return true;
+
+            case R.id.nav_actinide:
+                reloadFragment(10);
+                return true;
+
+            case R.id.nav_unknown_chemical_properties:
+                reloadFragment(11);
+                return true;
+
+            case R.id.nav_solid:
+                reloadFragment(12);
+                return true;
+
+            case R.id.nav_liquid:
+                reloadFragment(13);
+                return true;
+
+            case R.id.nav_gas:
+                reloadFragment(14);
+                return true;
+
+            case R.id.nav_unknown:
+                reloadFragment(15);
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    private void reloadFragment(int type){
+        mIDType = type;
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
 }
