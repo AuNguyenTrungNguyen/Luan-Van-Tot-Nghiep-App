@@ -100,12 +100,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     mListUserAnswer.add(i, "");
                 }
 
-                //random list question
-                Collections.shuffle(mQuestionList);
-                Collections.shuffle(mQuestionList);
-                Collections.shuffle(mQuestionList);
-
-                findViewById(R.id.ln_start_game).setVisibility(View.GONE);
+                findViewById(R.id.fl_start_game).setVisibility(View.GONE);
 
                 startGame();
             }
@@ -236,7 +231,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mCountDownTimer.cancel();
 
         final Dialog dialog = new Dialog(QuizActivity.this);
-        dialog.setContentView(R.layout.layout_dialog_score_quiz);
+        dialog.setContentView(R.layout.layout_dialog_score_game);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -252,7 +247,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
 
         if (score >= 9 && score < 13) {
-
             imgStarTwo.setVisibility(View.VISIBLE);
         } else if (score >= 13 && score < 17) {
             imgStarOne.setVisibility(View.VISIBLE);
@@ -263,9 +257,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             imgStarThree.setVisibility(View.VISIBLE);
         }
 
-        //tvLevel.setText("Text level");
+        tvLevel.setText(String.format("Level %s", getLevel()));
         tvScore.setText(String.valueOf(score));
-        tvCorrectAnswer.setText(score + "/" + mTotalQuestion);
+        tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
         dialog.setCancelable(false);
         dialog.show();
 
@@ -296,21 +290,21 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             if (scorePre == 0) {
                 mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, score);
             } else {
-                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, (score + scorePre) / 2);
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, (score + scorePre));
             }
         } else if (extent == Constraint.EXTENT_NORMAL) {
             float scorePre = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
             if (scorePre == 0) {
                 mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, score);
             } else {
-                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, (score + scorePre) / 2);
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, (score + scorePre));
             }
         } else if (extent == Constraint.EXTENT_DIFFICULT) {
             float scorePre = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
             if (scorePre == 0) {
                 mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, score);
             } else {
-                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, (score + scorePre) / 2);
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, (score + scorePre));
             }
         }
     }
@@ -397,7 +391,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 count++;
             }
         }
-        textView.setText(count + "/" + mTotalQuestion);
+        textView.setText(String.format("Đã làm: %s/%s", count, mTotalQuestion));
     }
 
     @Override
@@ -453,7 +447,15 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         if (block != 0 && type != 0 && level != 0 && extent != 0) {
             ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
-            mQuestionList = chemistryHelper.getQuestionsByLevel(block, type, level, extent);
+            List<Question> tempList = chemistryHelper.getQuestionsByLevel(block, type, level, extent);
+
+            //random list question
+            Collections.shuffle(tempList);
+            Collections.shuffle(tempList);
+            Collections.shuffle(tempList);
+
+            //mQuestionList = tempList.subList(0, 20);
+            mQuestionList = tempList.subList(0, 10);
             mAnswerList = chemistryHelper.getAllAnswer();
             mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
             return true;

@@ -1006,6 +1006,15 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
 
+            //Preference
+            Log.i(TAG, "onCreate: PRE_KEY_PHONE_ENCODE " + mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE_ENCODE, ""));
+            Log.i(TAG, "onCreate: PRE_KEY_BLOCK " + mPreferencesManager.getIntData(Constraint.PRE_KEY_BLOCK, 8));
+            Log.i(TAG, "onCreate: PRE_KEY_PHONE " + mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, ""));
+            Log.i(TAG, "onCreate: PRE_KEY_NAME " + mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, ""));
+            Log.i(TAG, "onCreate: PRE_KEY_RANK_EASY " + mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0));
+            Log.i(TAG, "onCreate: PRE_KEY_RANK_NORMAL " + mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0));
+            Log.i(TAG, "onCreate: PRE_KEY_RANK_DIFFICULT " + mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0));
+
             //Block
             Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
 

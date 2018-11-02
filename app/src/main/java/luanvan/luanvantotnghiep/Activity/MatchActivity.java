@@ -61,7 +61,8 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
     private boolean isPlaying = false;
     private long mCurrentTime = 0;
     private Dialog dialog;
-    private int mTotalQuestion = 7;
+    private int mTotalQuestion = 0;
+    private PreferencesManager mPreferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,6 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
             chooseOption();
         }
     }
-
 
     private void init() {
         mRvQuestion = findViewById(R.id.rv_question);
@@ -93,6 +93,9 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         mRvQuestion.setHasFixedSize(true);
         mRvAnswer.setHasFixedSize(true);
+
+        mPreferencesManager = PreferencesManager.getInstance();
+        mPreferencesManager.init(this);
     }
 
     private void checkUserOut() {
@@ -150,14 +153,6 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
     }
 
     private void setUpData() {
-        mQuestionList = new ArrayList<>();
-        mAnswerList = new ArrayList<>();
-        mAnswerByQuestionList = new ArrayList<>();
-
-        ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
-        mQuestionList.addAll(chemistryHelper.getAllQuestion());
-        mAnswerByQuestionList.addAll(chemistryHelper.getAllAnswerByQuestion());
-        mAnswerList.addAll(chemistryHelper.getAllAnswer());
 
         mDataQuestionList = new ArrayList<>();
         mDataAnswerList = new ArrayList<>();
@@ -184,9 +179,6 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
                 }
             }
         }
-
-        Collections.shuffle(mDataQuestionList);
-        Collections.shuffle(mDataAnswerList);
     }
 
     private static String convertLongToTime(long value) {
@@ -280,7 +272,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
     }
 
     private void showScore() {
-        int score = 0;
+        float score = 0;
 
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
@@ -301,7 +293,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         mCountDownTimer.cancel();
 
         final Dialog dialog = new Dialog(MatchActivity.this);
-        dialog.setContentView(R.layout.layout_dialog_score_quiz);
+        dialog.setContentView(R.layout.layout_dialog_score_game);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -327,7 +319,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
             imgStarThree.setVisibility(View.VISIBLE);
         }
 
-        //tvLevel.setText("Text level");
+        tvLevel.setText(String.format("Level %s", getLevel()));
         tvScore.setText(String.valueOf(score));
         tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
         dialog.setCancelable(false);
@@ -353,6 +345,30 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         } else {
             imgReview.setVisibility(View.INVISIBLE);
         }
+
+        int extent = mPreferencesManager.getIntData(Constraint.PRE_KEY_EXTENT, 1);
+        if (extent == Constraint.EXTENT_EASY) {
+            float scorePre = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            if (scorePre == 0) {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, score);
+            } else {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, (score + scorePre));
+            }
+        } else if (extent == Constraint.EXTENT_NORMAL) {
+            float scorePre = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            if (scorePre == 0) {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, score);
+            } else {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, (score + scorePre));
+            }
+        } else if (extent == Constraint.EXTENT_DIFFICULT) {
+            float scorePre = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            if (scorePre == 0) {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, score);
+            } else {
+                mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, (score + scorePre));
+            }
+        }
     }
 
     private void reviewQuiz() {
@@ -376,7 +392,14 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         if (block != 0 && type != 0 && level != 0 && extent != 0) {
             ChemistryHelper chemistryHelper = ChemistrySingle.getInstance(this);
-            mQuestionList = chemistryHelper.getQuestionsByLevel(block, type, level, extent);
+            List<Question> tempList = chemistryHelper.getQuestionsByLevel(block, type, level, extent);
+
+            //random list question
+            Collections.shuffle(tempList);
+            Collections.shuffle(tempList);
+            Collections.shuffle(tempList);
+
+            mQuestionList = tempList.subList(0, 5);
             mAnswerList = chemistryHelper.getAllAnswer();
             mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
             return true;
@@ -401,8 +424,9 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         builder.setPositiveButton("Làm bài", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 isPlaying = true;
+                mTotalQuestion = mQuestionList.size();
 
-                findViewById(R.id.ln_start_game).setVisibility(View.GONE);
+                findViewById(R.id.fl_start_game).setVisibility(View.GONE);
 
                 startGame();
             }

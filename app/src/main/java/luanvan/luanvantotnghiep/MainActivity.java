@@ -19,8 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -138,6 +141,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mNavigationView.setItemIconTintList(null);
+
+        //Set name and phone to header navigation
+        View headerView = mNavigationView.getHeaderView(0);
+        ImageView imgAvatarHeader = headerView.findViewById(R.id.img_avatar_user);
+        TextView tvNameHeader = headerView.findViewById(R.id.tv_name_user);
+        TextView tvPhoneHeader = headerView.findViewById(R.id.tv_phone_user);
+
+        Glide.with(this).load(R.drawable.ic_hi).into(imgAvatarHeader);
+        tvNameHeader.setText(mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "Xin chào"));
+        tvPhoneHeader.setText(mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, "Cẩm nang hóa học"));
     }
 
     @Override
@@ -203,22 +216,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
-            PreferencesManager preferencesManager = PreferencesManager.getInstance();
-            preferencesManager.init(this);
-            preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
-            preferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, 8);
-            preferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
-            preferencesManager.saveStringData(Constraint.PRE_KEY_NAME, "");
-            preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
-            preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
-            preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
+            mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, 8);
+            mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
+            mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, "");
+            mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            mPreferencesManager.saveIntData(Constraint.KEY_GAME, 0);
+            mPreferencesManager.saveIntData(Constraint.KEY_THEMATIC, 0);
             startActivity(new Intent(this, SignInActivity.class));
             finish();
-        }else if (id == R.id.nav_equilibrium) {
+        } else if (id == R.id.nav_equilibrium) {
 
             startActivity(new Intent(this, EquilibriumActivity.class));
 
-        }else if (id == R.id.nav_profile) {
+        } else if (id == R.id.nav_profile) {
 
             switchFragment(R.id.nav_profile, ProfileFragment.newInstance());
 
@@ -271,31 +284,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final DatabaseReference reference = firebaseDatabase.getReference("RANK");
 
         if (!phone.equals("") && !name.equals("")) {
-            final float scoreEasy = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
-            final String keyEasy = encodeSHA512(phone, Constraint.EXTENT_EASY);
-            final Rank rankEasy = new Rank();
+            float scoreEasy = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            String keyEasy = encodeSHA512(phone, Constraint.EXTENT_EASY);
+            Rank rankEasy = new Rank();
             rankEasy.setBlock(block);
             rankEasy.setExtent(Constraint.EXTENT_EASY);
             rankEasy.setName(name);
             rankEasy.setScore(scoreEasy);
             reference.child(keyEasy).setValue(rankEasy);
-//            Rank rankNormal = new Rank();
-//            rankNormal.setBlock(block);
-//            rankNormal.setExtent(Constraint.EXTENT_NORMAL);
-//            rankNormal.setName(name);
-//            rankNormal.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0));
-//
-//            String keyNormal = encodeSHA512(phone, Constraint.EXTENT_NORMAL);
-//            reference.child(keyNormal).setValue(rankNormal);
-//
-//            Rank rankDifficult = new Rank();
-//            rankDifficult.setBlock(block);
-//            rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
-//            rankDifficult.setName(name);
-//            rankDifficult.setScore(mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0));
-//
-//            String keyDifficult = encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
-//            reference.child(keyDifficult).setValue(rankDifficult)
+
+            float scoreNormal = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            String keyNormal = encodeSHA512(phone, Constraint.EXTENT_NORMAL);
+            Rank rankNormal = new Rank();
+            rankNormal.setBlock(block);
+            rankNormal.setExtent(Constraint.EXTENT_NORMAL);
+            rankNormal.setName(name);
+            rankNormal.setScore(scoreNormal);
+            reference.child(keyNormal).setValue(rankNormal);
+
+            float scoreDifficul = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            String keyDifficult = encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
+            Rank rankDifficult = new Rank();
+            rankDifficult.setBlock(block);
+            rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
+            rankDifficult.setName(name);
+            rankDifficult.setScore(scoreDifficul);
+            reference.child(keyDifficult).setValue(rankDifficult);
         }
     }
 }

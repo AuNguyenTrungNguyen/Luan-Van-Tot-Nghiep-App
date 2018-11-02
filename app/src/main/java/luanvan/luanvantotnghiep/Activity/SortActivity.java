@@ -468,7 +468,7 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
         mCountDownTimer.cancel();
 
         final Dialog dialog = new Dialog(SortActivity.this);
-        dialog.setContentView(R.layout.layout_dialog_score_quiz);
+        dialog.setContentView(R.layout.layout_dialog_score_game);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
