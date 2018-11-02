@@ -59,9 +59,6 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     private ChemistryHelper mChemistryHelper;
     private static final String TAG = Constraint.TAG + "CheckVer";
 
-    private static final String KEY_GAME = "Version_Game";
-    private static final String KEY_THEMATIC = "Version_Thematic";
-    private static final String KEY_OFFLINE = "Version_Offline";
     private ProgressDialog dialog;
 
     //Reference Thematic
@@ -102,6 +99,9 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     private int newVersionGame = 0;
     private int newVersionThematic = 0;
 
+    private int mBlock;
+    private PreferencesManager mPreferencesManager;
+
     //Read data offline
     private JSONObject mJsonObject;
 
@@ -113,7 +113,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         init();
 
         /*get version share pre*/
-        int oldVersionOffline = PreferencesManager.getInstance().getIntData(KEY_OFFLINE, 0);
+        int oldVersionOffline = PreferencesManager.getInstance().getIntData(Constraint.KEY_OFFLINE, 0);
         int versionOffline = getVersionOffline();
         if (versionOffline != oldVersionOffline) {
             /*Data use PERIODIC_TABLE*/
@@ -147,7 +147,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             addDataReactSeriesTable();
 
             /*Save new version offline*/
-            saveVersion(KEY_OFFLINE, versionOffline);
+            saveVersion(Constraint.KEY_OFFLINE, versionOffline);
 
             /*Check data online*/
             checkGame();
@@ -200,6 +200,10 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         addDataBlockTable(isAddBlock);
         if (isAddBlock)
             PreferencesManager.getInstance().saveBooleanData("ADD_BLOCK", false);
+
+        mPreferencesManager = PreferencesManager.getInstance();
+        mPreferencesManager.init(this);
+        mBlock = mPreferencesManager.getIntData(Constraint.PRE_KEY_BLOCK, 8);
     }
 
     //Get version offline
@@ -230,7 +234,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 Log.i(TAG, "versionGame: " + versionGame);
 
                 //Get old version
-                int oldVersionGame = PreferencesManager.getInstance().getIntData(KEY_GAME, 0);
+                int oldVersionGame = PreferencesManager.getInstance().getIntData(Constraint.KEY_GAME, 0);
                 Log.i(TAG, "oldVersionGame: " + oldVersionGame);
                 newVersionGame = versionGame;
                 if (versionGame != oldVersionGame) {
@@ -262,7 +266,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 Log.i(TAG, "versionThematic: " + versionThematic);
 
                 //Get old version
-                int oldVersionThematic = PreferencesManager.getInstance().getIntData(KEY_THEMATIC, 0);
+                int oldVersionThematic = PreferencesManager.getInstance().getIntData(Constraint.KEY_THEMATIC, 0);
                 Log.i(TAG, "oldVersionThematic: " + oldVersionThematic);
                 newVersionThematic = versionThematic;
                 if (versionThematic != oldVersionThematic) {
@@ -735,7 +739,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Chapter chapter = postSnapshot.getValue(Chapter.class);
                     assert chapter != null;
-                    if (chapter.getConfirm() == 1) {
+                    if (chapter.getConfirm() == 1 && chapter.getIdBlock() == mBlock) {
                         chapterList.add(chapter);
                     }
                 }
@@ -857,7 +861,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 List<DescriptionOfTitle> descriptionOfTitleList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     DescriptionOfTitle descriptionOfTitle = postSnapshot.getValue(DescriptionOfTitle.class);
-                                        descriptionOfTitleList.add(descriptionOfTitle);
+                    descriptionOfTitleList.add(descriptionOfTitle);
                 }
                 mChemistryHelper.addDescriptionOfTitleList(descriptionOfTitleList);
                 handleSuccessThematic();
@@ -871,7 +875,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     }
 
     private void handleSuccessThematic() {
-        saveVersion(KEY_THEMATIC, newVersionThematic);
+        saveVersion(Constraint.KEY_THEMATIC, newVersionThematic);
 
         myChapter.removeEventListener(mListenerChapter);
         myHeading.removeEventListener(mListenerHeading);
@@ -914,10 +918,13 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
                 List<Question> questionList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Question question = postSnapshot.getValue(Question.class);
-                    questionList.add(question);
+                    assert question != null;
+                    if (question.getIdBlock() == mBlock) {
+                        questionList.add(question);
+                    }
                 }
                 mChemistryHelper.addQuestionList(questionList);
-                getDataAnswer();
+                getDataAnswerByQuestion(questionList);
             }
 
             @Override
@@ -927,35 +934,49 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
         });
     }
 
-    private void getDataAnswer() {
-        myListenerAnswer = myAnswer.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Answer> answerList = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Answer answer = postSnapshot.getValue(Answer.class);
-                    answerList.add(answer);
-                }
-                mChemistryHelper.addAnswerList(answerList);
-                getDataAnswerByQuestion();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("ANTN", "Failed to read value.", error.toException());
-            }
-        });
-    }
-
-    private void getDataAnswerByQuestion() {
+    private void getDataAnswerByQuestion(final List<Question> questionList) {
         myListenerAnswerByQuestion = myAnswerByQuestion.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<AnswerByQuestion> answerByQuestionList = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     AnswerByQuestion answerByQuestion = postSnapshot.getValue(AnswerByQuestion.class);
-                    answerByQuestionList.add(answerByQuestion);
+                    for (Question question : questionList) {
+                        assert answerByQuestion != null;
+                        if (question.getIdQuestion().equals(answerByQuestion.getIdQuestion())) {
+                            answerByQuestionList.add(answerByQuestion);
+                            if (question.getIdType() != 1) {
+                                break;
+                            }
+                        }
+                    }
                 }
+                getDataAnswer(answerByQuestionList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("ANTN", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void getDataAnswer(final List<AnswerByQuestion> answerByQuestionList) {
+        myListenerAnswer = myAnswer.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Answer> answerList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Answer answer = postSnapshot.getValue(Answer.class);
+                    for (AnswerByQuestion answerByQuestion : answerByQuestionList) {
+                        if (answer.getIdAnswer().equals(answerByQuestion.getIdAnswer())) {
+                            answerList.add(answer);
+                            break;
+                        }
+                    }
+
+                }
+                mChemistryHelper.addAnswerList(answerList);
                 mChemistryHelper.addAnswerByQuestionList(answerByQuestionList);
                 handleSuccessGame();
             }
@@ -968,7 +989,7 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
     }
 
     private void handleSuccessGame() {
-        saveVersion(KEY_GAME, newVersionGame);
+        saveVersion(Constraint.KEY_GAME, newVersionGame);
 
         myTypeOfQuestion.removeEventListener(myListenerTypeOfQuestion);
         myQuestion.removeEventListener(myListenerQuestion);
@@ -984,39 +1005,39 @@ public class CheckVersionDatabaseActivity extends AppCompatActivity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-//
-//            //Block
-//            Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
-//
-//            //Chemistry
-//            Log.i(TAG, "onCreate: getAllTypesChemistry " + mChemistryHelper.getAllTypes().size());
-//            Log.i(TAG, "onCreate: getAllChemistry " + mChemistryHelper.getAllChemistry().size());
-//            Log.i(TAG, "onCreate: getAllGroups " + mChemistryHelper.getAllGroups().size());
-//            Log.i(TAG, "onCreate: getAllElements " + mChemistryHelper.getAllElements().size());
-//            Log.i(TAG, "onCreate: getAllCompound " + mChemistryHelper.getAllCompound().size());
-//            Log.i(TAG, "onCreate: getAllProducedBy " + mChemistryHelper.getAllProducedBy().size());
-//            Log.i(TAG, "onCreate: getAllChemicalReaction " + mChemistryHelper.getAllChemicalReaction().size());
-//            Log.i(TAG, "onCreate: getAllCreatedReaction " + mChemistryHelper.getAllCreatedReaction().size());
-//            Log.i(TAG, "onCreate: getAllReactWith " + mChemistryHelper.getAllReactWith().size());
-//            Log.i(TAG, "onCreate: getAllAnion " + mChemistryHelper.getAllAnion().size());
-//            Log.i(TAG, "onCreate: getAllCation " + mChemistryHelper.getAllCation().size());
-//            Log.i(TAG, "onCreate: getAllSolute " + mChemistryHelper.getAllSolute().size());
-//            Log.i(TAG, "onCreate: getAllReactSeries " + mChemistryHelper.getAllReactSeries().size());
-//
-//            //Thematic
-//            Log.i(TAG, "onCreate: getAllChapter: " + mChemistryHelper.getAllChapter().size());
-//            Log.i(TAG, "onCreate: getAllHeading: " + mChemistryHelper.getAllHeading().size());
-//            Log.i(TAG, "onCreate: getAllTitle: " + mChemistryHelper.getAllTitle().size());
-//            Log.i(TAG, "onCreate: getAllDescription: " + mChemistryHelper.getAllDescription().size());
-//            Log.i(TAG, "onCreate: getAllDescriptionOfChapter: " + mChemistryHelper.getAllDescriptionOfChapter().size());
-//            Log.i(TAG, "onCreate: getAllDescriptionOfHeading: " + mChemistryHelper.getAllDescriptionOfHeading().size());
-//            Log.i(TAG, "onCreate: getAllDescriptionOfTitle: " + mChemistryHelper.getAllDescriptionOfTitle().size());
-//
-//            //Game
-//            Log.i(TAG, "onCreate: getAllTypeOfQuestion " + mChemistryHelper.getAllTypeOfQuestion().size());
-//            Log.i(TAG, "onCreate: getAllQuestion " + mChemistryHelper.getAllQuestion().size());
-//            Log.i(TAG, "onCreate: getAllAnswer " + mChemistryHelper.getAllAnswer().size());
-//            Log.i(TAG, "onCreate: getAllAnswerByQuestion " + mChemistryHelper.getAllAnswerByQuestion().size());
+
+            //Block
+            Log.i(TAG, "onCreate: getAllBlock " + mChemistryHelper.getAllBlock().size());
+
+            //Chemistry
+            Log.i(TAG, "onCreate: getAllTypesChemistry " + mChemistryHelper.getAllTypes().size());
+            Log.i(TAG, "onCreate: getAllChemistry " + mChemistryHelper.getAllChemistry().size());
+            Log.i(TAG, "onCreate: getAllGroups " + mChemistryHelper.getAllGroups().size());
+            Log.i(TAG, "onCreate: getAllElements " + mChemistryHelper.getAllElements().size());
+            Log.i(TAG, "onCreate: getAllCompound " + mChemistryHelper.getAllCompound().size());
+            Log.i(TAG, "onCreate: getAllProducedBy " + mChemistryHelper.getAllProducedBy().size());
+            Log.i(TAG, "onCreate: getAllChemicalReaction " + mChemistryHelper.getAllChemicalReaction().size());
+            Log.i(TAG, "onCreate: getAllCreatedReaction " + mChemistryHelper.getAllCreatedReaction().size());
+            Log.i(TAG, "onCreate: getAllReactWith " + mChemistryHelper.getAllReactWith().size());
+            Log.i(TAG, "onCreate: getAllAnion " + mChemistryHelper.getAllAnion().size());
+            Log.i(TAG, "onCreate: getAllCation " + mChemistryHelper.getAllCation().size());
+            Log.i(TAG, "onCreate: getAllSolute " + mChemistryHelper.getAllSolute().size());
+            Log.i(TAG, "onCreate: getAllReactSeries " + mChemistryHelper.getAllReactSeries().size());
+
+            //Thematic
+            Log.i(TAG, "onCreate: getAllChapter: " + mChemistryHelper.getAllChapter().size());
+            Log.i(TAG, "onCreate: getAllHeading: " + mChemistryHelper.getAllHeading().size());
+            Log.i(TAG, "onCreate: getAllTitle: " + mChemistryHelper.getAllTitle().size());
+            Log.i(TAG, "onCreate: getAllDescription: " + mChemistryHelper.getAllDescription().size());
+            Log.i(TAG, "onCreate: getAllDescriptionOfChapter: " + mChemistryHelper.getAllDescriptionOfChapter().size());
+            Log.i(TAG, "onCreate: getAllDescriptionOfHeading: " + mChemistryHelper.getAllDescriptionOfHeading().size());
+            Log.i(TAG, "onCreate: getAllDescriptionOfTitle: " + mChemistryHelper.getAllDescriptionOfTitle().size());
+
+            //Game
+            Log.i(TAG, "onCreate: getAllTypeOfQuestion " + mChemistryHelper.getAllTypeOfQuestion().size());
+            Log.i(TAG, "onCreate: getAllQuestion " + mChemistryHelper.getAllQuestion().size());
+            Log.i(TAG, "onCreate: getAllAnswer " + mChemistryHelper.getAllAnswer().size());
+            Log.i(TAG, "onCreate: getAllAnswerByQuestion " + mChemistryHelper.getAllAnswerByQuestion().size());
 
             startActivity(new Intent(this, MainActivity.class));
             finish();

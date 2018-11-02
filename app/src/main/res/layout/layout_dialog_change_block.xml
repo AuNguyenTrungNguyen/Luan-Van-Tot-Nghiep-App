@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Việc thay đổi lớp học sẽ cần có thêm dữ liệu của lớp học mới vui lòng kiểm tra mạng trong lúc tải dữ liệu !!!"
+            android:textColor="@color/red"
+            tools:ignore="HardcodedText" />
+
+        <RadioGroup
+            android:id="@+id/rdg_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/rdb_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lớp 8"
+                tools:ignore="HardcodedText" />
+
+            <RadioButton
+                android:id="@+id/rdb_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lớp 9"
+                tools:ignore="HardcodedText" />
+
+            <RadioButton
+                android:id="@+id/rdb_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lớp 10"
+                tools:ignore="HardcodedText" />
+
+            <RadioButton
+                android:id="@+id/rdb_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lớp 11"
+                tools:ignore="HardcodedText" />
+
+            <RadioButton
+                android:id="@+id/rdb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lớp 12"
+                tools:ignore="HardcodedText" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/background_game_complete"
+            android:text="Hoàn tất"
+            android:textColor="@color/red"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

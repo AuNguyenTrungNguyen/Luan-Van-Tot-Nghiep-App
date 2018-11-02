@@ -36,9 +36,11 @@ import luanvan.luanvantotnghiep.Activity.EquilibriumActivity;
 import luanvan.luanvantotnghiep.Activity.SignInActivity;
 import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
 import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
+import luanvan.luanvantotnghiep.Fragment.AboutUsFragment;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
 import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
+import luanvan.luanvantotnghiep.Fragment.ProfileFragment;
 import luanvan.luanvantotnghiep.Fragment.RankFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactionFragment;
 import luanvan.luanvantotnghiep.Fragment.ReactivitySeriesFragment;
@@ -215,6 +217,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if (id == R.id.nav_equilibrium) {
 
             startActivity(new Intent(this, EquilibriumActivity.class));
+
+        }else if (id == R.id.nav_profile) {
+
+            switchFragment(R.id.nav_profile, ProfileFragment.newInstance());
+
+        } else if (id == R.id.nav_about) {
+
+            switchFragment(R.id.nav_about, AboutUsFragment.newInstance());
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

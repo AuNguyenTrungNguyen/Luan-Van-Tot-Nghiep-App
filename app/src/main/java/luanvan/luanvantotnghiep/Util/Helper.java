@@ -1,6 +1,11 @@
 package luanvan.luanvantotnghiep.Util;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import luanvan.luanvantotnghiep.Model.Element;
 
@@ -88,5 +93,45 @@ public class Helper {
     public String handelChemistryInReaction(String chemistry){
         String[] tachChemistry = chemistry.split(":");
         return  tachChemistry[1].toLowerCase().trim();
+    }
+
+    @SuppressLint("NewApi")
+    public String encodeSHA512Extent(String text, int extent) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            if (extent == 1) {
+                md.update(Constraint.SLAT_RANK_EASY.getBytes(StandardCharsets.UTF_8));
+            } else if (extent == 2) {
+                md.update(Constraint.SLAT_RANK_NORMAL.getBytes(StandardCharsets.UTF_8));
+            } else if (extent == 3) {
+                md.update(Constraint.SLAT_RANK_DIFFICULT.getBytes(StandardCharsets.UTF_8));
+            }
+            byte[] bytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
+            for (byte aDigest : bytes) {
+                //sb.append(Integer.toString((aDigest & 0xff) + 0x100, 16).substring(1));
+                sb.append(String.format("%02x", aDigest));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    @SuppressLint("NewApi")
+    public String encodeSHA512(String text) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(Constraint.SLAT.getBytes(StandardCharsets.UTF_8));
+            byte[] bytes = md.digest(text.getBytes(StandardCharsets.UTF_8));
+            for (byte aDigest : bytes) {
+                //sb.append(Integer.toString((aDigest & 0xff) + 0x100, 16).substring(1));
+                sb.append(String.format("%02x", aDigest));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }

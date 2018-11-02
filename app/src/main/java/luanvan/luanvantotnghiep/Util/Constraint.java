@@ -43,7 +43,7 @@ public class Constraint {
 
     //Key Preference
     public static final String PRE_KEY_PHONE_ENCODE = "KEY_PHONE_ENCODE";
-    public static final String PRE_KEY_PHONE= "KEY_PHONE";
+    public static final String PRE_KEY_PHONE = "KEY_PHONE";
     public static final String PRE_KEY_BLOCK = "KEY_BLOCK";
     public static final String PRE_KEY_TYPE = "KEY_TYPE";
     public static final String PRE_KEY_EXTENT = "KEY_EXTENT";
@@ -64,4 +64,9 @@ public class Constraint {
     public static final String PRE_KEY_RANK_EASY = "KEY_RANK_EASY";
     public static final String PRE_KEY_RANK_NORMAL = "KEY_RANK_NORMAL";
     public static final String PRE_KEY_RANK_DIFFICULT = "KEY_RANK_DIFFICULT";
+
+    //version
+    public static final String KEY_GAME = "Version_Game";
+    public static final String KEY_THEMATIC = "Version_Thematic";
+    public static final String KEY_OFFLINE = "Version_Offline";
 }
