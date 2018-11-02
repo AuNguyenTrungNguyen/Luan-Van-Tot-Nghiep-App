@@ -32,6 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import luanvan.luanvantotnghiep.Activity.EquilibriumActivity;
 import luanvan.luanvantotnghiep.Activity.SignInActivity;
 import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
 import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
@@ -211,6 +212,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             preferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
             startActivity(new Intent(this, SignInActivity.class));
             finish();
+        }else if (id == R.id.nav_equilibrium) {
+
+            startActivity(new Intent(this, EquilibriumActivity.class));
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

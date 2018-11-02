@@ -39,6 +39,10 @@
                         android:id="@+id/nav_reaction"
                         android:icon="@drawable/ic_menu_reaction"
                         android:title="Phản ứng hóa học" />
+                    <item
+                        android:id="@+id/nav_equilibrium"
+                        android:icon="@drawable/ic_menu_equilibrium"
+                        android:title="Cân bằng phương trình" />
                 </group>
 
             </menu>
@@ -77,11 +81,6 @@
                     android:id="@+id/group_left_app"
                     android:checkableBehavior="single"
                     android:menuCategory="alternative">
-
-                    <item
-                        android:id="@+id/nav_setting"
-                        android:icon="@drawable/ic_menu_setting"
-                        android:title="Cài đặt" />
 
                     <item
                         android:id="@+id/nav_about"

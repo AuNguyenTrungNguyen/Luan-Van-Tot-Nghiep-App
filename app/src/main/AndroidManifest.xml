@@ -55,10 +55,13 @@
             android:name=".Activity.SignUpActivity"
             android:label="Đăng Ký"
             android:parentActivityName=".Activity.SignUpActivity" />
-
-        <activity android:name=".Activity.ForgotPasswordActivity"
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
             android:label="Cập nhật mật khẩu"
-            android:parentActivityName=".Activity.SignUpActivity"/>
+            android:parentActivityName=".Activity.SignUpActivity" />
+        <activity android:name=".Activity.EquilibriumActivity"
+            android:label="Cân bằng phương trình"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
