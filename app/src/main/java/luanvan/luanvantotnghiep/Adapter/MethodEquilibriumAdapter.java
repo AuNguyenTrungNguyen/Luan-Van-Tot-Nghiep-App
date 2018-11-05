@@ -52,57 +52,57 @@ public class MethodEquilibriumAdapter extends RecyclerView.Adapter<MethodEquilib
     private void setUpData() {
         mMethodList = new ArrayList<>();
         MethodEquilibrium equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp nguyên tử nguyên tố");
+        equilibrium.setMethod("Nguyên tử nguyên tố");
         equilibrium.setContentMethod("method_1");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp hóa trị tác dụng");
+        equilibrium.setMethod("Hóa trị tác dụng");
         equilibrium.setContentMethod("method_2");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp dùng hệ số phân số");
+        equilibrium.setMethod("Dùng hệ số phân số");
         equilibrium.setContentMethod("method_3");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp “chẵn – lẻ”");
+        equilibrium.setMethod("“chẵn – lẻ”");
         equilibrium.setContentMethod("method_4");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp xuất phát từ nguyên tố chung nhất");
+        equilibrium.setMethod("Xuất phát từ nguyên tố chung nhất");
         equilibrium.setContentMethod("method_5");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp cân bằng theo “nguyên tố tiêu biểu");
+        equilibrium.setMethod("Cân bằng theo “nguyên tố tiêu biểu");
         equilibrium.setContentMethod("method_6");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp cân bằng theo trình tự kim loại – phi kim");
+        equilibrium.setMethod("Cân bằng theo trình tự kim loại – phi kim");
         equilibrium.setContentMethod("method_7");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp xuất phát từ bản chất hóa học của phản ứng");
+        equilibrium.setMethod("Xuất phát từ bản chất hóa học của phản ứng");
         equilibrium.setContentMethod("method_8");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp cân bằng phản ứng cháy của chất hữu cơ");
+        equilibrium.setMethod("Cân bằng phản ứng cháy của chất hữu cơ");
         equilibrium.setContentMethod("method_9");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp cân bằng electron");
+        equilibrium.setMethod("Cân bằng electron");
         equilibrium.setContentMethod("method_10");
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("Phương pháp cân bằng đại số");
+        equilibrium.setMethod("Cân bằng đại số");
         equilibrium.setContentMethod("method_11");
         mMethodList.add(equilibrium);
     }

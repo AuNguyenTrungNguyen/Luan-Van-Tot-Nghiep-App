@@ -1,0 +1,34 @@
+<font face="sans-serif-black">
+&#x272F <font color='red'> Đây là phương pháp cân bằng áp dụng cho các phản ứng oxi hóa khử.</font>
+<br><br>&#x272F <font color='red'>Trong một phản ứng oxi hóa – khử, số electron do chất khử nhường phải bằng số electron do chất oxi hóa thu.</font>
+
+<br><br><b><u>Việc cân bằng qua ba bước:</u></b>
+
+<br><br><i>a. Xác định sự thay đổi số oxi hóa.</i>
+<br><br><i>b. Lập thăng bằng electron.</i>
+<br><br><i>c. Đặt các hệ số tìm được vào phản ứng và tính các hệ số còn lại.</i>
+
+<br><br><b><u>Ví dụ</u></b>: Cân bằng phản ứng
+<br><br>FeS + HNO<small><sub>3</sub></small> →
+<br>Fe(NO3)3 + N<small><sub>2</sub></small>O + H<small><sub>2</sub></small>SO<small><sub>4</sub></small> + H<small><sub>2</sub></small>O
+
+<br><br><b><i>a. Xác định sự thay đổi số oxi hóa:</i></b>
+
+<br>Fe<small><sup>+2</sup></small> → Fe<small><sup>+3</sup></small>
+<br>S<small><sup>-2</sup></small> → S<small><sup>+6</sup></small>
+<br>N<small><sup>+5</sup></small> → N<small><sup>+1</sup></small>
+
+<br><br><b><i>b. Lập thăng bằng electron:</i></b>
+<br>Fe<small><sup>+2</sup></small> → Fe<small><sup>+3</sup></small> + <b>1e</b>
+<br>S<small><sup>-2</sup></small> → S<small><sup>+6</sup></small> + <b>8e</b>
+
+<br><br><font color='red'>&rArr FeS<small><sup>-2</sup></small> → S<small><sup>+6</sup></small> + <b>9e</b></font>
+<br><font color='red'>&rArr 2N<small><sup>+5</sup></small> + <b>8e</b> → N<small><sub>2</sub><small><sup>+1</sup></small></small>O</font>
+
+<br><br><font color='red'>&rArr Có 8FeS và 9N<small><sub>2</sub></small>O.</font>
+
+<br><br><b><i>c. Đặt các hệ số tìm được vào phản ứng và tính các hệ số còn lại:</i></b>
+<br><br><font color='red'><b>&rArr 8FeS + 42HNO<small><sub>3</sub></small> → </b></font>
+<br><font color='red'><b> 8Fe(NO<small><sub>3</sub></small>)<small><sub>3</sub></small> + 9N<small><sub>2</sub></small>O + 8H<small><sub>2</sub></small>SO<small><sub>4</sub></small> + 13H<small><sub>2</sub></small>O</b></font>
+
+</font>
