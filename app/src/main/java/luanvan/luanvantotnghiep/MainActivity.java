@@ -41,6 +41,7 @@ import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
 import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
 import luanvan.luanvantotnghiep.Fragment.AboutUsFragment;
 import luanvan.luanvantotnghiep.Fragment.MainFragment;
+import luanvan.luanvantotnghiep.Fragment.MethodEquilibriumFragment;
 import luanvan.luanvantotnghiep.Fragment.PeriodicTableFragment;
 import luanvan.luanvantotnghiep.Fragment.PickingClassFragment;
 import luanvan.luanvantotnghiep.Fragment.ProfileFragment;
@@ -229,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
         } else if (id == R.id.nav_equilibrium) {
 
-            startActivity(new Intent(this, EquilibriumActivity.class));
+            switchFragment(R.id.nav_equilibrium, MethodEquilibriumFragment.newInstance());
 
         } else if (id == R.id.nav_profile) {
 
