@@ -3,13 +3,13 @@ package luanvan.luanvantotnghiep.Fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,7 +173,7 @@ public class PeriodicTableFragment extends Fragment {
                     }
 
                     //setColorStateOfMatter(tvId, chemistry);
-                    setColorElementCategory(idType,tvId,chemistry,view);
+                    setColorElementCategory(idType, tvId, chemistry, view);
                     LinearLayout layout = view.findViewById(R.id.ln_item);
                     layout.setBackgroundResource(R.drawable.background_item_chat_hoa_hoc);
 
@@ -272,7 +273,7 @@ public class PeriodicTableFragment extends Fragment {
                 v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
             }
             //setColorStateOfMatter(tvId, chemistry);
-            setColorElementCategory(idType,tvId,chemistry,v);
+            setColorElementCategory(idType, tvId, chemistry, v);
 
             final int position = i;
             layout.setOnClickListener(new View.OnClickListener() {
@@ -326,7 +327,7 @@ public class PeriodicTableFragment extends Fragment {
                 v.findViewById(R.id.ln_bg).setBackgroundColor(LIST_COLORS[chemistry.getIdType() - 1]);
             }
             //setColorStateOfMatter(tvId, chemistry);
-            setColorElementCategory(idType,tvId,chemistry,v);
+            setColorElementCategory(idType, tvId, chemistry, v);
 
             final int position = i;
             layout.setOnClickListener(new View.OnClickListener() {
@@ -425,39 +426,37 @@ public class PeriodicTableFragment extends Fragment {
                 break;
 
             case 12:
-                if(status.equals("Rắn")){
+                if (status.equals("Rắn")) {
                     textView.setTextColor(Color.BLACK);
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.GREEN);
-                }else {
-
+                } else {
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.WHITE);
                 }
                 break;
 
             case 13:
-                if(status.equals("Lỏng")){
+                if (status.equals("Lỏng")) {
                     textView.setTextColor(Color.BLACK);
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.CYAN);
-                }else {
-
+                } else {
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.WHITE);
                 }
                 break;
 
             case 14:
-                if(status.equals("Khí")){
+                if (status.equals("Khí")) {
                     textView.setTextColor(Color.BLACK);
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.RED);
-                }else {
+                } else {
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.WHITE);
                 }
                 break;
 
             case 15:
-                if(status.equals("Chưa xác định")){
+                if (status.equals("Chưa xác định")) {
                     textView.setTextColor(Color.BLACK);
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.GRAY);
-                }else {
+                } else {
                     view.findViewById(R.id.ln_bg).setBackgroundColor(Color.WHITE);
                 }
                 break;
@@ -473,70 +472,86 @@ public class PeriodicTableFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.nav_all:
                 reloadFragment(0);
+                showCustomToast(item.getTitle().toString(), 0);
                 return true;
 
             case R.id.nav_alkali_metal:
                 reloadFragment(1);
+                showCustomToast(item.getTitle().toString(), 1);
                 return true;
 
             case R.id.nav_alkaline_earth_metal:
                 reloadFragment(2);
+                showCustomToast(item.getTitle().toString(), 2);
                 return true;
 
             case R.id.nav_post_transition_metal:
                 reloadFragment(3);
+                showCustomToast(item.getTitle().toString(), 3);
                 return true;
 
             case R.id.nav_metalloid:
                 reloadFragment(4);
+                showCustomToast(item.getTitle().toString(), 4);
                 return true;
 
             case R.id.nav_transition_metal:
                 reloadFragment(5);
+                showCustomToast(item.getTitle().toString(), 5);
                 return true;
 
             case R.id.nav_nonmetal:
                 reloadFragment(6);
+                showCustomToast(item.getTitle().toString(), 6);
                 return true;
 
             case R.id.nav_halogen:
                 reloadFragment(7);
+                showCustomToast(item.getTitle().toString(), 7);
                 return true;
 
             case R.id.nav_noble_gas:
                 reloadFragment(8);
+                showCustomToast(item.getTitle().toString(), 8);
                 return true;
 
             case R.id.nav_lanthanide:
                 reloadFragment(9);
+                showCustomToast(item.getTitle().toString(), 9);
                 return true;
 
             case R.id.nav_actinide:
                 reloadFragment(10);
+                showCustomToast(item.getTitle().toString(), 10);
                 return true;
 
             case R.id.nav_unknown_chemical_properties:
                 reloadFragment(11);
+                showCustomToast(item.getTitle().toString(), 11);
                 return true;
 
             case R.id.nav_solid:
                 reloadFragment(12);
+                showCustomToast(item.getTitle().toString(), 12);
                 return true;
 
             case R.id.nav_liquid:
                 reloadFragment(13);
+                showCustomToast(item.getTitle().toString(), 13);
                 return true;
 
             case R.id.nav_gas:
                 reloadFragment(14);
+                showCustomToast(item.getTitle().toString(), 14);
                 return true;
 
             case R.id.nav_unknown:
                 reloadFragment(15);
+                showCustomToast(item.getTitle().toString(), 15);
                 return true;
 
             default:
@@ -544,8 +559,38 @@ public class PeriodicTableFragment extends Fragment {
         }
     }
 
-    private void reloadFragment(int type){
+    private void reloadFragment(int type) {
         mIDType = type;
         getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
+
+    private void showCustomToast(String title, int type) {
+        Toast toast = Toast.makeText(mContext, title, Toast.LENGTH_LONG);
+        View toastView = toast.getView();
+        TextView toastMessage = (TextView) toastView.findViewById(android.R.id.message);
+
+        if (type == 0) {
+            toastView.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+            toastMessage.setBackgroundColor(Color.BLACK);
+        } else if (type < 12) {
+            toastView.getBackground().setColorFilter(LIST_COLORS[type - 1], PorterDuff.Mode.SRC_IN);
+            toastMessage.setBackgroundColor(LIST_COLORS[type - 1]);
+        } else {
+            int color = Color.TRANSPARENT;
+            if (type == 12) {
+                color = Color.GREEN;
+            } else if (type == 13) {
+                color = Color.CYAN;
+            } else if (type == 14) {
+                color = Color.RED;
+            } else if (type == 15) {
+                color = Color.GRAY;
+            }
+            toastView.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            toastMessage.setBackgroundColor(color);
+        }
+        toastMessage.setTextColor(Color.WHITE);
+        toastMessage.setGravity(Gravity.CENTER);
+        toast.show();
     }
 }

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ public class ChooseLevelActivity extends AppCompatActivity {
     private RecyclerView mRvTree;
     private List<Tree> mList;
     private TreeAdapter mAdapter;
+    private TextView mTvExtent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,8 @@ public class ChooseLevelActivity extends AppCompatActivity {
         mList = new ArrayList<>();
         mAdapter = new TreeAdapter(this, mList);
         mRvTree.setAdapter(mAdapter);
+
+        mTvExtent = findViewById(R.id.tv_extent_choose_level);
     }
 
     private void setupToolbar() {
@@ -130,14 +134,17 @@ public class ChooseLevelActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.mn_extent_easy:
                 setupLevel(getType(),Constraint.EXTENT_EASY);
+                mTvExtent.setText("Mức độ: Dễ");
                 break;
 
             case R.id.mn_extent_normal:
                 setupLevel(getType(),Constraint.EXTENT_NORMAL);
+                mTvExtent.setText("Mức độ: Trung bình");
                 break;
 
             case R.id.mn_extent_difficult:
                 setupLevel(getType(),Constraint.EXTENT_DIFFICULT);
+                mTvExtent.setText("Mức độ: Khó");
                 break;
         }
         return true;

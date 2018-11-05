@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +45,7 @@ public class RankFragment extends Fragment {
     private RankAdapter mRankAdapter;
     private List<Rank> mRankList;
     private FirebaseDatabase mFirebaseDatabase;
+    private TextView mTvExtent;
 
     public RankFragment() {
     }
@@ -122,6 +123,8 @@ public class RankFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         mRvRank.setLayoutManager(manager);
         mRvRank.setHasFixedSize(true);
+
+        mTvExtent = v.findViewById(R.id.tv_extent_rank);
     }
 
     @Override
@@ -131,23 +134,22 @@ public class RankFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mn_rank_easy:
-                Log.i("hns", "EXTENT_EASY: ");
                 loadData(Constraint.EXTENT_EASY);
+                mTvExtent.setText("Xếp hạng: Dễ");
                 return true;
 
             case R.id.mn_rank_normal:
-                Log.i("hns", "EXTENT_NORMAL: ");
                 loadData(Constraint.EXTENT_NORMAL);
+                mTvExtent.setText("Xếp hạng: Trung bình");
                 return true;
 
             case R.id.mn_rank_difficult:
-                Log.i("hns", "EXTENT_DIFFICULT: ");
                 loadData(Constraint.EXTENT_DIFFICULT);
+                mTvExtent.setText("Xếp hạng: Khó");
                 return true;
         }
         return false;

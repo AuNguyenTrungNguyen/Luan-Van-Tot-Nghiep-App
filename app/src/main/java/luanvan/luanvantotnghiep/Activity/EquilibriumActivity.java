@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Equilibrium;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.Util.Helper;
 
 public class EquilibriumActivity extends AppCompatActivity implements EquilibriumAdapter.OnClickButtonEquilibrium {
@@ -25,8 +27,9 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
     private static final String TAG = "ANTN";
     List<Equilibrium> equilibriumList;
     TextView tvEquilibrium;
-    int positionSymbol = 0; //Position symbol "->"
+    int positionSymbol = 0; //Position symbol "-> or <->"
     String userAnswer; //Save user answer
+    int twoWay = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,8 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         RecyclerView rvEquilibrium = findViewById(R.id.rv_equilibrium);
 
         ChemistryHelper helper = ChemistrySingle.getInstance(this);
-        ChemicalReaction chemicalReaction = helper.getAllChemicalReaction().get(11);
+        ChemicalReaction chemicalReaction = helper.getAllChemicalReaction().get(0);
+        twoWay = chemicalReaction.getTwoWay();
         String reactant = chemicalReaction.getReactants();
         String product = chemicalReaction.getProducts();
 
@@ -73,10 +77,16 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         String show = handelTextToShow();
         tvEquilibrium.setText(Html.fromHtml(show));
 
-        String question = handelUserReaction(equilibriumList);
-        userAnswer = question;
-        String temp = reactant + " -> " + product;
-        final String correctAnswer = temp.replace(":", "");
+        userAnswer = handelUserReaction(equilibriumList);
+        StringBuilder temp = new StringBuilder();
+        temp.append(reactant);
+        if (twoWay == 1){
+            temp.append(" " + Constraint.SYMBOL_TWO_WAY + " ");
+        }else{
+            temp.append(" " + Constraint.SYMBOL + " ");
+        }
+        temp.append(product);
+        final String correctAnswer = temp.toString().replace(":", "");
 
         /*Submit button*/
         findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener() {
@@ -95,31 +105,6 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
 
         userAnswer = user;
         tvEquilibrium.setText(Html.fromHtml(show));
-//        StringBuilder user = new StringBuilder();
-//        StringBuilder show = new StringBuilder();
-//        for (int i = 0; i < equilibriumList.size(); i++) {
-//            Equilibrium equilibrium = equilibriumList.get(i);
-//
-//            if (equilibrium.getNumber() != 1) {
-//                user.append(equilibrium.getNumber());
-//                show.append("<font color='red'>").append(equilibrium.getNumber()).append("</font>");
-//            }
-//            user.append(equilibrium.getName().trim());
-//            show.append(Helper.getInstant().handelText(equilibrium.getName().trim()));
-//
-//            if (i == positionSymbol) {
-//                user.append(" -> ");
-//                show.append(" -> ");
-//            } else if (i == equilibriumList.size() - 1) {
-//                user.append("");
-//                show.append("");
-//            } else {
-//                user.append(" + ");
-//                show.append(" + ");
-//            }
-//        }
-//        userAnswer = user.toString();
-//        tvEquilibrium.setText(Html.fromHtml(show.toString()));
     }
 
     private String handelTextToShow() {
@@ -133,7 +118,11 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
             show.append(Helper.getInstant().handelText(equilibrium.getName().trim()));
 
             if (i == positionSymbol) {
-                show.append(" -> ");
+                if (twoWay == 1){
+                    show.append(" " + Constraint.SYMBOL_TWO_WAY + " ");
+                }else{
+                    show.append(" " + Constraint.SYMBOL + " ");
+                }
             } else if (i == equilibriumList.size() - 1) {
                 show.append("");
             } else {
@@ -148,13 +137,15 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         for (int i = 0; i < equilibriumList.size(); i++) {
             Equilibrium equilibrium = equilibriumList.get(i);
 
-            if (equilibrium.getNumber() != 1) {
-                user.append(equilibrium.getNumber());
-            }
+            user.append(equilibrium.getNumber());
             user.append(equilibrium.getName().trim());
 
             if (i == positionSymbol) {
-                user.append(" -> ");
+                if (twoWay == 1){
+                    user.append(" " + Constraint.SYMBOL_TWO_WAY + " ");
+                }else{
+                    user.append(" " + Constraint.SYMBOL + " ");
+                }
             } else if (i == equilibriumList.size() - 1) {
                 user.append("");
             } else {
@@ -199,10 +190,15 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
             equilibriumListUser.add(equilibriumUser);
         }
 
+        Log.i(TAG, "correctAnswer: " + correctAnswer);
+        Log.i(TAG, "isSimplified: " + isSimplified);
+
         if (isSimplified) {
             String userSimplified = handelUserReaction(equilibriumListUser);
+            Log.i(TAG, "userSimplified: " + userSimplified);
             return userSimplified.trim().equals(correctAnswer.trim());
         } else {
+            Log.i(TAG, "userAnswer: " + userAnswer);
             return userAnswer.trim().equals(correctAnswer.trim());
         }
     }

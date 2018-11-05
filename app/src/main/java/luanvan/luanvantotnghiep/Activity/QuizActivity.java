@@ -455,7 +455,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             Collections.shuffle(tempList);
 
             //mQuestionList = tempList.subList(0, 20);
-            mQuestionList = tempList.subList(0, 10);
+            mQuestionList = tempList.subList(0, 5);
             mAnswerList = chemistryHelper.getAllAnswer();
             mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
             return true;

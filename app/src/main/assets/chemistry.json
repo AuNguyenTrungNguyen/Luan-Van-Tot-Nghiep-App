@@ -1482,7 +1482,7 @@
       "mProducts": "2:H2O",
       "mConditions": "Nhiệt độ: 550°C",
       "mPhenomena": "bay hơi nước",
-      "mTwoWay": "0",
+      "mTwoWay": "1",
       "mReactionTypes": "hóa hợp,oxi-hóa khử"
     },
     {
@@ -5732,5 +5732,5 @@
       "mIdBlock": "12"
     }
   ],
-  "Version": "2"
+  "Version": "1"
 }

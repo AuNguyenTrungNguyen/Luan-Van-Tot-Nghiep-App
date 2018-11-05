@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,17 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Activity.CheckVersionDatabaseActivity;
-import luanvan.luanvantotnghiep.Activity.SignInActivity;
-import luanvan.luanvantotnghiep.Adapter.RankAdapter;
 import luanvan.luanvantotnghiep.Model.Rank;
 import luanvan.luanvantotnghiep.Model.User;
 import luanvan.luanvantotnghiep.R;
@@ -187,7 +178,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         final Dialog dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.layout_dialog_change_block);
         dialog.show();
-        dialog.setCancelable(false);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -244,6 +234,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                     mPreferencesManager.saveIntData(Constraint.KEY_GAME, 0);
                     mPreferencesManager.saveIntData(Constraint.KEY_THEMATIC, 0);
+                    mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+                    mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+                    mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
 
                     //change data
                     startActivity(new Intent(mContext, CheckVersionDatabaseActivity.class));
