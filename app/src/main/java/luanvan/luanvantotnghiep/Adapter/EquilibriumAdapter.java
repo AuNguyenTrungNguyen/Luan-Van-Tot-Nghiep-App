@@ -1,6 +1,7 @@
 package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -47,6 +48,11 @@ public class EquilibriumAdapter extends RecyclerView.Adapter<EquilibriumAdapter.
     @Override
     public void onBindViewHolder(@NonNull final EquilibriumHolder equilibriumHolder, int position) {
         final Equilibrium equilibrium = mListEquilibrium.get(position);
+        if(equilibrium.getNumber() == 1){
+            equilibriumHolder.btnSubEquilibrium.setEnabled(false);
+        }else {
+            equilibriumHolder.btnSubEquilibrium.setEnabled(true);
+        }
 
         equilibriumHolder.tvNameEquilibrium.setText(Html.fromHtml(Helper.getInstant().handelText(equilibrium.getName())));
         equilibriumHolder.tvNumberEquilibrium.setText(String.format("%s", equilibrium.getNumber()));
@@ -55,9 +61,6 @@ public class EquilibriumAdapter extends RecyclerView.Adapter<EquilibriumAdapter.
             @Override
             public void onClick(View view) {
                 int number = equilibrium.getNumber();
-                if (number == 2) {
-                    equilibriumHolder.btnSubEquilibrium.setEnabled(false);
-                }
                 equilibrium.setNumber(number - 1);
                 notifyDataSetChanged();
                 mListener.updateUI();
@@ -68,7 +71,6 @@ public class EquilibriumAdapter extends RecyclerView.Adapter<EquilibriumAdapter.
             @Override
             public void onClick(View view) {
                 int number = equilibrium.getNumber();
-                equilibriumHolder.btnSubEquilibrium.setEnabled(true);
                 equilibrium.setNumber(number + 1);
                 notifyDataSetChanged();
                 mListener.updateUI();
@@ -92,9 +94,12 @@ public class EquilibriumAdapter extends RecyclerView.Adapter<EquilibriumAdapter.
             super(itemView);
             tvNameEquilibrium = itemView.findViewById(R.id.tv_name_equilibrium);
             btnSubEquilibrium = itemView.findViewById(R.id.btn_sub_equilibrium);
+            btnSubEquilibrium.setText(Html.fromHtml("&#9473"));
+            btnSubEquilibrium.setTextColor(Color.RED);
             tvNumberEquilibrium = itemView.findViewById(R.id.tv_number_equilibrium);
             btnAddEquilibrium = itemView.findViewById(R.id.btn_add_equilibrium);
-
+            btnAddEquilibrium.setText("+");
+            btnAddEquilibrium.setTextColor(Color.GREEN);
         }
     }
 }

@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import luanvan.luanvantotnghiep.Adapter.EquilibriumAdapter;
+import luanvan.luanvantotnghiep.Database.ChemistryHelper;
+import luanvan.luanvantotnghiep.Model.ChemicalReaction;
 import luanvan.luanvantotnghiep.Model.Equilibrium;
 import luanvan.luanvantotnghiep.R;
+import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 import luanvan.luanvantotnghiep.Util.Helper;
 
 public class EquilibriumActivity extends AppCompatActivity implements EquilibriumAdapter.OnClickButtonEquilibrium {
@@ -25,38 +28,37 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
     int positionSymbol = 0; //Position symbol "->"
     String userAnswer; //Save user answer
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equilibrium);
 
-        String question = "PCl5 + H2O -> H3PO4 + HCl";
-        userAnswer = question;
-        final String correctAnswer = "PCl5 + 4H2O -> H3PO4 + 5HCl";
-
         tvEquilibrium = findViewById(R.id.tv_equilibrium);
         RecyclerView rvEquilibrium = findViewById(R.id.rv_equilibrium);
 
+        ChemistryHelper helper = ChemistrySingle.getInstance(this);
+        ChemicalReaction chemicalReaction = helper.getAllChemicalReaction().get(11);
+        String reactant = chemicalReaction.getReactants();
+        String product = chemicalReaction.getProducts();
+
         /*Set data recycle*/
         equilibriumList = new ArrayList<>();
-        String[] reactionSplit = question.split("->");
-        String left[] = reactionSplit[0].split("\\+");
-        String right[] = reactionSplit[1].split("\\+");
+        String left[] = reactant.split("\\+");
+        String right[] = product.split("\\+");
 
         for (String name : left) {
             Equilibrium equilibrium = new Equilibrium();
-            equilibrium.setName(name);
+            equilibrium.setName(name.split(":")[1]);
+            equilibriumList.add(equilibrium);
+        }
+
+        for (String name : right) {
+            Equilibrium equilibrium = new Equilibrium();
+            equilibrium.setName(name.split(":")[1]);
             equilibriumList.add(equilibrium);
         }
 
         positionSymbol = left.length - 1;
-
-        for (String name : right) {
-            Equilibrium equilibrium = new Equilibrium();
-            equilibrium.setName(name);
-            equilibriumList.add(equilibrium);
-        }
 
         EquilibriumAdapter equilibriumAdapter = new EquilibriumAdapter(this, equilibriumList);
         rvEquilibrium.setAdapter(equilibriumAdapter);
@@ -70,6 +72,11 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         /*Handel text and show */
         String show = handelTextToShow();
         tvEquilibrium.setText(Html.fromHtml(show));
+
+        String question = handelUserReaction(equilibriumList);
+        userAnswer = question;
+        String temp = reactant + " -> " + product;
+        final String correctAnswer = temp.replace(":", "");
 
         /*Submit button*/
         findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener() {

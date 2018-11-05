@@ -1544,6 +1544,12 @@
       "mReactants": "1:H2SO4 + 1:SO3",
       "mProducts": "1:H2S2O7",
       "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "12",
+      "mReactants": "9:H2SO4 + 6:KMnO4 + 10:NO",
+      "mProducts": "4:H2O + 10:HNO3 + 6:MnSO4 + 3:K2SO4",
+      "mTwoWay": "0"
     }
   ],
   "Compound": [
@@ -5726,5 +5732,5 @@
       "mIdBlock": "12"
     }
   ],
-  "Version": "1"
+  "Version": "2"
 }
