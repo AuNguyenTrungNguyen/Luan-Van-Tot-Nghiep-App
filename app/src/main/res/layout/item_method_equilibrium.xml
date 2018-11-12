@@ -11,13 +11,14 @@
 
     <LinearLayout
         android:id="@+id/ln_method"
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
 
         <TextView
+            android:textSize="24sp"
             android:id="@+id/tv_method"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_expand" />
+            android:src="@drawable/ic_right" />
 
     </LinearLayout>
 

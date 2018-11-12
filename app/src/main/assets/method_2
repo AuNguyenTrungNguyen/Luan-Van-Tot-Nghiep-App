@@ -1,0 +1,32 @@
+<font face="sans-serif-black">
+&#x272F <font color='red'>Hóa trị tác dụng là hóa trị của nhóm nguyên tử hay nguyên tử của các nguyên tố trong chất tham gia và tạo thành trong PUHH</font>.
+
+<br><br><b>&rArr Áp dụng phương pháp này cần tiến hành các bước sau:</b>
+
+<br><br><b><u><b>Ví dụ</u></b>: Cân bằng phản ứng</b>
+
+<br><br>BaCl<small><sub>2</sub></small> + Fe<small><sub>2</sub></small>(SO<small><sub>4</sub></small>)<small><sub>3</sub></small> → BaSO<small><sub>4</sub></small> + FeCl<small><sub>3</sub></small>
+
+<br><br><b>+ <u>Xác định hóa trị</u>:</b>
+<br><br>&bull BaCl<small><sub>2</sub></small>: Ba có hóa trị <font color='red'><b>II</b></font>, gốc Cl có hóa trị <font color='red'><b>I</b></font>.
+
+<br><br>&bull Fe<small><sub>2</sub></small>(SO4)<small><sub>3</sub></small>: Fe có hóa trị <font color='red'><b>III</b></font>, gốc SO<small><sub>4</sub></small> có hóa trị <font color='red'><b>II</b></font>.
+
+<br><br>&bull BaSO<small><sub>4</sub></small>: Ba có hóa trị <font color='red'><b>II</b></font>, gốc SO<small><sub>4</sub></small> có hóa trị <font color='red'><b>II</b></font>.
+
+<br><br>&bull FeCl<small><sub>3</sub></small>: Fe có hóa trị <font color='red'><b>III</b></font>, gốc Cl có hóa trị <font color='red'><b>I</b></font>.
+
+<br><br><b>+ <u>Tìm bội số chung nhỏ nhất của các hóa trị tác dụng</u>:</b>
+
+<br><br><font color='red'><b>&rArr BSCNN(1, 2, 3) = 6</b></font>
+
+<br><br><b>+ <u>Lấy BSCNN chia cho các hóa trị ta được các hệ số</u>:</b>
+
+<br><br><font color='red'><b>&rArr 6/II = 3, 6/III = 2, 6/I = 6</b></font>
+
+<br><br><b>+ <u>Thay vào phản ứng</u></b>:
+
+<br><br><font color='red'><b>&rArr 3BaCl<small><sub>2</sub></small> + Fe<small><sub>2</sub></small>(SO<small><sub>4</sub></small>)<small><sub>3</sub></small> → 3BaSO<small><sub>4</sub></small> + 2FeCl<small><sub>3</sub></small></b></font>
+
+<br><br><b>&#x272F Dùng phương pháp này sẽ củng cố được khái niệm hóa trị, cách tính hóa trị, nhớ hóa trị của các nguyên tố thường gặp.</b>
+</font>

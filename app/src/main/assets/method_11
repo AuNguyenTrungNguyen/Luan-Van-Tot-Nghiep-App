@@ -1,0 +1,41 @@
+<font face="sans-serif-black">
+&#x272F <font color='red'>Dùng để xác định hệ số phân tử của chất tham gia và thu được sau phản ứng hoá học.</font>
+<br><br>&#x272F <font color='red'>a xem hệ số là các ẩn số và kí hiệu bằng các chữ cái a, b, c, d…</font>
+<br><br>&#x272F <font color='red'>Sau đó dựa vào mối tương quan giữa các nguyên tử của các nguyên tố theo định luật bảo toàn khối lượng để lập ra một hệ phương trình bậc nhất nhiều ẩn số.</font>
+<br><br>&#x272F <font color='red'>Giải hệ phương trình này và chọn các nghiệm là các số nguyên dương nhỏ nhất ta sẽ xác định được hệ số phân tử của các chất trong phương trình phản ứng hoá học.</font>
+
+<br><br><b><u>Ví dụ</u></b>: Cân bằng phản ứng</b>
+
+<br><br>Cu + HNO3 –> Cu(NO3)2 + NO + H2O
+
+<br><br><b>Gọi các hệ số phải tìm là các chữ a, b, c, d, e và ghi vào phương trình ta có:</b>
+
+<br><br>&rArr aCu + bHNO3 –> cCu(NO3)2 + dNO + eH2O
+
+<br><br><i>+ Xét số nguyên tử Cu:
+<br><b>a = c</b> <font color='red'>(1)</font></i>
+<br><br><i>+ Xét số nguyên tử H:
+<br><b>b = 2e</b> <font color='red'>(2)</font></i>
+<br><br><i>+ Xét số nguyên tử N:
+<br><b>b = 2c + d</b> <font color='red'>(3)</font></i>
+<br><br><i>+ Xét số nguyên tử O:
+<br><b>3b = 6c + d + e</b> <font color='red'>(4)</font></i>
+
+<br><br><i>Ta được hệ phương trình 5 ẩn và giải như sau:</i>
+
+<br><br>Rút <b>e = b/2</b> từ phương trình (2) và <b>d = b – 2c</b> từ phương trình (3) và thay vào phương trình (4):
+<br><b>3b = 6c + b – 2c + b/2</b>
+<br><font color='red'><b>&rArr b = 8c/3</b></font>
+<br><br>Ta thấy để b nguyên thì c phải chia hết cho 3.
+<br>Trong trường hợp này để hệ số của phương trình hoá học là nhỏ nhất ta cần lấy <b>c = 3</b>.
+<br>Khi đó: <b>a = 3, b = 8, d = 2, e = 4</b>.
+
+
+<br><br><b>+ <u>Đó là thứ tự suy ra các hệ số của các chất. Thay vào PTPU ta được:</u>:</b>
+
+<br><br><font color='TEAL'><i>Ở ví dụ trên trong phương trình hoá học có 5 chất (Cu, HNO3, Cu(NO3)2, NO, H2O) và 4 nguyên tố (Cu, H, N, O) khi lập hệ phương trình đại số để cân bằng ta được một hệ 4 phương trình với 5 ẩn số.
+Hay nói một cách tổng quát, ta có n ẩn số và (n – 1) phương trình.</i></font>
+
+<br><br><font color='TEAL'><i><u>Ghi nhớ:</u> khi lập một hệ phương trình đại số để cân bằng một phương trình hoá học, nếu có bao nhiêu chất trong phương trình hoá học thì có bấy nhiêu ẩn số và nếu có bao nhiêu nguyên tố tạo nên các hợp chất đó thì có bấy nhiêu phương trình.</i></font>
+
+</font>
