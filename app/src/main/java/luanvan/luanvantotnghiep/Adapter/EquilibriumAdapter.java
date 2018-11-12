@@ -19,8 +19,6 @@ import luanvan.luanvantotnghiep.Util.Helper;
 
 public class EquilibriumAdapter extends RecyclerView.Adapter<EquilibriumAdapter.EquilibriumHolder> {
 
-    private static final String TAG = "ANTN";
-
     private Context mContext;
     private List<Equilibrium> mListEquilibrium;
     private OnClickButtonEquilibrium mListener;

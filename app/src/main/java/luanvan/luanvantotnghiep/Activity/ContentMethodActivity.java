@@ -2,8 +2,10 @@ package luanvan.luanvantotnghiep.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -20,6 +22,8 @@ public class ContentMethodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_method);
+
+        setupToolbar();
 
         TextView tvContentMethod = findViewById(R.id.tv_content_method);
         TextView tvMethod = findViewById(R.id.tv_method);
@@ -46,5 +50,18 @@ public class ContentMethodActivity extends AppCompatActivity {
 
         tvMethod.setText(name);
 
+    }
+
+    private void setupToolbar() {
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
