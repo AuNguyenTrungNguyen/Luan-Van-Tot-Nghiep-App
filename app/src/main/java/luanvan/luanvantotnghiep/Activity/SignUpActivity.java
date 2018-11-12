@@ -344,7 +344,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         if (checkPushData(password, confirmPassword, name)) {
             final String phoneEncode = encodeSHA512(phoneKey);
-            String passwordEncode = encodeSHA512(password);
+            final String passwordEncode = encodeSHA512(password);
 
             User user = new User();
             user.setPhone(phoneEncode);
@@ -358,9 +358,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onSuccess(Void aVoid) {
                     mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, finalBlock);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
                     mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneKey);
                     mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, name);
+                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
+                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, passwordEncode);
                     Toast.makeText(SignUpActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                     finish();
                 }

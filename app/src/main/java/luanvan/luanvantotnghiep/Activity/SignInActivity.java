@@ -103,10 +103,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 break;
                             } else if (user.getPassword().equals(passwordEncode)) {
                                 isPasswordCorrect = true;
-                                mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
                                 mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, user.getBlock());
                                 mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phone);
                                 mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, user.getName());
+                                mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
+                                mPreferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, passwordEncode);
                                 mProgressDialog.dismiss();
                                 startActivity(new Intent(SignInActivity.this, CheckVersionDatabaseActivity.class));
                                 finish();

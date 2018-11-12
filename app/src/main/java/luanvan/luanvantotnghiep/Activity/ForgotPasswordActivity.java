@@ -43,6 +43,7 @@ import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
 import luanvan.luanvantotnghiep.Model.User;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -321,7 +322,11 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
         if (checkPushData(password, confirmPassword)) {
             myUser.removeEventListener(myUserListener);
-            myUser.child(encodeSHA512(mEdtPhone.getText().toString())).child("password").setValue(encodeSHA512(password));
+            String passwordEncode = encodeSHA512(password);
+            myUser.child(encodeSHA512(mEdtPhone.getText().toString())).child("password").setValue(passwordEncode);
+            PreferencesManager preferencesManager = PreferencesManager.getInstance();
+            preferencesManager.init(this);
+            preferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, passwordEncode);
             Toast.makeText(this, "Cập nhật mật khẩu thành công!", Toast.LENGTH_SHORT).show();
             finish();
         }

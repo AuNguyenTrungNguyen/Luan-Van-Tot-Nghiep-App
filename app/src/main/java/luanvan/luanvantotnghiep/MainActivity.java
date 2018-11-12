@@ -218,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
+            mPreferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, "");
             mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, 8);
             mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
             mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, "");

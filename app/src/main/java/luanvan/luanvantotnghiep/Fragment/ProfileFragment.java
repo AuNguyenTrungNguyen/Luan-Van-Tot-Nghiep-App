@@ -256,6 +256,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        final EditText edtOldPassword = dialog.findViewById(R.id.edt_old_password);
         final EditText edtNewPassword = dialog.findViewById(R.id.edt_new_password);
         final EditText edtConfirmPassword = dialog.findViewById(R.id.edt_confirm_password);
 
@@ -266,38 +267,48 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userList.clear();
-                myUserListener[0] = myUser.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            User user = postSnapshot.getValue(User.class);
-                            userList.add(user);
-                        }
-                        for (User user : userList) {
-                            if (user.getPhone().equals(phoneEncode) && checkPushData(
-                                    edtNewPassword.getText().toString(),
-                                    edtConfirmPassword.getText().toString(),
-                                    edtNewPassword,
-                                    edtConfirmPassword)) {
+                String oldPassPreference = mPreferencesManager.getStringData(Constraint.PRE_KEY_PASS_ENCODE, "");
+                String oldPass = edtOldPassword.getText().toString();
+                if (oldPassPreference.equals("") || oldPass.equals("")) {
+                    Toast.makeText(mContext, "Vui lòng nhập mật khẩu hiện tại trước khi thay đổi.", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (oldPassPreference.equals(Helper.getInstant().encodeSHA512(oldPass))) {
+                        userList.clear();
+                        myUserListener[0] = myUser.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    User user = postSnapshot.getValue(User.class);
+                                    userList.add(user);
+                                }
+                                for (User user : userList) {
+                                    if (user.getPhone().equals(phoneEncode) && checkPushData(
+                                            edtNewPassword.getText().toString(),
+                                            edtConfirmPassword.getText().toString(),
+                                            edtNewPassword,
+                                            edtConfirmPassword)) {
 
-                                myUser.child(phoneEncode)
-                                        .child("password")
-                                        .setValue(mHelper.encodeSHA512(edtNewPassword.getText().toString()));
-                                Toast.makeText(mContext, "Mật khẩu mới đã được cập nhật", Toast.LENGTH_SHORT).show();
-                                myUser.removeEventListener(myUserListener[0]);
-                                dialog.dismiss();
-                                break;
+                                        myUser.child(phoneEncode)
+                                                .child("password")
+                                                .setValue(mHelper.encodeSHA512(edtNewPassword.getText().toString()));
+                                        Toast.makeText(mContext, "Mật khẩu mới đã được cập nhật", Toast.LENGTH_SHORT).show();
+                                        myUser.removeEventListener(myUserListener[0]);
+                                        dialog.dismiss();
+                                        break;
+                                    }
+                                }
+
                             }
-                        }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    } else {
+                        Toast.makeText(mContext, "Mật khẩu hiện tại chưa chính xác, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                }
             }
         });
 

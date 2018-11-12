@@ -43,6 +43,7 @@ public class Constraint {
 
     //Key Preference
     public static final String PRE_KEY_PHONE_ENCODE = "KEY_PHONE_ENCODE";
+    public static final String PRE_KEY_PASS_ENCODE = "KEY_PASS_ENCODE";
     public static final String PRE_KEY_PHONE = "KEY_PHONE";
     public static final String PRE_KEY_BLOCK = "KEY_BLOCK";
     public static final String PRE_KEY_TYPE = "KEY_TYPE";

@@ -5,7 +5,7 @@ public class User {
     private String mPassword;
     private String mName;
     private int mBlock;
-    private int mType = 0;
+    private int mType = 0; //0 student, 1 collaborator
     private int mDisable = 0; //0 Không khóa, 1 khóa
 
     public User() {
