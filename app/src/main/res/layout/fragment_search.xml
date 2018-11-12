@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#808080"
+    android:background="@drawable/bg_tree"
     android:overScrollMode="never"
     tools:context=".Fragment.SearchFragment">
 
@@ -13,219 +13,254 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--info-->
         <android.support.v7.widget.CardView
+            android:visibility="visible"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/cv_hide"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_height="100dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="2dp"
+            tools:ignore="ContentDescription">
 
-            <LinearLayout
+            <TextView
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Vui lòng nhập ký hiệu hóa học hoặc tên IUPAC để tìm chất"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,UnusedAttribute" />
 
-                <TextView
-                    android:id="@+id/tv_symbol_chemistry"
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/ln_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!--info-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_symbol_chemistry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="12dp"
+                        android:text="HCl"
+                        android:textColor="@color/red"
+                        android:textSize="32dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_name_chemistry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:text="Tên: Axit clohydric"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_name_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:text="Tính chất: Axit"
+                        android:textColor="#000"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_weight_chemistry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:text="Khối lượng: 36.5 g/mol"
+                        android:textColor="#000"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_status_chemistry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_detail_element_textview"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:text="Trạng thái: Chất lỏng"
+                        android:textColor="#000"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_color_chemistry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:text="Màu sắc: Trong suốt"
+                        android:textColor="#000"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_other_names"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_top_line"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:textColor="#000"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--được tạo thành-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_chip_chemistry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true">
+
+                <!--recycler view -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
-                    android:paddingBottom="12dp"
-                    android:paddingTop="4dp"
-                    android:text="HCl"
-                    android:textColor="@color/red"
-                    android:textSize="32dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_name_chemistry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:text="Tên: Axit clohydric"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:paddingTop="4dp"
+                        android:text="Được tạo thành từ: "
+                        android:textColor="@color/red"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_name_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:text="Tính chất: Axit"
-                    android:textColor="#000"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_chip_chemistry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp" />
 
-                <TextView
-                    android:id="@+id/tv_weight_chemistry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:text="Khối lượng: 36.5 g/mol"
-                    android:textColor="#000"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_status_chemistry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_detail_element_textview"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:text="Trạng thái: Chất lỏng"
-                    android:textColor="#000"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
 
-                <TextView
-                    android:id="@+id/tv_color_chemistry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:text="Màu sắc: Trong suốt"
-                    android:textColor="#000"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_other_names"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_top_line"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:textColor="#000"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <!--được tạo thành-->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_chip_chemistry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:cardCornerRadius="10dp"
-            app:cardUseCompatPadding="true">
-
-            <!--recycler view -->
-            <LinearLayout
+            <!--phuong trinh tao ra-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_created_reaction"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="Được tạo thành từ: "
-                    android:textColor="@color/red"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_chip_chemistry"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:paddingTop="4dp"
+                        android:text="Phương trình điều chế:"
+                        android:textColor="@color/red"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-        </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_created_reaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-        <!--phuong trinh tao ra-->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_created_reaction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:cardUseCompatPadding="true">
 
-            <LinearLayout
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--tính chất hóa học-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_react_with"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="Phương trình điều chế:"
-                    android:textColor="@color/red"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_created_reaction"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-thin"
+                        android:padding="4dp"
+                        android:paddingTop="4dp"
+                        android:text="Tính chất hóa học:"
+                        android:textColor="@color/red"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_react_with"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-        <!--tính chất hóa học-->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_react_with"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:padding="4dp"
-                    android:paddingTop="4dp"
-                    android:text="Tính chất hóa học:"
-                    android:textColor="@color/red"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_react_with"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -1,5 +1,6 @@
 package luanvan.luanvantotnghiep.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +70,9 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
     private RecyclerView mRvChipChemistry;
     private RecyclerView mRvCreatedReaction;
     private RecyclerView mRvReactWith;
+
+    private CardView mCvHide;
+    private LinearLayout mLnShow;
 
     //private boolean mIsElement;
 
@@ -124,6 +129,9 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         mRvReactWith = view.findViewById(R.id.rv_react_with);
 
         mChemistryHelper = ChemistrySingle.getInstance(mContext);
+
+        mCvHide = view.findViewById(R.id.cv_hide);
+        mLnShow = view.findViewById(R.id.ln_show);
     }
 
     @Override
@@ -132,6 +140,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         setHasOptionsMenu(true);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
@@ -169,6 +178,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
             //Test auto complete
             searchAutoComplete = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
             searchAutoComplete.setTextColor(Color.WHITE);
+            searchAutoComplete.setThreshold(1);
 
             // Create a new ArrayAdapter and add data to search auto complete object.
             List<String> list = handleComplete();
@@ -220,13 +230,13 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
     }
 
     private void textSubmit(String string) {
+        mCvHide.setVisibility(View.GONE);
+        mLnShow.setVisibility(View.VISIBLE);
         String[] tmp = string.split(" - ");
         String param = tmp[0];
         if (tmp.length > 1) {
             param = tmp[1];
         }
-
-        Log.i("hns", "tmp: " + tmp.length);
 
         searchAutoComplete.dismissDropDown();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -260,7 +270,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
                                 break;
                             }
                         }
-
                         mIsElement = true;
                         chemistryEle = chemistry;
                         elementData = element;

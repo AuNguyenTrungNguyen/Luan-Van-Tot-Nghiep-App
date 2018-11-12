@@ -6,11 +6,12 @@
 
 <br><br><b><u>Ví dụ</u></b>: Cân bằng phản ứng</b>
 
-<br><br>Cu + HNO3 –> Cu(NO3)2 + NO + H2O
+<br><br>Cu + HNO<small><sub>3</sub></small> → Cu(NO<small><sub>3</sub></small>)<small><sub>2</sub></small> + NO + H<small><sub>2</sub></small>O
 
 <br><br><b>Gọi các hệ số phải tìm là các chữ a, b, c, d, e và ghi vào phương trình ta có:</b>
 
-<br><br>&rArr aCu + bHNO3 –> cCu(NO3)2 + dNO + eH2O
+<br><br>&rArr aCu + bHNO<small><sub>3</sub></small> →
+<br>cCu(NO<small><sub>3</sub></small>)<small><sub>2</sub></small> + dNO + eH<small><sub>2</sub></small>O
 
 <br><br><i>+ Xét số nguyên tử Cu:
 <br><b>a = c</b> <font color='red'>(1)</font></i>
@@ -31,9 +32,11 @@
 <br>Khi đó: <b>a = 3, b = 8, d = 2, e = 4</b>.
 
 
-<br><br><b>+ <u>Đó là thứ tự suy ra các hệ số của các chất. Thay vào PTPU ta được:</u>:</b>
+<br><br><b>Đó là thứ tự suy ra các hệ số của các chất. Thay vào PTPU ta được:</b>
+<br><br><font color='red'><b>&rArr 3Cu + 8HNO<small><sub>3</sub></small> → </b></font>
+<br><font color='red'><b> 3Cu(NO<small><sub>3</sub></small>)<small><sub>2</sub></small> + 2NO + 4H<small><sub>2</sub></small>O</b></font>
 
-<br><br><font color='TEAL'><i>Ở ví dụ trên trong phương trình hoá học có 5 chất (Cu, HNO3, Cu(NO3)2, NO, H2O) và 4 nguyên tố (Cu, H, N, O) khi lập hệ phương trình đại số để cân bằng ta được một hệ 4 phương trình với 5 ẩn số.
+<br><br><font color='TEAL'><i>Ở ví dụ trên trong phương trình hoá học có 5 chất (Cu, HNO<small><sub>3</sub></small>, Cu(NO<small><sub>3</sub></small>)<small><sub>2</sub></small>, NO, H<small><sub>2</sub></small>O) và 4 nguyên tố (Cu, H, N, O) khi lập hệ phương trình đại số để cân bằng ta được một hệ 4 phương trình với 5 ẩn số.
 Hay nói một cách tổng quát, ta có n ẩn số và (n – 1) phương trình.</i></font>
 
 <br><br><font color='TEAL'><i><u>Ghi nhớ:</u> khi lập một hệ phương trình đại số để cân bằng một phương trình hoá học, nếu có bao nhiêu chất trong phương trình hoá học thì có bấy nhiêu ẩn số và nếu có bao nhiêu nguyên tố tạo nên các hợp chất đó thì có bấy nhiêu phương trình.</i></font>

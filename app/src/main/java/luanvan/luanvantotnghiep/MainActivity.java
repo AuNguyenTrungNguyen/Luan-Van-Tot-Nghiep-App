@@ -3,8 +3,11 @@ package luanvan.luanvantotnghiep;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,10 +23,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -148,8 +154,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView imgAvatarHeader = headerView.findViewById(R.id.img_avatar_user);
         TextView tvNameHeader = headerView.findViewById(R.id.tv_name_user);
         TextView tvPhoneHeader = headerView.findViewById(R.id.tv_phone_user);
+        final LinearLayout lnNav = headerView.findViewById(R.id.ln_nav);
 
-        Glide.with(this).load(R.drawable.ic_hi).into(imgAvatarHeader);
+        Glide.with(this).load(R.drawable.logo_app).into(imgAvatarHeader);
+        Glide.with(this).load(R.drawable.bg_nav_chemistry).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    lnNav.setBackground(resource);
+                }
+            }
+        });
         tvNameHeader.setText(mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "Xin chào"));
         tvPhoneHeader.setText(mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, "Cẩm nang hóa học"));
     }

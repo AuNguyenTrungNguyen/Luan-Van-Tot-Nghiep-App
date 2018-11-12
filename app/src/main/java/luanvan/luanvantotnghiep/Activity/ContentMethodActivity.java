@@ -22,6 +22,8 @@ public class ContentMethodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_content_method);
 
         TextView tvContentMethod = findViewById(R.id.tv_content_method);
+        TextView tvMethod = findViewById(R.id.tv_method);
+        String name = getIntent().getStringExtra("METHOD");
         String fileName = getIntent().getStringExtra("CONTENT_METHOD");
 
         try {
@@ -41,5 +43,8 @@ public class ContentMethodActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.i("hns", "IOException: " + e.getMessage());
         }
+
+        tvMethod.setText(name);
+
     }
 }

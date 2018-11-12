@@ -1,6 +1,8 @@
 package luanvan.luanvantotnghiep.Activity;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -239,6 +241,7 @@ public class ShowTheoryActivity extends AppCompatActivity {
 
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_dialog_description);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         TextView tvContent = dialog.findViewById(R.id.tv_content);
         TextView tvExample = dialog.findViewById(R.id.tv_example);
         TextView tvQuestion = dialog.findViewById(R.id.tv_question);
