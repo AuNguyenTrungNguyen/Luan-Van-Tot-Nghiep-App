@@ -19,4 +19,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomAutoComplete" parent="Base.Widget.AppCompat.AutoCompleteTextView">
+        <item name="windowActionBar">false</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+
 </resources>

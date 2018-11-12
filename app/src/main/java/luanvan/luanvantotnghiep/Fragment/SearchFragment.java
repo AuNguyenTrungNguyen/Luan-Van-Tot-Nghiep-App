@@ -1,22 +1,20 @@
 package luanvan.luanvantotnghiep.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -101,6 +99,12 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         mContext = context;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,12 +138,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         mLnShow = view.findViewById(R.id.ln_show);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
     @SuppressLint("RestrictedApi")
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -153,7 +151,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         }
         if (mSearchView != null) {
             mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-            //mSearchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
             queryTextListener = new SearchView.OnQueryTextListener() {
                 @Override
@@ -175,14 +172,13 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
             };
             mSearchView.setOnQueryTextListener(queryTextListener);
 
-            //Test auto complete
+            //Auto complete
             searchAutoComplete = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-            searchAutoComplete.setTextColor(Color.WHITE);
             searchAutoComplete.setThreshold(1);
 
             // Create a new ArrayAdapter and add data to search auto complete object.
             List<String> list = handleComplete();
-            ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, list);
+            ArrayAdapter<String> newsAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, list);
             searchAutoComplete.setAdapter(newsAdapter);
 
             searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -198,24 +194,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private List<String> handleComplete() {
-        List<String> result = new ArrayList<>();
-        for (Chemistry chemistry : mChemistryHelper.getAllChemistry()) {
-            boolean isFindElement = false;
-            for (Element element : mChemistryHelper.getAllElements()) {
-                if (chemistry.getIdChemistry() == element.getIdElement()) {
-                    result.add(element.getMolecularFormula() + " - " + chemistry.getNameChemistry());
-                    isFindElement = true;
-                    break;
-                }
-            }
-            if (!isFindElement) {
-                result.add(chemistry.getSymbolChemistry() + " - " + chemistry.getNameChemistry());
-            }
-        }
-        return result;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -229,6 +207,25 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         return super.onOptionsItemSelected(item);
     }
 
+    private List<String> handleComplete() {
+        List<String> result = new ArrayList<>();
+        List<Element> elementList = mChemistryHelper.getAllElements();
+        for (Chemistry chemistry : mChemistryHelper.getAllChemistry()) {
+            boolean isFindElement = false;
+            for (Element element : elementList) {
+                if (chemistry.getIdChemistry() == element.getIdElement()) {
+                    result.add(element.getMolecularFormula() + " - " + chemistry.getNameChemistry());
+                    isFindElement = true;
+                    break;
+                }
+            }
+            if (!isFindElement) {
+                result.add(chemistry.getSymbolChemistry() + " - " + chemistry.getNameChemistry());
+            }
+        }
+        return result;
+    }
+
     private void textSubmit(String string) {
         mCvHide.setVisibility(View.GONE);
         mLnShow.setVisibility(View.VISIBLE);
@@ -238,7 +235,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
             param = tmp[1];
         }
 
-        searchAutoComplete.dismissDropDown();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         imm.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
@@ -362,6 +358,7 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
                 setParamAdapter(chemistryCom.getIdChemistry());
             }
         }
+        searchAutoComplete.dismissDropDown();
     }
 
     //SEND DATA TO ADAPTER
@@ -407,9 +404,6 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
 
     @Override
     public void onReloadData(String chipText) {
-        Log.i("hns", "onReloadData");
-        Log.i("hns", "ChipText: " + chipText);
-
         textSubmit(chipText.toLowerCase());
     }
 
