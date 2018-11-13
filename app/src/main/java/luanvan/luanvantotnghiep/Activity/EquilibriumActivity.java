@@ -8,11 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import luanvan.luanvantotnghiep.Adapter.EquilibriumAdapter;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
@@ -26,18 +30,20 @@ import luanvan.luanvantotnghiep.Util.Helper;
 public class EquilibriumActivity extends AppCompatActivity implements EquilibriumAdapter.OnClickButtonEquilibrium {
 
     private static final String TAG = "ANTN";
-    private List<ChemicalReaction> mChemicalReactionList;
     private EquilibriumAdapter mAdapter;
     private RecyclerView mRvEquilibrium;
     private TextView mTvEquilibrium;
+    private Button mBtnSubmit;
+
+    private ChemistryHelper mHelper;
+    private List<ChemicalReaction> mChemicalReactionList;
 
     private List<Equilibrium> equilibriumList;
     private int positionSymbol = 0; //Position symbol "-> or <->"
-    private String userAnswer; //Save user answer
+    private ChemicalReaction mCurrentReaction;
+    private String userAnswer;
 
-    private int twoWay = 0;
-    private String reactant;
-    private String product;
+    private int positionReaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +54,26 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
 
         mTvEquilibrium = findViewById(R.id.tv_equilibrium);
         mRvEquilibrium = findViewById(R.id.rv_equilibrium);
+        mBtnSubmit = findViewById(R.id.btn_submit);
 
-        ChemistryHelper helper = ChemistrySingle.getInstance(this);
-        mChemicalReactionList = helper.getAllChemicalReaction();
+        /*Setup list reaction*/
+        mHelper = ChemistrySingle.getInstance(this);
+        mChemicalReactionList = mHelper.getAllChemicalReaction();
 
+        /*Setup adapter*/
         equilibriumList = new ArrayList<>();
         mAdapter = new EquilibriumAdapter(this, equilibriumList);
+        mAdapter.setListener(this);
         mRvEquilibrium.setAdapter(mAdapter);
 
+        /*Setup recycle*/
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRvEquilibrium.setLayoutManager(manager);
         mRvEquilibrium.setHasFixedSize(true);
 
-        /*Set listener recycle*/
-        mAdapter.setListener(this);
-
-        ChemicalReaction chemicalReaction = mChemicalReactionList.get(0);
-
+        /*Setup data*/
+        positionReaction = new Random().nextInt(mChemicalReactionList.size());
+        ChemicalReaction chemicalReaction = mChemicalReactionList.get(positionReaction);
         showQuestion(chemicalReaction);
     }
 
@@ -92,6 +101,7 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
     }
 
     private String handelTextToShow() {
+        int twoWay = mCurrentReaction.getTwoWay();
         StringBuilder show = new StringBuilder();
         for (int i = 0; i < equilibriumList.size(); i++) {
             Equilibrium equilibrium = equilibriumList.get(i);
@@ -117,10 +127,10 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
     }
 
     private String handelUserReaction(List<Equilibrium> equilibriumList) {
+        int twoWay = mCurrentReaction.getTwoWay();
         StringBuilder user = new StringBuilder();
         for (int i = 0; i < equilibriumList.size(); i++) {
             Equilibrium equilibrium = equilibriumList.get(i);
-
             user.append(equilibrium.getNumber());
             user.append(equilibrium.getName().trim());
 
@@ -139,7 +149,10 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         return user.toString();
     }
 
-    private void submit(String userAnswer, final String correctAnswer) {
+    private void submit(String userAnswer, String correctAnswer) {
+        Log.i(TAG, "userAnswer: " + userAnswer);
+        Log.i(TAG, "correctAnswer: " + correctAnswer);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (checkSimplifiedFraction(userAnswer, correctAnswer)) {
@@ -149,9 +162,10 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
                     dialog.dismiss();
                     equilibriumList.clear();
                     mRvEquilibrium.setVisibility(View.VISIBLE);
+                    mBtnSubmit.setVisibility(View.VISIBLE);
 
                     //random list
-                    showQuestion(mChemicalReactionList.get(1));
+                    showQuestion(mChemicalReactionList.get(positionReaction));
                 }
             });
         } else {
@@ -159,7 +173,11 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
             builder.setNegativeButton("Xem đáp án", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     dialog.dismiss();
-                    //show answer
+                    mRvEquilibrium.setVisibility(View.INVISIBLE);
+                    mBtnSubmit.setVisibility(View.INVISIBLE);
+
+                    //show correct answer
+                    showCorrectAnswer();
                 }
             });
 
@@ -218,9 +236,23 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
     }
 
     private void showQuestion(ChemicalReaction chemicalReaction) {
-        twoWay = chemicalReaction.getTwoWay();
-        reactant = chemicalReaction.getReactants();
-        product = chemicalReaction.getProducts();
+        mChemicalReactionList.remove(positionReaction);
+        positionReaction = new Random().nextInt(mChemicalReactionList.size());
+        Collections.shuffle(mChemicalReactionList);
+
+        Log.i(TAG, "mChemicalReactionList.size(): " + mChemicalReactionList.size());
+
+        if (mChemicalReactionList.size() < 10){
+            mChemicalReactionList.clear();
+            mChemicalReactionList = mHelper.getAllChemicalReaction();
+        }
+        Log.i(TAG, "mChemicalReactionList.size() checked: " + mChemicalReactionList.size());
+
+
+        mCurrentReaction = chemicalReaction;
+        int twoWay = chemicalReaction.getTwoWay();
+        String reactant = chemicalReaction.getReactants();
+        String product = chemicalReaction.getProducts();
 
         /*Set data recycle*/
         String left[] = reactant.split("\\+");
@@ -228,13 +260,13 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
 
         for (String name : left) {
             Equilibrium equilibrium = new Equilibrium();
-            equilibrium.setName(name.split(":")[1]);
+            equilibrium.setName(name.split(":")[1].trim());
             equilibriumList.add(equilibrium);
         }
 
         for (String name : right) {
             Equilibrium equilibrium = new Equilibrium();
-            equilibrium.setName(name.split(":")[1]);
+            equilibrium.setName(name.split(":")[1].trim());
             equilibriumList.add(equilibrium);
         }
         mAdapter.notifyDataSetChanged();
@@ -251,19 +283,63 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         temp.append(product);
 
         final String correctAnswer = temp.toString().replace(":", "");
+        userAnswer = handelUserReaction(equilibriumList);
 
         /*Handel text and show */
         String show = handelTextToShow();
         mTvEquilibrium.setText(Html.fromHtml(show));
 
-        userAnswer = handelUserReaction(equilibriumList);
-
         /*Submit button*/
-        findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener() {
+        mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submit(userAnswer, correctAnswer);
             }
         });
+    }
+
+    private void showCorrectAnswer() {
+        int twoWay = mCurrentReaction.getTwoWay();
+        String reactant = mCurrentReaction.getReactants();
+        String product = mCurrentReaction.getProducts();
+
+        String left[] = reactant.split("\\+");
+        String right[] = product.split("\\+");
+        List<Equilibrium> equilibriumList = new ArrayList<>();
+
+        for (String name : left) {
+            Equilibrium equilibrium = new Equilibrium();
+            equilibrium.setNumber(Integer.parseInt(name.split(":")[0].trim()));
+            equilibrium.setName(name.split(":")[1]);
+            equilibriumList.add(equilibrium);
+        }
+
+        for (String name : right) {
+            Equilibrium equilibrium = new Equilibrium();
+            equilibrium.setNumber(Integer.parseInt(name.split(":")[0].trim()));
+            equilibrium.setName(name.split(":")[1]);
+            equilibriumList.add(equilibrium);
+        }
+
+        StringBuilder show = new StringBuilder();
+        for (int i = 0; i < equilibriumList.size(); i++) {
+            Equilibrium equilibrium = equilibriumList.get(i);
+
+            show.append("<font color='red'>").append(equilibrium.getNumber()).append("</font>");
+            show.append(Helper.getInstant().handelText(equilibrium.getName().trim()));
+
+            if (i == positionSymbol) {
+                if (twoWay == 1) {
+                    show.append(" " + Constraint.SYMBOL_TWO_WAY + " ");
+                } else {
+                    show.append(" " + Constraint.SYMBOL + " ");
+                }
+            } else if (i == equilibriumList.size() - 1) {
+                show.append("");
+            } else {
+                show.append(" + ");
+            }
+        }
+        mTvEquilibrium.setText(Html.fromHtml(show.toString()));
     }
 }

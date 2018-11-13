@@ -4359,7 +4359,7 @@
     {
       "mIdChemicalReaction": "5",
       "mReactants": "2:Al + 3:CO",
-      "mProducts": "1:Al2O3 + 3:C",
+      "mProducts": "1:Al2O3 + 3:C",
       "mTwoWay": "0",
       "mReactionTypes": "Oxi-hóa khử"
     },
@@ -4389,7 +4389,7 @@
     },
     {
       "mIdChemicalReaction": "9",
-      "mReactants": "1:CO2 + 4:H2",
+      "mReactants": "1:CO2 + 2:H2",
       "mProducts": "1:C + 2:H2O",
       "mConditions": "Xúc tác, Nhiệt độ cao, áp suất cao",
       "mPhenomena": "Xuất hiện kết tủa đen Cacbon (C) sau phản ứng.",
