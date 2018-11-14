@@ -59,6 +59,7 @@ import luanvan.luanvantotnghiep.Fragment.SolubilityTableFragment;
 import luanvan.luanvantotnghiep.Model.Rank;
 import luanvan.luanvantotnghiep.Util.Constraint;
 import luanvan.luanvantotnghiep.Util.PreferencesManager;
+import luanvan.luanvantotnghiep.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -154,17 +155,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView imgAvatarHeader = headerView.findViewById(R.id.img_avatar_user);
         TextView tvNameHeader = headerView.findViewById(R.id.tv_name_user);
         TextView tvPhoneHeader = headerView.findViewById(R.id.tv_phone_user);
-        final LinearLayout lnNav = headerView.findViewById(R.id.ln_nav);
 
         Glide.with(this).load(R.drawable.logo_app).into(imgAvatarHeader);
-        Glide.with(this).load(R.drawable.bg_nav_chemistry).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    lnNav.setBackground(resource);
-                }
-            }
-        });
+
         tvNameHeader.setText(mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "Xin chào"));
         tvPhoneHeader.setText(mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, "Cẩm nang hóa học"));
     }

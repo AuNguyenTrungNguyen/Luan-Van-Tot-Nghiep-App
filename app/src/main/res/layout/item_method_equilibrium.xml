@@ -10,14 +10,16 @@
     tools:ignore="ContentDescription">
 
     <LinearLayout
+        android:background="@drawable/bg_method_equilibrium"
         android:id="@+id/ln_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
 
         <TextView
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textSize="24sp"
             android:id="@+id/tv_method"
             android:layout_width="0dp"

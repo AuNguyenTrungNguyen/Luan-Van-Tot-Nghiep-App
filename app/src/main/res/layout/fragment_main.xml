@@ -69,7 +69,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/quiz" />
+                    android:src="@drawable/fill" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/quiz" />
+                    android:src="@drawable/match" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/quiz" />
+                    android:src="@drawable/sort" />
 
                 <TextView
                     android:layout_width="wrap_content"

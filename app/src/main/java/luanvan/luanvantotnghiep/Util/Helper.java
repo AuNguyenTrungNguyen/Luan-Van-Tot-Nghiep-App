@@ -89,7 +89,7 @@ public class Helper {
         return result;
     }
 
-    //2:H2O
+    //2:H2O --> h2o
     public String handelChemistryInReaction(String chemistry){
         String[] tachChemistry = chemistry.split(":");
         return  tachChemistry[1].toLowerCase().trim();

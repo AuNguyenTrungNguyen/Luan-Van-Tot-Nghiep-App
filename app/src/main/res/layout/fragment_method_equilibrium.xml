@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_chemistry_2"
     tools:context=".Fragment.MethodEquilibriumFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -14,12 +15,13 @@
 
     <Button
         android:id="@+id/btn_go"
-        android:textColor="@color/orange"
+        android:textColor="@color/purple_2"
         android:background="@drawable/background_game_complete"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
+        android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:text="Bài tập cân bằng"
         tools:ignore="HardcodedText" />

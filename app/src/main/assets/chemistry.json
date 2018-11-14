@@ -4895,7 +4895,7 @@
     },
     {
       "mIdChemicalReaction": "74",
-      "mReactants": "NaCl + NaHSO4 ",
+      "mReactants": "1:NaCl + 1:NaHSO4 ",
       "mProducts": "1:HCl + 1:Na2SO4",
       "mConditions": "Nhiệt độ: 450-800°C",
       "mTwoWay": "0"
@@ -5901,7 +5901,7 @@
     {
       "mIdChemicalReaction": "207",
       "mReactants": "1:FeS + 1:H2SO4",
-      "mProducts": " 1:H2S + 1:FeSO4",
+      "mProducts": "1:H2S + 1:FeSO4",
       "mTwoWay": "0"
     },
     {
@@ -7359,7 +7359,7 @@
     },
     {
       "mIdChemicalReaction": "405",
-      "mReactants": "2:Au + 3:Cl2 ",
+      "mReactants": "2:Au + 3:Cl2",
       "mProducts": "2:AuCl3",
       "mConditions": "Nhiệt độ: < 150°C",
       "mTwoWay": "0"
@@ -13776,5 +13776,5 @@
       "mIdBlock": "12"
     }
   ],
-  "Version": "1"
+  "Version": "2"
 }

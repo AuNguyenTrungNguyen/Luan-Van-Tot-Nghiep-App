@@ -67,7 +67,7 @@ public class MethodEquilibriumAdapter extends RecyclerView.Adapter<MethodEquilib
         mMethodList.add(equilibrium);
 
         equilibrium = new MethodEquilibrium();
-        equilibrium.setMethod("“chẵn – lẻ”");
+        equilibrium.setMethod("chẵn – lẻ");
         equilibrium.setContentMethod("method_4");
         mMethodList.add(equilibrium);
 

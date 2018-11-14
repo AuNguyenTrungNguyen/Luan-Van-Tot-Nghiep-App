@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_tree"
+    android:background="@drawable/bg_chemistry_3"
     android:overScrollMode="never"
     tools:context=".Fragment.SearchFragment">
 
@@ -20,7 +20,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="80dp"
             android:layout_marginRight="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
             tools:ignore="ContentDescription">
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <!--info-->
             <android.support.v7.widget.CardView
@@ -217,7 +217,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_created_reaction"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
