@@ -66,9 +66,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.cv_sort:
-//                intent.putExtra("TYPE", 4);
-//                mContext.startActivity(intent);
-                startActivity(new Intent(mContext, SortActivity.class));
+                intent.putExtra("TYPE", 4);
+                mContext.startActivity(intent);
+                //startActivity(new Intent(mContext, SortActivity.class));
                 break;
         }
     }

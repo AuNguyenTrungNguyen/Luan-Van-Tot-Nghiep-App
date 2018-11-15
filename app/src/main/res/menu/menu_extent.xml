@@ -24,4 +24,12 @@
 
     </item>
 
+    <item
+        android:icon="@android:drawable/ic_menu_help"
+        android:title=""
+        android:id="@+id/mn_description"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText">
+    </item>
+
 </menu>

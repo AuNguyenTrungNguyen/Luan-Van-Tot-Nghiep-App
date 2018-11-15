@@ -15,7 +15,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.format.DateFormat;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -87,7 +91,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     private void chooseOption() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Bạn đã sẵn sàng");
+        builder.setTitle(Html.fromHtml("<font color='red'> Để chơi game được thoải mái:</font>"));
+        builder.setMessage(Html.fromHtml("&#x2714 Dụng cụ chuẩn bị bao gồm: <b>bút, giấy nháp, máy tính,...</b><br><br>" +
+                "&#x2714 Tắt các thông báo của các ứng dụng khác trên điện thoại.<br><br>" +
+                "&#x2714 Căn thời gian hợp lý theo đồng hồ đếm giờ của trò chơi.<br><br>" +
+                "&#x2714 Ngồi đúng vị trí học tập của bạn."));
 
         builder.setPositiveButton("Làm bài", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

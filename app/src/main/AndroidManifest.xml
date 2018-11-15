@@ -5,7 +5,6 @@
 
     <application
         android:icon="@drawable/logo_app"
-        android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -14,42 +13,45 @@
         <activity
             android:name=".Activity.SignInActivity"
             android:label="Đăng Nhập">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="Trò chơi"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.DetailElementActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ConfigElectronActivity"
+            android:label="Cấu hình Electron"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ShowTheoryActivity"
+            android:label="Nội dung chuyên đề"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.QuizActivity"
+            android:label="Trắc nghiệm"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.FillInTheBlankActivity"
+            android:label="Điền khuyết"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.CheckVersionDatabaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.MatchActivity"
+            android:label="Nối cột"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.SortActivity"
+            android:label="Sắp xếp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ChooseLevelActivity"
+            android:label="Chọn cấp độ"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.SignUpActivity"
@@ -65,7 +67,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.ContentMethodActivity"
+            android:label="Phương pháp cân bằng"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.AppActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

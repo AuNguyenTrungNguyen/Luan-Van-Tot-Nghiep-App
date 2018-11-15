@@ -1,16 +1,21 @@
 package luanvan.luanvantotnghiep.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +25,7 @@ import luanvan.luanvantotnghiep.CustomTree.Tree;
 import luanvan.luanvantotnghiep.CustomTree.TreeAdapter;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Model.Question;
+import luanvan.luanvantotnghiep.Model.TypeOfQuestion;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 import luanvan.luanvantotnghiep.Util.Constraint;
@@ -33,6 +39,7 @@ public class ChooseLevelActivity extends AppCompatActivity {
     private List<Tree> mList;
     private TreeAdapter mAdapter;
     private TextView mTvExtent;
+    private List<TypeOfQuestion> mListTypeOfQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +58,39 @@ public class ChooseLevelActivity extends AppCompatActivity {
         saveType(type);
 
         //Get all levels with type exit
-        setupLevel(type, 1);
-        saveExtent(1);
+        if (type != 4) {
+            setupLevel(type, 1);
+            saveExtent(1);
+        } else {
+            mRvTree.setVisibility(View.GONE);
+            findViewById(R.id.ln_description_sort).setVisibility(View.VISIBLE);
+            TextView tvDes = findViewById(R.id.tv_des);
+            //tvDes.setText(Html.fromHtml(mListTypeOfQuestion.get(getType() - 1).getDescription()));
+            tvDes.setText(Html.fromHtml("&#x2714 Dụng cụ chuẩn bị bao gồm: <b>bút, giấy nháp, máy tính,...</b><br><br>" +
+                    "&#x2714 Tắt các thông báo của các ứng dụng khác trên điện thoại.<br><br>" +
+                    "&#x2714 Căn thời gian hợp lý theo đồng hồ đếm giờ của trò chơi.<br><br>" +
+                    "&#x2714 Ngồi đúng vị trí học tập của bạn."));
+            findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+            findViewById(R.id.btn_play_game).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ChooseLevelActivity.this, SortActivity.class));
+                }
+            });
+        }
+
     }
 
     private void init() {
 
         mHelper = ChemistrySingle.getInstance(this);
+
+        mListTypeOfQuestion = mHelper.getAllTypeOfQuestion();
 
         mRvTree = findViewById(R.id.rv_tree);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -125,29 +158,44 @@ public class ChooseLevelActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_extent,menu);
+        menuInflater.inflate(R.menu.menu_extent, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.mn_extent_easy:
-                setupLevel(getType(),Constraint.EXTENT_EASY);
+                setupLevel(getType(), Constraint.EXTENT_EASY);
                 mTvExtent.setText("Mức độ: Dễ");
                 break;
 
             case R.id.mn_extent_normal:
-                setupLevel(getType(),Constraint.EXTENT_NORMAL);
+                setupLevel(getType(), Constraint.EXTENT_NORMAL);
                 mTvExtent.setText("Mức độ: Trung bình");
                 break;
 
             case R.id.mn_extent_difficult:
-                setupLevel(getType(),Constraint.EXTENT_DIFFICULT);
+                setupLevel(getType(), Constraint.EXTENT_DIFFICULT);
                 mTvExtent.setText("Mức độ: Khó");
+                break;
+
+            case R.id.mn_description:
+                showDialogDescription();
                 break;
         }
         return true;
+    }
+
+    private void showDialogDescription() {
+        TypeOfQuestion typeOfQuestion = mListTypeOfQuestion.get(getType() - 1);
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.layout_dialog_description);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView tvShow = dialog.findViewById(R.id.tv_content);
+        tvShow.setVisibility(View.VISIBLE);
+        tvShow.setText(Html.fromHtml(typeOfQuestion.getDescription()));
+        dialog.show();
     }
 
     @Override

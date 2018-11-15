@@ -183,30 +183,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_main) {
 
             switchFragment(R.id.nav_main, MainFragment.newInstance());
+            mToolbarMain.setTitle("Trò chơi");
 
         } else if (id == R.id.nav_periodic_table) {
 
             switchFragment(R.id.nav_periodic_table, PeriodicTableFragment.newInstance());
+            mToolbarMain.setTitle("Bảng tuần hoàn");
 
         } else if (id == R.id.nav_solubility_table) {
 
             switchFragment(R.id.nav_solubility_table, SolubilityTableFragment.newInstance());
+            mToolbarMain.setTitle("Bảng tính tan");
 
         } else if (id == R.id.nav_reactivity_series) {
 
             switchFragment(R.id.nav_reactivity_series, ReactivitySeriesFragment.newInstance());
+            mToolbarMain.setTitle("Dãy hoạt động của kim loại");
 
         } else if (id == R.id.nav_theory) {
 
             switchFragment(R.id.nav_theory, PickingClassFragment.newInstance());
+            mToolbarMain.setTitle("Các chuyên đề");
 
         } else if (id == R.id.nav_search) {
 
             switchFragment(R.id.nav_search, SearchFragment.newInstance());
+            mToolbarMain.setTitle("Tìm kiếm chất hóa học");
 
         } else if (id == R.id.nav_reaction) {
 
             switchFragment(R.id.nav_reaction, ReactionFragment.newInstance());
+            mToolbarMain.setTitle("Tìm kiếm phương trình hóa học");
 
         } else if (id == R.id.nav_rank) {
             InternetCheck internetCheck = new InternetCheck();
@@ -222,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
             internetCheck.execute();
+            mToolbarMain.setTitle("Xếp hạng");
 
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
@@ -235,19 +243,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
             mPreferencesManager.saveIntData(Constraint.KEY_GAME, 0);
             mPreferencesManager.saveIntData(Constraint.KEY_THEMATIC, 0);
+            mToolbarMain.setTitle("Đăng xuất");
             startActivity(new Intent(this, SignInActivity.class));
             finish();
         } else if (id == R.id.nav_equilibrium) {
 
             switchFragment(R.id.nav_equilibrium, MethodEquilibriumFragment.newInstance());
+            mToolbarMain.setTitle("Các phương pháp cân bằng");
 
         } else if (id == R.id.nav_profile) {
 
             switchFragment(R.id.nav_profile, ProfileFragment.newInstance());
+            mToolbarMain.setTitle("Thông tin cá nhân");
 
         } else if (id == R.id.nav_about) {
 
             switchFragment(R.id.nav_about, AboutUsFragment.newInstance());
+            mToolbarMain.setTitle("Nhà phát triển");
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
