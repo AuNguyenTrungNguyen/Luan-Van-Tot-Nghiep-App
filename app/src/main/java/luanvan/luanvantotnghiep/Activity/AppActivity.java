@@ -16,8 +16,8 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
-        Glide.with(this).load(R.drawable.bg_chemistry_2).into((ImageView) findViewById(R.id.img_app));
-        new CountDownTimer(3000, 1000){
+        Glide.with(this).load(R.drawable.bg_app).into((ImageView) findViewById(R.id.img_app));
+        new CountDownTimer(1000, 1000){
 
             @Override
             public void onTick(long l) {

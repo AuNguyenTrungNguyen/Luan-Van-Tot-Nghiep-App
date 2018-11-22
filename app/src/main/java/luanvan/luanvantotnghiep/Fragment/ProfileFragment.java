@@ -102,9 +102,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mTvBlock.setText("Lớp " + mBlock);
 
         DatabaseReference myRank = FirebaseDatabase.getInstance().getReference().child("RANK");
-        final String keyEasy = mHelper.encodeSHA512Extent(phone, Constraint.EXTENT_EASY);
-        final String keyNormal = mHelper.encodeSHA512Extent(phone, Constraint.EXTENT_NORMAL);
-        final String keyDifficult = mHelper.encodeSHA512Extent(phone, Constraint.EXTENT_DIFFICULT);
+        final String keyEasy = mBlock + mHelper.encodeSHA512Extent(phone, Constraint.EXTENT_EASY);
+        final String keyNormal = mBlock + mHelper.encodeSHA512Extent(phone, Constraint.EXTENT_NORMAL);
+        final String keyDifficult = mBlock + mHelper.encodeSHA512Extent(phone, Constraint.EXTENT_DIFFICULT);
 
         final float[] scoreEasy = {0};
         final float[] scoreNormal = {0};
@@ -128,9 +128,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                         scoreDifficult[0] = rank.getScore();
                     }
                 }
-                mTvScoreEasy.setText("" + scoreEasy[0]);
-                mTvScoreNormal.setText("" + scoreNormal[0]);
-                mTvScoreDifficult.setText("" + scoreDifficult[0]);
+                mTvScoreEasy.setText("" + (int) scoreEasy[0]);
+                mTvScoreNormal.setText("" + (int) scoreNormal[0]);
+                mTvScoreDifficult.setText("" + (int) scoreDifficult[0]);
             }
 
             @Override
@@ -226,6 +226,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
                 }
                 if (mBlockTemp != mBlock) {
+                    pushDataScore(mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE,""),mBlockTemp);
                     mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, mBlock);
 
                     DatabaseReference myUser = FirebaseDatabase.getInstance().getReference().child("USER");
@@ -346,5 +347,40 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
+    }
+
+    private void pushDataScore(String phone, int mBlockTemp) {
+        final String name = mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = firebaseDatabase.getReference("RANK");
+
+        if (!phone.equals("") && !name.equals("")) {
+            float scoreEasy = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            String keyEasy = mBlockTemp + Helper.getInstant().encodeSHA512Extent(phone, Constraint.EXTENT_EASY);
+            Rank rankEasy = new Rank();
+            rankEasy.setBlock(mBlockTemp);
+            rankEasy.setExtent(Constraint.EXTENT_EASY);
+            rankEasy.setName(name);
+            rankEasy.setScore(scoreEasy);
+            reference.child(keyEasy).setValue(rankEasy);
+
+            float scoreNormal = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            String keyNormal = mBlockTemp + Helper.getInstant().encodeSHA512Extent(phone, Constraint.EXTENT_NORMAL);
+            Rank rankNormal = new Rank();
+            rankNormal.setBlock(mBlockTemp);
+            rankNormal.setExtent(Constraint.EXTENT_NORMAL);
+            rankNormal.setName(name);
+            rankNormal.setScore(scoreNormal);
+            reference.child(keyNormal).setValue(rankNormal);
+
+            float scoreDifficult = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            String keyDifficult = mBlockTemp + Helper.getInstant().encodeSHA512Extent(phone, Constraint.EXTENT_DIFFICULT);
+            Rank rankDifficult = new Rank();
+            rankDifficult.setBlock(mBlockTemp);
+            rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
+            rankDifficult.setName(name);
+            rankDifficult.setScore(scoreDifficult);
+            reference.child(keyDifficult).setValue(rankDifficult);
+        }
     }
 }

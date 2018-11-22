@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ln_sign_up"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_content"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Activity.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -55,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0"
+                android:textStyle="bold"
+                android:textColor="@color/purple_2"
                 android:background="@drawable/background_game_complete"
                 android:text="Gửi mã" />
 
@@ -98,6 +102,8 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple_2"
                     android:background="@drawable/background_game_complete"
                     android:text="Xác nhận" />
 
@@ -105,6 +111,7 @@
                     android:id="@+id/btn_re_send"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/purple_2"
                     android:layout_gravity="center"
                     android:background="@drawable/background_game_complete"
                     android:text="Gửi lại mã" />
@@ -188,30 +195,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:textStyle="bold"
                     android:text="Lớp 8" />
 
                 <RadioButton
                     android:id="@+id/rdb_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Lớp 9" />
 
                 <RadioButton
                     android:id="@+id/rdb_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Lớp 10" />
 
                 <RadioButton
                     android:id="@+id/rdb_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Lớp 11" />
 
                 <RadioButton
                     android:id="@+id/rdb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Lớp 12" />
 
             </RadioGroup>
@@ -223,9 +235,11 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/purple_2"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="0"
+                android:textStyle="bold"
                 android:background="@drawable/background_game_complete"
                 android:text="Sign Up" />
 

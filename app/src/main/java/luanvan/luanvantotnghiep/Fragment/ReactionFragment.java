@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,10 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reaction, container, false);
+        //stateAlwaysHidden|stateVisible|adjustPan
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                |WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                |WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         init(view);
 

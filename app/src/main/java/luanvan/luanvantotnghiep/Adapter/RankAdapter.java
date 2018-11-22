@@ -32,13 +32,14 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankHolder> {
         return new RankHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RankHolder rankHolder, int position) {
         Rank rank = mListData.get(position);
 
         rankHolder.mTvRank.setText("" + (position + 1));
         rankHolder.mTvName.setText(rank.getName());
-        rankHolder.mTvScore.setText("" + rank.getScore());
+        rankHolder.mTvScore.setText("" + (int) rank.getScore());
 
         switch (position + 1) {
             case Constraint.EXTENT_EASY:

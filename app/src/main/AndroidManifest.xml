@@ -55,6 +55,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.SignUpActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|stateVisible|adjustPan"
             android:label="Đăng Ký"
             android:parentActivityName=".Activity.SignUpActivity" />
         <activity

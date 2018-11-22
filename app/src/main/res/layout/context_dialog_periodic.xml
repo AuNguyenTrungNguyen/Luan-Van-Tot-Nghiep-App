@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="420dp"
     android:orientation="vertical"
-    android:background="@drawable/background_dialog_periodic"
     android:layout_margin="8dp">
 
     <android.support.v4.view.ViewPager

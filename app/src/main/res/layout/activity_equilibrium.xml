@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_chemistry_3"
+    android:background="@drawable/bg_content"
     android:orientation="vertical"
     tools:context=".Activity.EquilibriumActivity">
 
@@ -29,6 +29,8 @@
         android:layout_weight="1" />
 
     <Button
+        android:textColor="@color/purple_2"
+        android:textStyle="bold"
         android:id="@+id/btn_submit"
         android:layout_width="200dp"
         android:layout_height="wrap_content"

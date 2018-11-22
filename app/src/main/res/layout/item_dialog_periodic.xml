@@ -80,7 +80,6 @@
 
         <!--Event start act-->
         <Button
-
             android:id="@+id/btn_go_info"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"

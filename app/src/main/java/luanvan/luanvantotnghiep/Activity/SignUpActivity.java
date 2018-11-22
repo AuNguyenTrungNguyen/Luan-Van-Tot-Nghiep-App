@@ -42,9 +42,11 @@ import java.util.concurrent.TimeUnit;
 
 import luanvan.luanvantotnghiep.CheckInternet.AsyncTaskListener;
 import luanvan.luanvantotnghiep.CheckInternet.InternetCheck;
+import luanvan.luanvantotnghiep.Model.Rank;
 import luanvan.luanvantotnghiep.Model.User;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.Helper;
 import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -357,11 +359,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             myUser.child(phoneEncode).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, finalBlock);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneKey);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, name);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
-                    mPreferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, passwordEncode);
+
+                        pushDataScore(mPreferencesManager.getStringData(Constraint.PRE_KEY_PHONE, ""));
+
+                        mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+                        mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+                        mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+
+                        mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, finalBlock);
+                        mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, phoneKey);
+                        mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, name);
+                        mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, phoneEncode);
+                        mPreferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, passwordEncode);
+
+
                     Toast.makeText(SignUpActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -499,6 +510,42 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editText.setFocusable(true);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
+    }
+
+    private void pushDataScore(String phone) {
+        final int block = mPreferencesManager.getIntData(Constraint.PRE_KEY_BLOCK, 8);
+        final String name = mPreferencesManager.getStringData(Constraint.PRE_KEY_NAME, "");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = firebaseDatabase.getReference("RANK");
+
+        if (!phone.equals("") && !name.equals("")) {
+            float scoreEasy = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
+            String keyEasy = block + Helper.getInstant().encodeSHA512Extent(phone, Constraint.EXTENT_EASY);
+            Rank rankEasy = new Rank();
+            rankEasy.setBlock(block);
+            rankEasy.setExtent(Constraint.EXTENT_EASY);
+            rankEasy.setName(name);
+            rankEasy.setScore(scoreEasy);
+            reference.child(keyEasy).setValue(rankEasy);
+
+            float scoreNormal = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
+            String keyNormal = block + Helper.getInstant().encodeSHA512Extent(phone, Constraint.EXTENT_NORMAL);
+            Rank rankNormal = new Rank();
+            rankNormal.setBlock(block);
+            rankNormal.setExtent(Constraint.EXTENT_NORMAL);
+            rankNormal.setName(name);
+            rankNormal.setScore(scoreNormal);
+            reference.child(keyNormal).setValue(rankNormal);
+
+            float scoreDifficult = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            String keyDifficult = block + Helper.getInstant().encodeSHA512Extent(phone, Constraint.EXTENT_DIFFICULT);
+            Rank rankDifficult = new Rank();
+            rankDifficult.setBlock(block);
+            rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
+            rankDifficult.setName(name);
+            rankDifficult.setScore(scoreDifficult);
+            reference.child(keyDifficult).setValue(rankDifficult);
+        }
     }
 
 }

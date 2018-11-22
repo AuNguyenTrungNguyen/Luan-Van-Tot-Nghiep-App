@@ -4895,7 +4895,7 @@
     },
     {
       "mIdChemicalReaction": "74",
-      "mReactants": "1:NaCl + 1:NaHSO4 ",
+      "mReactants": "1:NaCl + 1:NaHSO4",
       "mProducts": "1:HCl + 1:Na2SO4",
       "mConditions": "Nhiệt độ: 450-800°C",
       "mTwoWay": "0"
@@ -7649,6 +7649,1607 @@
       "mReactants": "2:KOH + 1:Na2Cr2O7",
       "mProducts": "1:H2O + 1:Na2CrO4 + 1:K2CrO4",
       "mPhenomena": "Màu chuyển từ vàng cam thành vàng",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "446",
+      "mReactants": "1:CuO + 1:H2",
+      "mProducts": "1:Cu + 1:H2O",
+      "mConditions": "400°C",
+      "mPhenomena": "Khi đốt nóng tới khoảng 400 độ C: Bột CuO màu đen chuyển dần thành lớp đồng kim loại màu đỏ gạch và có những giọt nước tạo thành ở trong ống nghiệm đặt trong cốc nước.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "447",
+      "mReactants": "4:Li + 1:O2",
+      "mProducts": "2:Li2O",
+      "mConditions": "> 200°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "448",
+      "mReactants": "1:Cl2 + 2:Li",
+      "mProducts": "2:LiCl",
+      "mPhenomena": "Khi cho Li nóng vào lọ chứa khí clo, phản ứng xảy ra mãnh liệt làm bắn ra chất bột màu trắng là LiCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "449",
+      "mReactants": "2:HCl + 2:Li",
+      "mProducts": "1:H2 + 2:LiCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "450",
+      "mReactants": "2:Li + 1:H2SO4",
+      "mProducts": "1:Li2SO4 + 1:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "451",
+      "mReactants": "1:H2O + 2:Li",
+      "mProducts": "1:H2 + 2:LiOH",
+      "mPhenomena": "Liti chạy vòng quanh trên mặt nước, bọt khí thoát ra liên tục",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "452",
+      "mReactants": "1:H2 + 2:Li",
+      "mProducts": "2:LiH",
+      "mConditions": "500-700°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "453",
+      "mReactants": "1:O2 + 2:Be",
+      "mProducts": "2:BeO",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "454",
+      "mReactants": "1:Be + 1:H2SO4",
+      "mProducts": "1:BeSO4 + 1:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "455",
+      "mReactants": "8:HNO3 + 3:Be",
+      "mProducts": "4:H2O + 2:NO + 3:Be(NO3)2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "456",
+      "mReactants": "2:NaOH + 1:Be",
+      "mProducts": "1:H2 + 1:Na2BeO2",
+      "mConditions": "400 - 500°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "457",
+      "mReactants": "2:H2O + 2:NaOH + 1:Be",
+      "mProducts": "1:H2 + 1:Na2[Be(OH)4]",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "458",
+      "mReactants": "1:C + 1:O2",
+      "mProducts": "1:CO2",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "459",
+      "mReactants": "1:C + 1:CO2",
+      "mProducts": "2:CO",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "1",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp,Thuận nghịch (cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "460",
+      "mReactants": "1:C + 1:CuO",
+      "mProducts": "1:CO + 1:Cu",
+      "mConditions": "1200°C",
+      "mPhenomena": "Màu đen của hỗn hợp trong ống nghiệm từ từ biến đổi thành chất rắn màu đỏ do Cu được tạo thành.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "461",
+      "mReactants": "3:C + 1:Fe2O3",
+      "mProducts": "3:CO + 1:Fe",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "462",
+      "mReactants": "1:C + 1:CaO",
+      "mProducts": "1:CaC2 + 1:CO",
+      "mConditions": "2000°C, Điều kiện khác: trong lò điện",
+      "mPhenomena": "Khí CO thoát ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "463",
+      "mReactants": "2:Al2O3 + 9:C",
+      "mProducts": "6:CO + 1:Al4C3",
+      "mConditions": "2000°C",
+      "mPhenomena": "Al4C3 kết tủa vàng",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "464",
+      "mReactants": "1:C + 2:H2SO4(đ)",
+      "mProducts": "2:H2O + 2:SO2 + 1:CO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "465",
+      "mReactants": "1:C + 4:KNO3",
+      "mProducts": "2:K2O + 4:NO2 + 1:CO2",
+      "mConditions": "Nhiệt độ cao",
+      "mPhenomena": "có khí màu nâu (NO2)bay ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "466",
+      "mReactants": "1:C + 1:H2O",
+      "mProducts": "1:CO + 1:H2",
+      "mConditions": "~1050°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thuận nghịch (cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "467",
+      "mReactants": "1:C + 2:H2O",
+      "mProducts": "2:H2 + 1:CO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Khí H2 bay lên",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "468",
+      "mReactants": "1:C + 2:H2",
+      "mProducts": "1:CH4",
+      "mConditions": "Nhiệt độ, Xúc tác",
+      "mPhenomena": "Có khí thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "469",
+      "mReactants": "4:Al + 3:C",
+      "mProducts": "1:Al4C3",
+      "mConditions": "1500 - 1700°C",
+      "mPhenomena": "Al4C3 kết tủa màu vàng",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "470",
+      "mReactants": "1:C + 2:CuO",
+      "mProducts": "2:Cu + 1:CO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Màu đen của hỗn hợp trong ống nghiệm từ từ biến đổi thành chất rắn màu đỏ do Cu được tạo thành.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "471",
+      "mReactants": "1:C + 4:HNO3(đ)",
+      "mProducts": "2:H2O + 4:NO2 + 1:CO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu đen (C) tan dần và xuất hiện khí nâu đỏ Nito dioxit (NO2) làm sủi bọt khí.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "472",
+      "mReactants": "1:C + 4:HNO3",
+      "mProducts": "2:H2O + 4:NO + 1:CO2",
+      "mPhenomena": "Xuất hiện khí nâu NO trong dung dịch.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "473",
+      "mReactants": "6:Li + 1:N2",
+      "mProducts": "2:Li3N",
+      "mConditions": "200 - 250°C, Áp suất",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "474",
+      "mReactants": "3:Ca + 1:N2",
+      "mProducts": "1:Ca3N2",
+      "mConditions": "200 - 450°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "475",
+      "mReactants": "3:H2 + 1:N2",
+      "mProducts": "2:NH3",
+      "mConditions": " 500°C, Áp suất, Xúc tác: Fe, Pt",
+      "mPhenomena": "Tỏa nhiệt và xuất hiện khí mùi khai Amoniac (NH3).",
+      "mTwoWay": "1",
+      "mReactionTypes": "Oxi-hóa khử,Thuận nghịch (cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "476",
+      "mReactants": "2:Al + 1:N2",
+      "mProducts": "2:AlN",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "477",
+      "mReactants": "1:N2 + 1:O2",
+      "mProducts": "2:NO",
+      "mConditions": "2000°C Xúc tác: Pt/MnO2",
+      "mTwoWay": "1",
+      "mReactionTypes": "Oxi-hóa khử,Thuận nghịch (cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "478",
+      "mReactants": "3:Fe + 2:O2",
+      "mProducts": "1:Fe3O4",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "479",
+      "mReactants": "5:O2 + 4:P",
+      "mProducts": "2:P2O5",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "480",
+      "mReactants": "2:H2S + 3:O2",
+      "mProducts": "2:H2O + 2:SO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Có khí mùi hắc thoát ra",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "481",
+      "mReactants": "1:C2H5OH + 1:O2",
+      "mProducts": "1:CH3COOH + 1:H2O",
+      "mConditions": "Men giấm",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "482",
+      "mReactants": "1:C2H5OH + 3:O2",
+      "mProducts": "3:H2O + 2:CO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Rượu etylic cháy với ngọn lửa màu xanh, toả nhiều nhiệt. Khí CO2 bay lên",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "483",
+      "mReactants": "1:F2 + 1:H2",
+      "mProducts": "2:HF",
+      "mConditions": "-252°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "484",
+      "mReactants": "3:F2 + 2:Fe",
+      "mProducts": "2:FeF3",
+      "mPhenomena": "FeF3 màu trắng",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "485",
+      "mReactants": "3:F2 + 1:S",
+      "mProducts": "1:SF6",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "486",
+      "mReactants": "1:F2 + 2:KCl",
+      "mProducts": "1:Cl2 + 2:KF",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "487",
+      "mReactants": "2:F2 + 2:NaOH",
+      "mProducts": "1:H2O + 1:OF2 + 2:NaF",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "488",
+      "mReactants": "2:F2 + 1:SiO2",
+      "mProducts": "1:O2 + 1:SiF4",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu trắng của Silic oxit (SiO2) mất dần và chuyển sang thể khí.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "489",
+      "mReactants": "2:F2 + 2:H2O",
+      "mProducts": "1:O2 + 4:HF",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "có khí O2 thoát ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "490",
+      "mReactants": "2:Au + 3:F2",
+      "mProducts": "2:AuF3",
+      "mConditions": "300 - 400°C",
+      "mPhenomena": "AuF3 màu cam",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "491",
+      "mReactants": "1:C + 2:F2",
+      "mProducts": "1:CF4",
+      "mConditions": "> 900°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "492",
+      "mReactants": "2:F2 + 1:Si",
+      "mProducts": "1:SiF4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "493",
+      "mReactants": "1:Cl2 + 1:F2",
+      "mProducts": "2:ClF",
+      "mConditions": "250°C",
+      "mPhenomena": "Màu vàng lục của khí clo (Cl2) nhạt dần khi phản ứng xảy ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "494",
+      "mReactants": "1:Cl2 + 3:F2(dư)",
+      "mProducts": "2:ClF3",
+      "mConditions": "280°C",
+      "mPhenomena": "Màu vàng lục của khí clo (Cl2) nhạt dần khi phản ứng xảy ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "495",
+      "mReactants": "5:F2 + 1:I2",
+      "mProducts": "2:IF5",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "496",
+      "mReactants": "1:F2 + 1:KBr",
+      "mProducts": "2:KF + 1:Br2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "497",
+      "mReactants": "1:Br2 + 5:F2 + 6:H2O",
+      "mProducts": "2:HBrO3 + 1:0HF",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "498",
+      "mReactants": "4:Na + 1:O2",
+      "mProducts": "2:Na2O",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "499",
+      "mReactants": "2:HCl + 2:Na",
+      "mProducts": "1:H2 + 2:NaCl",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "500",
+      "mReactants": "2:H2O + 2:Na",
+      "mProducts": "1:H2 + 2:NaOH",
+      "mPhenomena": "Mẫu Na tan dần cho đến hết, có khí H2 bay ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "501",
+      "mReactants": "1:H2 + 2:Na",
+      "mProducts": "2:NaH",
+      "mConditions": "250-400, Áp suất",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "502",
+      "mReactants": "2:Mg + 1:O2",
+      "mProducts": "2:MgO",
+      "mConditions": "600 - 650°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "503",
+      "mReactants": "2:Mg + 1:CO2",
+      "mProducts": "1:C + 2:MgO",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "504",
+      "mReactants": "1:H2SO4 + 1:Mg",
+      "mProducts": "1:H2 + 1:MgSO4",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "505",
+      "mReactants": "2:H2O + 1:Mg",
+      "mProducts": "1:H2 + 1:Mg(OH)2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "506",
+      "mReactants": "4:H2SO4 + 3:Mg",
+      "mProducts": "4:H2O + 1:S + 3:MgSO4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "507",
+      "mReactants": "2:H2SO4(đ) + 1:Mg",
+      "mProducts": "2:H2O + 1:SO2 + 1:MgSO4",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "508",
+      "mReactants": "5:H2SO4 + 4:Mg",
+      "mProducts": "4:H2O + 1:H2S + 4:MgSO4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "509",
+      "mReactants": "1:H2O + 1:Mg",
+      "mProducts": "1:H2 + 1:MgO",
+      "mConditions": "Cháy trong hơi nước",
+      "mPhenomena": "Khí thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Thế"
+    },
+    {
+      "mIdChemicalReaction": "510",
+      "mReactants": "4:Al + 3:O2",
+      "mProducts": "2:Al2O3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Nhôm cháy sáng tạo thành chất rắn màu trắng.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "511",
+      "mReactants": "2:Al + 3:Cl2",
+      "mProducts": "2:AlCl3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "AlCl3 kết tủa trắng",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "512",
+      "mReactants": "2:Al + 6:HCl",
+      "mProducts": "2:AlCl3 + 3:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "513",
+      "mReactants": "2:Al + 1:Fe2O3",
+      "mProducts": "1:Al2O3 + 2:Fe",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Al2O3 kết tủa trắng",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "514",
+      "mReactants": "2:Al + 6:H2O",
+      "mProducts": "2:Al(OH)3 + 3:H2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Kết tủa keo trắng",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "515",
+      "mReactants": "2:Al + 3:H2SO4",
+      "mProducts": "1:Al2(SO4)3 + 3:H2",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "516",
+      "mReactants": "2:Al + 4:H2SO4(đ)",
+      "mProducts": "1:Al2(SO4)3 + 4:H2O + 1:S",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "517",
+      "mReactants": "2:Al + 6:H2SO4(đ)",
+      "mProducts": "1:Al2(SO4)3 + 6:H2O + 3:SO2",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "518",
+      "mReactants": "8:Al + 1:5H2SO4(đ)",
+      "mProducts": "4:Al2(SO4)3 + 1:2H2O + 3:H2S",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "519",
+      "mReactants": "1:Al + 6:HNO3",
+      "mProducts": "3:H2O + 3:NO2 + 1:Al(NO3)3",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "520",
+      "mReactants": "8:Al + 3:0HNO3",
+      "mProducts": "9:H2O + 3:NH4NO3 + 8:Al(NO3)3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "521",
+      "mReactants": "1:Al + 4:HNO3",
+      "mProducts": "2:H2O + 1:NO + 1:Al(NO3)3",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "522",
+      "mReactants": "8:Al + 3:0HNO3",
+      "mProducts": "1:5H2O + 3:N2O + 8:Al(NO3)3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "523",
+      "mReactants": "5:2Al + 1:92HNO3",
+      "mProducts": "9:6H2O + 9:N2 + 6:NO + 6:N2O + 5:2Al(NO3)3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "524",
+      "mReactants": "2:F2 + 1:Si",
+      "mProducts": "1:SiF4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "525",
+      "mReactants": "1:O2 + 1:Si",
+      "mProducts": "1:SiO2",
+      "mConditions": "1200-1300°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "526",
+      "mReactants": "1:H2O + 2:NaOH + 1:Si",
+      "mProducts": "2:H2 + 1:Na2SiO3",
+      "mPhenomena": "Chất rắn màu xám sẫm Silic (Si) tan dần và xuất hiện bọt khí do sinh ra khí Hidro (H2).",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "527",
+      "mReactants": "4:HNO3 + 3:Si + 1:8HF",
+      "mProducts": "8:H2O + 4:NO + 3:H2SiF6",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "528",
+      "mReactants": "2:H2 + 1:Si",
+      "mProducts": "1:SiH4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "529",
+      "mReactants": "2:Mg + 1:Si",
+      "mProducts": "1:Mg2Si",
+      "mConditions": "Nhiệt độ cao",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "530",
+      "mReactants": "3:Mg + 2:P",
+      "mProducts": "1:Mg3P2",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "532",
+      "mReactants": "5:Cl2 + 2:P",
+      "mProducts": "2:PCl5",
+      "mConditions": "Nhiệt độ, dư clo",
+      "mPhenomena": "Màu vàng lục của khí Clo (Cl2) nhạt dần khi phản ứng xảy ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "533",
+      "mReactants": "6:P(đỏ) + 3:KClO3",
+      "mProducts": "3:P2O5 + 5:KCl",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "534",
+      "mReactants": "5:HNO3 + 1:P",
+      "mProducts": "1:H2O + 5:NO2 + 1:H3PO4",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu trắng Photpho (P) tan dần và xuất hiện khí nâu đó Nito dioxit (NO2).",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "535",
+      "mReactants": "3:O2 + 4:P",
+      "mProducts": "2:P2O3",
+      "mConditions": "Nhiệt độ, thiếu oxi",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "536",
+      "mReactants": "3:Cl2 + 2:P",
+      "mProducts": "2:PCl3",
+      "mConditions": "Nhiệt độ, thiếu clo",
+      "mPhenomena": "Màu vàng lục của khí Clo (Cl2) nhạt dần khi phản ứng xảy ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "537",
+      "mReactants": "5:K2Cr2O7 + 6:P(trắng)",
+      "mProducts": "5:K2O + 3:P2O5 + 5:Cr2O3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "từ màu da cam thành màu lục sẫm",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "538",
+      "mReactants": "2:H2O + 5:HNO3 + 3:P",
+      "mProducts": "5:NO + 3:H3PO4",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu trắng Photpho (P) tan dần và xuất hiện khí hóa nâu đỏ ngoài không khí Nito oxit (NO).",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "539",
+      "mReactants": "5:H2SO4đ + 2:P",
+      "mProducts": "2:H2O + 5:SO2 + 2:H3PO4",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu trắng Photphp (P) tan dần và xuất hiện khí mùi hắc Lưu huỳnh dioxit (SO2) làm sủi bọt khí.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "540",
+      "mReactants": "1:H2 + 1:S",
+      "mProducts": "1:H2S",
+      "mConditions": "Nhiệt độ < 350°C",
+      "mPhenomena": "có khí mùi hắc thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "541",
+      "mReactants": "2:Na + 1:S",
+      "mProducts": "1:Na2S",
+      "mConditions": "Nhiệt độ > 130°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "542",
+      "mReactants": "1:Hg + 1:S",
+      "mProducts": "1:HgS",
+      "mPhenomena": "có kết tủa đen.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "543",
+      "mReactants": "1:O2 + 1:S",
+      "mProducts": "1:SO2",
+      "mConditions": "280 - 360°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "544",
+      "mReactants": "2:H2SO4đ + 1:S",
+      "mProducts": "2:H2O + 3:SO2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu vàng Lưu huỳnh (S) tan dần và xuất hiện khí mùi hắc Lưu huỳnh dioxit (SO2) làm sủi bọt khí.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "545",
+      "mReactants": "2:HNO3 + 1:S",
+      "mProducts": "1:H2SO4 + 2:NO",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "546",
+      "mReactants": "6:HNO3đ + 1:S",
+      "mProducts": "2:H2O + 1:H2SO4 + 6:NO2",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "547",
+      "mReactants": "3:Cl2 + 2:Fe",
+      "mProducts": "2:FeCl3",
+      "mConditions": "Dư clo,Nhiệt độ > 250°C",
+      "mPhenomena": "Sắt cháy sáng tạo thành khói màu nâu đỏ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "548",
+      "mReactants": "1:Cl2 + 1:H2",
+      "mProducts": "2:HCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "549",
+      "mReactants": "1:Cl2 + 1:H2O",
+      "mProducts": "1:HCl + 1:HClO",
+      "mPhenomena": "Dung dịch nước Clo (Cl2) có màu vàng lục. Giấy qùy tím chuyển sang màu đỏ, sau đó mất màu",
+      "mTwoWay": "1",
+      "mReactionTypes": "Oxi-hóa khử,Thuận nghịch (Cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "550",
+      "mReactants": "1:Cl2 + 2:NaOH",
+      "mProducts": "1:H2O + 1:NaCl + 1:NaClO",
+      "mPhenomena": "Màu vàng lục của khí Clo (Cl2) nhạt dần trong dung dịch.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "551",
+      "mReactants": "4:K + 1:O2",
+      "mProducts": "2:K2O",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "552",
+      "mReactants": "1:Cl2 + 2:K",
+      "mProducts": "2:KCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "553",
+      "mReactants": "2:HCl + 2:K",
+      "mProducts": "1:H2 + 2:KCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "554",
+      "mReactants": "2:H2O + 2:K",
+      "mProducts": "1:H2 + 2:KOH",
+      "mPhenomena": "Kali (K) màu trắng bạc tan dần và xuất hiện bọt khi do Hidro (H2) được giải phóng.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "555",
+      "mReactants": "1:H2 + 2:K",
+      "mProducts": "2:KH",
+      "mConditions": "200 - 350°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "556",
+      "mReactants": "2:Ca + 1:O2",
+      "mProducts": "2:CaO",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "557",
+      "mReactants": "1:Ca + 1:H2",
+      "mProducts": "1:CaH2",
+      "mConditions": "500 - 700°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "558",
+      "mReactants": "1:Ca + 2:HCl",
+      "mProducts": "1:H2 + 1:CaCl2",
+      "mPhenomena": "Có khí hidro thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "559",
+      "mReactants": "1:Ca + 2:H2O",
+      "mProducts": "1:Ca(OH)2 + 1:H2",
+      "mPhenomena": "Chất rắn Canxi (Ca) tan dần trong nước và tạo ra Hidro (H2) sủi bọt khí dung dịch.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "560",
+      "mReactants": "1:Ti + 1:HCl",
+      "mProducts": "1:TiCl3 + 1:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "561",
+      "mReactants": "1:Ti + 4:NaOH",
+      "mProducts": "1:Na4[TiO4] + 2:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "562",
+      "mReactants": "4:Cr + 3:O2",
+      "mProducts": "2:Cr2O3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Cr2O3 màu lục",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "563",
+      "mReactants": "3:Cl2 + 2:Cr",
+      "mProducts": "2:CrCl3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "564",
+      "mReactants": "1:Cr + 1:H2SO4",
+      "mProducts": "1:H2 + 1:CrSO4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "565",
+      "mReactants": "1:Mn + 1:Cl2",
+      "mProducts": "1:MnCl2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "566",
+      "mReactants": "1:Mn + 1:O2",
+      "mProducts": "1:MnO2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "567",
+      "mReactants": "2:HCl + 1:Mn",
+      "mProducts": "1:H2 + 1:MnCl2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "568",
+      "mReactants": "1:Mn + 2:H2O",
+      "mProducts": "1:Mn(OH)2 + 1:H2",
+      "mPhenomena": "Hơi nước",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "569",
+      "mReactants": "3:Fe + 2:O2",
+      "mProducts": "1:Fe3O4",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "570",
+      "mReactants": "1:Fe + 1:S",
+      "mProducts": "1:FeS",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "571",
+      "mReactants": "3:Fe + 4:H2O",
+      "mProducts": "4:H2 + 1:Fe3O4",
+      "mConditions": "Nhiệt độ < 570°C",
+      "mPhenomena": "Khí thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "572",
+      "mReactants": "1:Fe + 2:HCl",
+      "mProducts": "1:FeCl2 + 1:H2",
+      "mPhenomena": "Khí thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "573",
+      "mReactants": "1:Fe + 2:FeCl3",
+      "mProducts": "3:FeCl2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "574",
+      "mReactants": "2:Cu + 1:O2",
+      "mProducts": "2:CuO",
+      "mConditions": "Nhiệt độ, oxi dư",
+      "mPhenomena": "Đồng (Cu) từ màu đỏ chuyển sang màu đen do đồng II oxit (CuO) được tạo thành.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "575",
+      "mReactants": "1:Cu + 1:Cl2",
+      "mProducts": "1:CuCl2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Dây đồng nung đỏ cháy trong khí clo tạo thành kết tủa CuCl2 màu trắng lục",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "576",
+      "mReactants": "1:Cu + 2:HCl",
+      "mProducts": "1:H2 + 1:CuCl2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "có khí thoát ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "577",
+      "mReactants": "2:AgNO3 + 1:Cu",
+      "mProducts": "2:Ag + 1:Cu(NO3)2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "578",
+      "mReactants": "1:O2 + 2:Zn",
+      "mProducts": "2:ZnO",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "579",
+      "mReactants": "1:Cl2 + 1:Zn",
+      "mProducts": "1:ZnCl2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "580",
+      "mReactants": "2:HCl + 1:Zn",
+      "mProducts": "1:H2 + 1:ZnCl2",
+      "mPhenomena": "Chất rắn màu xám sẫm Kẽm (Zn) tan dần và xuất hiện bọt khí do khí Hidro (H2) tạo thành.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "581",
+      "mReactants": "2:H2O + 2:NaOH + 1:Zn",
+      "mProducts": "1:H2 + 1:Na2[Zn(OH)4]",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "582",
+      "mReactants": "2:Al + 3:Br2",
+      "mProducts": "2:AlBr3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Nhôm (Al) tam dần và làm mất màu da cam của dung dịch brom (Br2)",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "583",
+      "mReactants": "1:Br2 + 1:H2",
+      "mProducts": "2:HBr",
+      "mConditions": "Nhiệt độ: 350°C Xúc tác: Pt",
+      "mPhenomena": "Khí Brom (Br2) bị mất màu da cam.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "584",
+      "mReactants": "1:Br2 + 1:H2O",
+      "mProducts": "1:HBrO + 1:HBr",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thuận nghịch (Cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "585",
+      "mReactants": "1:Br2 + 2:NaI",
+      "mProducts": "1:I2 + 2:NaBr",
+      "mPhenomena": "Dung dịch Brom (Br2) bị mất màu da cam và xuất hiện khí tím Iot (I2) .",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "586",
+      "mReactants": "1:Br2 + 2:H2O + 1:SO2",
+      "mProducts": "1:H2SO4 + 2:HBr",
+      "mPhenomena": "SO2 làm nhạt màu dung dịch nước brom",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "587",
+      "mReactants": "1:Br2 + 5:Cl2 + 6:H2O",
+      "mProducts": "1:0HCl + 2:HBrO3",
+      "mPhenomena": "Cl2 làm nhạt màu dung dịch nước brom",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "588",
+      "mReactants": "2:Ag + 1:O3",
+      "mProducts": "1:Ag2O + 1:O2",
+      "mPhenomena": "giải phóng khí hidro",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "589",
+      "mReactants": "2:Ag + 2:H2SO4đ",
+      "mProducts": "2:H2O + 1:SO2 + 1:Ag2SO4",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "có khí mùi hắc thoát ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "590",
+      "mReactants": "2:Al + 3:I2",
+      "mProducts": "2:AlI3",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "591",
+      "mReactants": "1:H2 + 1:I2",
+      "mProducts": "2:HI",
+      "mConditions": "Nhiệt độ: 350 - 500°C Xúc tác: Pt",
+      "mTwoWay": "1",
+      "mReactionTypes": "Oxi-hóa khử,Thuận nghịch (Cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "592",
+      "mReactants": "1:O2 + 2:Ba",
+      "mProducts": "2:BaO",
+      "mConditions": "Nhiệt độ: > 800°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "593",
+      "mReactants": "2:HCl + 1:Ba",
+      "mProducts": "1:BaCl2 + 1:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "594",
+      "mReactants": "2:H2O + 1:Ba",
+      "mProducts": "1:H2 + 1:Ba(OH)2",
+      "mPhenomena": "giải phóng khí hidro",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "595",
+      "mReactants": "1:Au + 3:HCl + 1:HNO3",
+      "mProducts": "2:H2O + 1:NO + 1:AuCl3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Chất rắn màu vàng bóng của vàng (Au) tan dần trong dung dịch và xuất hiện bọt khí do khí nitơ oxit (NO) sinh ra và hoá nâu ngoài không khí.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "596",
+      "mReactants": "1:Hg + 1:S",
+      "mProducts": "1:HgS",
+      "mPhenomena": "có kết tủa đen.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "597",
+      "mReactants": "3:Hg + 8:HNO3",
+      "mProducts": "4:H2O + 3:Hg(NO3)2 + 2:NO",
+      "mPhenomena": "có khí thoát ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "598",
+      "mReactants": "1:Pb + 1:F2",
+      "mProducts": "1:PbF2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "599",
+      "mReactants": "1:O2 + 2:Pb",
+      "mProducts": "2:PbO",
+      "mConditions": "Nhiệt độ: > 600°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "600",
+      "mReactants": "3:H2SO4đ + 1:Pb",
+      "mProducts": "2:H2O + 1:SO2 + 1:Pb(HSO4)2",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "có khí mùi hắc thoát ra.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "601",
+      "mReactants": "1:Pb + 2:NaOHđ + 2 :H2O",
+      "mProducts": "1:Na2(Pb(OH)4) + 1:H2",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "602",
+      "mReactants": "2:H2O + 2:Na",
+      "mProducts": "1:H2 + 2:NaOH",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "603",
+      "mReactants": "1:CaO + 1:H2O",
+      "mProducts": "1:Ca(OH)2",
+      "mPhenomena": "Phản ứng toả nhiệt, sinh ra chất rắn màu trắng Canxi oxit (CaO) tan dần trong nước.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "604",
+      "mReactants": "1:H2O + 1:SO3",
+      "mProducts": "1:H2SO4",
+      "mPhenomena": "Tỏa nhiệt",
+      "mTwoWay": "0",
+      "mReactionTypes": "Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "605",
+      "mReactants": "1:Fe + 1:H2SO4",
+      "mProducts": "1:H2 + 1:FeSO4",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Sinh ra khí Hidro (H2) làm sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "606",
+      "mReactants": "1:FeO + 1:H2SO4",
+      "mProducts": "1:H2O + 1:FeSO4",
+      "mPhenomena": "Chất rắn màu đen Sắt II Oxit (FeO) tan dần.",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "607",
+      "mReactants": "1:H2SO4 + 2:NaOH",
+      "mProducts": "2:H2O + 1:Na2SO4",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Trao đổi,Trung hòa"
+    },
+    {
+      "mIdChemicalReaction": "608",
+      "mReactants": "1:H2SO4 + 1:Na2CO3",
+      "mProducts": "1:H2O + 1:Na2SO4 + 1:CO2",
+      "mPhenomena": "Sủi bọt khí do khí cacbonic (CO2) sinh ra",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "609",
+      "mReactants": "1:C + 2:H2SO4",
+      "mProducts": "2:H2O + 2:SO2 + 1:CO2",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "610",
+      "mReactants": "1:H2SO4 + 1:C12H22O11",
+      "mProducts": "1:2C + 1:H2SO4.11H2O",
+      "mPhenomena": "Xuất hiện kết tủa đen là than (C).",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "611",
+      "mReactants": "1:Fe + 2:HCl",
+      "mProducts": "1:FeCl2 + 1:H2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "612",
+      "mReactants": "2:HCl + 1:Na2O",
+      "mProducts": "1:H2O + 2:NaCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "613",
+      "mReactants": "1:HCl + 1:NaOH",
+      "mProducts": "1:H2O + 1:NaCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi,Trung hòa"
+    },
+    {
+      "mIdChemicalReaction": "614",
+      "mReactants": "1:CaCO3 + 2:HCl",
+      "mProducts": "1:H2O + 1:CO2 + 1:CaCl2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "615",
+      "mReactants": "1:Na2O + 2:HNO3",
+      "mProducts": "1:H2O + 2:NaNO3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "616",
+      "mReactants": "1:HNO3 + 1:NaOH",
+      "mProducts": "1:H2O + 1:NaNO3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "617",
+      "mReactants": "2:HNO3 + 1:Na2CO3",
+      "mProducts": "1:H2O + 2:NaNO3 + 1:CO2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "618",
+      "mReactants": "1:Fe + 6:HNO3",
+      "mProducts": "3:H2O + 3:NO2 + 1:Fe(NO3)3",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Sắt (Fe) tan dần và sinh ra khí màu nâu đỏ Nito dioxit (NO2).",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "619",
+      "mReactants": "1:C + 4:HNO3",
+      "mProducts": "2:H2O + 4:NO + 1:CO2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "620",
+      "mReactants": "1:HCl + 1:NaOH",
+      "mProducts": "1:H2O + 1:NaCl",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi,Trung hòa"
+    },
+    {
+      "mIdChemicalReaction": "621",
+      "mReactants": "2:NaOH + 1:SO2",
+      "mProducts": "1:H2O + 1:Na2SO3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "622",
+      "mReactants": "2:Al + 2:H2O + 2:NaOH",
+      "mProducts": "3:H2 + 2:NaAlO2",
+      "mConditions": "400-500°C",
+      "mPhenomena": "Sủi bọt khí",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "623",
+      "mReactants": "1:Al(OH)3 + 1:NaOH",
+      "mProducts": "2:H2O + 1:NaAlO2",
+      "mConditions": "1000°C",
+      "mTwoWay": "0",
+      "mReactionTypes": "Thế"
+    },
+    {
+      "mIdChemicalReaction": "624",
+      "mReactants": "2:NaOH + 1:CuCl2",
+      "mProducts": "1:Cu(OH)2 + 2:NaCl",
+      "mConditions": "Nhiệt độ",
+      "mPhenomena": "Kết tủa xanh",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "625",
+      "mReactants": "1:SO2 + 1:Ba(OH)2",
+      "mProducts": "1:H2O + 1:BaSO3",
+      "mPhenomena": "Xuất hiện kết tủa trắng",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "626",
+      "mReactants": "2:HCl + 1:Ba(OH)2",
+      "mProducts": "1:BaCl2 + 2:H2O",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "627",
+      "mReactants": "1:Ba(OH)2 + 1:CuSO4",
+      "mProducts": "1:Cu(OH)2 + 1:BaSO4",
+      "mPhenomena": "Xuất hiện kết tủa trắng.",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "628",
+      "mReactants": "1:H2O + 1:SO2",
+      "mProducts": "1:H2SO3",
+      "mTwoWay": "1",
+      "mReactionTypes": "Thuận nghịch (Cân bằng)"
+    },
+    {
+      "mIdChemicalReaction": "629",
+      "mReactants": "1:Br2 + 2:H2O + 1:SO2",
+      "mProducts": "1:H2SO4 + 2:HBr",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "630",
+      "mReactants": "2:H2S + 1:SO2",
+      "mProducts": "2:H2O + 3:S",
+      "mPhenomena": "Xuất hiện kết tủa vàng Lưu huỳnh (S).",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "631",
+      "mReactants": "2:Mg + 1:SO2",
+      "mProducts": "1:S + 2:MgO",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "632",
+      "mReactants": "1:H2O + 1:CO2",
+      "mProducts": "1:H2CO3",
+      "mTwoWay": "1"
+    },
+    {
+      "mIdChemicalReaction": "633",
+      "mReactants": "1:CaO + 1:CO2",
+      "mProducts": "1:CaCO3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "634",
+      "mReactants": "2:NaOH + 1:CO2",
+      "mProducts": "1:H2O + 1:Na2CO3",
+      "mTwoWay": "0",
+      "mReactionTypes": "Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "635",
+      "mReactants": "2:Mg + 1:CO2",
+      "mProducts": "1:C + 2:MgO",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "636",
+      "mReactants": "1:C + 1:CO2",
+      "mProducts": "2:CO",
+      "mTwoWay": "1"
+    },
+    {
+      "mIdChemicalReaction": "637",
+      "mReactants": "2:HCl + 1:Na2O",
+      "mProducts": "1:H2O + 2:NaCl",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "638",
+      "mReactants": "1:H2O + 1:Na2O",
+      "mProducts": "2:NaOH",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "639",
+      "mReactants": "1:Na2O + 1:CO2",
+      "mProducts": "1:Na2CO3",
+      "mConditions": "Nhiệt độ: 450-550°C",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "640",
+      "mReactants": "1:BaO + 2:HCl",
+      "mProducts": "1:BaCl2 + 1:H2O",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "641",
+      "mReactants": "1:BaO + 1:H2O",
+      "mProducts": "1:BaO + 1:H2O",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "642",
+      "mReactants": "1:BaO + 1:CO2",
+      "mProducts": "1:BaCO3",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "643",
+      "mReactants": "1:Al2O3 + 6:HCl",
+      "mProducts": "2:AlCl3 + 3:H2O",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "644",
+      "mReactants": "1:Al2O3 + 3:H2O",
+      "mProducts": "2:Al(OH)3",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "645",
+      "mReactants": "1:Al2O3 + 2:NaOH",
+      "mProducts": "1:H2O + 2:NaAlO2",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "646",
+      "mReactants": "2:HCl + 1:ZnO",
+      "mProducts": "1:H2O + 1:ZnCl2",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "647",
+      "mReactants": "2:NaOH + 1:ZnO",
+      "mProducts": "1:H2O + 1:Na2ZnO2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Trao đổi"
+    },
+    {
+      "mIdChemicalReaction": "648",
+      "mReactants": "1:C + 1:ZnO",
+      "mProducts": "1:CO + 1:Zn",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Thế"
+    },
+    {
+      "mIdChemicalReaction": "649",
+      "mReactants": "2:CO + 1:O2",
+      "mProducts": "2:CO2",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử,Hóa hợp"
+    },
+    {
+      "mIdChemicalReaction": "650",
+      "mReactants": "1:Cl2 + 1:CO",
+      "mProducts": "1:COCl2",
+      "mConditions": "Nhiệt độ: 125 - 150 °C Xúc tác: C, Pt",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "651",
+      "mReactants": "1:CO + 3:Fe2O3",
+      "mProducts": "1:CO2 + 2:Fe3O4",
+      "mConditions": "Nhiệt độ",
+      "mTwoWay": "0",
+      "mReactionTypes": "Oxi-hóa khử"
+    },
+    {
+      "mIdChemicalReaction": "652",
+      "mReactants": "2:NO + 1:Cl2",
+      "mProducts": "2:NOCl",
+      "mTwoWay": "0"
+    },
+    {
+      "mIdChemicalReaction": "653",
+      "mReactants": "2:NO + 1:O2",
+      "mProducts": "2:NO2",
+      "mPhenomena": "Khí nitơ đioxit NO2 màu nâu đỏ",
       "mTwoWay": "0",
       "mReactionTypes": "Oxi-hóa khử"
     }
@@ -13693,6 +15294,10 @@
     {
       "mIdType": "11",
       "mNameType": "Thuộc tính hóa học chưa rõ"
+    },
+    {
+      "mIdType": "12",
+      "mNameType": "Axit"
     },
     {
       "mIdType": "13",

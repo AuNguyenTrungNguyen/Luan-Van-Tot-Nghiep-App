@@ -1,6 +1,7 @@
 package luanvan.luanvantotnghiep.Adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         }
 
         TextView tvHeader = view.findViewById(R.id.tv_expand_header);
-        tvHeader.setText(heading.getNameHeading());
+        tvHeader.setText(Html.fromHtml(heading.getNameHeading()+ " &#x261A"));
 
         return view;
     }

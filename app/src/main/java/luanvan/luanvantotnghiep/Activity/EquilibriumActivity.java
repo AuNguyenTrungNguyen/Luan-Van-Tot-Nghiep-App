@@ -156,7 +156,7 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (checkSimplifiedFraction(userAnswer, correctAnswer)) {
-            builder.setMessage("Chính xác!");
+            builder.setMessage(Html.fromHtml("<font color='red'>&#x2713 Chính xác!</font>"));
             builder.setNegativeButton("Làm bài mới", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     dialog.dismiss();
@@ -169,7 +169,7 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
                 }
             });
         } else {
-            builder.setMessage("Chưa chính xác!");
+            builder.setMessage(Html.fromHtml("<font color='red'>&#x2717 Chưa chính xác!</font>"));
             builder.setNegativeButton("Xem đáp án", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     dialog.dismiss();

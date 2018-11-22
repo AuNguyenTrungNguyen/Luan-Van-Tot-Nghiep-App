@@ -235,12 +235,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FirebaseAuth.getInstance().signOut();
             mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE_ENCODE, "");
             mPreferencesManager.saveStringData(Constraint.PRE_KEY_PASS_ENCODE, "");
-            mPreferencesManager.saveIntData(Constraint.PRE_KEY_BLOCK, 8);
-            mPreferencesManager.saveStringData(Constraint.PRE_KEY_PHONE, "");
-            mPreferencesManager.saveStringData(Constraint.PRE_KEY_NAME, "");
-            mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
-            mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
-            mPreferencesManager.saveFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
             mPreferencesManager.saveIntData(Constraint.KEY_GAME, 0);
             mPreferencesManager.saveIntData(Constraint.KEY_THEMATIC, 0);
             mToolbarMain.setTitle("Đăng xuất");
@@ -307,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (!phone.equals("") && !name.equals("")) {
             float scoreEasy = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_EASY, 0);
-            String keyEasy = encodeSHA512(phone, Constraint.EXTENT_EASY);
+            String keyEasy = block + encodeSHA512(phone, Constraint.EXTENT_EASY);
             Rank rankEasy = new Rank();
             rankEasy.setBlock(block);
             rankEasy.setExtent(Constraint.EXTENT_EASY);
@@ -316,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             reference.child(keyEasy).setValue(rankEasy);
 
             float scoreNormal = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_NORMAL, 0);
-            String keyNormal = encodeSHA512(phone, Constraint.EXTENT_NORMAL);
+            String keyNormal = block + encodeSHA512(phone, Constraint.EXTENT_NORMAL);
             Rank rankNormal = new Rank();
             rankNormal.setBlock(block);
             rankNormal.setExtent(Constraint.EXTENT_NORMAL);
@@ -324,13 +318,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             rankNormal.setScore(scoreNormal);
             reference.child(keyNormal).setValue(rankNormal);
 
-            float scoreDifficul = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
-            String keyDifficult = encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
+            float scoreDifficult = mPreferencesManager.getFloatData(Constraint.PRE_KEY_RANK_DIFFICULT, 0);
+            String keyDifficult = block + encodeSHA512(phone, Constraint.EXTENT_DIFFICULT);
             Rank rankDifficult = new Rank();
             rankDifficult.setBlock(block);
             rankDifficult.setExtent(Constraint.EXTENT_DIFFICULT);
             rankDifficult.setName(name);
-            rankDifficult.setScore(scoreDifficul);
+            rankDifficult.setScore(scoreDifficult);
             reference.child(keyDifficult).setValue(rankDifficult);
         }
     }
