@@ -70,7 +70,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private void signIn() {
         mProgressDialog = new ProgressDialog(SignInActivity.this);
-        mProgressDialog.setTitle("Xin hãy chờ một tý...");
+        mProgressDialog.setTitle("Xin hãy chờ...");
         mProgressDialog.setMessage("Đang kiểm tra đăng nhập...");
         View view = this.getCurrentFocus();
         if (view != null) {

@@ -1,7 +1,6 @@
 package luanvan.luanvantotnghiep.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +15,14 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import luanvan.luanvantotnghiep.Activity.FillInTheBlankActivity;
-import luanvan.luanvantotnghiep.Activity.QuizActivity;
 import luanvan.luanvantotnghiep.Adapter.ReactionAdapter;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
 import luanvan.luanvantotnghiep.Model.ChemicalReaction;
-import luanvan.luanvantotnghiep.Model.Chemistry;
 import luanvan.luanvantotnghiep.R;
 import luanvan.luanvantotnghiep.Util.ChemistrySingle;
 import luanvan.luanvantotnghiep.Util.Helper;
@@ -120,6 +113,7 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
 
         if (mEdtReactants.getText().toString().equals("") && mEdtProducts.getText().toString().equals("")) {
             mCvTitleInput.setVisibility(View.VISIBLE);
+            Toast.makeText(mContext, "Chưa nhập dữ liệu!", Toast.LENGTH_SHORT).show();
         } else {
             if (!mEdtReactants.getText().toString().equals("")) {
                 isReactant = true;
@@ -152,7 +146,6 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-            Log.i("hns", "listFilter: " + listFilter.size());
             if (!isReactant) {
                 listProductTemp.addAll(mChemicalReactionList);
             } else {
@@ -194,21 +187,20 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-        }
+            mReactionAdapter = new ReactionAdapter(mContext, listFilter);
+            RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext,
+                    LinearLayoutManager.VERTICAL,
+                    false);
+            mRvReaction.setHasFixedSize(true);
+            mRvReaction.setAdapter(mReactionAdapter);
+            mRvReaction.setLayoutManager(manager);
 
-        mReactionAdapter = new ReactionAdapter(mContext, listFilter);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext,
-                LinearLayoutManager.VERTICAL,
-                false);
-        mRvReaction.setHasFixedSize(true);
-        mRvReaction.setAdapter(mReactionAdapter);
-        mRvReaction.setLayoutManager(manager);
-
-        if (listFilter.size() > 0) {
-            mCvTitleInput.setVisibility(View.GONE);
-        } else {
-            Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
-            mCvTitleInput.setVisibility(View.VISIBLE);
+            if (listFilter.size() > 0) {
+                mCvTitleInput.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
+                mCvTitleInput.setVisibility(View.VISIBLE);
+            }
         }
     }
 

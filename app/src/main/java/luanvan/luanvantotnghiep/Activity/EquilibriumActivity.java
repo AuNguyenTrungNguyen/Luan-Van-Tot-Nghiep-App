@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -150,10 +149,7 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
     }
 
     private void submit(String userAnswer, String correctAnswer) {
-        Log.i(TAG, "userAnswer: " + userAnswer);
-        Log.i(TAG, "correctAnswer: " + correctAnswer);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (checkSimplifiedFraction(userAnswer, correctAnswer)) {
             builder.setMessage(Html.fromHtml("<font color='red'>&#x2713 Chính xác!</font>"));
@@ -173,11 +169,14 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
             builder.setNegativeButton("Xem đáp án", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     dialog.dismiss();
-                    mRvEquilibrium.setVisibility(View.INVISIBLE);
-                    mBtnSubmit.setVisibility(View.INVISIBLE);
 
                     //show correct answer
-                    showCorrectAnswer();
+                    String answer = getCorrectAnswer();
+                    AlertDialog.Builder dialogAnswer = new AlertDialog.Builder(builder.getContext());
+                    dialogAnswer.setTitle(Html.fromHtml("<font color='green'>ĐÁP ÁN</font>"));
+                    answer += "<br>";
+                    dialogAnswer.setMessage(Html.fromHtml(answer));
+                    dialogAnswer.create().show();
                 }
             });
 
@@ -240,14 +239,10 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         positionReaction = new Random().nextInt(mChemicalReactionList.size());
         Collections.shuffle(mChemicalReactionList);
 
-        Log.i(TAG, "mChemicalReactionList.size(): " + mChemicalReactionList.size());
-
-        if (mChemicalReactionList.size() < 10){
+        if (mChemicalReactionList.size() < 10) {
             mChemicalReactionList.clear();
             mChemicalReactionList = mHelper.getAllChemicalReaction();
         }
-        Log.i(TAG, "mChemicalReactionList.size() checked: " + mChemicalReactionList.size());
-
 
         mCurrentReaction = chemicalReaction;
         int twoWay = chemicalReaction.getTwoWay();
@@ -298,7 +293,52 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
         });
     }
 
-    private void showCorrectAnswer() {
+//    private void showCorrectAnswer() {
+//        int twoWay = mCurrentReaction.getTwoWay();
+//        String reactant = mCurrentReaction.getReactants();
+//        String product = mCurrentReaction.getProducts();
+//
+//        String left[] = reactant.split("\\+");
+//        String right[] = product.split("\\+");
+//        List<Equilibrium> equilibriumList = new ArrayList<>();
+//
+//        for (String name : left) {
+//            Equilibrium equilibrium = new Equilibrium();
+//            equilibrium.setNumber(Integer.parseInt(name.split(":")[0].trim()));
+//            equilibrium.setName(name.split(":")[1]);
+//            equilibriumList.add(equilibrium);
+//        }
+//
+//        for (String name : right) {
+//            Equilibrium equilibrium = new Equilibrium();
+//            equilibrium.setNumber(Integer.parseInt(name.split(":")[0].trim()));
+//            equilibrium.setName(name.split(":")[1]);
+//            equilibriumList.add(equilibrium);
+//        }
+//
+//        StringBuilder show = new StringBuilder();
+//        for (int i = 0; i < equilibriumList.size(); i++) {
+//            Equilibrium equilibrium = equilibriumList.get(i);
+//
+//            show.append("<font color='red'>").append(equilibrium.getNumber()).append("</font>");
+//            show.append(Helper.getInstant().handelText(equilibrium.getName().trim()));
+//
+//            if (i == positionSymbol) {
+//                if (twoWay == 1) {
+//                    show.append(" " + Constraint.SYMBOL_TWO_WAY + " ");
+//                } else {
+//                    show.append(" " + Constraint.SYMBOL + " ");
+//                }
+//            } else if (i == equilibriumList.size() - 1) {
+//                show.append("");
+//            } else {
+//                show.append(" + ");
+//            }
+//        }
+//        mTvEquilibrium.setText(Html.fromHtml(show.toString()));
+//    }
+
+    private String getCorrectAnswer() {
         int twoWay = mCurrentReaction.getTwoWay();
         String reactant = mCurrentReaction.getReactants();
         String product = mCurrentReaction.getProducts();
@@ -340,6 +380,6 @@ public class EquilibriumActivity extends AppCompatActivity implements Equilibriu
                 show.append(" + ");
             }
         }
-        mTvEquilibrium.setText(Html.fromHtml(show.toString()));
+        return show.toString();
     }
 }

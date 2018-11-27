@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:icon="@drawable/ic_menu_rating"
+        android:icon="@android:drawable/ic_menu_rotate"
         android:title="action_notification"
         app:showAsAction="always"
         tools:ignore="HardcodedText">
@@ -25,11 +25,10 @@
     </item>
 
     <item
+        android:id="@+id/mn_description"
         android:icon="@android:drawable/ic_menu_help"
         android:title=""
-        android:id="@+id/mn_description"
         app:showAsAction="ifRoom"
-        tools:ignore="HardcodedText">
-    </item>
+        tools:ignore="HardcodedText"></item>
 
 </menu>
