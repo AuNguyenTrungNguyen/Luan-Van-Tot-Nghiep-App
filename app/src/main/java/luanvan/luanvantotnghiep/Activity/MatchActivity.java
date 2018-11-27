@@ -104,6 +104,8 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
             dialog = new Dialog(MatchActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
             TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
@@ -321,8 +323,8 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         }
 
         tvLevel.setText(String.format("Level %s", getLevel()));
-        tvScore.setText(String.valueOf(score));
-        tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
+        tvScore.setText(String.valueOf((int) score));
+        tvCorrectAnswer.setText(String.format("%s/%s", (int) score, mTotalQuestion));
         dialog.setCancelable(false);
         dialog.show();
 
@@ -447,7 +449,7 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         dialog.show();
     }
 
-    private void startGame(){
+    private void startGame() {
         setUpData();
         setUpGame();
     }

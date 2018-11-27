@@ -1,55 +1,55 @@
 package luanvan.luanvantotnghiep.Activity;
 
-        import android.annotation.SuppressLint;
-        import android.app.Dialog;
-        import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.graphics.Color;
-        import android.graphics.drawable.ColorDrawable;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.os.CountDownTimer;
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.support.v7.widget.SnapHelper;
-        import android.support.v7.widget.Toolbar;
-        import android.text.Html;
-        import android.text.SpannableStringBuilder;
-        import android.text.Spanned;
-        import android.text.format.DateFormat;
-        import android.text.style.ForegroundColorSpan;
-        import android.view.Gravity;
-        import android.view.LayoutInflater;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.view.WindowManager;
-        import android.widget.AdapterView;
-        import android.widget.Button;
-        import android.widget.GridView;
-        import android.widget.ImageView;
-        import android.widget.PopupWindow;
-        import android.widget.TextView;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.format.DateFormat;
+import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
-        import java.util.ArrayList;
-        import java.util.Collections;
-        import java.util.Date;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
-        import luanvan.luanvantotnghiep.Adapter.CheckingAnswerAdapter;
-        import luanvan.luanvantotnghiep.Adapter.FillInTheBlankAdapter;
-        import luanvan.luanvantotnghiep.Database.ChemistryHelper;
-        import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
-        import luanvan.luanvantotnghiep.Model.Answer;
-        import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
-        import luanvan.luanvantotnghiep.Model.Question;
-        import luanvan.luanvantotnghiep.R;
-        import luanvan.luanvantotnghiep.Util.ChemistrySingle;
-        import luanvan.luanvantotnghiep.Util.Constraint;
-        import luanvan.luanvantotnghiep.Util.PreferencesManager;
+import luanvan.luanvantotnghiep.Adapter.CheckingAnswerAdapter;
+import luanvan.luanvantotnghiep.Adapter.FillInTheBlankAdapter;
+import luanvan.luanvantotnghiep.Database.ChemistryHelper;
+import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
+import luanvan.luanvantotnghiep.Model.Answer;
+import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
+import luanvan.luanvantotnghiep.Model.Question;
+import luanvan.luanvantotnghiep.R;
+import luanvan.luanvantotnghiep.Util.ChemistrySingle;
+import luanvan.luanvantotnghiep.Util.Constraint;
+import luanvan.luanvantotnghiep.Util.PreferencesManager;
 
 public class FillInTheBlankActivity extends AppCompatActivity implements View.OnClickListener, FillInTheBlankAdapter.CommunicateQuiz {
 
@@ -85,7 +85,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         init();
 
-        if (checkGame()){
+        if (checkGame()) {
             chooseOption();
         }
     }
@@ -176,6 +176,8 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
             dialog = new Dialog(FillInTheBlankActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
             TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
@@ -215,7 +217,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     private void showScore() {
         float score = 0;
 
-        if (dialog != null && dialog.isShowing()){
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
 
@@ -261,8 +263,8 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         }
 
         tvLevel.setText(String.format("Level %s", getLevel()));
-        tvScore.setText(String.valueOf(score));
-        tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
+        tvScore.setText(String.valueOf((int) score));
+        tvCorrectAnswer.setText(String.format("%s/%s", (int) score, mTotalQuestion));
         dialog.setCancelable(false);
         dialog.show();
 
@@ -437,7 +439,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
         return true;
     }
 
-    private boolean checkGame(){
+    private boolean checkGame() {
 
         int block = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_BLOCK, 8);
         int type = PreferencesManager.getInstance().getIntData(Constraint.PRE_KEY_TYPE, 0);

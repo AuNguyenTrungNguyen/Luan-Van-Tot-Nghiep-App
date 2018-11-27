@@ -98,6 +98,8 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
 
             dialog = new Dialog(SortActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
             TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);

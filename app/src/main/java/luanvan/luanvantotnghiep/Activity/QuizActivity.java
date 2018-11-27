@@ -178,6 +178,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
             dialog = new Dialog(QuizActivity.this);
             dialog.setContentView(R.layout.layout_dialog_game_submit);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             TextView tvAnswered = dialog.findViewById(R.id.tv_answered);
             final TextView tvTimeLeft = dialog.findViewById(R.id.tv_time_left);
@@ -266,8 +268,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         tvLevel.setText(String.format("Level %s", getLevel()));
-        tvScore.setText(String.valueOf(score));
-        tvCorrectAnswer.setText(String.format("%s/%s", score, mTotalQuestion));
+        tvScore.setText(String.valueOf((int) score));
+        tvCorrectAnswer.setText(String.format("%s/%s", (int) score, mTotalQuestion));
         dialog.setCancelable(false);
         dialog.show();
 
