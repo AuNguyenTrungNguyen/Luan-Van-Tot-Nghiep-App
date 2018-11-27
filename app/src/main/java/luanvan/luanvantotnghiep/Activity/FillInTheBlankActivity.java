@@ -131,7 +131,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
     }
 
     private void setUpGame() {
-        mCountDownTimer = new CountDownTimer(330000, 1000) {
+        mCountDownTimer = new CountDownTimer(1200000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mCurrentTime = millisUntilFinished;

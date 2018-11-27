@@ -151,14 +151,14 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
     private void setupGame() {
         isPlaying = true;
 
-        mCountDownTimer = new CountDownTimer(10000, 1000) {
+        mCountDownTimer = new CountDownTimer(300000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mCurrentTime = millisUntilFinished;
                 mTvTime.setText(convertLongToTime(millisUntilFinished));
 
                 //set text color red when time <= 5m
-                if (millisUntilFinished <= 300000) {
+                if (millisUntilFinished <= 90000) {
                     mTvTime.setTextColor(Color.RED);
                 }
             }

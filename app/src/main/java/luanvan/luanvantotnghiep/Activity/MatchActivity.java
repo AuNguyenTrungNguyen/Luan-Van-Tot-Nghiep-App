@@ -190,14 +190,14 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
 
         isPlaying = true;
 
-        mCountDownTimer = new CountDownTimer(310000, 1000) {
+        mCountDownTimer = new CountDownTimer(300000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mCurrentTime = millisUntilFinished;
                 mTvTime.setText(convertLongToTime(millisUntilFinished));
 
                 //set text color red when time <= 5m
-                if (millisUntilFinished <= 300000) {
+                if (millisUntilFinished <= 90000) {
                     mTvTime.setTextColor(Color.RED);
                 }
             }

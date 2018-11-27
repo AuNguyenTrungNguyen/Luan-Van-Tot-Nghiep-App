@@ -113,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple_2"
                     android:layout_gravity="center"
+                    android:textStyle="bold"
                     android:background="@drawable/background_game_complete"
                     android:text="Gửi lại mã" />
 
@@ -241,7 +242,7 @@
                 android:layout_weight="0"
                 android:textStyle="bold"
                 android:background="@drawable/background_game_complete"
-                android:text="Sign Up" />
+                android:text="Đăng ký" />
 
         </LinearLayout>
 

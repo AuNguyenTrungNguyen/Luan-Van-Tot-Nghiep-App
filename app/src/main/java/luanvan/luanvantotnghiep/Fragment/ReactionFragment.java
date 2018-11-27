@@ -207,7 +207,7 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
         if (listFilter.size() > 0) {
             mCvTitleInput.setVisibility(View.GONE);
         } else {
-            Toast.makeText(mContext, "Tim khong ra!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
             mCvTitleInput.setVisibility(View.VISIBLE);
         }
     }

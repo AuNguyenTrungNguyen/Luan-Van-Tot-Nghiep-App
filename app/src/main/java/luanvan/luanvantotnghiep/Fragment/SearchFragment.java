@@ -321,6 +321,8 @@ public class SearchFragment extends Fragment implements ChipChemistryAdapter.Com
         if (mIsElement && mIsCompound) { // 2 thằng
             showDialog(chemistryEle, chemistryCom);
         } else if (!mIsElement && !mIsCompound) { //ko có rồi
+            mCvHide.setVisibility(View.VISIBLE);
+            mLnShow.setVisibility(View.GONE);
             Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
         } else { //1 trong 2
             //mSearchView.setQuery(Html.fromHtml(Helper.getInstant().handelText(param)), false);

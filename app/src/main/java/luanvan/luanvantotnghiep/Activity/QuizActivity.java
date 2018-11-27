@@ -130,7 +130,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setUpGame() {
-        mCountDownTimer = new CountDownTimer(330000, 1000) {
+        mCountDownTimer = new CountDownTimer(1200000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mCurrentTime = millisUntilFinished;
@@ -254,12 +254,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         ImageView imgStarTwo = dialog.findViewById(R.id.img_star_two);
         ImageView imgStarThree = dialog.findViewById(R.id.img_star_three);
 
-        if (score >= 9 && score < 13) {
+        if (score >= 3 && score < 5) {
             imgStarTwo.setVisibility(View.VISIBLE);
-        } else if (score >= 13 && score < 17) {
+        } else if (score >= 5 && score < 7) {
             imgStarOne.setVisibility(View.VISIBLE);
             imgStarThree.setVisibility(View.VISIBLE);
-        } else if (score >= 17) {
+        } else if (score >= 8) {
             imgStarOne.setVisibility(View.VISIBLE);
             imgStarTwo.setVisibility(View.VISIBLE);
             imgStarThree.setVisibility(View.VISIBLE);
@@ -463,7 +463,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             Collections.shuffle(tempList);
 
             //mQuestionList = tempList.subList(0, 20);
-            mQuestionList = tempList.subList(0, 5);
+            mQuestionList = tempList.subList(0, 10);
             mAnswerList = chemistryHelper.getAllAnswer();
             mAnswerByQuestionList = chemistryHelper.getAllAnswerByQuestion();
             return true;

@@ -132,7 +132,7 @@ public class ChooseLevelActivity extends AppCompatActivity {
 
         for (int i = 0; i < listLevel.size(); i++) {
             boolean isLeft = listLevel.get(i) % 2 == 0;
-            mList.add(new Tree(isLeft, "Leaf: " + listLevel.get(i), listLevel.get(i)));
+            mList.add(new Tree(isLeft, "Level: " + listLevel.get(i), listLevel.get(i)));
         }
 
         mAdapter.notifyDataSetChanged();

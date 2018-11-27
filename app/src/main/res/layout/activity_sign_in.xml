@@ -35,7 +35,7 @@
                 android:drawableStart="@drawable/ic_phone"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="12dp"
-                android:hint="Phone Number"
+                android:hint="Số điện thoại"
                 android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
 
@@ -54,7 +54,7 @@
                 android:drawableStart="@drawable/ic_sign_in_password"
                 android:drawableLeft="@drawable/ic_sign_in_password"
                 android:drawablePadding="12dp"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
