@@ -91,10 +91,6 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
 
         mRvReaction = view.findViewById(R.id.rv_reaction);
     }
-    /*
-     * 2:H2 + 1:O2
-     * --> 2:H20
-     * */
 
     private void setAdapter() {
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -113,6 +109,7 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
 
         if (mEdtReactants.getText().toString().equals("") && mEdtProducts.getText().toString().equals("")) {
             mCvTitleInput.setVisibility(View.VISIBLE);
+            mRvReaction.setVisibility(View.GONE);
             Toast.makeText(mContext, "Chưa nhập dữ liệu!", Toast.LENGTH_SHORT).show();
         } else {
             if (!mEdtReactants.getText().toString().equals("")) {
@@ -197,9 +194,11 @@ public class ReactionFragment extends Fragment implements View.OnClickListener {
 
             if (listFilter.size() > 0) {
                 mCvTitleInput.setVisibility(View.GONE);
+                mRvReaction.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(mContext, "Hiện chưa có trong cơ sở dữ liệu!", Toast.LENGTH_SHORT).show();
                 mCvTitleInput.setVisibility(View.VISIBLE);
+                mRvReaction.setVisibility(View.GONE);
             }
         }
     }

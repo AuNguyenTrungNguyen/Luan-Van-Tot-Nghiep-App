@@ -1,6 +1,5 @@
 package luanvan.luanvantotnghiep.Activity;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,14 +12,12 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.format.DateFormat;
-import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,7 +39,6 @@ import java.util.List;
 import luanvan.luanvantotnghiep.Adapter.CheckingAnswerAdapter;
 import luanvan.luanvantotnghiep.Adapter.FillInTheBlankAdapter;
 import luanvan.luanvantotnghiep.Database.ChemistryHelper;
-import luanvan.luanvantotnghiep.Helper.StartSnapHelper;
 import luanvan.luanvantotnghiep.Model.Answer;
 import luanvan.luanvantotnghiep.Model.AnswerByQuestion;
 import luanvan.luanvantotnghiep.Model.Question;
@@ -346,7 +342,7 @@ public class FillInTheBlankActivity extends AppCompatActivity implements View.On
 
         mRvQuestion.setHasFixedSize(true);
 
-        SnapHelper startSnapHelper = new StartSnapHelper();
+        SnapHelper startSnapHelper = new LinearSnapHelper();
         startSnapHelper.attachToRecyclerView(mRvQuestion);
     }
 
