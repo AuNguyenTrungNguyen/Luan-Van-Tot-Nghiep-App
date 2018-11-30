@@ -256,7 +256,8 @@ public class MatchActivity extends AppCompatActivity implements MatchGame, View.
         public void onBindViewHolder(@NonNull final AnswerHolder answerHolder, final int i) {
             final Answer answer = mDataAnswerList.get(i);
             int show = i + 65;
-            answerHolder.tvContent.setText(String.format("%s. %s", (char) show, answer.getContentAnswer()));
+            //answerHolder.tvContent.setText(String.format("%s. %s", (char) show, answer.getContentAnswer()));
+            answerHolder.tvContent.setText(Html.fromHtml(String.format("%s. %s", (char) show, answer.getContentAnswer())));
         }
 
         @Override

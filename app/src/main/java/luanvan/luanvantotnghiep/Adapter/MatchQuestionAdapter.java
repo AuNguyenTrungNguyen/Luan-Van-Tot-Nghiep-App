@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,7 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
     @Override
     public void onBindViewHolder(@NonNull final QuestionHolder questionHolder, @SuppressLint("RecyclerView") final int position) {
         Question question = mQuestionList.get(position);
-        questionHolder.tvContent.setText(question.getContentQuestion());
+        questionHolder.tvContent.setText(Html.fromHtml(question.getContentQuestion()));
         questionHolder.lnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,12 +114,12 @@ public class MatchQuestionAdapter extends RecyclerView.Adapter<MatchQuestionAdap
     private void showDialog(final QuestionHolder questionHolder, final int position) {
         Question question = mQuestionList.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(question.getContentQuestion());
+        builder.setTitle(Html.fromHtml(question.getContentQuestion()));
 
         final String data[] = new String[mListAnswer.size()];
         for (int i = 0; i < mListAnswer.size(); i++) {
             int show = i + 65;
-            data[i] = String.valueOf((char) show) + ". " + mListAnswer.get(i).getContentAnswer();
+            data[i] = String.valueOf((char) show) + ". " + Html.fromHtml(mListAnswer.get(i).getContentAnswer());
         }
         builder.setItems(data, new DialogInterface.OnClickListener() {
             @Override

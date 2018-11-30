@@ -6453,8 +6453,8 @@
     },
     {
       "mIdChemicalReaction": "280",
-      "mReactants": "2:Pb(NO3)2",
-      "mProducts": "4:NO2 + 4:O2 + 2:PbO",
+      "mReactants": "1:Pb(NO3)2",
+      "mProducts": "2:NO2 + 2:O2 + 1:PbO",
       "mConditions": "Nhiệt độ",
       "mPhenomena": "Xuất hiện chất rắn màu đỏ Chì Oxit (PbO) và khí màu nâu đỏ Nito dioxit (NO2).",
       "mTwoWay": "0",
