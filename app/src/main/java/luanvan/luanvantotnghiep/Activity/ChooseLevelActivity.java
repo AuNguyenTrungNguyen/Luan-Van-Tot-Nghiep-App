@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -129,6 +131,7 @@ public class ChooseLevelActivity extends AppCompatActivity {
         }
 
         List<Integer> listLevel = new ArrayList<>(new HashSet<>(temp));
+        Collections.sort(listLevel);
 
         for (int i = 0; i < listLevel.size(); i++) {
             boolean isLeft = listLevel.get(i) % 2 == 0;
