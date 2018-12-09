@@ -71,23 +71,56 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_sort"
+                <LinearLayout
+                    android:id="@+id/ln_sort"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_answer"
+                    <TextView
+                        android:id="@+id/tv_show"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="TRẢ LỜI"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_sort"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_show"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:visibility="gone" />
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="ĐÁP ÁN ĐÚNG"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_answer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

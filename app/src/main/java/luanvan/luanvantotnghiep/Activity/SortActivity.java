@@ -527,10 +527,12 @@ public class SortActivity extends AppCompatActivity implements View.OnClickListe
     private void reviewQuiz() {
         mBtnComplete.setEnabled(false);
 
-        mRvAnswer.setVisibility(View.VISIBLE);
-        ViewGroup.LayoutParams params = mRvSort.getLayoutParams();
+        //mRvAnswer.setVisibility(View.VISIBLE);
+        findViewById(R.id.ln_show).setVisibility(View.VISIBLE);
+        findViewById(R.id.tv_show).setVisibility(View.VISIBLE);
+        ViewGroup.LayoutParams params = findViewById(R.id.ln_sort).getLayoutParams();
         params.width = 0;
-        mRvSort.setLayoutParams(params);
+        findViewById(R.id.ln_sort).setLayoutParams(params);
 
         //sort
         mListAnswer.clear();

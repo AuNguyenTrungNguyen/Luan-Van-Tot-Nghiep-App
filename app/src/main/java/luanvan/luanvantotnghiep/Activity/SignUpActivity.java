@@ -141,8 +141,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 Log.i(TAG, "onVerificationFailed: " + e.getMessage());
-                mTvStatus.setText("Ứng dụng đã chặn tất cả yêu cầu từ số điện thoại này do bạn gửi quá nhiều yêu cầu." +
-                        " Vui lòng đợi khoảng 1 giờ sau để gửi lại yêu cầu hoặc liên hệ với nhà phát triển để giải quyết vấn đề.");
+                mTvStatus.setText("Ứng dụng đã chặn tất cả yêu cầu từ thiết bị này do bạn gửi quá nhiều yêu cầu." +
+                        " Vui lòng đợi một khoảng sau để gửi mã lại yêu cầu hoặc liên hệ với nhà phát triển để giải quyết vấn đề.");
             }
 
             @Override
